@@ -11,7 +11,6 @@ import {
 import SafariView from "react-native-safari-view";
 import Header from "../Components/Header";
 import BottomBar from "../Components/BottomBar";
-var links = new Array();
 
 export default class LinkScreen extends Component {
   constructor() {
