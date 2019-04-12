@@ -41,7 +41,7 @@ class BottomBar extends Component {
             <View style={styles.navbarItemStyle}>
               <Image
                 style={{ width: 25, height: 22, marginBottom: 2 }}
-                source={require("../images/TodayUnselected.jpg")}
+                source={require("../images/TabBar/TodayUnselected.jpg")}
               />
               <Text style={styles.navbarFontStyle}>Today</Text>
             </View>
@@ -55,7 +55,7 @@ class BottomBar extends Component {
           <View style={styles.navbarItemStyle}>
             <Image
               style={{ width: 25, height: 22, marginBottom: 2 }}
-              source={require("../images/TodaySelected.jpg")}
+              source={require("../images/TabBar/TodaySelected.jpg")}
             />
             <Text style={{ ...styles.navbarFontStyle, color: "#ed4545" }}>
               Today
@@ -74,7 +74,7 @@ class BottomBar extends Component {
             <View style={styles.navbarItemStyle}>
               <Image
                 style={{ width: 22, height: 22, marginBottom: 2 }}
-                source={require("../images/BusUnselected.jpg")}
+                source={require("../images/TabBar/BusUnselected.jpg")}
               />
               <Text style={styles.navbarFontStyle}>Bus</Text>
             </View>
@@ -89,7 +89,7 @@ class BottomBar extends Component {
           <View style={styles.navbarItemStyle}>
             <Image
               style={{ width: 22, height: 22, marginBottom: 2 }}
-              source={require("../images/BusSelected.jpg")}
+              source={require("../images/TabBar/BusSelected.jpg")}
             />
             <Text style={{ ...styles.navbarFontStyle, color: "#ed4545" }}>
               Bus
@@ -108,7 +108,7 @@ class BottomBar extends Component {
             <View style={styles.navbarItemStyle}>
               <Image
                 style={{ width: 22, height: 22, marginBottom: 2 }}
-                source={require("../images/FoodUnselected.jpg")}
+                source={require("../images/TabBar/FoodUnselected.jpg")}
               />
               <Text style={styles.navbarFontStyle}>Food</Text>
             </View>
@@ -122,7 +122,7 @@ class BottomBar extends Component {
           <View style={styles.navbarItemStyle}>
             <Image
               style={{ width: 22, height: 22, marginBottom: 2 }}
-              source={require("../images/FoodSelected.jpg")}
+              source={require("../images/TabBar/FoodSelected.jpg")}
             />
             <Text style={{ ...styles.navbarFontStyle, color: "#ed4545" }}>
               Food
@@ -141,7 +141,7 @@ class BottomBar extends Component {
             <View style={styles.navbarItemStyle}>
               <Image
                 style={{ width: 22, height: 22, marginBottom: 2 }}
-                source={require("../images/LinksUnselected.jpg")}
+                source={require("../images/TabBar/LinksUnselected.jpg")}
               />
               <Text style={styles.navbarFontStyle}>Links</Text>
             </View>
@@ -155,7 +155,7 @@ class BottomBar extends Component {
           <View style={styles.navbarItemStyle}>
             <Image
               style={{ width: 22, height: 22, marginBottom: 2 }}
-              source={require("../images/LinksSelected.png")}
+              source={require("../images/TabBar/LinksSelected.png")}
             />
             <Text style={{ ...styles.navbarFontStyle, color: "#ed4545" }}>
               Links
@@ -174,7 +174,7 @@ class BottomBar extends Component {
             <View style={styles.navbarItemStyle}>
               <Image
                 style={{ width: 22, height: 6, marginBottom: 7, marginTop: 8 }}
-                source={require("../images/MoreUnselected.jpg")}
+                source={require("../images/TabBar/MoreUnselected.jpg")}
               />
               <Text style={styles.navbarFontStyle}>More</Text>
             </View>
@@ -188,7 +188,7 @@ class BottomBar extends Component {
           <View style={styles.navbarItemStyle}>
             <Image
               style={{ width: 22, height: 6, marginBottom: 7, marginTop: 8 }}
-              source={require("../images/MoreSelected.png")}
+              source={require("../images/TabBar/MoreSelected.png")}
             />
             <Text style={{ ...styles.navbarFontStyle, color: "#ed4545" }}>
               More
