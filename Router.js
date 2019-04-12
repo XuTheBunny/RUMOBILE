@@ -3,6 +3,7 @@ import { Scene, Router } from "react-native-router-flux";
 import HomeScreen from "./src/screensTEMP/HomeScreen";
 import BusScreen from "./src/screensTEMP/BusScreen";
 import FoodScreen from "./src/screensTEMP/FoodScreen";
+import FoodList from "./src/screensTEMP/FoodList";
 import LinkScreen from "./src/screensTEMP/LinkScreen";
 import MoreScreen from "./src/screensTEMP/MoreScreen";
 
@@ -40,6 +41,7 @@ const RouterComponent = () => {
           hideNavBar
           type="reset"
         />
+        <Scene key="food_list" component={FoodList} hideNavBar />
       </Scene>
     </Router>
   );
