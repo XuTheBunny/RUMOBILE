@@ -1,41 +1,34 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { View, Text } from 'react-native';
-import ActiveItem from './ActiveItem';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { View, Text } from "react-native";
+import ActiveItem from "./ActiveItem";
 
 class InactiveList extends Component {
-
   renderList() {
-    if(this.props.check == 'here') {
-      return this.props.ad.map(route =>
-        <ActiveItem key={route} route={route }/>
-      );
+    if (this.props.check == "here") {
+      return this.props.ad.map(route => (
+        <ActiveItem key={route} route={route} />
+      ));
     } else {
-      return (
-        <Text>Pulling Data, Please Wait</Text>
-      );
+      return <Text>Pulling Data, Please Wait</Text>;
     }
-
   }
 
-    render() {
-      return (
-        <View>
-          {this.renderList()}
-        </View>
-      );
-    }
-
+  render() {
+    return <View>{this.renderList()}</View>;
+  }
 }
 
-const styles = {
-};
+const styles = {};
 
 const mapStateToProps = state => {
   return {
-      ad: state.bus.inactive_data,
-      check: state.bus.data_here
+    ad: state.bus.inactive_data,
+    check: state.bus.data_here
   };
 };
 
-export default connect(mapStateToProps, { })(InactiveList);
+export default connect(
+  mapStateToProps,
+  {}
+)(InactiveList);
