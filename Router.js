@@ -1,14 +1,14 @@
 import React from "react";
 import { Scene, Router } from "react-native-router-flux";
-import HomeScreen from "./src/screensTEMP/HomeScreen";
-import StopScreen from "./src/screensTEMP/StopScreen";
-import RouteScreen from "./src/screensTEMP/RouteScreen";
-import Route from "./src/screensTEMP/Route";
-import Stop from "./src/screensTEMP/Stop";
-import FoodScreen from "./src/screensTEMP/FoodScreen";
-import FoodList from "./src/screensTEMP/FoodList";
-import LinkScreen from "./src/screensTEMP/LinkScreen";
-import MoreScreen from "./src/screensTEMP/MoreScreen";
+import HomeScreen from "./src/screens/HomeScreen";
+import StopScreen from "./src/screens/StopScreen";
+import RouteScreen from "./src/screens/RouteScreen";
+import Route from "./src/screens/Route";
+import Stop from "./src/screens/Stop";
+import FoodScreen from "./src/screens/FoodScreen";
+import FoodList from "./src/screens/FoodList";
+import LinkScreen from "./src/screens/LinkScreen";
+import MoreScreen from "./src/screens/MoreScreen";
 
 const RouterComponent = () => {
   return (
