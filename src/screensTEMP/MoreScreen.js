@@ -8,7 +8,7 @@ export default class MoreScreen extends Component {
   render() {
     return (
       <View style={styles.home}>
-        <Header text={"MORE"} />
+        <Header text={"More"} />
         <BottomBar hs={true} bus={true} fs={true} ls={true} mr={false} />
       </View>
     );
