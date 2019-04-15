@@ -9,10 +9,29 @@ import {
 } from "./types";
 
 var geodist = require("geodist");
-var agency_id = "1199";
+var agency_id = "1323";
 var base_url = "https://transloc-api-1-2.p.mashape.com/";
 var all_stops_url = base_url + "stops.json?agencies=" + agency_id;
 var all_routes_url = base_url + "routes.json?agencies=" + agency_id;
+var all_routes = [
+  "Route A",
+  "Route B",
+  "Route C",
+  "Route EE",
+  "Route F",
+  "Route H",
+  "Route LX",
+  "Route All Campuses",
+  "Route New BrunsQuick 1 Shuttle",
+  "Route New BrunsQuick 2 Shuttle",
+  "Route REXB",
+  "Route REXL",
+  "Route RBHS",
+  "Route Weekend 1",
+  "Route Weekend 2",
+  "Summer 1",
+  "Summer 2"
+];
 
 export const getBusStops = () => {
   var stops = {};
@@ -30,6 +49,8 @@ export const getBusStops = () => {
       position => {
         user_location.lat = position.coords.latitude;
         user_location.lon = position.coords.longitude;
+        console.log("user_location.lat: " + user_location.lat);
+        console.log("user_location.lon: " + user_location.lon);
         resolve(user_location);
       },
       error => {
@@ -48,17 +69,22 @@ export const getBusStops = () => {
         "X-Mashape-Key": "Pcl9MfLNF0mshcAni8CgyFuxVXTap1NA0RxjsnoxN4439f9hBq"
       }
     }).then(response => {
-      data = response.data.data[agency_id];
+      raw_data = response.data.data[agency_id];
+      data = [];
+      for (i in raw_data) {
+        if (all_routes.includes(raw_data[i]["long_name"])) {
+          data.push(raw_data[i]);
+        }
+      }
       for (i in data) {
         if (data[i]["is_active"]) {
           rid = data[i]["route_id"];
-          active_routs[rid] = data[i]["short_name"];
-          routes_active.push(data[i]["short_name"]);
+          active_routs[rid] = data[i]["long_name"];
+          routes_active.push(data[i]["long_name"]);
         } else {
-          routes_inactive.push(data[i]["short_name"]);
+          routes_inactive.push(data[i]["long_name"]);
         }
       }
-
       resolve(active_routs);
     });
   });
