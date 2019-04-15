@@ -15,7 +15,7 @@ export default class ActiveItem extends Component {
   }
 
   isColor() {
-    if (this.props.route == "Greenlink") {
+    if (this.props.route == "Route A") {
       color = "rgb(124, 31, 206)";
     } else if (this.props.route == "Route B") {
       color = "rgb(32, 116, 214)";
@@ -29,21 +29,21 @@ export default class ActiveItem extends Component {
       color = "rgb(119, 204, 27)";
     } else if (this.props.route == "Route LX") {
       color = "rgb(255, 204, 0)";
-    } else if (this.props.route == "All Campuses") {
+    } else if (this.props.route == "Route All Campuses") {
       color = "rgb(0, 156, 80)";
-    } else if (this.props.route == "New Brunsquick 1 Shuttle") {
+    } else if (this.props.route == "Route New BrunsQuick 1 Shuttle") {
       color = "rgb(236, 76, 127)";
-    } else if (this.props.route == "New Brunsquick 2 Shuttle") {
+    } else if (this.props.route == "Route New BrunsQuick 2 Shuttle") {
       color = "rgb(90, 200, 250)";
-    } else if (this.props.route == "RBHS/Hospital") {
+    } else if (this.props.route == "Route RBHS") {
       color = "rgb(88, 86, 214)";
-    } else if (this.props.route == "REX B") {
+    } else if (this.props.route == "Route REXB") {
       color = "rgb(255, 149, 0)";
-    } else if (this.props.route == "REX L") {
+    } else if (this.props.route == "Route REXL") {
       color = "rgb(187, 120, 246)";
-    } else if (this.props.route == "Weekend 1") {
+    } else if (this.props.route == "Route Weekend 1") {
       color = "rgb(244, 74, 74)";
-    } else if (this.props.route == "Weekend 2") {
+    } else if (this.props.route == "Route Weekend 2") {
       color = "rgb(32, 116, 214)";
     }
   }
@@ -51,7 +51,6 @@ export default class ActiveItem extends Component {
   render() {
     this.resetColor();
     this.isColor();
-    console.log(color);
     return (
       <View style={{ marginHorizontal: 16 }}>
         <TouchableOpacity onPress={this.StopPress.bind(this)}>

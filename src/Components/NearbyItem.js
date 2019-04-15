@@ -28,9 +28,6 @@ export default class NearbyItem extends Component {
       if (this.props.stop.route[i] == "Route A") {
         var obj = { h: 23, src: require("../images/BI/biA.png"), key: x };
         boxes.push(obj);
-      } else if (this.props.stop.route[i] == "Greenlink") {
-        var obj = { h: 23, src: require("../images/BI/biA.png"), key: x };
-        boxes.push(obj);
       } else if (this.props.stop.route[i] == "Route B") {
         var obj = { h: 23, src: require("../images/BI/biB.png"), key: x };
         boxes.push(obj);
@@ -49,28 +46,28 @@ export default class NearbyItem extends Component {
       } else if (this.props.stop.route[i] == "Route LX") {
         var obj = { h: 29, src: require("../images/BI/biLX.png"), key: x };
         boxes.push(obj);
-      } else if (this.props.stop.route[i] == "All Campuses") {
+      } else if (this.props.stop.route[i] == "Route All Campuses") {
         var obj = { h: 37, src: require("../images/BI/biALL.png"), key: x };
         boxes.push(obj);
-      } else if (this.props.stop.route[i] == "New Brunsquick 1 Shuttle") {
+      } else if (this.props.stop.route[i] == "Route New BrunsQuick 1 Shuttle") {
         var obj = { h: 33, src: require("../images/BI/biS1.png"), key: x };
         boxes.push(obj);
-      } else if (this.props.stop.route[i] == "New Brunsquick 2 Shuttle") {
+      } else if (this.props.stop.route[i] == "Route New BrunsQuick 2 Shuttle") {
         var obj = { h: 33, src: require("../images/BI/biS2.png"), key: x };
         boxes.push(obj);
-      } else if (this.props.stop.route[i] == "RBHS/Hospital") {
+      } else if (this.props.stop.route[i] == "Route RBHS") {
         var obj = { h: 48, src: require("../images/BI/biRBHS.png"), key: x };
         boxes.push(obj);
-      } else if (this.props.stop.route[i] == "REX B") {
+      } else if (this.props.stop.route[i] == "Route REXB") {
         var obj = { h: 48, src: require("../images/BI/biREXB.png"), key: x };
         boxes.push(obj);
-      } else if (this.props.stop.route[i] == "REX L") {
+      } else if (this.props.stop.route[i] == "Route REXL") {
         var obj = { h: 48, src: require("../images/BI/biREXL.png"), key: x };
         boxes.push(obj);
-      } else if (this.props.stop.route[i] == "Weekend 1") {
+      } else if (this.props.stop.route[i] == "Route Weekend 1") {
         var obj = { h: 35, src: require("../images/BI/biW1.png"), key: x };
         boxes.push(obj);
-      } else if (this.props.stop.route[i] == "Weekend 2") {
+      } else if (this.props.stop.route[i] == "Route Weekend 2") {
         var obj = { h: 35, src: require("../images/BI/biW2.png"), key: x };
         boxes.push(obj);
       } else {
