@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { View, Text } from "react-native";
 import ActiveItem from "./ActiveItem";
-import Loading from "./Loading";
 
 class ActiveList extends Component {
   renderList() {
@@ -11,7 +10,7 @@ class ActiveList extends Component {
         <ActiveItem key={route} route={route} />
       ));
     } else {
-      return <Loading />;
+      return <Text>Pulling Data, Please Wait</Text>;
     }
   }
 
