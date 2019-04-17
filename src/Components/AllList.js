@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { View, Text } from "react-native";
 import NearbyItem from "./NearbyItem";
+import Loading from "./Loading";
 
 class AllList extends Component {
   renderList() {
@@ -10,7 +11,7 @@ class AllList extends Component {
         <NearbyItem stop={stop} key={stop.name} />
       ));
     } else {
-      return <Text>Pulling Data, Please Wait</Text>;
+      return <Loading />;
     }
   }
 

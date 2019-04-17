@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { View, Text, TouchableWithoutFeedback, Image } from "react-native";
 import { getBusStops } from "../actions";
 import NearbyItem from "./NearbyItem";
+import Loading from "./Loading";
 
 class NearbyList extends Component {
   renderList() {
@@ -11,7 +12,7 @@ class NearbyList extends Component {
         <NearbyItem stop={stop} key={stop.name} />
       ));
     } else {
-      return <Text>Pulling Data, Please Wait</Text>;
+      return <Loading />;
     }
   }
 
