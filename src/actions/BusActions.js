@@ -13,6 +13,7 @@ var agency_id = "1323";
 var base_url = "https://transloc-api-1-2.p.mashape.com/";
 var all_stops_url = base_url + "stops.json?agencies=" + agency_id;
 var all_routes_url = base_url + "routes.json?agencies=" + agency_id;
+var all_buses_url = base_url + "vehicles.json?agencies=" + agency_id;
 var all_routes = [
   "Route A",
   "Route B",
@@ -42,6 +43,7 @@ export const getBusStops = () => {
   var nearby_count = 3;
   var routes_active = [];
   var routes_inactive = [];
+  var routes_with_bus = [];
 
   var getUserLocation = new Promise((resolve, reject) => {
     user_location = {};
@@ -60,32 +62,53 @@ export const getBusStops = () => {
     );
   });
 
-  var getActiveRoutes = new Promise((resolve, reject) => {
+  var checkHaveBus = new Promise((resolve, reject) => {
     axios({
       method: "get",
-      url: all_routes_url,
+      url: all_buses_url,
       headers: {
         Accept: "application/json",
         "X-Mashape-Key": "Pcl9MfLNF0mshcAni8CgyFuxVXTap1NA0RxjsnoxN4439f9hBq"
       }
     }).then(response => {
-      raw_data = response.data.data[agency_id];
-      data = [];
-      for (i in raw_data) {
-        if (all_routes.includes(raw_data[i]["long_name"])) {
-          data.push(raw_data[i]);
-        }
-      }
+      data = response.data.data[agency_id];
       for (i in data) {
-        if (data[i]["is_active"]) {
-          rid = data[i]["route_id"];
-          active_routs[rid] = data[i]["long_name"];
-          routes_active.push(data[i]["long_name"]);
-        } else {
-          routes_inactive.push(data[i]["long_name"]);
+        if (!routes_with_bus.includes(data[i]["route_id"])) {
+          routes_with_bus.push(data[i]["route_id"]);
         }
       }
-      resolve(active_routs);
+      resolve(routes_with_bus);
+    });
+  });
+
+  var getActiveRoutes = new Promise((resolve, reject) => {
+    Promise.all([checkHaveBus]).then(values => {
+      axios({
+        method: "get",
+        url: all_routes_url,
+        headers: {
+          Accept: "application/json",
+          "X-Mashape-Key": "Pcl9MfLNF0mshcAni8CgyFuxVXTap1NA0RxjsnoxN4439f9hBq"
+        }
+      }).then(response => {
+        raw_data = response.data.data[agency_id];
+        data = [];
+        for (i in raw_data) {
+          if (all_routes.includes(raw_data[i]["long_name"])) {
+            data.push(raw_data[i]);
+          }
+        }
+        for (i in data) {
+          rid = data[i]["route_id"];
+          if (data[i]["is_active"] && values[0].includes(data[i]["route_id"])) {
+            active_routs[rid] = data[i]["long_name"];
+            routes_active.push(data[i]["long_name"]);
+          } else {
+            routes_inactive.push(data[i]["long_name"]);
+          }
+        }
+        resolve(active_routs);
+      });
     });
   });
 
