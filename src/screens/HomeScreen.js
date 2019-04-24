@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { FIREBASE_USER, FIREBASE_PASSWORD } from "../../env.json";
 import {
   View,
   Text,
@@ -19,15 +20,14 @@ class HomeScreen extends Component {
     this.props.pullDate(new Date());
 
     //Logins In firebase Admin which has read-only access to the RTD
-    //Add the username followed by the password as strings
-    // this.props.loginUser(".", ".");
+    this.props.loginUser(FIREBASE_USER, FIREBASE_PASSWORD);
   }
 
   componentDidMount() {
     //At Every Second, the method below Time() is run. Use this to monitor refreshes
     //this.timer = setInterval(()=> this.Time(), 1000);
     //This pulls the FireBase Header Data
-    // this.props.pullBanner();
+    this.props.pullBanner();
   }
 
   Time() {
