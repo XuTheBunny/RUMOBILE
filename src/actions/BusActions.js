@@ -125,7 +125,6 @@ export const getBusStops = () => {
         }
       }).then(response => {
         data = response.data.data;
-        var temp = [];
         for (i in data) {
           s = {};
           route = [];
@@ -144,22 +143,21 @@ export const getBusStops = () => {
           });
           s.distance = distance;
           all_stops.push(s);
-          temp.push(distance);
         }
-        nearby = temp.sort().slice(0, nearby_count);
-        temp_list = [];
-        for (i in all_stops) {
-          if (nearby.includes(all_stops[i].distance)) {
-            s = {};
-            s.name = all_stops[i].name;
-            s.route = all_stops[i].route;
-            s.distance = all_stops[i].distance.toFixed(2);
-            temp_list.push(s);
-          }
-        }
-        nearby_stops = temp_list.slice(0, nearby_count);
-        dispatch({ type: NEARBYBUS, payload: nearby_stops });
-        dispatch({ type: ALLBUS, payload: all_stops });
+        dispatch({
+          type: NEARBYBUS,
+          payload: all_stops
+            .sort((a, b) =>
+              a.distance > b.distance ? 1 : b.distance > a.distance ? -1 : 0
+            )
+            .slice(0, nearby_count)
+        });
+        dispatch({
+          type: ALLBUS,
+          payload: all_stops.sort((a, b) =>
+            a.name > b.name ? 1 : b.name > a.name ? -1 : 0
+          )
+        });
         dispatch({ type: BUS_DATA_HERE, payload: "here" });
       });
     });
