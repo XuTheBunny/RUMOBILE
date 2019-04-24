@@ -141,7 +141,7 @@ export const getBusStops = () => {
             exact: true,
             unit: "miles"
           });
-          s.distance = distance;
+          s.distance = distance.toFixed(2);
           all_stops.push(s);
         }
         dispatch({
