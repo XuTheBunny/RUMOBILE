@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { getBusStops } from '../actions';
 var boxes = new Array();
 var k = 0;
 var routes = true;
 
-export default class NearbyItem extends Component {
-  StopPress() {
-    Actions.stop();
+class NearbyItem extends Component {
+  StopPress(d) {
+    Actions.stop({ data: d });
   }
 
   resetRoutes() {
@@ -108,7 +110,7 @@ export default class NearbyItem extends Component {
     // console.log(this.props.stop);
     return (
       <View style={styles.viewStyle}>
-        <TouchableOpacity onPress={this.StopPress.bind(this)}>
+        <TouchableOpacity onPress={() => this.StopPress(this.props.stop)}>
           <View
             style={{
               borderBottomColor: 'rgb(200, 199, 204)',
@@ -160,3 +162,15 @@ const styles = {
     marginTop: 10,
   },
 };
+
+const mapStateToProps = state => {
+  return {
+    nearby: state.bus.nb_data,
+    check: state.bus.data_here,
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { getBusStops },
+)(NearbyItem);

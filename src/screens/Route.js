@@ -2,14 +2,20 @@ import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import { View, Text, TouchableWithoutFeedback, Image } from 'react-native';
 import ClearHeader from '../Components/ClearHeader';
+import BackHeader from '../Components/BackHeader';
 import BottomBar from '../Components/BottomBar';
 
 export default class Route extends Component {
+  componentWillMount() {
+    console.log(this.props.data);
+  }
+
   render() {
     return (
       <View style={styles.home}>
-        <ClearHeader text={'Bus'} />
+        <BackHeader text={'Bus'} />
         <Text>ROUTE SCREEN</Text>
+        <Text>YOU PRESSED: {this.props.data}</Text>
         <BottomBar hs={true} bus={false} fs={true} ls={true} mr={true} />
       </View>
     );

@@ -3,17 +3,18 @@ import { Actions } from 'react-native-router-flux';
 import { View, Text, TouchableWithoutFeedback, Image } from 'react-native';
 import BackHeader from '../Components/BackHeader';
 import BottomBar from '../Components/BottomBar';
-// import { getBusStops } from "../actions";
 
 export default class Stop extends Component {
-  // componentWillMount() {
-  //   console.log(this.props)
-  // }
+  componentWillMount() {
+    console.log(this.props.data);
+  }
+
   render() {
     return (
       <View style={styles.home}>
         <BackHeader text={'Bus'} />
         <Text>STOP SCREEN</Text>
+        <Text>YOU PRESSED: {this.props.data.name}</Text>
         <BottomBar hs={true} bus={false} fs={true} ls={true} mr={true} />
       </View>
     );
@@ -26,16 +27,3 @@ const styles = {
     backgroundColor: 'rgb(255, 255, 255)',
   },
 };
-
-// const mapStateToProps = state => {
-//   return {
-//     nearby: state.bus.nb_data,
-//     all: state.bus.all_data,
-//     check: state.bus.data_here
-//   };
-// };
-
-// export default connect(
-//   mapStateToProps,
-//   { getBusStops }
-// )(Stop);
