@@ -36,7 +36,7 @@ export const getBusStops = () => {
   var nearby_stops = [];
   var all_stops = [];
   var user_location = {};
-  var nearby_count = 3;
+  var nearby_count = 5;
   var routes_active = [];
   var routes_inactive = [];
   var routes_with_bus = [];
