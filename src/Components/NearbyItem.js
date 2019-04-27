@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { Actions } from "react-native-router-flux";
-import { View, Text, TouchableOpacity, Image } from "react-native";
+import React, { Component } from 'react';
+import { Actions } from 'react-native-router-flux';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 var boxes = new Array();
 var k = 0;
 var routes = true;
@@ -25,53 +25,53 @@ export default class NearbyItem extends Component {
     var x = 0;
     for (var i = 0; i < this.props.stop.route.length; i++) {
       x++;
-      if (this.props.stop.route[i] == "Route A") {
-        var obj = { h: 23, src: require("../images/BI/biA.png"), key: x };
+      if (this.props.stop.route[i] == 'Route A') {
+        var obj = { h: 23, src: require('../images/BI/biA.png'), key: x };
         boxes.push(obj);
-      } else if (this.props.stop.route[i] == "Route B") {
-        var obj = { h: 23, src: require("../images/BI/biB.png"), key: x };
+      } else if (this.props.stop.route[i] == 'Route B') {
+        var obj = { h: 23, src: require('../images/BI/biB.png'), key: x };
         boxes.push(obj);
-      } else if (this.props.stop.route[i] == "Route C") {
-        var obj = { h: 23, src: require("../images/BI/biC.png"), key: x };
+      } else if (this.props.stop.route[i] == 'Route C') {
+        var obj = { h: 23, src: require('../images/BI/biC.png'), key: x };
         boxes.push(obj);
-      } else if (this.props.stop.route[i] == "Route EE") {
-        var obj = { h: 29, src: require("../images/BI/biEE.png"), key: x };
+      } else if (this.props.stop.route[i] == 'Route EE') {
+        var obj = { h: 29, src: require('../images/BI/biEE.png'), key: x };
         boxes.push(obj);
-      } else if (this.props.stop.route[i] == "Route F") {
-        var obj = { h: 23, src: require("../images/BI/biF.png"), key: x };
+      } else if (this.props.stop.route[i] == 'Route F') {
+        var obj = { h: 23, src: require('../images/BI/biF.png'), key: x };
         boxes.push(obj);
-      } else if (this.props.stop.route[i] == "Route H") {
-        var obj = { h: 23, src: require("../images/BI/biH.png"), key: x };
+      } else if (this.props.stop.route[i] == 'Route H') {
+        var obj = { h: 23, src: require('../images/BI/biH.png'), key: x };
         boxes.push(obj);
-      } else if (this.props.stop.route[i] == "Route LX") {
-        var obj = { h: 29, src: require("../images/BI/biLX.png"), key: x };
+      } else if (this.props.stop.route[i] == 'Route LX') {
+        var obj = { h: 29, src: require('../images/BI/biLX.png'), key: x };
         boxes.push(obj);
-      } else if (this.props.stop.route[i] == "Route All Campuses") {
-        var obj = { h: 37, src: require("../images/BI/biALL.png"), key: x };
+      } else if (this.props.stop.route[i] == 'Route All Campuses') {
+        var obj = { h: 37, src: require('../images/BI/biALL.png'), key: x };
         boxes.push(obj);
-      } else if (this.props.stop.route[i] == "Route New BrunsQuick 1 Shuttle") {
-        var obj = { h: 33, src: require("../images/BI/biS1.png"), key: x };
+      } else if (this.props.stop.route[i] == 'Route New BrunsQuick 1 Shuttle') {
+        var obj = { h: 33, src: require('../images/BI/biS1.png'), key: x };
         boxes.push(obj);
-      } else if (this.props.stop.route[i] == "Route New BrunsQuick 2 Shuttle") {
-        var obj = { h: 33, src: require("../images/BI/biS2.png"), key: x };
+      } else if (this.props.stop.route[i] == 'Route New BrunsQuick 2 Shuttle') {
+        var obj = { h: 33, src: require('../images/BI/biS2.png'), key: x };
         boxes.push(obj);
-      } else if (this.props.stop.route[i] == "Route RBHS") {
-        var obj = { h: 48, src: require("../images/BI/biRBHS.png"), key: x };
+      } else if (this.props.stop.route[i] == 'Route RBHS') {
+        var obj = { h: 48, src: require('../images/BI/biRBHS.png'), key: x };
         boxes.push(obj);
-      } else if (this.props.stop.route[i] == "Route REXB") {
-        var obj = { h: 48, src: require("../images/BI/biREXB.png"), key: x };
+      } else if (this.props.stop.route[i] == 'Route REXB') {
+        var obj = { h: 48, src: require('../images/BI/biREXB.png'), key: x };
         boxes.push(obj);
-      } else if (this.props.stop.route[i] == "Route REXL") {
-        var obj = { h: 48, src: require("../images/BI/biREXL.png"), key: x };
+      } else if (this.props.stop.route[i] == 'Route REXL') {
+        var obj = { h: 48, src: require('../images/BI/biREXL.png'), key: x };
         boxes.push(obj);
-      } else if (this.props.stop.route[i] == "Route Weekend 1") {
-        var obj = { h: 35, src: require("../images/BI/biW1.png"), key: x };
+      } else if (this.props.stop.route[i] == 'Route Weekend 1') {
+        var obj = { h: 35, src: require('../images/BI/biW1.png'), key: x };
         boxes.push(obj);
-      } else if (this.props.stop.route[i] == "Route Weekend 2") {
-        var obj = { h: 35, src: require("../images/BI/biW2.png"), key: x };
+      } else if (this.props.stop.route[i] == 'Route Weekend 2') {
+        var obj = { h: 35, src: require('../images/BI/biW2.png'), key: x };
         boxes.push(obj);
       } else {
-        var obj = { h: 23, src: require("../images/BI/biN.png"), key: x };
+        var obj = { h: 23, src: require('../images/BI/biN.png'), key: x };
         boxes.push(obj);
       }
     }
@@ -111,9 +111,9 @@ export default class NearbyItem extends Component {
         <TouchableOpacity onPress={this.RoutePress.bind(this)}>
           <View
             style={{
-              borderBottomColor: "rgb(200, 199, 204)",
+              borderBottomColor: 'rgb(200, 199, 204)',
               borderBottomWidth: 1,
-              marginBottom: 10.5
+              marginBottom: 10.5,
             }}
           />
           <View style={styles.viewStyle2}>
@@ -129,34 +129,34 @@ export default class NearbyItem extends Component {
 
 const styles = {
   textStyle: {
-    fontFamily: "system font",
+    fontFamily: 'system font',
     fontSize: 17,
-    fontWeight: "100"
+    fontWeight: '100',
   },
   textStyle2: {
-    fontFamily: "system font",
+    fontFamily: 'system font',
     fontSize: 12,
-    color: "rgb(155, 155, 155)"
+    color: 'rgb(155, 155, 155)',
   },
   viewStyle: {
     paddingLeft: 16,
     paddingRight: 16,
-    paddingTop: 8.5
+    paddingTop: 8.5,
   },
   viewStyle2: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center"
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   viewStyle3: {
-    flexDirection: "row",
-    marginBottom: 5
+    flexDirection: 'row',
+    marginBottom: 5,
   },
   boxTextStyle: {
     //fontFamily: 'system font',
     fontSize: 16,
-    color: "rgb(155, 155, 155)",
-    fontStyle: "italic",
-    marginTop: 10
-  }
+    color: 'rgb(155, 155, 155)',
+    fontStyle: 'italic',
+    marginTop: 10,
+  },
 };

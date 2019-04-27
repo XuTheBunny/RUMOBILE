@@ -1,18 +1,18 @@
 import { BANNER_PULL, HOME_DATE } from './types';
 import firebase from 'firebase';
 
-
 export const pullBanner = () => {
-  return (dispatch) => {
-    firebase.database().ref(`/banner`)
-    .on('value', snapshot => {
-      dispatch({ type: BANNER_PULL, payload: snapshot.val() });
-    });
-  }
-}
+  return dispatch => {
+    firebase
+      .database()
+      .ref(`/banner`)
+      .on('value', snapshot => {
+        dispatch({ type: BANNER_PULL, payload: snapshot.val() });
+      });
+  };
+};
 
-export const pullDate = (today) => {
-
+export const pullDate = today => {
   const weekdays = new Array(7);
   weekdays[0] = 'SUNDAY';
   weekdays[1] = 'MONDAY';
@@ -44,6 +44,6 @@ export const pullDate = (today) => {
 
   return {
     type: HOME_DATE,
-    payload: x
+    payload: x,
   };
-}
+};

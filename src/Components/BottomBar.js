@@ -1,12 +1,6 @@
-import React, { Component } from "react";
-import { Actions } from "react-native-router-flux";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  Image
-} from "react-native";
+import React, { Component } from 'react';
+import { Actions } from 'react-native-router-flux';
+import { View, Text, TouchableOpacity, TouchableWithoutFeedback, Image } from 'react-native';
 
 class BottomBar extends Component {
   //Methods Handling Navigation
@@ -41,7 +35,7 @@ class BottomBar extends Component {
             <View style={styles.navbarItemStyle}>
               <Image
                 style={{ width: 25, height: 22, marginBottom: 2 }}
-                source={require("../images/TabBar/TodayUnselected.jpg")}
+                source={require('../images/TabBar/TodayUnselected.jpg')}
               />
               <Text style={styles.navbarFontStyle}>Today</Text>
             </View>
@@ -55,11 +49,9 @@ class BottomBar extends Component {
           <View style={styles.navbarItemStyle}>
             <Image
               style={{ width: 25, height: 22, marginBottom: 2 }}
-              source={require("../images/TabBar/TodaySelected.jpg")}
+              source={require('../images/TabBar/TodaySelected.jpg')}
             />
-            <Text style={{ ...styles.navbarFontStyle, color: "#ed4545" }}>
-              Today
-            </Text>
+            <Text style={{ ...styles.navbarFontStyle, color: '#ed4545' }}>Today</Text>
           </View>
         </TouchableWithoutFeedback>
       </View>
@@ -74,7 +66,7 @@ class BottomBar extends Component {
             <View style={styles.navbarItemStyle}>
               <Image
                 style={{ width: 22, height: 22, marginBottom: 2 }}
-                source={require("../images/TabBar/BusUnselected.jpg")}
+                source={require('../images/TabBar/BusUnselected.jpg')}
               />
               <Text style={styles.navbarFontStyle}>Bus</Text>
             </View>
@@ -89,11 +81,9 @@ class BottomBar extends Component {
           <View style={styles.navbarItemStyle}>
             <Image
               style={{ width: 22, height: 22, marginBottom: 2 }}
-              source={require("../images/TabBar/BusSelected.jpg")}
+              source={require('../images/TabBar/BusSelected.jpg')}
             />
-            <Text style={{ ...styles.navbarFontStyle, color: "#ed4545" }}>
-              Bus
-            </Text>
+            <Text style={{ ...styles.navbarFontStyle, color: '#ed4545' }}>Bus</Text>
           </View>
         </TouchableWithoutFeedback>
       </View>
@@ -108,7 +98,7 @@ class BottomBar extends Component {
             <View style={styles.navbarItemStyle}>
               <Image
                 style={{ width: 22, height: 22, marginBottom: 2 }}
-                source={require("../images/TabBar/FoodUnselected.jpg")}
+                source={require('../images/TabBar/FoodUnselected.jpg')}
               />
               <Text style={styles.navbarFontStyle}>Food</Text>
             </View>
@@ -122,11 +112,9 @@ class BottomBar extends Component {
           <View style={styles.navbarItemStyle}>
             <Image
               style={{ width: 22, height: 22, marginBottom: 2 }}
-              source={require("../images/TabBar/FoodSelected.jpg")}
+              source={require('../images/TabBar/FoodSelected.jpg')}
             />
-            <Text style={{ ...styles.navbarFontStyle, color: "#ed4545" }}>
-              Food
-            </Text>
+            <Text style={{ ...styles.navbarFontStyle, color: '#ed4545' }}>Food</Text>
           </View>
         </TouchableWithoutFeedback>
       </View>
@@ -141,7 +129,7 @@ class BottomBar extends Component {
             <View style={styles.navbarItemStyle}>
               <Image
                 style={{ width: 22, height: 22, marginBottom: 2 }}
-                source={require("../images/TabBar/LinksUnselected.jpg")}
+                source={require('../images/TabBar/LinksUnselected.jpg')}
               />
               <Text style={styles.navbarFontStyle}>Links</Text>
             </View>
@@ -155,11 +143,9 @@ class BottomBar extends Component {
           <View style={styles.navbarItemStyle}>
             <Image
               style={{ width: 22, height: 22, marginBottom: 2 }}
-              source={require("../images/TabBar/LinksSelected.png")}
+              source={require('../images/TabBar/LinksSelected.png')}
             />
-            <Text style={{ ...styles.navbarFontStyle, color: "#ed4545" }}>
-              Links
-            </Text>
+            <Text style={{ ...styles.navbarFontStyle, color: '#ed4545' }}>Links</Text>
           </View>
         </TouchableWithoutFeedback>
       </View>
@@ -174,7 +160,7 @@ class BottomBar extends Component {
             <View style={styles.navbarItemStyle}>
               <Image
                 style={{ width: 22, height: 6, marginBottom: 7, marginTop: 8 }}
-                source={require("../images/TabBar/MoreUnselected.jpg")}
+                source={require('../images/TabBar/MoreUnselected.jpg')}
               />
               <Text style={styles.navbarFontStyle}>More</Text>
             </View>
@@ -188,11 +174,9 @@ class BottomBar extends Component {
           <View style={styles.navbarItemStyle}>
             <Image
               style={{ width: 22, height: 6, marginBottom: 7, marginTop: 8 }}
-              source={require("../images/TabBar/MoreSelected.png")}
+              source={require('../images/TabBar/MoreSelected.png')}
             />
-            <Text style={{ ...styles.navbarFontStyle, color: "#ed4545" }}>
-              More
-            </Text>
+            <Text style={{ ...styles.navbarFontStyle, color: '#ed4545' }}>More</Text>
           </View>
         </TouchableWithoutFeedback>
       </View>
@@ -215,31 +199,31 @@ class BottomBar extends Component {
 const styles = {
   home: {
     flex: 1,
-    backgroundColor: "rgb(255, 255, 255)"
+    backgroundColor: 'rgb(255, 255, 255)',
   },
   navbar: {
-    width: "100%",
+    width: '100%',
     height: 75,
-    backgroundColor: "rgb(255, 255, 255)",
-    borderColor: "rgb(229, 229, 234)",
+    backgroundColor: 'rgb(255, 255, 255)',
+    borderColor: 'rgb(229, 229, 234)',
     borderWidth: 1,
-    justifyContent: "space-around",
-    alignItems: "center",
-    position: "absolute",
-    flexDirection: "row",
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    position: 'absolute',
+    flexDirection: 'row',
     bottom: 0,
-    paddingBottom: 20
+    paddingBottom: 20,
   },
   navbarFontStyle: {
     fontSize: 10,
-    fontWeight: "bold",
-    color: "rgb(142, 142, 147)",
-    fontFamily: "system font",
-    bottom: -3
+    fontWeight: 'bold',
+    color: 'rgb(142, 142, 147)',
+    fontFamily: 'system font',
+    bottom: -3,
   },
   navbarItemStyle: {
-    alignItems: "center"
-  }
+    alignItems: 'center',
+  },
 };
 
 export default BottomBar;

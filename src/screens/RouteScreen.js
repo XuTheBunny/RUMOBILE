@@ -1,18 +1,12 @@
-import React, { Component } from "react";
-import { Actions } from "react-native-router-flux";
-import SegmentedControlTab from "react-native-segmented-control-tab";
-import {
-  View,
-  Text,
-  TouchableWithoutFeedback,
-  Image,
-  ScrollView
-} from "react-native";
-import BottomBar from "../Components/BottomBar";
-import Header from "../Components/Header";
-import BusHeader from "../Components/BusHeader";
-import ActiveList from "../Components/ActiveList";
-import InactiveList from "../Components/InactiveList";
+import React, { Component } from 'react';
+import { Actions } from 'react-native-router-flux';
+import SegmentedControlTab from 'react-native-segmented-control-tab';
+import { View, Text, TouchableWithoutFeedback, Image, ScrollView } from 'react-native';
+import BottomBar from '../Components/BottomBar';
+import Header from '../Components/Header';
+import BusHeader from '../Components/BusHeader';
+import ActiveList from '../Components/ActiveList';
+import InactiveList from '../Components/InactiveList';
 
 export default class StopScreen extends Component {
   onChange() {
@@ -22,10 +16,10 @@ export default class StopScreen extends Component {
   render() {
     return (
       <View style={styles.home}>
-        <Header text={"Bus"} />
+        <Header text={'Bus'} />
         <View style={{ paddingLeft: 12, paddingRight: 12 }}>
           <SegmentedControlTab
-            values={["Stops", "Routes"]}
+            values={['Stops', 'Routes']}
             selectedIndex={1}
             onTabPress={this.onChange.bind(this)}
             activeTabStyle={styles.activeTabStyle}
@@ -34,10 +28,10 @@ export default class StopScreen extends Component {
           />
         </View>
         <ScrollView>
-          <BusHeader title={"Active Routes"} />
+          <BusHeader title={'Active Routes'} />
           <View style={{ height: 10 }} />
           <ActiveList />
-          <BusHeader title={"Inactive Routes"} />
+          <BusHeader title={'Inactive Routes'} />
           <View style={{ height: 10 }} />
           <InactiveList />
         </ScrollView>
@@ -50,16 +44,16 @@ export default class StopScreen extends Component {
 const styles = {
   home: {
     flex: 1,
-    backgroundColor: "rgb(255, 255, 255)"
+    backgroundColor: 'rgb(255, 255, 255)',
   },
   activeTabStyle: {
-    backgroundColor: "#ed4545"
+    backgroundColor: '#ed4545',
   },
   tabStyle: {
-    borderColor: "#ed4545",
-    height: 30
+    borderColor: '#ed4545',
+    height: 30,
   },
   tabTextStyle: {
-    color: "#ed4545"
-  }
+    color: '#ed4545',
+  },
 };

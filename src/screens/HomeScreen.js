@@ -1,18 +1,12 @@
-import React, { Component } from "react";
-import { FIREBASE_USER, FIREBASE_PASSWORD } from "../../env.json";
-import {
-  View,
-  Text,
-  TouchableWithoutFeedback,
-  TouchableOpacity,
-  Image
-} from "react-native";
-import { connect } from "react-redux";
-import { Actions } from "react-native-router-flux";
-import Header from "../Components/Header";
-import BottomBar from "../Components/BottomBar";
-import HomeBanner from "../Components/HomeBanner";
-import { loginUser, pullBanner, timeAction, pullDate } from "../actions";
+import React, { Component } from 'react';
+import { FIREBASE_USER, FIREBASE_PASSWORD } from '../../env.json';
+import { View, Text, TouchableWithoutFeedback, TouchableOpacity, Image } from 'react-native';
+import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
+import Header from '../Components/Header';
+import BottomBar from '../Components/BottomBar';
+import HomeBanner from '../Components/HomeBanner';
+import { loginUser, pullBanner, timeAction, pullDate } from '../actions';
 
 class HomeScreen extends Component {
   componentWillMount() {
@@ -38,11 +32,7 @@ class HomeScreen extends Component {
   render() {
     return (
       <View style={styles.home}>
-        <Header
-          text={"Today"}
-          dateText={this.props.dateText}
-          showProfilePic={true}
-        />
+        <Header text={'Today'} dateText={this.props.dateText} showProfilePic={true} />
         <HomeBanner message={this.props.banner} />
 
         <BottomBar hs={false} bus={true} fs={true} ls={true} mr={true} />
@@ -54,19 +44,19 @@ class HomeScreen extends Component {
 const styles = {
   home: {
     flex: 1,
-    backgroundColor: "rgb(255, 255, 255)"
-  }
+    backgroundColor: 'rgb(255, 255, 255)',
+  },
 };
 
 const mapStateToProps = state => {
   return {
     login: state.home.login,
     banner: state.home.banner,
-    dateText: state.home.dateText
+    dateText: state.home.dateText,
   };
 };
 
 export default connect(
   mapStateToProps,
-  { loginUser, pullBanner, timeAction, pullDate }
+  { loginUser, pullBanner, timeAction, pullDate },
 )(HomeScreen);

@@ -1,8 +1,8 @@
-import React from "react";
-import { Text, View, Image, TouchableOpacity } from "react-native";
-import { Actions } from "react-native-router-flux";
-import Icon from "react-native-vector-icons/Entypo";
-import CardItem from "./CardItem";
+import React from 'react';
+import { Text, View, Image, TouchableOpacity } from 'react-native';
+import { Actions } from 'react-native-router-flux';
+import Icon from 'react-native-vector-icons/Entypo';
+import CardItem from './CardItem';
 
 class ClearHeader extends React.Component {
   backUp() {
@@ -23,16 +23,16 @@ class ClearHeader extends React.Component {
 const styles = {
   textStyle: {
     fontSize: 17,
-    fontWeight: "500",
+    fontWeight: '500',
     paddingRight: 200,
-    fontFamily: "system font",
-    color: "white"
+    fontFamily: 'system font',
+    color: 'white',
   },
   viewStyle: {
-    flexDirection: "row",
+    flexDirection: 'row',
     paddingTop: 32,
-    alignItems: "center"
-  }
+    alignItems: 'center',
+  },
 };
 
 export default ClearHeader;

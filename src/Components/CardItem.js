@@ -1,13 +1,9 @@
 import React from 'react';
 import { View } from 'react-native';
 
-const CardItem = (props) => {
+const CardItem = props => {
   const { children } = props;
-  return (
-    <View style={styles.containerStyle}>
-      {children}
-    </View>
-  );
+  return <View style={styles.containerStyle}>{children}</View>;
 };
 
 const styles = {
@@ -15,8 +11,8 @@ const styles = {
     justifyContent: 'flex-start',
     flexDirection: 'row',
     borderColor: '#ddd',
-    position: 'relative'
-  }
+    position: 'relative',
+  },
 };
 
 export default CardItem;
