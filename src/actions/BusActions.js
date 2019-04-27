@@ -68,11 +68,11 @@ export const getBusStops = () => {
       },
     }).then(response => {
       data = response.data.data[agency_id];
-      for (i in data) {
-        if (!routes_with_bus.includes(data[i]['route_id'])) {
-          routes_with_bus.push(data[i]['route_id']);
+      data.forEach(function(element) {
+        if (!routes_with_bus.includes(element.route_id)) {
+          routes_with_bus.push(element.route_id);
         }
-      }
+      });
       resolve(routes_with_bus);
     });
   });
@@ -89,20 +89,20 @@ export const getBusStops = () => {
       }).then(response => {
         raw_data = response.data.data[agency_id];
         data = [];
-        for (i in raw_data) {
-          if (all_routes.includes(raw_data[i]['long_name'])) {
-            data.push(raw_data[i]);
+        raw_data.forEach(function(element) {
+          if (all_routes.includes(element.long_name)) {
+            data.push(element);
           }
-        }
-        for (i in data) {
-          rid = data[i]['route_id'];
-          if (data[i]['is_active'] && values[0].includes(data[i]['route_id'])) {
-            active_routs[rid] = data[i]['long_name'];
-            routes_active.push(data[i]['long_name']);
+        });
+        data.forEach(function(element) {
+          rid = element.route_id;
+          if (element.is_active && values[0].includes(element.route_id)) {
+            active_routs[rid] = element.long_name;
+            routes_active.push(element.long_name);
           } else {
-            routes_inactive.push(data[i]['long_name']);
+            routes_inactive.push(element.long_name);
           }
-        }
+        });
         resolve(active_routs);
       });
     });
@@ -121,25 +121,24 @@ export const getBusStops = () => {
         },
       }).then(response => {
         data = response.data.data;
-        for (i in data) {
+        data.forEach(function(element) {
           s = {};
           route = [];
-          s.name = data[i]['name'];
-          for (i in data[i]['routes']) {
-            rid = data[i]['routes'][i];
-            if (active_routs[rid]) {
-              rname = active_routs[rid];
+          s.name = element.name;
+          element.routes.forEach(function(e) {
+            if (active_routs[e]) {
+              rname = active_routs[e];
               route.push(rname);
             }
-          }
+          });
           s.route = route;
-          distance = geodist(user_location, data[i].location, {
+          distance = geodist(user_location, element.location, {
             exact: true,
             unit: 'miles',
           });
           s.distance = distance.toFixed(2);
           all_stops.push(s);
-        }
+        });
         dispatch({
           type: NEARBYBUS,
           payload: all_stops
