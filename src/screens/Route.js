@@ -9,6 +9,7 @@ export default class Route extends Component {
     return (
       <View style={styles.home}>
         <ClearHeader text={'Bus'} />
+        <Text>ROUTE SCREEN</Text>
         <BottomBar hs={true} bus={false} fs={true} ls={true} mr={true} />
       </View>
     );

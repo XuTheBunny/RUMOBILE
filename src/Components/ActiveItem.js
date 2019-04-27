@@ -6,8 +6,8 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 var color = 'rgb(142, 142, 147)';
 
 export default class ActiveItem extends Component {
-  StopPress() {
-    Actions.stop_();
+  RoutePress() {
+    Actions.route();
   }
 
   resetColor() {
@@ -53,7 +53,7 @@ export default class ActiveItem extends Component {
     this.isColor();
     return (
       <View style={{ marginHorizontal: 16 }}>
-        <TouchableOpacity onPress={this.StopPress.bind(this)}>
+        <TouchableOpacity onPress={this.RoutePress.bind(this)}>
           <View
             style={{
               borderBottomColor: 'rgb(200, 199, 204)',

@@ -5,17 +5,16 @@ import BackHeader from '../Components/BackHeader';
 import BottomBar from '../Components/BottomBar';
 // import { getBusStops } from "../actions";
 
-class Stop extends Component {
+export default class Stop extends Component {
   // componentWillMount() {
   //   console.log(this.props)
   // }
   render() {
     return (
       <View style={styles.home}>
-      <BackHeader
-        text={'Bus'}
-      />
-        <BottomBar hs={true} bus={false} fs={true} ls={true} mr={true}/>
+        <BackHeader text={'Bus'} />
+        <Text>STOP SCREEN</Text>
+        <BottomBar hs={true} bus={false} fs={true} ls={true} mr={true} />
       </View>
     );
   }
@@ -24,10 +23,9 @@ class Stop extends Component {
 const styles = {
   home: {
     flex: 1,
-    backgroundColor: 'rgb(255, 255, 255)'
+    backgroundColor: 'rgb(255, 255, 255)',
   },
 };
-
 
 // const mapStateToProps = state => {
 //   return {
@@ -41,6 +39,3 @@ const styles = {
 //   mapStateToProps,
 //   { getBusStops }
 // )(Stop);
-
-
-

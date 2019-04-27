@@ -6,8 +6,8 @@ var k = 0;
 var routes = true;
 
 export default class NearbyItem extends Component {
-  RoutePress() {
-    Actions.route();
+  StopPress() {
+    Actions.stop();
   }
 
   resetRoutes() {
@@ -108,7 +108,7 @@ export default class NearbyItem extends Component {
     // console.log(this.props.stop);
     return (
       <View style={styles.viewStyle}>
-        <TouchableOpacity onPress={this.RoutePress.bind(this)}>
+        <TouchableOpacity onPress={this.StopPress.bind(this)}>
           <View
             style={{
               borderBottomColor: 'rgb(200, 199, 204)',
