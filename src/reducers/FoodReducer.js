@@ -5,10 +5,17 @@ import {
   BUSCH_FOOD,
   LIVINGSTON_FOOD,
   NEILSON_FOOD,
-  FOOD_TAB_CHANGED
+  FOOD_TAB_CHANGED,
 } from '../actions/types';
 
-const INITIAL_STATE = { trying_food_pull: 'not trying', brower: [], busch: [], livingston: [], neilson: [], tab_index: 0 };
+const INITIAL_STATE = {
+  trying_food_pull: 'not trying',
+  brower: [],
+  busch: [],
+  livingston: [],
+  neilson: [],
+  tab_index: 0,
+};
 
 export default (state = INITIAL_STATE, action) => {
   //console.log(action);
@@ -23,8 +30,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, livingston: action.payload };
     case NEILSON_FOOD:
       return { ...state, neilson: action.payload };
-      case FOOD_TAB_CHANGED:
-        return { ...state, tab_index: action.payload };
+    case FOOD_TAB_CHANGED:
+      return { ...state, tab_index: action.payload };
     default:
       return state;
   }

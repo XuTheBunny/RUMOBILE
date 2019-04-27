@@ -1,14 +1,14 @@
-import React, { Component } from "react";
-import { Actions } from "react-native-router-flux";
-import { View, Text, TouchableWithoutFeedback, Image } from "react-native";
-import Header from "../Components/Header";
-import BottomBar from "../Components/BottomBar";
+import React, { Component } from 'react';
+import { Actions } from 'react-native-router-flux';
+import { View, Text, TouchableWithoutFeedback, Image } from 'react-native';
+import Header from '../Components/Header';
+import BottomBar from '../Components/BottomBar';
 
 export default class MoreScreen extends Component {
   render() {
     return (
       <View style={styles.home}>
-        <Header text={"More"} />
+        <Header text={'More'} />
         <BottomBar hs={true} bus={true} fs={true} ls={true} mr={false} />
       </View>
     );
@@ -18,6 +18,6 @@ export default class MoreScreen extends Component {
 const styles = {
   home: {
     flex: 1,
-    backgroundColor: "rgb(255, 255, 255)"
-  }
+    backgroundColor: 'rgb(255, 255, 255)',
+  },
 };

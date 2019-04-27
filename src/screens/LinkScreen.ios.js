@@ -1,16 +1,9 @@
-import React, { Component } from "react";
-import { Actions } from "react-native-router-flux";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  ScrollView,
-  Linking
-} from "react-native";
-import SafariView from "react-native-safari-view";
-import Header from "../Components/Header";
-import BottomBar from "../Components/BottomBar";
+import React, { Component } from 'react';
+import { Actions } from 'react-native-router-flux';
+import { View, Text, TouchableOpacity, Image, ScrollView, Linking } from 'react-native';
+import SafariView from 'react-native-safari-view';
+import Header from '../Components/Header';
+import BottomBar from '../Components/BottomBar';
 
 export default class LinkScreen extends Component {
   constructor() {
@@ -18,63 +11,62 @@ export default class LinkScreen extends Component {
     links = new Array();
     //Adds to the list of links. Just add and remove entries as neccesary
     links.push({
-      title: "myRutgers",
+      title: 'myRutgers',
+      url: 'https://cas.rutgers.edu/login?service=https://my.rutgers.edu/portal/Login',
+      src: require('../images/Links/University.png'),
+    });
+    links.push({
+      title: 'Sakai',
       url:
-        "https://cas.rutgers.edu/login?service=https://my.rutgers.edu/portal/Login",
-      src: require("../images/Links/University.png")
+        'https://cas.rutgers.edu/login?service=https%3A%2F%2Fsakai.rutgers.edu%2Fsakai-login-tool%2Fcontainer',
+      src: require('../images/Links/Classroom.png'),
     });
     links.push({
-      title: "Sakai",
+      title: 'Library Hours',
+      url: 'https://m.libraries.rutgers.edu/hours.php',
+      src: require('../images/Links/Clock.png'),
+    });
+    links.push({
+      title: 'Targum',
+      url: 'http://www.dailytargum.com/',
+      src: require('../images/Links/News.png'),
+    });
+    links.push({
+      title: 'RU Listings',
+      url: 'https://www.rulistings.com',
+      src: require('../images/Links/Sales.png'),
+    });
+    links.push({
+      title: 'Rutgers Reddit',
+      url: 'https://m.reddit.com/r/rutgers/',
+      src: require('../images/Links/Reddit.png'),
+    });
+    links.push({
+      title: 'The Medium',
+      url: 'https://rutgersthemedium.wordpress.com',
+      src: require('../images/Links/Monkey.png'),
+    });
+    links.push({
+      title: 'Student Organizations',
+      url: 'https://rutgers.collegiatelink.net',
+      src: require('../images/Links/Map.png'),
+    });
+    links.push({
+      title: 'Grades',
       url:
-        "https://cas.rutgers.edu/login?service=https%3A%2F%2Fsakai.rutgers.edu%2Fsakai-login-tool%2Fcontainer",
-      src: require("../images/Links/Classroom.png")
+        'https://cas.rutgers.edu/login?service=https://my.rutgers.edu/portal/Login%3fuP_fname=my-grades&uP_args=',
+      src: require('../images/Links/Exam.png'),
     });
     links.push({
-      title: "Library Hours",
-      url: "https://m.libraries.rutgers.edu/hours.php",
-      src: require("../images/Links/Clock.png")
-    });
-    links.push({
-      title: "Targum",
-      url: "http://www.dailytargum.com/",
-      src: require("../images/Links/News.png")
-    });
-    links.push({
-      title: "RU Listings",
-      url: "https://www.rulistings.com",
-      src: require("../images/Links/Sales.png")
-    });
-    links.push({
-      title: "Rutgers Reddit",
-      url: "https://m.reddit.com/r/rutgers/",
-      src: require("../images/Links/Reddit.png")
-    });
-    links.push({
-      title: "The Medium",
-      url: "https://rutgersthemedium.wordpress.com",
-      src: require("../images/Links/Monkey.png")
-    });
-    links.push({
-      title: "Student Organizations",
-      url: "https://rutgers.collegiatelink.net",
-      src: require("../images/Links/Map.png")
-    });
-    links.push({
-      title: "Grades",
+      title: 'eCollege',
       url:
-        "https://cas.rutgers.edu/login?service=https://my.rutgers.edu/portal/Login%3fuP_fname=my-grades&uP_args=",
-      src: require("../images/Links/Exam.png")
+        'https://cas.rutgers.edu/login?service=http%3A%2F%2Fonlinelearning.rutgers.edu%2Facademics.php',
+      src: require('../images/Links/Student.png'),
     });
     links.push({
-      title: "eCollege",
-      url:
-        "https://cas.rutgers.edu/login?service=http%3A%2F%2Fonlinelearning.rutgers.edu%2Facademics.php",
-      src: require("../images/Links/Student.png")
-    });
-    links.push({
-      title: "Financial Aid",
-      url: "https://finservices.rutgers.edu/otb/chooseSemester.htm?login=cas",
-      src: require("../images/Links/Bank.png")
+      title: 'Financial Aid',
+      url: 'https://finservices.rutgers.edu/otb/chooseSemester.htm?login=cas',
+      src: require('../images/Links/Bank.png'),
     });
 
     this.sfViewController = this.sfViewController.bind(this);
@@ -86,10 +78,10 @@ export default class LinkScreen extends Component {
       .then(
         SafariView.show({
           url: link.url,
-          tintColor: "#ed4545",
-          barTintColor: "white",
-          readerMode: true
-        })
+          tintColor: '#ed4545',
+          barTintColor: 'white',
+          readerMode: true,
+        }),
       )
       .catch(error => {
         //When iOS 8.0 or Lower, it opens in Safari Browser
@@ -99,10 +91,7 @@ export default class LinkScreen extends Component {
 
   LinkList() {
     return links.map(link => (
-      <TouchableOpacity
-        key={link.title}
-        onPress={() => this.sfViewController(link)}
-      >
+      <TouchableOpacity key={link.title} onPress={() => this.sfViewController(link)}>
         <View>
           <View style={styles.viewStyle}>
             <Image
@@ -113,9 +102,9 @@ export default class LinkScreen extends Component {
           </View>
           <View
             style={{
-              borderBottomColor: "rgb(200, 199, 204)",
+              borderBottomColor: 'rgb(200, 199, 204)',
               borderBottomWidth: 1,
-              marginHorizontal: 16
+              marginHorizontal: 16,
             }}
           />
         </View>
@@ -125,7 +114,7 @@ export default class LinkScreen extends Component {
   render() {
     return (
       <View style={styles.home}>
-        <Header text={"Link"} />
+        <Header text={'Link'} />
         <ScrollView>{this.LinkList()}</ScrollView>
         <BottomBar hs={true} bus={true} fs={true} ls={false} mr={true} />
       </View>
@@ -136,15 +125,15 @@ export default class LinkScreen extends Component {
 const styles = {
   home: {
     flex: 1,
-    backgroundColor: "rgb(255, 255, 255)"
+    backgroundColor: 'rgb(255, 255, 255)',
   },
   textStyle: {
-    fontFamily: "system font",
-    fontSize: 18
+    fontFamily: 'system font',
+    fontSize: 18,
   },
   viewStyle: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginVertical: 10
-  }
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 10,
+  },
 };

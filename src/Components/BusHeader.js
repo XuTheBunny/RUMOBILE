@@ -1,11 +1,9 @@
-
 import React, { Component } from 'react';
 import { Text, View, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import CardItem from './CardItem';
 
 class BusHeader extends Component {
-
   render() {
     return (
       <View style={styles.viewStyle}>
@@ -21,7 +19,7 @@ const styles = {
     fontFamily: 'System',
     fontWeight: 'bold',
     fontSize: 22,
-    paddingLeft: 16
+    paddingLeft: 16,
   },
   viewStyle: {
     width: '100%',
@@ -29,8 +27,8 @@ const styles = {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 16,
-    marginRight: 10
-  }
+    marginRight: 10,
+  },
 };
 
 export default BusHeader;

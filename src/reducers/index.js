@@ -8,5 +8,5 @@ export default combineReducers({
   home: HomeReducer,
   food: FoodReducer,
   bus: BusReducer,
-  link: LinkReducer
+  link: LinkReducer,
 });

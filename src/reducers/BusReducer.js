@@ -1,12 +1,12 @@
-import {
-  NEARBYBUS,
-  ALLBUS,
-  ACTIVEROUTES,
-  INACTIVEROUTES,
-  BUS_DATA_HERE
-} from '../actions/types';
+import { NEARBYBUS, ALLBUS, ACTIVEROUTES, INACTIVEROUTES, BUS_DATA_HERE } from '../actions/types';
 
-const INITIAL_STATE = { nb_data: {}, all_data: {}, active_data: {}, inactive_data: {}, data_here: 'no' };
+const INITIAL_STATE = {
+  nb_data: {},
+  all_data: {},
+  active_data: {},
+  inactive_data: {},
+  data_here: 'no',
+};
 
 export default (state = INITIAL_STATE, action) => {
   console.log(action);

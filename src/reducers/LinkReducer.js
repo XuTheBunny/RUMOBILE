@@ -1,6 +1,4 @@
-import {
-  LINK_LIST
-} from '../actions/types';
+import { LINK_LIST } from '../actions/types';
 
 const INITIAL_STATE = { data: {} };
 
