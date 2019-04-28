@@ -36,7 +36,7 @@ export default class StopScreen extends Component {
             tabTextStyle={styles.tabTextStyle}
           />
         </View>
-        <ScrollView>
+        <ScrollView style={{ marginBottom: 75 }}>
           <View style={styles.viewStyle}>
             <Text style={styles.fontStyle}>Active Routes</Text>
             <TouchableOpacity
