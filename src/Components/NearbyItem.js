@@ -111,13 +111,6 @@ class NearbyItem extends Component {
     return (
       <View style={styles.viewStyle}>
         <TouchableOpacity onPress={() => this.StopPress(this.props.stop)}>
-          <View
-            style={{
-              borderBottomColor: 'rgb(200, 199, 204)',
-              borderBottomWidth: 1,
-              marginBottom: 10.5,
-            }}
-          />
           <View style={styles.viewStyle2}>
             <Text style={styles.textStyle}>{this.props.stop.name}</Text>
             <Text style={styles.textStyle2}>{this.props.stop.distance} mi</Text>
@@ -149,17 +142,19 @@ const styles = {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    borderTopColor: 'rgb(200, 199, 204)',
+    borderTopWidth: 1,
+    paddingTop: 10,
   },
   viewStyle3: {
     flexDirection: 'row',
     marginBottom: 5,
   },
   boxTextStyle: {
-    //fontFamily: 'system font',
     fontSize: 16,
     color: 'rgb(155, 155, 155)',
     fontStyle: 'italic',
-    marginTop: 10,
+    marginTop: 5,
   },
 };
 

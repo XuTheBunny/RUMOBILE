@@ -2,15 +2,24 @@ import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
-import { View, Text, TouchableWithoutFeedback, Image, ScrollView } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, LayoutAnimation } from 'react-native';
+import Icon from 'react-native-vector-icons/EvilIcons';
 import BottomBar from '../Components/BottomBar';
 import Header from '../Components/Header';
-import BusHeader from '../Components/BusHeader';
 import { getBusStops } from '../actions';
 import NearbyList from '../Components/NearbyList';
 import AllList from '../Components/AllList';
 
 class StopScreen extends Component {
+  state = {
+    show1: true,
+    show2: true,
+  };
+
+  componentWillUpdate() {
+    LayoutAnimation.easeInEaseOut();
+  }
+
   componentWillMount() {
     if (this.props.check == 'here') {
     } else {
@@ -20,6 +29,12 @@ class StopScreen extends Component {
 
   onChange() {
     Actions.route_screen();
+  }
+
+  showNearby() {
+    if (show1) {
+      return <NearbyList />;
+    }
   }
 
   render() {
@@ -37,10 +52,40 @@ class StopScreen extends Component {
           />
         </View>
         <ScrollView>
-          <BusHeader title={'Nearby'} />
-          <NearbyList />
-          <BusHeader title={'All'} />
-          <AllList />
+          <View style={styles.viewStyle}>
+            <Text style={styles.fontStyle}>Nearby</Text>
+            <TouchableOpacity
+              onPress={() => {
+                this.setState({
+                  show1: !this.state.show1,
+                });
+              }}
+            >
+              <Icon
+                name={this.state.show1 ? 'chevron-down' : 'chevron-up'}
+                size={35}
+                color="rgb(138,138,143)"
+              />
+            </TouchableOpacity>
+          </View>
+          {this.state.show1 && <NearbyList />}
+          <View style={styles.viewStyle}>
+            <Text style={styles.fontStyle}>All</Text>
+            <TouchableOpacity
+              onPress={() => {
+                this.setState({
+                  show2: !this.state.show2,
+                });
+              }}
+            >
+              <Icon
+                name={this.state.show2 ? 'chevron-down' : 'chevron-up'}
+                size={35}
+                color="rgb(138,138,143)"
+              />
+            </TouchableOpacity>
+          </View>
+          {this.state.show2 && <AllList />}
         </ScrollView>
         <BottomBar hs={true} bus={false} fs={true} ls={true} mr={true} />
       </View>
@@ -62,6 +107,20 @@ const styles = {
   },
   tabTextStyle: {
     color: '#ed4545',
+  },
+  fontStyle: {
+    fontFamily: 'System',
+    fontWeight: 'bold',
+    fontSize: 22,
+    paddingLeft: 16,
+  },
+  viewStyle: {
+    width: '100%',
+    height: 26,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 16,
+    paddingRight: 10,
   },
 };
 
