@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 import { View, Text, TouchableOpacity } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 var color = 'rgb(142, 142, 147)';
 
-export default class ActiveItem extends Component {
-  StopPress() {
-    Actions.stop_();
+class ActiveItem extends Component {
+  RoutePress(d) {
+    Actions.route({ data: d });
   }
 
   resetColor() {
@@ -53,7 +54,7 @@ export default class ActiveItem extends Component {
     this.isColor();
     return (
       <View style={{ marginHorizontal: 16 }}>
-        <TouchableOpacity onPress={this.StopPress.bind(this)}>
+        <TouchableOpacity onPress={() => this.RoutePress(this.props.route)}>
           <View
             style={{
               borderBottomColor: 'rgb(200, 199, 204)',
@@ -100,3 +101,15 @@ const styles = {
     paddingLeft: 14,
   },
 };
+
+const mapStateToProps = state => {
+  return {
+    ad: state.bus.active_data,
+    check: state.bus.data_here,
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  {},
+)(ActiveItem);

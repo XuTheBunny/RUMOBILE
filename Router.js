@@ -16,7 +16,7 @@ const RouterComponent = () => {
       <Scene key="root" hideNavBar>
         <Scene key="home_screen" component={HomeScreen} hideNavBar type="reset" />
         <Scene key="stop_screen" component={StopScreen} hideNavBar type="reset" />
-        <Scene key="stop_" component={Stop} hideNavBar />
+        <Scene key="stop" component={Stop} hideNavBar />
         <Scene key="route_screen" component={RouteScreen} hideNavBar type="reset" />
         <Scene key="route" component={Route} hideNavBar />
         <Scene key="food_screen" component={FoodScreen} hideNavBar type="reset" />
