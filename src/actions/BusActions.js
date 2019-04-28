@@ -3,11 +3,11 @@ import axios from 'axios';
 import { NEARBYBUS, ALLBUS, ACTIVEROUTES, INACTIVEROUTES, BUS_DATA_HERE } from './types';
 
 var geodist = require('geodist');
+const newark = '40.841884%2C-74.011088%7C40.660668%2C-74.277053';
+const newBrunswick = '40.382690%2C-74.595626%7C40.625639%2C-74.280317';
+var geoArea = newBrunswick;
 const agency_id = '1323';
 const base_url = 'https://transloc-api-1-2.p.mashape.com/';
-const all_stops_url = base_url + 'stops.json?agencies=' + agency_id;
-const all_routes_url = base_url + 'routes.json?agencies=' + agency_id;
-const all_buses_url = base_url + 'vehicles.json?agencies=' + agency_id;
 const all_routes = [
   'Route A',
   'Route B',
@@ -27,8 +27,9 @@ const all_routes = [
   'Summer 1',
   'Summer 2',
 ];
-const newark = '40.841884,-74.011088|40.660668,-74.277053';
-const newBrunswick = '40.382690,-74.595626|40.625639,-74.280317';
+const all_stops_url = base_url + 'stops.json?geo_area=' + geoArea + '&agencies=' + agency_id;
+const all_routes_url = base_url + 'routes.json?geo_area=' + geoArea + '&agencies=' + agency_id;
+const all_buses_url = base_url + 'vehicles.json?geo_area=' + geoArea + '&agencies=' + agency_id;
 
 export const getBusStops = () => {
   var stops = {};
@@ -47,8 +48,7 @@ export const getBusStops = () => {
       position => {
         user_location.lat = position.coords.latitude;
         user_location.lon = position.coords.longitude;
-        console.log('user_location.lat: ' + user_location.lat);
-        console.log('user_location.lon: ' + user_location.lon);
+        console.log('User Location: ' + user_location.lat + ',' + user_location.lon);
         resolve(user_location);
       },
       error => {
