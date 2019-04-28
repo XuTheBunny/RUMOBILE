@@ -48,12 +48,14 @@ export const getBusStops = () => {
         'X-Mashape-Key': 'Pcl9MfLNF0mshcAni8CgyFuxVXTap1NA0RxjsnoxN4439f9hBq',
       },
     }).then(response => {
-      data = response.data.data[agency_id];
-      data.forEach(function(element) {
-        if (!routes_with_bus.includes(element.route_id)) {
-          routes_with_bus.push(element.route_id);
-        }
-      });
+      if (response.data.data[agency_id]) {
+        data = response.data.data[agency_id];
+        data.forEach(function(element) {
+          if (!routes_with_bus.includes(element.route_id) && element.arrival_estimates.length > 0) {
+            routes_with_bus.push(element.route_id);
+          }
+        });
+      }
       resolve(routes_with_bus);
     });
   });
