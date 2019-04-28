@@ -8,25 +8,6 @@ const newBrunswick = '40.382690%2C-74.595626%7C40.625639%2C-74.280317';
 var geoArea = newBrunswick;
 const agency_id = '1323';
 const base_url = 'https://transloc-api-1-2.p.mashape.com/';
-const all_routes = [
-  'Route A',
-  'Route B',
-  'Route C',
-  'Route EE',
-  'Route F',
-  'Route H',
-  'Route LX',
-  'Route All Campuses',
-  'Route New BrunsQuick 1 Shuttle',
-  'Route New BrunsQuick 2 Shuttle',
-  'Route REXB',
-  'Route REXL',
-  'Route RBHS',
-  'Route Weekend 1',
-  'Route Weekend 2',
-  'Summer 1',
-  'Summer 2',
-];
 const all_stops_url = base_url + 'stops.json?geo_area=' + geoArea + '&agencies=' + agency_id;
 const all_routes_url = base_url + 'routes.json?geo_area=' + geoArea + '&agencies=' + agency_id;
 const all_buses_url = base_url + 'vehicles.json?geo_area=' + geoArea + '&agencies=' + agency_id;
@@ -88,13 +69,7 @@ export const getBusStops = () => {
         },
       }).then(response => {
         raw_data = response.data.data[agency_id];
-        data = [];
         raw_data.forEach(function(element) {
-          if (all_routes.includes(element.long_name)) {
-            data.push(element);
-          }
-        });
-        data.forEach(function(element) {
           rid = element.route_id;
           if (element.is_active && values[0].includes(element.route_id)) {
             active_routs[rid] = element.long_name;
