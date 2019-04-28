@@ -53,38 +53,11 @@ class ActiveItem extends Component {
     this.resetColor();
     this.isColor();
     return (
-      <View style={{ marginHorizontal: 16 }}>
+      <View style={styles.containerStyle}>
         <TouchableOpacity onPress={() => this.RoutePress(this.props.route)}>
-          <View
-            style={{
-              borderBottomColor: 'rgb(200, 199, 204)',
-              borderBottomWidth: 1,
-            }}
-          />
-          <View
-            style={{
-              flexDirection: 'row',
-              marginVertical: 15,
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}
-          >
+          <View style={styles.itemStyle}>
             <View style={{ flexDirection: 'row' }}>
-              <View
-                style={{
-                  height: 14,
-                  width: 14,
-                  borderRadius: 7,
-                  backgroundColor: color,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  shadowOffset: { width: 0, height: 2 },
-                  shadowColor: 'rgb(143, 143, 143)',
-                  shadowOpacity: 0.5,
-                }}
-              >
-                <FontAwesome name="circle" size={7.5} color="white" />
-              </View>
+              <View style={[styles.dotStyle, { borderColor: color }]} />
               <Text style={styles.textStyle}>{this.props.route}</Text>
             </View>
             <EvilIcons name="chevron-right" size={25} color="rgb(138,138,143)" />
@@ -96,9 +69,34 @@ class ActiveItem extends Component {
 }
 
 const styles = {
+  containerStyle: {
+    marginHorizontal: 16,
+    borderTopColor: 'rgb(200, 199, 204)',
+    borderTopWidth: 1,
+  },
+  itemStyle: {
+    flexDirection: 'row',
+    marginVertical: 15,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  dotStyle: {
+    height: 16,
+    width: 16,
+    borderRadius: 8,
+    borderWidth: 4,
+    backgroundColor: 'white',
+    shadowOffset: { width: 0, height: 2 },
+    shadowColor: 'rgb(143, 143, 143)',
+    shadowOpacity: 0.5,
+    marginRight: 15,
+    marginTop: 2,
+    marginLeft: 3,
+  },
   textStyle: {
     fontFamily: 'system font',
-    paddingLeft: 14,
+    fontSize: 17,
+    fontWeight: '100',
   },
 };
 

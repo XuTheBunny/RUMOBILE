@@ -27,7 +27,7 @@ const styles = {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 16,
-    marginRight: 10,
+    paddingRight: 10,
   },
 };
 
