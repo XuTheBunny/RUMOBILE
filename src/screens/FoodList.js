@@ -17,29 +17,6 @@ class FoodList extends Component {
     Actions.pop();
   }
 
-  /*<View style={styles.section}>
-    <View style={styles.sectionImgBox}>
-      <ImageBackground source={require('../images/Food/SaladBar.jpg')} style={styles.sectionImage}>
-        <Text style={styles.sectionTitle}>Salad Bar</Text>
-      </ImageBackground>
-    </View>
-    <View style={styles.sectionTextBox}>
-      <Text style={styles.sectionText}>Tomato Wedges</Text>
-    </View>
-    <View style={styles.sectionTextBox}>
-      <Text style={styles.sectionText}>Tossed Salad</Text>
-    </View>
-    <View style={styles.sectionTextBox}>
-      <Text style={styles.sectionText}>Broccoli Buds Op</Text>
-    </View>
-  </View>*/
-
-  /*<View style={styles.statusBar}>
-    <TouchableOpacity onPress={this.backToFood.bind(this)}>
-      <Text style={styles.statusBarButton}>Food</Text>
-    </TouchableOpacity>
-  </View>*/
-
   handleIndexChange = index => {
     this.props.foodTab(index);
   };
@@ -77,7 +54,7 @@ class FoodList extends Component {
             tabTextStyle={styles.tabTextStyle}
           />
         </View>
-        <ScrollView>
+        <ScrollView style={{ marginBottom: 75 }}>
           <View>{this.renderFoodLists()}</View>
         </ScrollView>
         <BottomBar hs={true} bus={true} fs={false} ls={true} mr={true} />
