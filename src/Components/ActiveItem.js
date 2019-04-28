@@ -57,7 +57,7 @@ class ActiveItem extends Component {
         <TouchableOpacity onPress={() => this.RoutePress(this.props.route)}>
           <View style={styles.itemStyle}>
             <View style={{ flexDirection: 'row' }}>
-              <View style={[styles.dotStyle, { borderColor: color }]} />
+              <View style={[styles.dotStyle, { backgroundColor: color }]} />
               <Text style={styles.textStyle}>{this.props.route}</Text>
             </View>
             <EvilIcons name="chevron-right" size={25} color="rgb(138,138,143)" />
@@ -84,8 +84,8 @@ const styles = {
     height: 16,
     width: 16,
     borderRadius: 8,
-    borderWidth: 4,
-    backgroundColor: 'white',
+    borderWidth: 2,
+    borderColor: 'white',
     shadowOffset: { width: 0, height: 2 },
     shadowColor: 'rgb(143, 143, 143)',
     shadowOpacity: 0.5,
