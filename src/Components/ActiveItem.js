@@ -42,9 +42,9 @@ class ActiveItem extends Component {
       color = 'rgb(255, 149, 0)';
     } else if (this.props.route == 'Route REXL') {
       color = 'rgb(187, 120, 246)';
-    } else if (this.props.route == 'Route Weekend 1') {
+    } else if (['Route Weekend 1', 'Weekend 1', 'Summer 1'].includes(this.props.route)) {
       color = 'rgb(244, 74, 74)';
-    } else if (this.props.route == 'Route Weekend 2') {
+    } else if (['Route Weekend 2', 'Weekend 2', 'Summer 2'].includes(this.props.route)) {
       color = 'rgb(32, 116, 214)';
     }
   }
