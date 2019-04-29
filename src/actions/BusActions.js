@@ -13,8 +13,8 @@ const all_routes_url = base_url + 'routes.json?geo_area=' + geoArea + '&agencies
 const all_buses_url = base_url + 'vehicles.json?geo_area=' + geoArea + '&agencies=' + agency_id;
 
 export const getBusStops = () => {
-  var stops = {};
-  var active_routs = {};
+  var stop_name = {};
+  var route_name = {};
   var nearby_stops = [];
   var all_stops = [];
   var user_location = {};
@@ -73,22 +73,31 @@ export const getBusStops = () => {
         raw_data = response.data.data[agency_id];
         raw_data.forEach(function(element) {
           rid = element.route_id;
+          r = {
+            rid: element.route_id,
+            rname: element.long_name,
+            stops: [],
+            isActive: false,
+          };
+          element.stops.forEach(function(e) {
+            s = { sid: e, sname: null, distance: null };
+            r.stops.push(s);
+          });
           if (element.is_active && values[0].includes(element.route_id)) {
-            active_routs[rid] = element.long_name;
-            routes_active.push(element.long_name);
+            r.isActive = true;
+            routes_active.push(r);
           } else {
-            routes_inactive.push(element.long_name);
+            routes_inactive.push(r);
           }
+          route_name[element.route_id] = element.long_name;
         });
-        resolve(active_routs);
+        resolve(route_name);
       });
     });
   });
 
   return dispatch => {
     Promise.all([getUserLocation, getActiveRoutes]).then(value => {
-      dispatch({ type: ACTIVEROUTES, payload: routes_active });
-      dispatch({ type: INACTIVEROUTES, payload: routes_inactive });
       axios({
         method: 'get',
         url: all_stops_url,
@@ -99,16 +108,20 @@ export const getBusStops = () => {
       }).then(response => {
         data = response.data.data;
         data.forEach(function(element) {
+          stop_name[element.stop_id] = element.name;
           s = {};
-          route = [];
-          s.name = element.name;
+          routes = [];
+          s.sid = element.stop_id;
+          s.sname = element.name;
           element.routes.forEach(function(e) {
-            if (active_routs[e]) {
-              rname = active_routs[e];
-              route.push(rname);
-            }
+            r = {
+              rid: e,
+              rname: route_name[e],
+              isActive: routes_with_bus.includes(e),
+            };
+            routes.push(r);
           });
-          s.route = route;
+          s.routes = routes;
           distance = geodist(user_location, element.location, {
             exact: true,
             unit: 'miles',
@@ -116,6 +129,20 @@ export const getBusStops = () => {
           s.distance = distance.toFixed(2);
           all_stops.push(s);
         });
+        routes_active.forEach(function(element) {
+          element.stops.forEach(function(e) {
+            e.sname = stop_name[e.sid];
+            e.distance = all_stops.find(obj => obj.sid == e.sid).distance;
+          });
+        });
+        routes_inactive.forEach(function(element) {
+          element.stops.forEach(function(e) {
+            e.sname = stop_name[e.sid];
+            e.distance = all_stops.find(obj => obj.sid == e.sid).distance;
+          });
+        });
+        dispatch({ type: ACTIVEROUTES, payload: routes_active });
+        dispatch({ type: INACTIVEROUTES, payload: routes_inactive });
         dispatch({
           type: NEARBYBUS,
           payload: all_stops

@@ -14,7 +14,9 @@ export default class Stop extends Component {
       <View style={styles.home}>
         <BackHeader text={'Bus'} />
         <Text>STOP SCREEN</Text>
-        <Text>YOU PRESSED: {this.props.data.name}</Text>
+        <Text>YOU PRESSED: {this.props.data.sname}</Text>
+        <Text>STOP ID IS: {this.props.data.sid}</Text>
+        <Text>THIS STOP IS:{this.props.data.distance} miles away </Text>
         <BottomBar hs={true} bus={false} fs={true} ls={true} mr={true} />
       </View>
     );

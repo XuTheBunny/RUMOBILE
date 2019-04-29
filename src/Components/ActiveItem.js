@@ -16,35 +16,35 @@ class ActiveItem extends Component {
   }
 
   isColor() {
-    if (this.props.route == 'Route A') {
+    if (this.props.route.rname == 'Route A') {
       color = 'rgb(124, 31, 206)';
-    } else if (this.props.route == 'Route B') {
+    } else if (this.props.route.rname == 'Route B') {
       color = 'rgb(32, 116, 214)';
-    } else if (this.props.route == 'Route C') {
+    } else if (this.props.route.rname == 'Route C') {
       color = 'rgb(244, 74, 74)';
-    } else if (this.props.route == 'Route EE') {
+    } else if (this.props.route.rname == 'Route EE') {
       color = 'rgb(62, 210, 177)';
-    } else if (this.props.route == 'Route F') {
+    } else if (this.props.route.rname == 'Route F') {
       color = 'rgb(243, 37, 168)';
-    } else if (this.props.route == 'Route H') {
+    } else if (this.props.route.rname == 'Route H') {
       color = 'rgb(119, 204, 27)';
-    } else if (this.props.route == 'Route LX') {
+    } else if (this.props.route.rname == 'Route LX') {
       color = 'rgb(255, 204, 0)';
-    } else if (this.props.route == 'Route All Campuses') {
+    } else if (this.props.route.rname == 'Route All Campuses') {
       color = 'rgb(0, 156, 80)';
-    } else if (this.props.route == 'Route New BrunsQuick 1 Shuttle') {
+    } else if (this.props.route.rname == 'Route New BrunsQuick 1 Shuttle') {
       color = 'rgb(236, 76, 127)';
-    } else if (this.props.route == 'Route New BrunsQuick 2 Shuttle') {
+    } else if (this.props.route.rname == 'Route New BrunsQuick 2 Shuttle') {
       color = 'rgb(90, 200, 250)';
-    } else if (this.props.route == 'Route RBHS') {
+    } else if (this.props.route.rname == 'Route RBHS') {
       color = 'rgb(88, 86, 214)';
-    } else if (this.props.route == 'Route REXB') {
+    } else if (this.props.route.rname == 'Route REXB') {
       color = 'rgb(255, 149, 0)';
-    } else if (this.props.route == 'Route REXL') {
+    } else if (this.props.route.rname == 'Route REXL') {
       color = 'rgb(187, 120, 246)';
-    } else if (['Route Weekend 1', 'Weekend 1', 'Summer 1'].includes(this.props.route)) {
+    } else if (['Route Weekend 1', 'Weekend 1', 'Summer 1'].includes(this.props.route.rname)) {
       color = 'rgb(244, 74, 74)';
-    } else if (['Route Weekend 2', 'Weekend 2', 'Summer 2'].includes(this.props.route)) {
+    } else if (['Route Weekend 2', 'Weekend 2', 'Summer 2'].includes(this.props.route.rname)) {
       color = 'rgb(32, 116, 214)';
     }
   }
@@ -58,7 +58,7 @@ class ActiveItem extends Component {
           <View style={styles.itemStyle}>
             <View style={{ flexDirection: 'row' }}>
               <View style={[styles.dotStyle, { backgroundColor: color }]} />
-              <Text style={styles.textStyle}>{this.props.route}</Text>
+              <Text style={styles.textStyle}>{this.props.route.rname}</Text>
             </View>
             <EvilIcons name="chevron-right" size={25} color="rgb(138,138,143)" />
           </View>

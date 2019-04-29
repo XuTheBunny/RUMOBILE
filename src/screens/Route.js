@@ -15,7 +15,9 @@ export default class Route extends Component {
       <View style={styles.home}>
         <BackHeader text={'Bus'} />
         <Text>ROUTE SCREEN</Text>
-        <Text>YOU PRESSED: {this.props.data}</Text>
+        <Text>YOU PRESSED ROUTE: {this.props.data.rname}</Text>
+        <Text>ROUTE ID IS: {this.props.data.rid}</Text>
+        <Text>THIS ROUTE IS: {this.props.data.isActive ? 'Active' : 'Inactive'}</Text>
         <BottomBar hs={true} bus={false} fs={true} ls={true} mr={true} />
       </View>
     );
