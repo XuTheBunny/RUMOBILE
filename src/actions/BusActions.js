@@ -80,7 +80,7 @@ export const getBusStops = () => {
             isActive: false,
           };
           element.stops.forEach(function(e) {
-            s = { sid: e, sname: null };
+            s = { sid: e, sname: null, distance: null };
             r.stops.push(s);
           });
           if (element.is_active && values[0].includes(element.route_id)) {
@@ -132,11 +132,13 @@ export const getBusStops = () => {
         routes_active.forEach(function(element) {
           element.stops.forEach(function(e) {
             e.sname = stop_name[e.sid];
+            e.distance = all_stops.find(obj => obj.sid == e.sid).distance;
           });
         });
         routes_inactive.forEach(function(element) {
           element.stops.forEach(function(e) {
             e.sname = stop_name[e.sid];
+            e.distance = all_stops.find(obj => obj.sid == e.sid).distance;
           });
         });
         dispatch({ type: ACTIVEROUTES, payload: routes_active });
