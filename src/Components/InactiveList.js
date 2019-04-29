@@ -7,7 +7,7 @@ import Loading from './Loading';
 class InactiveList extends Component {
   renderList() {
     if (this.props.check == 'here') {
-      return this.props.ad.map(route => <ActiveItem key={route} route={route} />);
+      return this.props.ad.map(route => <ActiveItem key={route.rid} route={route} />);
     } else {
       return <Loading />;
     }

@@ -7,7 +7,7 @@ import Loading from './Loading';
 class AllList extends Component {
   renderList() {
     if (this.props.check == 'here') {
-      return this.props.all.map(stop => <NearbyItem stop={stop} key={stop.name} />);
+      return this.props.all.map(stop => <NearbyItem stop={stop} key={stop.sid} />);
     } else {
       return <Loading />;
     }
