@@ -51,7 +51,7 @@ class Stop extends Component {
 
   renderActive() {
     if (this.props.hasPrediction == 'here') {
-      if (this.props.prediction) {
+      if (this.props.prediction.length > 0) {
         this.props.prediction[0].arrivals
           .sort((a, b) => (a.arrival_at > b.arrival_at ? 1 : b.arrival_at > a.arrival_at ? -1 : 0))
           .forEach(function(element) {
