@@ -1,11 +1,14 @@
 import React from 'react';
 import { Text, View, Image, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/Entypo';
 import CardItem from './CardItem';
+import { getPrediction } from '../actions';
 
 class ClearHeader extends React.Component {
   backUp() {
+    this.props.getPrediction('clean', []);
     Actions.pop();
   }
 
@@ -30,9 +33,16 @@ const styles = {
   },
   viewStyle: {
     flexDirection: 'row',
-    paddingTop: 32,
+    paddingTop: 35,
     alignItems: 'center',
   },
 };
 
-export default ClearHeader;
+const mapStateToProps = state => {
+  return {};
+};
+
+export default connect(
+  mapStateToProps,
+  { getPrediction },
+)(ClearHeader);
