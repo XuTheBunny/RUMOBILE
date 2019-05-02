@@ -60,7 +60,7 @@ class ActiveItem extends Component {
               <View style={[styles.dotStyle, { backgroundColor: color }]} />
               <Text style={styles.textStyle}>{this.props.route.rname}</Text>
             </View>
-            <EvilIcons name="chevron-right" size={25} color="rgb(138,138,143)" />
+            <EvilIcons name="chevron-right" size={30} color="rgb(138,138,143)" />
           </View>
         </TouchableOpacity>
       </View>
@@ -70,13 +70,14 @@ class ActiveItem extends Component {
 
 const styles = {
   containerStyle: {
-    marginHorizontal: 16,
-    borderTopColor: 'rgb(200, 199, 204)',
-    borderTopWidth: 1,
+    marginLeft: 18,
+    paddingRight: 8,
+    paddingVertical: 12,
+    borderTopColor: 'rgb(235,235,235)',
+    borderTopWidth: 0.5,
   },
   itemStyle: {
     flexDirection: 'row',
-    marginVertical: 15,
     alignItems: 'center',
     justifyContent: 'space-between',
   },
@@ -97,6 +98,7 @@ const styles = {
     fontFamily: 'system font',
     fontSize: 17,
     fontWeight: '100',
+    maxWidth: 300,
   },
 };
 
