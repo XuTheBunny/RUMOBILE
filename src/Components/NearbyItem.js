@@ -5,7 +5,7 @@ import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { getBusStops } from '../actions';
 var boxes = new Array();
 var k = 0;
-var routes = true;
+var routes = false;
 
 class NearbyItem extends Component {
   StopPress(d) {
@@ -13,12 +13,12 @@ class NearbyItem extends Component {
   }
 
   resetRoutes() {
-    routes = true;
+    routes = false;
   }
 
   checkRoutes() {
-    if (this.props.stop.routes.length == 0) {
-      routes = false;
+    if (this.props.stop.routes.find(obj => obj.isActive == true)) {
+      routes = true;
     }
   }
 
