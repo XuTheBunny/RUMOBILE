@@ -1,4 +1,12 @@
-import { NEARBYBUS, ALLBUS, ACTIVEROUTES, INACTIVEROUTES, BUS_DATA_HERE } from '../actions/types';
+import {
+  NEARBYBUS,
+  ALLBUS,
+  ACTIVEROUTES,
+  INACTIVEROUTES,
+  BUS_DATA_HERE,
+  PREDICTION,
+  PREDICTION_DATA_HERE,
+} from '../actions/types';
 
 const INITIAL_STATE = {
   nb_data: {},
@@ -6,6 +14,8 @@ const INITIAL_STATE = {
   active_data: {},
   inactive_data: {},
   data_here: 'no',
+  prediction: [],
+  has_prediction: 'no',
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -21,6 +31,10 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, inactive_data: action.payload };
     case BUS_DATA_HERE:
       return { ...state, data_here: action.payload };
+    case PREDICTION:
+      return { ...state, prediction: action.payload };
+    case PREDICTION_DATA_HERE:
+      return { ...state, has_prediction: action.payload };
     default:
       return state;
   }

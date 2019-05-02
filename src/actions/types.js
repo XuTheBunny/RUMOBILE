@@ -19,5 +19,7 @@ export const ALLBUS = 'allBus';
 export const ACTIVEROUTES = 'activeRoutes';
 export const INACTIVEROUTES = 'inactiveRoutes';
 export const BUS_DATA_HERE = 'bus_data_here';
+export const PREDICTION = 'prediction';
+export const PREDICTION_DATA_HERE = 'prediction_data_here';
 
 export const LINK_LIST = 'link_list';
