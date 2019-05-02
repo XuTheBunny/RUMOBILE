@@ -5,7 +5,7 @@ import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { getBusStops } from '../actions';
 var boxes = new Array();
 var k = 0;
-var routes = true;
+var routes = false;
 
 class NearbyItem extends Component {
   StopPress(d) {
@@ -13,12 +13,12 @@ class NearbyItem extends Component {
   }
 
   resetRoutes() {
-    routes = true;
+    routes = false;
   }
 
   checkRoutes() {
-    if (this.props.stop.routes.length == 0) {
-      routes = false;
+    if (this.props.stop.routes.find(obj => obj.isActive == true)) {
+      routes = true;
     }
   }
 
@@ -98,7 +98,7 @@ class NearbyItem extends Component {
         </View>
       ));
     } else {
-      return <Text style={styles.boxTextStyle}>No Active Routes</Text>;
+      return <Text style={styles.boxTextStyle}>No active routes</Text>;
     }
   }
 
@@ -125,28 +125,27 @@ const styles = {
     fontFamily: 'system font',
     fontSize: 17,
     fontWeight: '100',
+    maxWidth: 270,
   },
   textStyle2: {
     fontFamily: 'system font',
     fontSize: 12,
-    color: 'rgb(155, 155, 155)',
+    color: 'rgb(100, 100, 100)',
   },
   viewStyle: {
-    paddingLeft: 16,
-    paddingRight: 16,
-    paddingTop: 8.5,
+    marginLeft: 16,
+    paddingRight: 14,
+    borderTopColor: 'rgb(235,235,235)',
+    borderTopWidth: 0.5,
+    paddingVertical: 12,
   },
   viewStyle2: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    borderTopColor: 'rgb(200, 199, 204)',
-    borderTopWidth: 1,
-    paddingTop: 10,
+    alignItems: 'flex-start',
   },
   viewStyle3: {
     flexDirection: 'row',
-    marginBottom: 5,
   },
   boxTextStyle: {
     fontSize: 16,

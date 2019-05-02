@@ -26,7 +26,7 @@ export default class StopScreen extends Component {
     return (
       <View style={styles.home}>
         <Header text={'Bus'} />
-        <View style={{ paddingLeft: 12, paddingRight: 12 }}>
+        <View style={{ paddingHorizontal: 13 }}>
           <SegmentedControlTab
             values={['Stops', 'Routes']}
             selectedIndex={1}
@@ -36,7 +36,7 @@ export default class StopScreen extends Component {
             tabTextStyle={styles.tabTextStyle}
           />
         </View>
-        <ScrollView style={{ marginBottom: 75 }}>
+        <ScrollView style={{ marginBottom: 75, marginTop: 12 }}>
           <View style={styles.viewStyle}>
             <Text style={styles.fontStyle}>Active Routes</Text>
             <TouchableOpacity
@@ -97,15 +97,12 @@ const styles = {
     fontFamily: 'System',
     fontWeight: 'bold',
     fontSize: 22,
-    paddingLeft: 16,
   },
   viewStyle: {
-    width: '100%',
-    height: 26,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 16,
-    paddingRight: 10,
-    marginBottom: 10,
+    marginLeft: 16,
+    paddingRight: 5,
+    paddingVertical: 12,
   },
 };
