@@ -35,7 +35,7 @@ class StopScreen extends Component {
     return (
       <View style={styles.home}>
         <Header text={'Bus'} />
-        <View style={{ paddingHorizontal: 13 }}>
+        <View style={{ paddingHorizontal: 13, marginTop: 10 }}>
           <SegmentedControlTab
             values={['Stops', 'Routes']}
             selectedIndex={0}
