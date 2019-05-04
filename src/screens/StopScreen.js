@@ -21,7 +21,10 @@ class StopScreen extends Component {
   }
 
   componentWillMount() {
-    this.props.getBusStops(this.props.campus);
+    if (this.props.check == 'here') {
+    } else {
+      this.props.getBusStops(this.props.campus);
+    }
   }
 
   onChange() {
