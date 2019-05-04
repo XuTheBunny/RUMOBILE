@@ -14,6 +14,7 @@ class BottomBar extends Component {
   onBusPress() {
     this.props.getBusStops('clean');
     Actions.stop_screen();
+    this.props.getBusStops(this.props.campus);
   }
 
   onFoodPress() {
@@ -229,7 +230,7 @@ const styles = {
 };
 
 const mapStateToProps = state => {
-  return {};
+  return { campus: state.bus.campus };
 };
 
 export default connect(
