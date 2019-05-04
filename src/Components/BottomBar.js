@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
+import { getBusStops } from '../actions';
 import { View, Text, TouchableOpacity, TouchableWithoutFeedback, Image } from 'react-native';
 
 class BottomBar extends Component {
@@ -10,6 +12,7 @@ class BottomBar extends Component {
   }
 
   onBusPress() {
+    this.props.getBusStops('clean');
     Actions.stop_screen();
   }
 
@@ -226,4 +229,11 @@ const styles = {
   },
 };
 
-export default BottomBar;
+const mapStateToProps = state => {
+  return {};
+};
+
+export default connect(
+  mapStateToProps,
+  { getBusStops },
+)(BottomBar);
