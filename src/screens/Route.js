@@ -7,6 +7,8 @@ import BottomBar from '../Components/BottomBar';
 import StopInRoute from '../Components/StopInRoute';
 import Loading from '../Components/Loading';
 import { getPrediction } from '../actions';
+import { routeColor } from '../../route_color.json';
+
 var color = 'rgb(142, 142, 147)';
 var nearestId = '';
 
@@ -33,38 +35,7 @@ class Route extends Component {
   }
 
   isColor() {
-    rname = this.props.data.rname;
-    if (rname == 'Route A') {
-      color = 'rgb(124, 31, 206)';
-    } else if (rname == 'Route B') {
-      color = 'rgb(32, 116, 214)';
-    } else if (rname == 'Route C') {
-      color = 'rgb(244, 74, 74)';
-    } else if (rname == 'Route EE') {
-      color = 'rgb(62, 210, 177)';
-    } else if (rname == 'Route F') {
-      color = 'rgb(243, 37, 168)';
-    } else if (rname == 'Route H') {
-      color = 'rgb(119, 204, 27)';
-    } else if (rname == 'Route LX') {
-      color = 'rgb(255, 204, 0)';
-    } else if (rname == 'Route All Campuses') {
-      color = 'rgb(0, 156, 80)';
-    } else if (rname == 'Route New BrunsQuick 1 Shuttle') {
-      color = 'rgb(236, 76, 127)';
-    } else if (rname == 'Route New BrunsQuick 2 Shuttle') {
-      color = 'rgb(90, 200, 250)';
-    } else if (rname == 'Route RBHS') {
-      color = 'rgb(88, 86, 214)';
-    } else if (rname == 'Route REXB') {
-      color = 'rgb(255, 149, 0)';
-    } else if (rname == 'Route REXL') {
-      color = 'rgb(187, 120, 246)';
-    } else if (['Route Weekend 1', 'Weekend 1', 'Summer 1'].includes(rname)) {
-      color = 'rgb(244, 74, 74)';
-    } else if (['Route Weekend 2', 'Weekend 2', 'Summer 2'].includes(rname)) {
-      color = 'rgb(32, 116, 214)';
-    }
+    color = routeColor.find(obj => obj.rname == this.props.data.rname).rcolor;
   }
 
   singlePrediction(sid) {
