@@ -14,6 +14,7 @@ export const NEILSON_FOOD = 'neilson_food';
 
 export const FOOD_TAB_CHANGED = 'food_tab_changed';
 
+export const CAMPUS = 'campus';
 export const NEARBYBUS = 'nearbyBus';
 export const ALLBUS = 'allBus';
 export const ACTIVEROUTES = 'activeRoutes';
