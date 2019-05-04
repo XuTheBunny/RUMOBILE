@@ -8,7 +8,7 @@ import Header from '../Components/Header';
 import ActiveList from '../Components/ActiveList';
 import InactiveList from '../Components/InactiveList';
 
-export default class StopScreen extends Component {
+export default class RouteScreen extends Component {
   state = {
     show1: true,
     show2: true,
