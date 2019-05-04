@@ -18,18 +18,21 @@ import { getPrediction } from '../actions';
 import { routeColor } from '../../route_color.json';
 var color = 'rgb(142, 142, 147)';
 var nearestId = '';
+var thisRoute = {};
 
 class Route extends Component {
   state = { refreshing: false };
 
   componentWillMount() {
-    rid = [this.props.data.rid];
+    allRoutes = this.props.activeRoutes.concat(this.props.inactiveRoutes);
+    rid = [this.props.data];
     sid = [];
-    this.props.data.stops.forEach(function(element) {
+    thisRoute = allRoutes.find(obj => obj.rid == this.props.data);
+    thisRoute.stops.forEach(function(element) {
       sid.push(element.sid);
     });
     this.props.getPrediction(rid, sid);
-    duplicate = JSON.parse(JSON.stringify(this.props.data.stops));
+    duplicate = JSON.parse(JSON.stringify(thisRoute.stops));
     nearestId = duplicate.sort((a, b) =>
       a.distance > b.distance ? 1 : b.distance > a.distance ? -1 : 0,
     )[0].sid;
@@ -44,17 +47,21 @@ class Route extends Component {
   }
 
   isColor() {
-    color = routeColor.find(obj => obj.rname == this.props.data.rname).rcolor;
+    color = routeColor.find(obj => obj.rname == thisRoute.rname).rcolor;
   }
 
   onRefresh() {
     this.setState({ refreshing: true });
     this.props.getPrediction('clean', []);
-    this.props.data.stops.forEach(function(element) {
+    allRoutes = this.props.activeRoutes.concat(this.props.inactiveRoutes);
+    rid = [this.props.data];
+    sid = [];
+    thisRoute = allRoutes.find(obj => obj.rid == this.props.data);
+    thisRoute.stops.forEach(function(element) {
       sid.push(element.sid);
     });
     this.props.getPrediction(rid, sid);
-    duplicate = JSON.parse(JSON.stringify(this.props.data.stops));
+    duplicate = JSON.parse(JSON.stringify(thisRoute.stops));
     nearestId = duplicate.sort((a, b) =>
       a.distance > b.distance ? 1 : b.distance > a.distance ? -1 : 0,
     )[0].sid;
@@ -84,7 +91,7 @@ class Route extends Component {
 
   renderPrediction() {
     if (this.props.hasPrediction == 'here') {
-      return this.props.data.stops.map(stop => (
+      return thisRoute.stops.map(stop => (
         <StopInRoute
           sname={stop.sname}
           distance={stop.distance}
@@ -107,7 +114,7 @@ class Route extends Component {
         <View style={{ backgroundColor: color }}>
           <ClearHeader text={'Bus'} />
           <View style={styles.routeHeaderContainer}>
-            <Text style={styles.routeHeaderTitle}>{this.props.data.rname}</Text>
+            <Text style={styles.routeHeaderTitle}>{thisRoute.rname}</Text>
             <TouchableOpacity>
               <View style={styles.routeMapButton}>
                 <Text style={styles.routeMapText}>Map</Text>
@@ -167,6 +174,8 @@ const styles = {
 
 const mapStateToProps = state => {
   return {
+    activeRoutes: state.bus.active_data,
+    inactiveRoutes: state.bus.inactive_data,
     prediction: state.bus.prediction,
     hasPrediction: state.bus.has_prediction,
   };

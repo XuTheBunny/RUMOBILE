@@ -26,7 +26,7 @@ class ActiveItem extends Component {
     this.isColor();
     return (
       <View style={styles.containerStyle}>
-        <TouchableOpacity onPress={() => this.RoutePress(this.props.route)}>
+        <TouchableOpacity onPress={() => this.RoutePress(this.props.route.rid)}>
           <View style={styles.itemStyle}>
             <View style={{ flexDirection: 'row' }}>
               <View style={[styles.dotStyle, { backgroundColor: color }]} />

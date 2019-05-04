@@ -20,6 +20,7 @@ import { getPrediction } from '../actions';
 var cleanPrediction = {};
 var active_route = [];
 var inactive_route = [];
+var thisStop = {};
 
 class Stop extends Component {
   state = { refreshing: false };
@@ -28,9 +29,10 @@ class Stop extends Component {
     cleanPrediction = {};
     active_route = [];
     inactive_route = [];
-    sid = [this.props.data.sid];
+    sid = [this.props.data];
     rid = [];
-    this.props.data.routes.forEach(function(element) {
+    thisStop = this.props.allStops.find(obj => obj.sid == this.props.data);
+    thisStop.routes.forEach(function(element) {
       if (element.isActive) {
         rid.push(element.rid);
         active_route.push(element);
@@ -59,7 +61,8 @@ class Stop extends Component {
     active_route = [];
     inactive_route = [];
     this.props.getPrediction(rid, sid);
-    this.props.data.routes.forEach(function(element) {
+    thisStop = this.props.allStops.find(obj => obj.sid == this.props.data);
+    thisStop.routes.forEach(function(element) {
       if (element.isActive) {
         rid.push(element.rid);
         active_route.push(element);
@@ -112,9 +115,9 @@ class Stop extends Component {
           source={require('../images/BI/BusBackground.jpeg')}
         >
           <ClearHeader text={'Bus'} />
-          <Text style={styles.stopHeaderTitle}>{this.props.data.sname}</Text>
+          <Text style={styles.stopHeaderTitle}>{thisStop.sname}</Text>
           <View style={styles.stopDistanceBox}>
-            <Text style={styles.stopDistance}>{this.props.data.distance}</Text>
+            <Text style={styles.stopDistance}>{thisStop.distance}</Text>
             <Text style={styles.stopDistanceText}> miles away</Text>
           </View>
         </ImageBackground>
@@ -184,6 +187,7 @@ const styles = {
 
 const mapStateToProps = state => {
   return {
+    allStops: state.bus.all_data,
     prediction: state.bus.prediction,
     hasPrediction: state.bus.has_prediction,
   };

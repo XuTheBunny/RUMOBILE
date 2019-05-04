@@ -53,7 +53,7 @@ class NearbyItem extends Component {
   render() {
     return (
       <View style={styles.viewStyle}>
-        <TouchableOpacity onPress={() => this.StopPress(this.props.stop)}>
+        <TouchableOpacity onPress={() => this.StopPress(this.props.stop.sid)}>
           <View style={styles.viewStyle2}>
             <Text style={styles.textStyle}>{this.props.stop.sname}</Text>
             <Text style={styles.textStyle2}>{this.props.stop.distance} mi</Text>
