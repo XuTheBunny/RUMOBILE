@@ -22,20 +22,9 @@ class FoodList extends Component {
   };
 
   renderFoodLists() {
-    if (this.props.data.meals[this.props.tab_index].meal_avail == true) {
-      console.log(this.props.data.meals[this.props.tab_index].genres);
-      return this.props.data.meals[this.props.tab_index].genres.map(genre => (
-        <FoodSection key={genre.genre_name} food={genre} />
-      ));
-    } else {
-      console.log('Dont Render Food');
-      return (
-        <Image
-          style={{ width: 385, height: 485 }}
-          source={require('../images/Food/blankstate_nofood.png')}
-        />
-      );
-    }
+    return this.props.data.meals[this.props.tab_index].genres.map(genre => (
+      <FoodSection key={genre.genre_name} food={genre} />
+    ));
   }
 
   render() {
@@ -54,9 +43,26 @@ class FoodList extends Component {
             tabTextStyle={styles.tabTextStyle}
           />
         </View>
-        <ScrollView style={{ marginBottom: 75 }}>
-          <View>{this.renderFoodLists()}</View>
-        </ScrollView>
+        {this.props.data.meals[this.props.tab_index].meal_avail ? (
+          <ScrollView style={{ marginBottom: 75 }}>{this.renderFoodLists()}</ScrollView>
+        ) : (
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginBottom: 55,
+            }}
+          >
+            <Image
+              style={{ height: 300 }}
+              source={require('../images/Food/blankstate_nofood.png')}
+              resizeMode="contain"
+            />
+            <Text style={styles.emptyText}>There is currently no food at this time.</Text>
+          </View>
+        )}
+
         <BottomBar hs={true} bus={true} fs={false} ls={true} mr={true} />
       </View>
     );
@@ -127,6 +133,13 @@ const styles = {
     paddingLeft: 30,
     paddingRight: 30,
     fontSize: 18,
+  },
+  emptyText: {
+    fontSize: 15,
+    color: 'rgb(142, 142, 147)',
+    width: '100%',
+    textAlign: 'center',
+    marginTop: 20,
   },
 };
 
