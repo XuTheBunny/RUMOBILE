@@ -100,12 +100,12 @@ const styles = {
   cardContainer: {
     marginHorizontal: 15,
     marginVertical: 10,
-    borderColor: 'rgb(243, 243, 243)',
+    borderColor: 'rgb(233, 233, 233)',
     borderWidth: 1,
     borderRadius: 8,
     backgroundColor: 'white',
     shadowOffset: { width: 3, height: 5 },
-    shadowColor: 'rgb(243, 243, 243)',
+    shadowColor: 'rgb(233, 233, 233)',
     shadowOpacity: 0.8,
   },
   cardTitleContainer: {
@@ -113,7 +113,7 @@ const styles = {
     justifyContent: 'space-between',
     paddingHorizontal: 8,
     paddingVertical: 6,
-    borderBottomColor: 'rgb(243, 243, 243)',
+    borderBottomColor: 'rgb(233, 233, 233)',
     borderBottomWidth: 1,
   },
   cardBodyContainer: {
