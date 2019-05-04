@@ -10,6 +10,7 @@ import {
   StatusBar,
   ImageBackground,
   Image,
+  RefreshControl,
 } from 'react-native';
 import ClearHeader from '../Components/ClearHeader';
 import BottomBar from '../Components/BottomBar';
@@ -21,6 +22,8 @@ var active_route = [];
 var inactive_route = [];
 
 class Stop extends Component {
+  state = { refreshing: false };
+
   componentWillMount() {
     cleanPrediction = {};
     active_route = [];
@@ -47,6 +50,27 @@ class Stop extends Component {
     return inactive_route.map(route => (
       <RouteInStop key={route.rid} rname={route.rname} prediction={[]} />
     ));
+  }
+
+  onRefresh() {
+    this.setState({ refreshing: true });
+    this.props.getPrediction('clean', []);
+    cleanPrediction = {};
+    active_route = [];
+    inactive_route = [];
+    this.props.getPrediction(rid, sid);
+    this.props.data.routes.forEach(function(element) {
+      if (element.isActive) {
+        rid.push(element.rid);
+        active_route.push(element);
+        cleanPrediction[element.rid] = [];
+      } else {
+        inactive_route.push(element);
+      }
+    });
+    if (this.props.hasPrediction == 'here') {
+      this.setState({ refreshing: false });
+    }
   }
 
   renderActive() {
@@ -94,7 +118,15 @@ class Stop extends Component {
             <Text style={styles.stopDistanceText}> miles away</Text>
           </View>
         </ImageBackground>
-        <ScrollView style={{ marginBottom: 55 }}>
+        <ScrollView
+          style={{ marginBottom: 55 }}
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this.onRefresh.bind(this)}
+            />
+          }
+        >
           <Text style={styles.routeSectionTitle}>Active Routes</Text>
           {this.renderActive()}
           <Text style={styles.routeSectionTitle}>Inactive Routes</Text>

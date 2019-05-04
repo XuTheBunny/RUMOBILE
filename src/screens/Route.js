@@ -1,18 +1,27 @@
 import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import { View, Text, TouchableOpacity, ScrollView, LayoutAnimation, StatusBar } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  LayoutAnimation,
+  StatusBar,
+  RefreshControl,
+} from 'react-native';
 import ClearHeader from '../Components/ClearHeader';
 import BottomBar from '../Components/BottomBar';
 import StopInRoute from '../Components/StopInRoute';
 import Loading from '../Components/Loading';
 import { getPrediction } from '../actions';
 import { routeColor } from '../../route_color.json';
-
 var color = 'rgb(142, 142, 147)';
 var nearestId = '';
 
 class Route extends Component {
+  state = { refreshing: false };
+
   componentWillMount() {
     rid = [this.props.data.rid];
     sid = [];
@@ -36,6 +45,22 @@ class Route extends Component {
 
   isColor() {
     color = routeColor.find(obj => obj.rname == this.props.data.rname).rcolor;
+  }
+
+  onRefresh() {
+    this.setState({ refreshing: true });
+    this.props.getPrediction('clean', []);
+    this.props.data.stops.forEach(function(element) {
+      sid.push(element.sid);
+    });
+    this.props.getPrediction(rid, sid);
+    duplicate = JSON.parse(JSON.stringify(this.props.data.stops));
+    nearestId = duplicate.sort((a, b) =>
+      a.distance > b.distance ? 1 : b.distance > a.distance ? -1 : 0,
+    )[0].sid;
+    if (this.props.hasPrediction == 'here') {
+      this.setState({ refreshing: false });
+    }
   }
 
   singlePrediction(sid) {
@@ -90,7 +115,17 @@ class Route extends Component {
             </TouchableOpacity>
           </View>
         </View>
-        <ScrollView style={{ marginBottom: 55 }}>{this.renderPrediction()}</ScrollView>
+        <ScrollView
+          style={{ marginBottom: 55 }}
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this.onRefresh.bind(this)}
+            />
+          }
+        >
+          {this.renderPrediction()}
+        </ScrollView>
         <BottomBar hs={true} bus={false} fs={true} ls={true} mr={true} />
       </View>
     );
