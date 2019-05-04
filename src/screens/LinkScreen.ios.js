@@ -103,7 +103,7 @@ export default class LinkScreen extends Component {
     return (
       <View style={styles.home}>
         <Header text={'Link'} />
-        <ScrollView>{this.LinkList()}</ScrollView>
+        <ScrollView style={{ marginTop: 5, marginBottom: 55 }}>{this.LinkList()}</ScrollView>
         <BottomBar hs={true} bus={true} fs={true} ls={false} mr={true} />
       </View>
     );
