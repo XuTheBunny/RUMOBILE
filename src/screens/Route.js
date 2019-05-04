@@ -90,7 +90,7 @@ class Route extends Component {
             </TouchableOpacity>
           </View>
         </View>
-        <ScrollView style={{ marginBottom: 75 }}>{this.renderPrediction()}</ScrollView>
+        <ScrollView style={{ marginBottom: 55 }}>{this.renderPrediction()}</ScrollView>
         <BottomBar hs={true} bus={false} fs={true} ls={true} mr={true} />
       </View>
     );

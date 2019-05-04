@@ -94,7 +94,7 @@ class Stop extends Component {
             <Text style={styles.stopDistanceText}> miles away</Text>
           </View>
         </ImageBackground>
-        <ScrollView style={{ marginBottom: 75 }}>
+        <ScrollView style={{ marginBottom: 55 }}>
           <Text style={styles.routeSectionTitle}>Active Routes</Text>
           {this.renderActive()}
           <Text style={styles.routeSectionTitle}>Inactive Routes</Text>
