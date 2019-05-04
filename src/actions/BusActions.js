@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { NEARBYBUS, ALLBUS, ACTIVEROUTES, INACTIVEROUTES, BUS_DATA_HERE } from './types';
+import { NEARBYBUS, ALLBUS, ACTIVEROUTES, INACTIVEROUTES, BUS_DATA_HERE, CAMPUS } from './types';
 
 var geodist = require('geodist');
 
