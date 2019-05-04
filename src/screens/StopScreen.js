@@ -21,10 +21,7 @@ class StopScreen extends Component {
   }
 
   componentWillMount() {
-    if (this.props.check == 'here') {
-    } else {
-      this.props.getBusStops();
-    }
+    this.props.getBusStops(this.props.campus);
   }
 
   onChange() {
@@ -121,6 +118,7 @@ const mapStateToProps = state => {
     nearby: state.bus.nb_data,
     all: state.bus.all_data,
     check: state.bus.data_here,
+    campus: state.bus.campus,
   };
 };
 

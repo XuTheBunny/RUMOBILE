@@ -3,16 +3,37 @@ import axios from 'axios';
 import { NEARBYBUS, ALLBUS, ACTIVEROUTES, INACTIVEROUTES, BUS_DATA_HERE } from './types';
 
 var geodist = require('geodist');
-const newark = '40.841884%2C-74.011088%7C40.660668%2C-74.277053';
-const newBrunswick = '40.382690%2C-74.595626%7C40.625639%2C-74.280317';
-var geoArea = newBrunswick;
+
+const campusGeoArea = {
+  newark: '40.841884%2C-74.011088%7C40.660668%2C-74.277053',
+  newBrunswick: '40.382690%2C-74.595626%7C40.625639%2C-74.280317',
+};
+const campusIndex = ['newBrunswick', 'newark'];
 const agency_id = '1323';
 const base_url = 'https://transloc-api-1-2.p.mashape.com/';
-const all_stops_url = base_url + 'stops.json?geo_area=' + geoArea + '&agencies=' + agency_id;
-const all_routes_url = base_url + 'routes.json?geo_area=' + geoArea + '&agencies=' + agency_id;
-const all_buses_url = base_url + 'vehicles.json?geo_area=' + geoArea + '&agencies=' + agency_id;
 
-export const getBusStops = () => {
+export const getBusStops = action => {
+  var campus = '';
+  if (campusIndex.includes(action)) {
+    campus = action;
+  } else if (action == 'clean') {
+    return dispatch => {
+      dispatch({ type: ACTIVEROUTES, payload: [] });
+      dispatch({ type: INACTIVEROUTES, payload: [] });
+      dispatch({ type: NEARBYBUS, payload: [] });
+      dispatch({ type: ALLBUS, payload: [] });
+      dispatch({ type: BUS_DATA_HERE, payload: 'no' });
+    };
+  } else {
+    campus = campusIndex[0];
+  }
+  const all_stops_url =
+    base_url + 'stops.json?geo_area=' + campusGeoArea[campus] + '&agencies=' + agency_id;
+  const all_routes_url =
+    base_url + 'routes.json?geo_area=' + campusGeoArea[campus] + '&agencies=' + agency_id;
+  const all_buses_url =
+    base_url + 'vehicles.json?geo_area=' + campusGeoArea[campus] + '&agencies=' + agency_id;
+
   var stop_name = {};
   var route_name = {};
   var nearby_stops = [];
