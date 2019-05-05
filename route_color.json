@@ -1,0 +1,139 @@
+{
+  "routeColor": [
+    {
+      "rtag": "A",
+      "rname": "Route A",
+      "rcolor": "rgb(124, 31, 206)"
+    },
+    {
+      "rtag": "B",
+      "rname": "Route B",
+      "rcolor": "rgb(32, 116, 214)"
+    },
+    {
+      "rtag": "C",
+      "rname": "Route C",
+      "rcolor": "rgb(244, 74, 74)"
+    },
+    {
+      "rtag": "EE",
+      "rname": "Route EE",
+      "rcolor": "rgb(62, 210, 177)"
+    },
+    {
+      "rtag": "F",
+      "rname": "Route F",
+      "rcolor": "rgb(243, 37, 168)"
+    },
+    {
+      "rtag": "H",
+      "rname": "Route H",
+      "rcolor": "rgb(119, 204, 27)"
+    },
+    {
+      "rtag": "LX",
+      "rname": "Route LX",
+      "rcolor": "rgb(255, 204, 0)"
+    },
+    {
+      "rtag": "ALL",
+      "rname": "Route All Campuses",
+      "rcolor": "rgb(0, 156, 80)"
+    },
+    {
+      "rtag": "S1",
+      "rname": "Route New BrunsQuick 1 Shuttle",
+      "rcolor": "rgb(236, 76, 127)"
+    },
+    {
+      "rtag": "S2",
+      "rname": "Route New BrunsQuick 2 Shuttle",
+      "rcolor": "rgb(90, 200, 250)"
+    },
+    {
+      "rtag": "RBHS",
+      "rname": "Route RBHS",
+      "rcolor": "rgb(88, 86, 214)"
+    },
+    {
+      "rtag": "REXB",
+      "rname": "Route REXB",
+      "rcolor": "rgb(255, 149, 0)"
+    },
+    {
+      "rtag": "REXL",
+      "rname": "Route REXL",
+      "rcolor": "rgb(187, 120, 246)"
+    },
+    {
+      "rtag": "W1",
+      "rname": "Route Weekend 1",
+      "rcolor": "rgb(244, 74, 74)"
+    },
+    {
+      "rtag": "W2",
+      "rname": "Route Weekend 2",
+      "rcolor": "rgb(32, 116, 214)"
+    },
+    {
+      "rtag": "W1",
+      "rname": "Weekend 1",
+      "rcolor": "rgb(78, 77, 72)"
+    },
+    {
+      "rtag": "W2",
+      "rname": "Weekend 2",
+      "rcolor": "rgb(78, 77, 72)"
+    },
+    {
+      "rtag": "Sum1",
+      "rname": "Summer 1",
+      "rcolor": "rgb(244, 74, 74)"
+    },
+    {
+      "rtag": "Sum2",
+      "rname": "Summer 2",
+      "rcolor": "rgb(32, 116, 214)"
+    },
+    {
+      "rtag": "Penn St",
+      "rname": "Newark Penn Station",
+      "rcolor": "rgb(255, 102, 199)"
+    },
+    {
+      "rtag": "Connect",
+      "rname": "Newark Campus Connect",
+      "rcolor": "rgb(250, 209, 0)"
+    },
+    {
+      "rtag": "Kearny",
+      "rname": "Newark Kearny",
+      "rcolor": "rgb(74, 144, 226)"
+    },
+    {
+      "rtag": "Penn St E",
+      "rname": "Newark Penn Station Express",
+      "rcolor": "rgb(245, 166, 35)"
+    },
+    {
+      "rtag": "Connect E",
+      "rname": "Newark Campus Connect Express",
+      "rcolor": "rgb(126, 211, 33)"
+    },
+    {
+      "rtag": "Run Run E",
+      "rname": "Newark Run Run Express",
+      "rcolor": "rgb(78, 77, 72)"
+    },
+    {
+      "rtag": "Run Run",
+      "rname": "Newark Run Run",
+      "rcolor": "rgb(255, 101, 101)"
+    },
+    {
+      "rtag": "?",
+      "rname": "else",
+      "rcolor": "rgb(142, 142, 147)"
+    }
+  ]
+}

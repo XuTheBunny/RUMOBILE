@@ -3,6 +3,10 @@ import { Text, View, Image, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { getPrediction } from '../actions';
+import { routeColor } from '../../route_color.json';
+
+var color = 'rgb(142, 142, 147)';
+var tag = '?';
 
 class RouteInStop extends React.Component {
   state = { like: false };
@@ -28,49 +32,23 @@ class RouteInStop extends React.Component {
     }
   }
 
-  renderRouteImg(rname) {
-    var box = {};
-    if (rname == 'Route A') {
-      box = { h: 23, src: require('../images/BI/biA.png') };
-    } else if (rname == 'Route B') {
-      box = { h: 23, src: require('../images/BI/biB.png') };
-    } else if (rname == 'Route C') {
-      box = { h: 23, src: require('../images/BI/biC.png') };
-    } else if (rname == 'Route EE') {
-      box = { h: 29, src: require('../images/BI/biEE.png') };
-    } else if (rname == 'Route F') {
-      box = { h: 23, src: require('../images/BI/biF.png') };
-    } else if (rname == 'Route H') {
-      box = { h: 23, src: require('../images/BI/biH.png') };
-    } else if (rname == 'Route LX') {
-      box = { h: 29, src: require('../images/BI/biLX.png') };
-    } else if (rname == 'Route All Campuses') {
-      box = { h: 37, src: require('../images/BI/biALL.png') };
-    } else if (rname == 'Route New BrunsQuick 1 Shuttle') {
-      box = { h: 33, src: require('../images/BI/biS1.png') };
-    } else if (rname == 'Route New BrunsQuick 2 Shuttle') {
-      box = { h: 33, src: require('../images/BI/biS2.png') };
-    } else if (rname == 'Route RBHS') {
-      box = { h: 48, src: require('../images/BI/biRBHS.png') };
-    } else if (rname == 'Route REXB') {
-      box = { h: 48, src: require('../images/BI/biREXB.png') };
-    } else if (rname == 'Route REXL') {
-      box = { h: 48, src: require('../images/BI/biREXL.png') };
-    } else if (rname == 'Route Weekend 1' || rname == 'Weekend 1') {
-      box = { h: 35, src: require('../images/BI/biW1.png') };
-    } else if (rname == 'Route Weekend 2' || rname == 'Weekend 2') {
-      box = { h: 35, src: require('../images/BI/biW2.png') };
-    } else {
-      box = { h: 23, src: require('../images/BI/biN.png') };
-    }
-    return <Image style={{ width: box.h, height: 23 }} source={box.src} />;
+  getColor(rname) {
+    return routeColor.find(obj => obj.rname == rname).rcolor;
+  }
+
+  getTag(rname) {
+    return routeColor.find(obj => obj.rname == rname).rtag;
   }
 
   render() {
     return (
       <View style={styles.flexContainer}>
         <View style={{ flexDirection: 'row' }}>
-          <View style={styles.imgContainer}>{this.renderRouteImg(this.props.rname)}</View>
+          <View style={styles.imgContainer}>
+            <View style={[styles.busIconBox, { backgroundColor: this.getColor(this.props.rname) }]}>
+              <Text style={styles.busIconText}>{this.getTag(this.props.rname)}</Text>
+            </View>
+          </View>
           {this.formPrediction()}
         </View>
         <TouchableOpacity
@@ -126,6 +104,15 @@ const styles = {
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
+  },
+  busIconText: {
+    fontSize: 15,
+    color: 'rgb(255, 255, 255)',
+  },
+  busIconBox: {
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 4,
   },
 };
 

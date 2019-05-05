@@ -3,6 +3,10 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { getBusStops } from '../actions';
+import { routeColor } from '../../route_color.json';
+
+var color = 'rgb(142, 142, 147)';
+var tag = '?';
 var boxes = new Array();
 var k = 0;
 var routes = false;
@@ -22,79 +26,23 @@ class NearbyItem extends Component {
     }
   }
 
-  createbox() {
-    var x = 0;
-    for (var i = 0; i < this.props.stop.routes.length; i++) {
-      x++;
-      if (this.props.stop.routes[i].isActive) {
-        if (this.props.stop.routes[i].rname == 'Route A') {
-          var obj = { h: 23, src: require('../images/BI/biA.png'), key: x };
-          boxes.push(obj);
-        } else if (this.props.stop.routes[i].rname == 'Route B') {
-          var obj = { h: 23, src: require('../images/BI/biB.png'), key: x };
-          boxes.push(obj);
-        } else if (this.props.stop.routes[i].rname == 'Route C') {
-          var obj = { h: 23, src: require('../images/BI/biC.png'), key: x };
-          boxes.push(obj);
-        } else if (this.props.stop.routes[i].rname == 'Route EE') {
-          var obj = { h: 29, src: require('../images/BI/biEE.png'), key: x };
-          boxes.push(obj);
-        } else if (this.props.stop.routes[i].rname == 'Route F') {
-          var obj = { h: 23, src: require('../images/BI/biF.png'), key: x };
-          boxes.push(obj);
-        } else if (this.props.stop.routes[i].rname == 'Route H') {
-          var obj = { h: 23, src: require('../images/BI/biH.png'), key: x };
-          boxes.push(obj);
-        } else if (this.props.stop.routes[i].rname == 'Route LX') {
-          var obj = { h: 29, src: require('../images/BI/biLX.png'), key: x };
-          boxes.push(obj);
-        } else if (this.props.stop.routes[i].rname == 'Route All Campuses') {
-          var obj = { h: 37, src: require('../images/BI/biALL.png'), key: x };
-          boxes.push(obj);
-        } else if (this.props.stop.routes[i].rname == 'Route New BrunsQuick 1 Shuttle') {
-          var obj = { h: 33, src: require('../images/BI/biS1.png'), key: x };
-          boxes.push(obj);
-        } else if (this.props.stop.routes[i].rname == 'Route New BrunsQuick 2 Shuttle') {
-          var obj = { h: 33, src: require('../images/BI/biS2.png'), key: x };
-          boxes.push(obj);
-        } else if (this.props.stop.routes[i].rname == 'Route RBHS') {
-          var obj = { h: 48, src: require('../images/BI/biRBHS.png'), key: x };
-          boxes.push(obj);
-        } else if (this.props.stop.routes[i].rname == 'Route REXB') {
-          var obj = { h: 48, src: require('../images/BI/biREXB.png'), key: x };
-          boxes.push(obj);
-        } else if (this.props.stop.routes[i].rname == 'Route REXL') {
-          var obj = { h: 48, src: require('../images/BI/biREXL.png'), key: x };
-          boxes.push(obj);
-        } else if (this.props.stop.routes[i].rname == 'Route Weekend 1') {
-          var obj = { h: 35, src: require('../images/BI/biW1.png'), key: x };
-          boxes.push(obj);
-        } else if (this.props.stop.routes[i].rname == 'Route Weekend 2') {
-          var obj = { h: 35, src: require('../images/BI/biW2.png'), key: x };
-          boxes.push(obj);
-        } else {
-          var obj = { h: 23, src: require('../images/BI/biN.png'), key: x };
-          boxes.push(obj);
-        }
-      }
-    }
-    k = boxes.length;
+  getColor(rname) {
+    return routeColor.find(obj => obj.rname == rname).rcolor;
   }
-  boxReset() {
-    k--;
-    if (k == 0) {
-      boxes = new Array();
-    }
+
+  getTag(rname) {
+    return routeColor.find(obj => obj.rname == rname).rtag;
   }
-  renderBus() {
-    if (routes == true) {
-      return boxes.map(box => (
-        <View key={box.key}>
-          <Image
-            style={{ width: box.h, height: 23, marginRight: 6, marginTop: 2 }}
-            source={box.src}
-          />
-          {this.boxReset()}
+
+  renderBus(routes) {
+    activeRoutes = routes.filter(route => route.isActive);
+    if (activeRoutes.length > 0) {
+      return activeRoutes.map(route => (
+        <View
+          key={route.rid}
+          style={[styles.busIconBox, { backgroundColor: this.getColor(route.rname) }]}
+        >
+          <Text style={styles.busIconText}>{this.getTag(route.rname)}</Text>
         </View>
       ));
     } else {
@@ -103,9 +51,6 @@ class NearbyItem extends Component {
   }
 
   render() {
-    this.resetRoutes();
-    this.checkRoutes();
-    this.createbox();
     return (
       <View style={styles.viewStyle}>
         <TouchableOpacity onPress={() => this.StopPress(this.props.stop)}>
@@ -113,7 +58,7 @@ class NearbyItem extends Component {
             <Text style={styles.textStyle}>{this.props.stop.sname}</Text>
             <Text style={styles.textStyle2}>{this.props.stop.distance} mi</Text>
           </View>
-          <View style={styles.viewStyle3}>{this.renderBus()}</View>
+          <View style={styles.viewStyle3}>{this.renderBus(this.props.stop.routes)}</View>
         </TouchableOpacity>
       </View>
     );
@@ -146,6 +91,19 @@ const styles = {
   },
   viewStyle3: {
     flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    marginTop: 5,
+  },
+  busIconText: {
+    fontSize: 15,
+    color: 'rgb(255, 255, 255)',
+  },
+  busIconBox: {
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 4,
+    marginRight: 6,
   },
   boxTextStyle: {
     fontSize: 16,
