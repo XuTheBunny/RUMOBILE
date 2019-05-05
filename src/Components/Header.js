@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image, SafeAreaView } from 'react-native';
 import CardItem from './CardItem';
 
 class Header extends React.Component {
@@ -12,29 +12,23 @@ class Header extends React.Component {
   render() {
     return (
       <View style={styles.viewStyle}>
-        <CardItem>
-          <View>
-            <Text style={styles.textStyle2}>{this.props.dateText}</Text>
-            <View style={styles.containerStyle}>
-              <Text style={styles.textStyle}>{this.props.text}</Text>
-              {this.props.showProfilePic && (
-                <Image style={styles.imageStyle} source={require('../images/ProfilePic.jpg')} />
-              )}
-            </View>
-          </View>
-        </CardItem>
+        <Text style={styles.textStyle2}>{this.props.dateText}</Text>
+        <View style={styles.containerStyle}>
+          <Text style={styles.textStyle}>{this.props.text}</Text>
+          {this.props.showProfilePic && (
+            <Image style={styles.imageStyle} source={require('../images/Today/ProfilePic.jpg')} />
+          )}
+        </View>
       </View>
     );
   }
 }
 const styles = {
   viewStyle: {
+    marginTop: 30,
     backgroundColor: 'white',
     justifyContent: 'center',
-    //alignItems: 'center',
-    height: 115,
-    paddingTop: 30,
-    paddingLeft: 20,
+    paddingHorizontal: 20,
     elevation: 2,
     position: 'relative',
   },
@@ -42,7 +36,6 @@ const styles = {
     fontSize: 34,
     paddingTop: 4,
     fontWeight: '700',
-    paddingRight: 200,
     fontFamily: 'System',
   },
   containerStyle: {
@@ -55,6 +48,7 @@ const styles = {
     color: 'rgb(142, 142, 147)',
     fontFamily: 'System',
     fontWeight: 'bold',
+    paddingTop: 10,
   },
   imageStyle: { width: 40, height: 40 },
 };

@@ -14,6 +14,7 @@ class StopScreen extends Component {
   state = {
     show1: true,
     show2: true,
+    refreshing: false,
   };
 
   componentWillUpdate() {
@@ -31,6 +32,19 @@ class StopScreen extends Component {
     Actions.route_screen();
   }
 
+  fetchData() {}
+
+  onRefresh() {
+    // this.setState({ refreshing: true });
+    // var fetchData = new Promise((resolve, reject) => {
+    //   this.props.getBusStops(this.props.campus);
+    //   resolve('Success!');
+    // });
+    // Promise.all([fetchData]).then(() => {
+    //   this.setState({ refreshing: false });
+    // });
+  }
+
   render() {
     return (
       <View style={styles.home}>
@@ -45,7 +59,7 @@ class StopScreen extends Component {
             tabTextStyle={styles.tabTextStyle}
           />
         </View>
-        <ScrollView style={{ marginBottom: 75, marginTop: 12 }}>
+        <ScrollView style={{ marginBottom: 55, marginTop: 12 }}>
           <View style={styles.viewStyle}>
             <Text style={styles.fontStyle}>Nearby</Text>
             <TouchableOpacity

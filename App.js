@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { API_KEY, AUTH_DOMAIN, DATABASE_URL, PROJECT_ID, MESSAGE_SENDER_ID } from './env.json';
-import { Text, View } from 'react-native';
 import { Provider } from 'react-redux';
+import { SafeAreaView } from 'react-navigation';
 import firebase from 'firebase';
 import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
@@ -21,9 +21,11 @@ firebase.initializeApp(config);
 export default class App extends Component {
   render() {
     return (
-      <Provider store={createStore(reducers, {}, applyMiddleware(ReduxThunk))}>
-        <Router />
-      </Provider>
+      <SafeAreaView forceInset={{ top: 'never' }} style={{ flex: 1, backgroundColor: '#fff' }}>
+        <Provider store={createStore(reducers, {}, applyMiddleware(ReduxThunk))}>
+          <Router />
+        </Provider>
+      </SafeAreaView>
     );
   }
 }
