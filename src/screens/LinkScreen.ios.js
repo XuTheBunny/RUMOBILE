@@ -92,21 +92,9 @@ export default class LinkScreen extends Component {
   LinkList() {
     return links.map(link => (
       <TouchableOpacity key={link.title} onPress={() => this.sfViewController(link)}>
-        <View>
-          <View style={styles.viewStyle}>
-            <Image
-              style={{ width: 30, height: 30, marginRight: 30, marginLeft: 16 }}
-              source={link.src}
-            />
-            <Text style={styles.textStyle}>{link.title}</Text>
-          </View>
-          <View
-            style={{
-              borderBottomColor: 'rgb(200, 199, 204)',
-              borderBottomWidth: 1,
-              marginHorizontal: 16,
-            }}
-          />
+        <View style={styles.viewStyle}>
+          <Image style={{ width: 30, height: 30 }} source={link.src} />
+          <Text style={styles.textStyle}>{link.title}</Text>
         </View>
       </TouchableOpacity>
     ));
@@ -130,10 +118,14 @@ const styles = {
   textStyle: {
     fontFamily: 'system font',
     fontSize: 18,
+    paddingLeft: 26,
   },
   viewStyle: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 10,
+    padding: 10,
+    marginLeft: 16,
+    borderBottomColor: 'rgb(235,235,235)',
+    borderBottomWidth: 0.5,
   },
 };
