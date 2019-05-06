@@ -28,7 +28,6 @@ class FoodList extends Component {
   }
 
   render() {
-    console.log(this.props.data);
     return (
       <View style={styles.home}>
         <BackHeader text={'Food'} />

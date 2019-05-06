@@ -88,8 +88,6 @@ class Stop extends Component {
             diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
             if (cleanPrediction[element.route_id]) {
               cleanPrediction[element.route_id].push(diffMins);
-            } else {
-              console.log(element.route_id);
             }
           });
         return active_route.map(route => (

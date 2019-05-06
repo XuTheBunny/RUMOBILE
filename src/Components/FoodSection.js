@@ -65,7 +65,6 @@ class FoodSection extends Component {
     ));
   }
   render() {
-    console.log(this.props.food);
     return (
       <View>
         <View style={styles.sectionImgBox}>

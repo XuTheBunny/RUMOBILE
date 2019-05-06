@@ -18,7 +18,6 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-  //console.log(action);
   switch (action.type) {
     case TRYING_FOOD_PULL:
       return { ...state, trying_food_pull: action.payload };

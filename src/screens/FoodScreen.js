@@ -14,7 +14,6 @@ class FoodScreen extends Component {
   openStatus(name) {
     var open = false;
     if (name == 'brower') {
-      console.log(this.props.brower.meals);
       for (var i = 0; i < this.props.brower.meals.length; i++) {
         if (this.props.brower.meals[i].meal_avail == true) {
           open = true;
@@ -35,7 +34,6 @@ class FoodScreen extends Component {
     }
 
     if (name == 'busch') {
-      console.log(this.props.busch.meals);
       for (var i = 0; i < this.props.busch.meals.length; i++) {
         if (this.props.busch.meals[i].meal_avail == true) {
           open = true;
@@ -56,7 +54,6 @@ class FoodScreen extends Component {
     }
 
     if (name == 'livingston') {
-      console.log(this.props.livingston.meals);
       for (var i = 0; i < this.props.livingston.meals.length; i++) {
         if (this.props.livingston.meals[i].meal_avail == true) {
           open = true;
@@ -77,7 +74,6 @@ class FoodScreen extends Component {
     }
 
     if (name == 'neilson') {
-      console.log(this.props.neilson.meals);
       for (var i = 0; i < this.props.neilson.meals.length; i++) {
         if (this.props.neilson.meals[i].meal_avail == true) {
           open = true;
