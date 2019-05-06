@@ -110,7 +110,7 @@ class Stop extends Component {
         <ImageBackground
           imageStyle={{ opacity: 0.7 }}
           style={styles.stopHeaderContainer}
-          source={require('../images/BI/BusBackground.jpeg')}
+          source={require('../images/Bus/BusBackground.jpeg')}
         >
           <ClearHeader text={'Bus'} />
           <Text style={styles.stopHeaderTitle}>{thisStop.sname}</Text>
