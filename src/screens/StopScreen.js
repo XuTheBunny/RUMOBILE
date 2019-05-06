@@ -14,7 +14,6 @@ class StopScreen extends Component {
   state = {
     show1: true,
     show2: true,
-    refreshing: false,
   };
 
   componentWillUpdate() {
@@ -30,19 +29,6 @@ class StopScreen extends Component {
 
   onChange() {
     Actions.route_screen();
-  }
-
-  fetchData() {}
-
-  onRefresh() {
-    // this.setState({ refreshing: true });
-    // var fetchData = new Promise((resolve, reject) => {
-    //   this.props.getBusStops(this.props.campus);
-    //   resolve('Success!');
-    // });
-    // Promise.all([fetchData]).then(() => {
-    //   this.setState({ refreshing: false });
-    // });
   }
 
   render() {
