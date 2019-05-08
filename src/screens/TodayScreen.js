@@ -8,7 +8,7 @@ import BottomBar from '../Components/BottomBar';
 import HomeBanner from '../Components/HomeBanner';
 import { loginUser, pullBanner, timeAction, pullDate, getBusStops } from '../actions';
 
-class HomeScreen extends Component {
+class TodayScreen extends Component {
   state = {
     busEmpty: true,
     classEmpty: true,
@@ -162,4 +162,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   { loginUser, pullBanner, timeAction, pullDate, getBusStops },
-)(HomeScreen);
+)(TodayScreen);
