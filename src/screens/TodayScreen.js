@@ -35,7 +35,7 @@ class TodayScreen extends Component {
 
   onBusPress() {
     this.props.getBusStops('clean');
-    Actions.stop_screen();
+    Actions.bus_screen();
     this.props.getBusStops(this.props.campus);
   }
 
