@@ -15,7 +15,6 @@ import {
 import ClearHeader from '../Components/ClearHeader';
 import BottomBar from '../Components/BottomBar';
 import RouteInStop from '../Components/RouteInStop';
-import Loading from '../Components/Loading';
 import { getPrediction } from '../actions';
 var cleanPrediction = {};
 var active_route = [];
@@ -98,8 +97,6 @@ class Stop extends Component {
           />
         ));
       }
-    } else {
-      return <Loading />;
     }
   }
 

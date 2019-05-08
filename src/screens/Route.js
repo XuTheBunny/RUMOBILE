@@ -13,7 +13,6 @@ import {
 import ClearHeader from '../Components/ClearHeader';
 import BottomBar from '../Components/BottomBar';
 import StopInRoute from '../Components/StopInRoute';
-import Loading from '../Components/Loading';
 import { getPrediction } from '../actions';
 import { routeColor } from '../../route_color.json';
 var color = 'rgb(142, 142, 147)';
@@ -100,8 +99,6 @@ class Route extends Component {
           nearest={nearestId == stop.sid}
         />
       ));
-    } else {
-      return <Loading />;
     }
   }
 
