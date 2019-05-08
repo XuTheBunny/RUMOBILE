@@ -4,7 +4,6 @@ import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import Header from '../Components/Header';
-import BottomBar from '../Components/BottomBar';
 import HomeBanner from '../Components/HomeBanner';
 import { loginUser, pullBanner, timeAction, pullDate, getBusStops } from '../actions';
 
@@ -86,7 +85,6 @@ class TodayScreen extends Component {
             </View>
           )}
         </ScrollView>
-        <BottomBar hs={false} bus={true} fs={true} ls={true} mr={true} />
       </View>
     );
   }

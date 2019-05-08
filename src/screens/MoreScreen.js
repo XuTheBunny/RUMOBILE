@@ -6,7 +6,6 @@ import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Header from '../Components/Header';
-import BottomBar from '../Components/BottomBar';
 
 class MoreScreen extends Component {
   state = {
@@ -84,8 +83,6 @@ class MoreScreen extends Component {
             </View>
           </TouchableOpacity>
         </ScrollView>
-
-        <BottomBar hs={true} bus={true} fs={true} ls={true} mr={false} />
       </View>
     );
   }

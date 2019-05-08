@@ -11,7 +11,6 @@ import {
   RefreshControl,
 } from 'react-native';
 import ClearHeader from '../Components/ClearHeader';
-import BottomBar from '../Components/BottomBar';
 import StopInRoute from '../Components/StopInRoute';
 import { getPrediction } from '../actions';
 import { routeColor } from '../../route_color.json';
@@ -120,7 +119,6 @@ class Route extends Component {
           </View>
         </View>
         <ScrollView
-          style={{ marginBottom: 55 }}
           refreshControl={
             <RefreshControl
               refreshing={this.state.refreshing}
@@ -130,7 +128,6 @@ class Route extends Component {
         >
           {this.renderPrediction()}
         </ScrollView>
-        <BottomBar hs={true} bus={false} fs={true} ls={true} mr={true} />
       </View>
     );
   }

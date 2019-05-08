@@ -48,7 +48,7 @@ class BusScreen extends Component {
           />
         </View>
         {this.state.selectedIndex == 0 ? (
-          <ScrollView style={{ marginBottom: 55, marginTop: 12 }}>
+          <ScrollView style={{ marginTop: 12 }}>
             <View style={styles.viewStyle}>
               <Text style={styles.fontStyle}>Nearby</Text>
               <TouchableOpacity
@@ -85,7 +85,7 @@ class BusScreen extends Component {
             {this.state.showStop2 && <AllList />}
           </ScrollView>
         ) : (
-          <ScrollView style={{ marginBottom: 55, marginTop: 12 }}>
+          <ScrollView style={{ marginTop: 12 }}>
             <View style={styles.viewStyle}>
               <Text style={styles.fontStyle}>Active Routes</Text>
               <TouchableOpacity

@@ -13,7 +13,6 @@ import {
   RefreshControl,
 } from 'react-native';
 import ClearHeader from '../Components/ClearHeader';
-import BottomBar from '../Components/BottomBar';
 import RouteInStop from '../Components/RouteInStop';
 import { getPrediction } from '../actions';
 var cleanPrediction = {};
@@ -117,7 +116,6 @@ class Stop extends Component {
           </View>
         </ImageBackground>
         <ScrollView
-          style={{ marginBottom: 55 }}
           refreshControl={
             <RefreshControl
               refreshing={this.state.refreshing}
@@ -130,7 +128,6 @@ class Stop extends Component {
           <Text style={styles.routeSectionTitle}>Inactive Routes</Text>
           {this.renderInactive()}
         </ScrollView>
-        <BottomBar hs={true} bus={false} fs={true} ls={true} mr={true} />
       </View>
     );
   }
