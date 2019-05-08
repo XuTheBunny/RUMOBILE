@@ -8,7 +8,6 @@ import {
   MESSAGE_SENDER_ID,
 } from './env.json';
 import { Provider } from 'react-redux';
-import { SafeAreaView } from 'react-navigation';
 import firebase from 'firebase';
 import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
@@ -28,11 +27,9 @@ firebase.initializeApp(config);
 export default class App extends Component {
   render() {
     return (
-      <SafeAreaView forceInset={{ top: 'never' }} style={{ flex: 1, backgroundColor: '#fff' }}>
-        <Provider store={createStore(reducers, {}, applyMiddleware(ReduxThunk))}>
-          <Router />
-        </Provider>
-      </SafeAreaView>
+      <Provider store={createStore(reducers, {}, applyMiddleware(ReduxThunk))}>
+        <Router />
+      </Provider>
     );
   }
 }
