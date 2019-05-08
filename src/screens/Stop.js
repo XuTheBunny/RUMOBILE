@@ -15,11 +15,11 @@ import {
 import ClearHeader from '../Components/ClearHeader';
 import BottomBar from '../Components/BottomBar';
 import RouteInStop from '../Components/RouteInStop';
-import Loading from '../Components/Loading';
 import { getPrediction } from '../actions';
 var cleanPrediction = {};
 var active_route = [];
 var inactive_route = [];
+var thisStop = {};
 
 class Stop extends Component {
   state = { refreshing: false };
@@ -28,9 +28,10 @@ class Stop extends Component {
     cleanPrediction = {};
     active_route = [];
     inactive_route = [];
-    sid = [this.props.data.sid];
+    sid = [this.props.data];
     rid = [];
-    this.props.data.routes.forEach(function(element) {
+    thisStop = this.props.allStops.find(obj => obj.sid == this.props.data);
+    thisStop.routes.forEach(function(element) {
       if (element.isActive) {
         rid.push(element.rid);
         active_route.push(element);
@@ -59,7 +60,8 @@ class Stop extends Component {
     active_route = [];
     inactive_route = [];
     this.props.getPrediction(rid, sid);
-    this.props.data.routes.forEach(function(element) {
+    thisStop = this.props.allStops.find(obj => obj.sid == this.props.data);
+    thisStop.routes.forEach(function(element) {
       if (element.isActive) {
         rid.push(element.rid);
         active_route.push(element);
@@ -85,8 +87,6 @@ class Stop extends Component {
             diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
             if (cleanPrediction[element.route_id]) {
               cleanPrediction[element.route_id].push(diffMins);
-            } else {
-              console.log(element.route_id);
             }
           });
         return active_route.map(route => (
@@ -97,8 +97,6 @@ class Stop extends Component {
           />
         ));
       }
-    } else {
-      return <Loading />;
     }
   }
 
@@ -109,12 +107,12 @@ class Stop extends Component {
         <ImageBackground
           imageStyle={{ opacity: 0.7 }}
           style={styles.stopHeaderContainer}
-          source={require('../images/BI/BusBackground.jpeg')}
+          source={require('../images/Bus/BusBackground.jpeg')}
         >
           <ClearHeader text={'Bus'} />
-          <Text style={styles.stopHeaderTitle}>{this.props.data.sname}</Text>
+          <Text style={styles.stopHeaderTitle}>{thisStop.sname}</Text>
           <View style={styles.stopDistanceBox}>
-            <Text style={styles.stopDistance}>{this.props.data.distance}</Text>
+            <Text style={styles.stopDistance}>{thisStop.distance}</Text>
             <Text style={styles.stopDistanceText}> miles away</Text>
           </View>
         </ImageBackground>
@@ -184,6 +182,7 @@ const styles = {
 
 const mapStateToProps = state => {
   return {
+    allStops: state.bus.all_data,
     prediction: state.bus.prediction,
     hasPrediction: state.bus.has_prediction,
   };

@@ -6,7 +6,7 @@ import { Actions } from 'react-native-router-flux';
 import Header from '../Components/Header';
 import BottomBar from '../Components/BottomBar';
 import HomeBanner from '../Components/HomeBanner';
-import { loginUser, pullBanner, timeAction, pullDate } from '../actions';
+import { loginUser, pullBanner, timeAction, pullDate, getBusStops } from '../actions';
 
 class HomeScreen extends Component {
   state = {
@@ -32,6 +32,12 @@ class HomeScreen extends Component {
   Time() {
     var x = new Date();
     this.props.timeAction(x);
+  }
+
+  onBusPress() {
+    this.props.getBusStops('clean');
+    Actions.stop_screen();
+    this.props.getBusStops(this.props.campus);
   }
 
   render() {
@@ -73,7 +79,7 @@ class HomeScreen extends Component {
               <View style={[styles.cardBodyContainer, { marginBottom: 20 }]}>
                 <Image style={styles.emptyImage} source={require('../images/Today/noBus.png')} />
                 <Text style={styles.emptyText}>Quickly access your favorites buses here.</Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={this.onBusPress.bind(this)}>
                   <Text style={styles.emptyButton}>Add Buses</Text>
                 </TouchableOpacity>
               </View>
@@ -94,12 +100,12 @@ const styles = {
   cardContainer: {
     marginHorizontal: 15,
     marginVertical: 10,
-    borderColor: 'rgb(243, 243, 243)',
+    borderColor: 'rgb(233, 233, 233)',
     borderWidth: 1,
     borderRadius: 8,
     backgroundColor: 'white',
     shadowOffset: { width: 3, height: 5 },
-    shadowColor: 'rgb(243, 243, 243)',
+    shadowColor: 'rgb(233, 233, 233)',
     shadowOpacity: 0.8,
   },
   cardTitleContainer: {
@@ -107,7 +113,7 @@ const styles = {
     justifyContent: 'space-between',
     paddingHorizontal: 8,
     paddingVertical: 6,
-    borderBottomColor: 'rgb(243, 243, 243)',
+    borderBottomColor: 'rgb(233, 233, 233)',
     borderBottomWidth: 1,
   },
   cardBodyContainer: {
@@ -155,5 +161,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { loginUser, pullBanner, timeAction, pullDate },
+  { loginUser, pullBanner, timeAction, pullDate, getBusStops },
 )(HomeScreen);

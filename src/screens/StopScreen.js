@@ -10,7 +10,7 @@ import { getBusStops } from '../actions';
 import NearbyList from '../Components/NearbyList';
 import AllList from '../Components/AllList';
 
-class StopScreen extends Component {
+export default class StopScreen extends Component {
   state = {
     show1: true,
     show2: true,
@@ -18,13 +18,6 @@ class StopScreen extends Component {
 
   componentWillUpdate() {
     LayoutAnimation.easeInEaseOut();
-  }
-
-  componentWillMount() {
-    if (this.props.check == 'here') {
-    } else {
-      this.props.getBusStops(this.props.campus);
-    }
   }
 
   onChange() {
@@ -35,7 +28,7 @@ class StopScreen extends Component {
     return (
       <View style={styles.home}>
         <Header text={'Bus'} />
-        <View style={{ paddingHorizontal: 13 }}>
+        <View style={{ paddingHorizontal: 13, marginTop: 10 }}>
           <SegmentedControlTab
             values={['Stops', 'Routes']}
             selectedIndex={0}
@@ -115,17 +108,3 @@ const styles = {
     paddingVertical: 12,
   },
 };
-
-const mapStateToProps = state => {
-  return {
-    nearby: state.bus.nb_data,
-    all: state.bus.all_data,
-    check: state.bus.data_here,
-    campus: state.bus.campus,
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  { getBusStops },
-)(StopScreen);

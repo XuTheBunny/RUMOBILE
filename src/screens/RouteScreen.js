@@ -8,7 +8,7 @@ import Header from '../Components/Header';
 import ActiveList from '../Components/ActiveList';
 import InactiveList from '../Components/InactiveList';
 
-export default class StopScreen extends Component {
+export default class RouteScreen extends Component {
   state = {
     show1: true,
     show2: true,
@@ -26,7 +26,7 @@ export default class StopScreen extends Component {
     return (
       <View style={styles.home}>
         <Header text={'Bus'} />
-        <View style={{ paddingHorizontal: 13 }}>
+        <View style={{ paddingHorizontal: 13, marginTop: 10 }}>
           <SegmentedControlTab
             values={['Stops', 'Routes']}
             selectedIndex={1}

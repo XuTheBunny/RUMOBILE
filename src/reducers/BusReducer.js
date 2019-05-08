@@ -10,10 +10,10 @@ import {
 } from '../actions/types';
 
 const INITIAL_STATE = {
-  nb_data: {},
-  all_data: {},
-  active_data: {},
-  inactive_data: {},
+  nb_data: [],
+  all_data: [],
+  active_data: [],
+  inactive_data: [],
   data_here: 'no',
   prediction: [],
   has_prediction: 'no',
