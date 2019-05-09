@@ -3,7 +3,6 @@ import { Actions } from 'react-native-router-flux';
 import { View, Text, TouchableOpacity, Image, ScrollView, Linking } from 'react-native';
 import SafariView from 'react-native-safari-view';
 import Header from '../Components/Header';
-import BottomBar from '../Components/BottomBar';
 
 export default class LinkScreen extends Component {
   constructor() {
@@ -103,8 +102,7 @@ export default class LinkScreen extends Component {
     return (
       <View style={styles.home}>
         <Header text={'Link'} />
-        <ScrollView style={{ marginTop: 5, marginBottom: 55 }}>{this.LinkList()}</ScrollView>
-        <BottomBar hs={true} bus={true} fs={true} ls={false} mr={true} />
+        <ScrollView style={{ marginTop: 5 }}>{this.LinkList()}</ScrollView>
       </View>
     );
   }

@@ -4,11 +4,10 @@ import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import Header from '../Components/Header';
-import BottomBar from '../Components/BottomBar';
 import HomeBanner from '../Components/HomeBanner';
 import { loginUser, pullBanner, timeAction, pullDate, getBusStops } from '../actions';
 
-class HomeScreen extends Component {
+class TodayScreen extends Component {
   state = {
     busEmpty: true,
     classEmpty: true,
@@ -27,6 +26,8 @@ class HomeScreen extends Component {
     //this.timer = setInterval(()=> this.Time(), 1000);
     //This pulls the FireBase Header Data
     this.props.pullBanner();
+    this.props.getBusStops('clean');
+    this.props.getBusStops(this.props.campus);
   }
 
   Time() {
@@ -36,7 +37,7 @@ class HomeScreen extends Component {
 
   onBusPress() {
     this.props.getBusStops('clean');
-    Actions.stop_screen();
+    Actions.bus_screen();
     this.props.getBusStops(this.props.campus);
   }
 
@@ -86,7 +87,6 @@ class HomeScreen extends Component {
             </View>
           )}
         </ScrollView>
-        <BottomBar hs={false} bus={true} fs={true} ls={true} mr={true} />
       </View>
     );
   }
@@ -162,4 +162,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   { loginUser, pullBanner, timeAction, pullDate, getBusStops },
-)(HomeScreen);
+)(TodayScreen);

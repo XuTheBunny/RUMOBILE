@@ -1,8 +1,8 @@
 import React from 'react';
+import { Image } from 'react-native';
 import { Scene, Router } from 'react-native-router-flux';
-import HomeScreen from './src/screens/HomeScreen';
-import StopScreen from './src/screens/StopScreen';
-import RouteScreen from './src/screens/RouteScreen';
+import TodayScreen from './src/screens/TodayScreen';
+import BusScreen from './src/screens/BusScreen';
 import Route from './src/screens/Route';
 import Stop from './src/screens/Stop';
 import FoodScreen from './src/screens/FoodScreen';
@@ -10,19 +10,63 @@ import FoodList from './src/screens/FoodList';
 import LinkScreen from './src/screens/LinkScreen';
 import MoreScreen from './src/screens/MoreScreen';
 
+const TabIcon = ({ focused, title }) => {
+  const selection = focused ? 'Selected' : 'Unselected';
+  const tabImage = {
+    Today: {
+      Selected: require('./src/images/TabBar/TodaySelected.jpg'),
+      Unselected: require('./src/images/TabBar/TodayUnselected.jpg'),
+    },
+    Bus: {
+      Selected: require('./src/images/TabBar/BusSelected.jpg'),
+      Unselected: require('./src/images/TabBar/BusUnselected.jpg'),
+    },
+    Food: {
+      Selected: require('./src/images/TabBar/FoodSelected.jpg'),
+      Unselected: require('./src/images/TabBar/FoodUnselected.jpg'),
+    },
+    Links: {
+      Selected: require('./src/images/TabBar/LinksSelected.png'),
+      Unselected: require('./src/images/TabBar/LinksUnselected.jpg'),
+    },
+    More: {
+      Selected: require('./src/images/TabBar/MoreSelected.png'),
+      Unselected: require('./src/images/TabBar/MoreUnselected.jpg'),
+    },
+  };
+  return (
+    <Image
+      style={{ width: 27, height: 24, marginTop: 15, marginBottom: 10 }}
+      resizeMode="contain"
+      source={tabImage[title][selection]}
+    />
+  );
+};
+
 const RouterComponent = () => {
   return (
     <Router>
       <Scene key="root" hideNavBar>
-        <Scene key="home_screen" component={HomeScreen} hideNavBar type="reset" />
-        <Scene key="stop_screen" component={StopScreen} hideNavBar type="reset" />
-        <Scene key="stop" component={Stop} hideNavBar />
-        <Scene key="route_screen" component={RouteScreen} hideNavBar type="reset" />
-        <Scene key="route" component={Route} hideNavBar />
-        <Scene key="food_screen" component={FoodScreen} hideNavBar type="reset" />
-        <Scene key="food_list" component={FoodList} hideNavBar />
-        <Scene key="links_screen" component={LinkScreen} hideNavBar type="reset" />
-        <Scene key="more_screen" component={MoreScreen} hideNavBar type="reset" />
+        <Scene key="tabbar" tabs={true} activeTintColor="rgb(237,69,69)">
+          <Scene key="today" title="Today" icon={TabIcon}>
+            <Scene key="today_screen" component={TodayScreen} hideNavBar type="reset" />
+          </Scene>
+          <Scene key="bus" title="Bus" icon={TabIcon}>
+            <Scene key="bus_screen" component={BusScreen} hideNavBar type="reset" />
+            <Scene key="stop" component={Stop} hideNavBar />
+            <Scene key="route" component={Route} hideNavBar />
+          </Scene>
+          <Scene key="food" title="Food" icon={TabIcon}>
+            <Scene key="food_screen" component={FoodScreen} hideNavBar type="reset" />
+            <Scene key="food_list" component={FoodList} hideNavBar />
+          </Scene>
+          <Scene key="links" title="Links" icon={TabIcon}>
+            <Scene key="links_screen" component={LinkScreen} hideNavBar type="reset" />
+          </Scene>
+          <Scene key="more" title="More" icon={TabIcon}>
+            <Scene key="more_screen" component={MoreScreen} hideNavBar type="reset" />
+          </Scene>
+        </Scene>
       </Scene>
     </Router>
   );

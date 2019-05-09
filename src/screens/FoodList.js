@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 import { View, Text, TouchableOpacity, Image, ImageBackground, ScrollView } from 'react-native';
 import BackHeader from '../Components/BackHeader';
-import BottomBar from '../Components/BottomBar';
 import { foodTab } from '../actions';
 import FoodSection from '../Components/FoodSection';
 
@@ -43,7 +42,7 @@ class FoodList extends Component {
           />
         </View>
         {this.props.data.meals[this.props.tab_index].meal_avail ? (
-          <ScrollView style={{ marginBottom: 75 }}>{this.renderFoodLists()}</ScrollView>
+          <ScrollView>{this.renderFoodLists()}</ScrollView>
         ) : (
           <View
             style={{
@@ -61,8 +60,6 @@ class FoodList extends Component {
             <Text style={styles.emptyText}>There is currently no food at this time.</Text>
           </View>
         )}
-
-        <BottomBar hs={true} bus={true} fs={false} ls={true} mr={true} />
       </View>
     );
   }

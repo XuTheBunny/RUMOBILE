@@ -3,7 +3,6 @@ import { View, Text, TouchableOpacity, Image, ImageBackground } from 'react-nati
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import Header from '../Components/Header';
-import BottomBar from '../Components/BottomBar';
 import { foodPull } from '../actions';
 
 class FoodScreen extends Component {
@@ -162,7 +161,6 @@ class FoodScreen extends Component {
           <Text style={styles.subText}>Food is essential to life!</Text>
           {this.renderFood()}
         </View>
-        <BottomBar hs={true} bus={true} fs={false} ls={true} mr={true} />
       </View>
     );
   }

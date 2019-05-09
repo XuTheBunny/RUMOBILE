@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import { setCampus } from '../actions';
+import { setCampus, getBusStops } from '../actions';
 import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Header from '../Components/Header';
-import BottomBar from '../Components/BottomBar';
 
 class MoreScreen extends Component {
   state = {
@@ -35,6 +34,8 @@ class MoreScreen extends Component {
   handleIndexChange = index => {
     campusIndex = ['newBrunswick', 'newark'];
     this.props.setCampus(campusIndex[index]);
+    this.props.getBusStops('clean');
+    this.props.getBusStops(campusIndex[index]);
     this.setState({
       selectedIndex: index,
     });
@@ -84,8 +85,6 @@ class MoreScreen extends Component {
             </View>
           </TouchableOpacity>
         </ScrollView>
-
-        <BottomBar hs={true} bus={true} fs={true} ls={true} mr={false} />
       </View>
     );
   }
@@ -141,5 +140,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { setCampus },
+  { setCampus, getBusStops },
 )(MoreScreen);
