@@ -35,7 +35,7 @@ class BusScreen extends Component {
         <Header text={'Bus'} />
         <View style={{ paddingHorizontal: 13, marginTop: 10 }}>
           <SegmentedControlTab
-            values={['Stops', 'Routes']}
+            values={['Routes', 'Stops']}
             selectedIndex={this.state.selectedIndex}
             onTabPress={index => {
               this.setState({
@@ -47,7 +47,7 @@ class BusScreen extends Component {
             tabTextStyle={styles.tabTextStyle}
           />
         </View>
-        {this.state.selectedIndex == 0 ? (
+        {this.state.selectedIndex == 1 ? (
           <ScrollView style={{ marginTop: 12 }}>
             <View style={styles.viewStyle}>
               <Text style={styles.fontStyle}>Nearby</Text>
