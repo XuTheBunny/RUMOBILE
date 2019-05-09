@@ -26,6 +26,8 @@ class TodayScreen extends Component {
     //this.timer = setInterval(()=> this.Time(), 1000);
     //This pulls the FireBase Header Data
     this.props.pullBanner();
+    this.props.getBusStops('clean');
+    this.props.getBusStops(this.props.campus);
   }
 
   Time() {

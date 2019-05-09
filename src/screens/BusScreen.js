@@ -20,11 +20,6 @@ class BusScreen extends Component {
     selectedIndex: 0,
   };
 
-  componentWillMount() {
-    this.props.getBusStops('clean');
-    this.props.getBusStops(this.props.campus);
-  }
-
   componentWillUpdate() {
     LayoutAnimation.easeInEaseOut();
   }
