@@ -1,14 +1,31 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Image, ImageBackground } from 'react-native';
+import { View, Text, TouchableOpacity, Image, ImageBackground, AppState } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import Header from '../Components/Header';
 import { foodPull } from '../actions';
 
 class FoodScreen extends Component {
+  state = { appState: AppState.currentState };
+
   componentWillMount() {
     this.props.foodPull('https://rumobile.rutgers.edu/1/rutgers-dining.txt');
   }
+
+  componentDidMount() {
+    AppState.addEventListener('change', this._handleAppStateChange);
+  }
+
+  componentWillUnmount() {
+    AppState.removeEventListener('change', this._handleAppStateChange);
+  }
+
+  _handleAppStateChange = nextAppState => {
+    if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
+      this.props.foodPull('https://rumobile.rutgers.edu/1/rutgers-dining.txt');
+    }
+    this.setState({ appState: nextAppState });
+  };
 
   openStatus(name) {
     var open = false;

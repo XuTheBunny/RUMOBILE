@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
-import { View, Text, ScrollView, TouchableOpacity, LayoutAnimation } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, LayoutAnimation, AppState } from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import Header from '../Components/Header';
 import { getBusStops } from '../actions';
@@ -18,11 +18,28 @@ class BusScreen extends Component {
     showRoute1: true,
     showRoute2: true,
     selectedIndex: 0,
+    appState: AppState.currentState,
   };
 
   componentWillUpdate() {
     LayoutAnimation.easeInEaseOut();
   }
+
+  componentDidMount() {
+    AppState.addEventListener('change', this._handleAppStateChange);
+  }
+
+  componentWillUnmount() {
+    AppState.removeEventListener('change', this._handleAppStateChange);
+  }
+
+  _handleAppStateChange = nextAppState => {
+    if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
+      this.props.getBusStops('clean');
+      this.props.getBusStops(this.props.campus);
+    }
+    this.setState({ appState: nextAppState });
+  };
 
   render() {
     return (
@@ -152,7 +169,9 @@ const styles = {
 };
 
 const mapStateToProps = state => {
-  return {};
+  return {
+    campus: state.bus.campus,
+  };
 };
 
 export default connect(
