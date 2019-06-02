@@ -24,3 +24,9 @@ export const PREDICTION = 'prediction';
 export const PREDICTION_DATA_HERE = 'prediction_data_here';
 
 export const LINK_LIST = 'link_list';
+
+export const CLASS_SETTING = 'class_setting';
+export const CLASS_LIST = 'class_list';
+export const CLASS_LIST_DATA_HERE = 'class_list_data_here';
+export const CLASS = 'class';
+export const CLASS_DATA_HERE = 'class_data_here';
