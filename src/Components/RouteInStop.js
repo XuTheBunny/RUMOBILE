@@ -3,7 +3,7 @@ import { Text, View, Image, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { getPrediction } from '../actions';
-import { routeColor } from '../../route_color.json';
+import { routeColor } from '../../bus_color.json';
 
 var color = 'rgb(142, 142, 147)';
 var tag = '?';
