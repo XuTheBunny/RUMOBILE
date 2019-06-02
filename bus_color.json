@@ -135,5 +135,12 @@
       "rname": "else",
       "rcolor": "rgb(142, 142, 147)"
     }
+  ],
+  "campusColor": [
+    { "campus": "COLLEGE AVENUE", "ccolor": "#FEC938" },
+    { "campus": "BUSCH", "ccolor": "#8D3092" },
+    { "campus": "LIVINGSTON", "ccolor": "#006FBA" },
+    { "campus": "DOUGLAS/COOK", "ccolor": "#65BE6B" },
+    { "campus": "RUTGERS", "ccolor": "#E51936" }
   ]
 }

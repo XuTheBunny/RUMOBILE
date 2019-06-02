@@ -13,7 +13,7 @@ import {
 import ClearHeader from '../Components/ClearHeader';
 import StopInRoute from '../Components/StopInRoute';
 import { getPrediction } from '../actions';
-import { routeColor } from '../../route_color.json';
+import { routeColor } from '../../bus_color.json';
 var color = 'rgb(142, 142, 147)';
 var nearestId = '';
 var thisRoute = {};

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { View, Text, TouchableOpacity } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import { routeColor } from '../../route_color.json';
+import { routeColor } from '../../bus_color.json';
 
 var color = 'rgb(142, 142, 147)';
 
