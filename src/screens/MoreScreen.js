@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import { setCampus, getBusStops } from '../actions';
+import { setCampus, getBusStops, getAllClass } from '../actions';
 import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
@@ -22,6 +22,7 @@ class MoreScreen extends Component {
         selectedIndex: 1,
       });
     }
+    this.props.getAllClass(null, this.props.classSetting);
   }
 
   constructor() {
@@ -57,7 +58,11 @@ class MoreScreen extends Component {
           />
         </View>
         <ScrollView>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              Actions.subjects_screen();
+            }}
+          >
             <View style={styles.listContainer}>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Image style={styles.iconStyle} source={require('../images/More/Classes.png')} />
@@ -135,10 +140,11 @@ const styles = {
 const mapStateToProps = state => {
   return {
     campus: state.bus.campus,
+    classSetting: state.class.class_setting,
   };
 };
 
 export default connect(
   mapStateToProps,
-  { setCampus, getBusStops },
+  { setCampus, getBusStops, getAllClass },
 )(MoreScreen);

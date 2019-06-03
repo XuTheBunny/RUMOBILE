@@ -1,11 +1,14 @@
 import React from 'react';
 import { Text, View, Image, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/Entypo';
 import CardItem from './CardItem';
+import { getOneClass } from '../actions';
 
 class BackHeader extends React.Component {
   backUp() {
+    this.props.getOneClass('clean', null);
     Actions.pop();
   }
 
@@ -35,4 +38,11 @@ const styles = {
   },
 };
 
-export default BackHeader;
+const mapStateToProps = state => {
+  return {};
+};
+
+export default connect(
+  mapStateToProps,
+  { getOneClass },
+)(BackHeader);

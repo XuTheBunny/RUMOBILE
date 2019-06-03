@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
 import { FIREBASE_USER, FIREBASE_PASSWORD } from '../../env.json';
-import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, Image, TouchableOpacity, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import Header from '../Components/Header';
 import HomeBanner from '../Components/HomeBanner';
-import { loginUser, pullBanner, timeAction, pullDate, getBusStops } from '../actions';
+import {
+  loginUser,
+  pullBanner,
+  timeAction,
+  pullDate,
+  getBusStops,
+  getAllClass,
+  getOneClass,
+} from '../actions';
 
 class TodayScreen extends Component {
   state = {
@@ -41,9 +49,14 @@ class TodayScreen extends Component {
     this.props.getBusStops(this.props.campus);
   }
 
+  onClassPress() {
+    Actions.subjects_screen();
+  }
+
   render() {
     return (
       <View style={styles.home}>
+        <StatusBar barStyle="dark-content" />
         <Header text={'Today'} dateText={this.props.dateText} showProfilePic={true} />
         <HomeBanner message={this.props.banner} />
         <ScrollView>
@@ -60,7 +73,7 @@ class TodayScreen extends Component {
               </View>
               <View style={[styles.cardBodyContainer, { marginVertical: 20 }]}>
                 <Text style={styles.emptyText}>Quickly access your schedule of classes here.</Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={this.onClassPress.bind(this)}>
                   <Text style={styles.emptyButton}>Add Classes</Text>
                 </TouchableOpacity>
               </View>
@@ -156,10 +169,11 @@ const mapStateToProps = state => {
     login: state.home.login,
     banner: state.home.banner,
     dateText: state.home.dateText,
+    classSetting: state.class.class_setting,
   };
 };
 
 export default connect(
   mapStateToProps,
-  { loginUser, pullBanner, timeAction, pullDate, getBusStops },
+  { loginUser, pullBanner, timeAction, pullDate, getBusStops, getAllClass, getOneClass },
 )(TodayScreen);
