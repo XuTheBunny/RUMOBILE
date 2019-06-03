@@ -9,6 +9,10 @@ import FoodScreen from './src/screens/FoodScreen';
 import FoodList from './src/screens/FoodList';
 import LinkScreen from './src/screens/LinkScreen';
 import MoreScreen from './src/screens/MoreScreen';
+import SubjectsScreen from './src/screens/SubjectsScreen';
+import CoursesScreen from './src/screens/CoursesScreen';
+import SectionsScreen from './src/screens/SectionsScreen';
+import SectionDetailScreen from './src/screens/SectionDetailScreen';
 
 const TabIcon = ({ focused, title }) => {
   const selection = focused ? 'Selected' : 'Unselected';
@@ -65,6 +69,10 @@ const RouterComponent = () => {
           </Scene>
           <Scene key="more" title="More" icon={TabIcon}>
             <Scene key="more_screen" component={MoreScreen} hideNavBar type="reset" />
+            <Scene key="subjects_screen" component={SubjectsScreen} hideNavBar />
+            <Scene key="courses_screen" component={CoursesScreen} hideNavBar />
+            <Scene key="sections_screen" component={SectionsScreen} hideNavBar />
+            <Scene key="section_detail_screen" component={SectionDetailScreen} hideNavBar />
           </Scene>
         </Scene>
       </Scene>
