@@ -86,9 +86,14 @@ export const getOneClass = (classCode, classSetting) => {
     }
 
     meeting.key = meeting.w + meeting.startTime;
-    meeting.place = meetingTime.campusAbbrev
-      ? meetingTime.campusAbbrev + ' ' + meetingTime.buildingCode + ' ' + meetingTime.roomNumber
-      : 'No data avaliable ... we tried ... 🤷🏻‍';
+    if (meetingTime.campusAbbrev) {
+      const a = meetingTime.campusAbbrev || '';
+      const b = meetingTime.buildingCode || '';
+      const c = meetingTime.roomNumber || '';
+      meeting.place = a + ' ' + b + ' ' + c;
+    } else {
+      meeting.place = 'No data avaliable 🤷🏻‍';
+    }
     return meeting;
   };
 
