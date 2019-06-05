@@ -53,6 +53,14 @@ export const getOneClass = (classCode, classSetting) => {
     }
   };
 
+  const uniqByKey = array => {
+    var index = [];
+    return array.filter(function(item) {
+      var k = item.key;
+      return index.indexOf(k) >= 0 ? false : index.push(k);
+    });
+  };
+
   const formSection = sectionsData => {
     var obj = { title: {}, data: [] };
     obj.key = sectionsData.number;
@@ -86,9 +94,14 @@ export const getOneClass = (classCode, classSetting) => {
     }
 
     meeting.key = meeting.w + meeting.startTime;
-    meeting.place = meetingTime.campusAbbrev
-      ? meetingTime.campusAbbrev + ' ' + meetingTime.buildingCode + ' ' + meetingTime.roomNumber
-      : 'No data avaliable ... we tried ... 🤷🏻‍';
+    if (meetingTime.campusAbbrev) {
+      const a = meetingTime.campusAbbrev || '';
+      const b = meetingTime.buildingCode || '';
+      const c = meetingTime.roomNumber || '';
+      meeting.place = a + ' ' + b + ' ' + c;
+    } else {
+      meeting.place = 'No data avaliable 🤷🏻‍';
+    }
     return meeting;
   };
 
@@ -111,7 +124,7 @@ export const getOneClass = (classCode, classSetting) => {
         }
         courseList.push(course);
       }
-      dispatch({ type: CLASS, payload: courseList });
+      dispatch({ type: CLASS, payload: uniqByKey(courseList) });
       dispatch({ type: CLASS_DATA_HERE, payload: 'here' });
     });
   };
