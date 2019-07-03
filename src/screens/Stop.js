@@ -48,7 +48,13 @@ class Stop extends Component {
 
   renderInactive() {
     return inactive_route.map(route => (
-      <RouteInStop key={route.rid} rname={route.rname} prediction={[]} />
+      <RouteInStop
+        rid={route.rid}
+        sid={this.props.data}
+        key={route.rid}
+        rname={route.rname}
+        prediction={[]}
+      />
     ));
   }
 
@@ -58,7 +64,8 @@ class Stop extends Component {
     cleanPrediction = {};
     active_route = [];
     inactive_route = [];
-    this.props.getPrediction(rid, sid);
+    sid = [this.props.data];
+    rid = [];
     thisStop = this.props.allStops.find(obj => obj.sid == this.props.data);
     thisStop.routes.forEach(function(element) {
       if (element.isActive) {
@@ -69,6 +76,7 @@ class Stop extends Component {
         inactive_route.push(element);
       }
     });
+    this.props.getPrediction(rid, sid);
     if (this.props.hasPrediction == 'here') {
       this.setState({ refreshing: false });
     }
@@ -90,6 +98,8 @@ class Stop extends Component {
           });
         return active_route.map(route => (
           <RouteInStop
+            rid={route.rid}
+            sid={this.props.data}
             key={route.rid}
             rname={route.rname}
             prediction={cleanPrediction[route.rid].slice(0, 3)}

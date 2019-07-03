@@ -1,11 +1,21 @@
 import axios from 'axios';
-import { PREDICTION, PREDICTION_DATA_HERE } from './types';
+import {
+  PREDICTION,
+  PREDICTION_DATA_HERE,
+  TODAY_PREDICTION,
+  TODAY_PREDICTION_DATA_HERE,
+} from './types';
 
-export const getPrediction = (rid, sid) => {
+export const getPrediction = (rid, sid, today) => {
   if (rid == 'clean') {
     return dispatch => {
-      dispatch({ type: PREDICTION, payload: [] });
-      dispatch({ type: PREDICTION_DATA_HERE, payload: 'no' });
+      if (today) {
+        dispatch({ type: TODAY_PREDICTION, payload: [] });
+        dispatch({ type: TODAY_PREDICTION_DATA_HERE, payload: 'no' });
+      } else {
+        dispatch({ type: PREDICTION, payload: [] });
+        dispatch({ type: PREDICTION_DATA_HERE, payload: 'no' });
+      }
     };
   }
   const agency_id = '1323';
@@ -28,8 +38,13 @@ export const getPrediction = (rid, sid) => {
       },
     }).then(response => {
       prediction = response.data.data;
-      dispatch({ type: PREDICTION, payload: prediction });
-      dispatch({ type: PREDICTION_DATA_HERE, payload: 'here' });
+      if (today) {
+        dispatch({ type: TODAY_PREDICTION, payload: prediction });
+        dispatch({ type: TODAY_PREDICTION_DATA_HERE, payload: 'here' });
+      } else {
+        dispatch({ type: PREDICTION, payload: prediction });
+        dispatch({ type: PREDICTION_DATA_HERE, payload: 'here' });
+      }
     });
   };
 };
