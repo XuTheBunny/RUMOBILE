@@ -7,3 +7,4 @@ export * from './CampusAction';
 export * from './ClassSettingAction';
 export * from './ClassAction';
 export * from './ClassListAction';
+export * from './FavoriteActions';

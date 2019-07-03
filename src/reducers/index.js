@@ -4,6 +4,7 @@ import FoodReducer from './FoodReducer';
 import BusReducer from './BusReducer';
 import LinkReducer from './LinkReducer';
 import ClassReducer from './ClassReducer';
+import FavoritesReducer from './FavoritesReducer';
 
 export default combineReducers({
   home: HomeReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   bus: BusReducer,
   link: LinkReducer,
   class: ClassReducer,
+  favorite: FavoritesReducer,
 });
