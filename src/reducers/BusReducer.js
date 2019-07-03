@@ -6,6 +6,8 @@ import {
   BUS_DATA_HERE,
   PREDICTION,
   PREDICTION_DATA_HERE,
+  TODAY_PREDICTION,
+  TODAY_PREDICTION_DATA_HERE,
   CAMPUS,
   BUS_INFO,
 } from '../actions/types';
@@ -18,6 +20,8 @@ const INITIAL_STATE = {
   data_here: 'no',
   prediction: [],
   has_prediction: 'no',
+  today_prediction: [],
+  today_has_prediction: 'no',
   campus: 'newBrunswick',
   bus_info: {},
 };
@@ -39,6 +43,10 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, prediction: action.payload };
     case PREDICTION_DATA_HERE:
       return { ...state, has_prediction: action.payload };
+    case TODAY_PREDICTION:
+      return { ...state, today_prediction: action.payload };
+    case TODAY_PREDICTION_DATA_HERE:
+      return { ...state, today_has_prediction: action.payload };
     case CAMPUS:
       return { ...state, campus: action.payload };
     case BUS_INFO:
