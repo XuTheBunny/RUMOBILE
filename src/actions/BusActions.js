@@ -1,6 +1,14 @@
 import axios from 'axios';
 
-import { NEARBYBUS, ALLBUS, ACTIVEROUTES, INACTIVEROUTES, BUS_DATA_HERE, CAMPUS } from './types';
+import {
+  NEARBYBUS,
+  ALLBUS,
+  ACTIVEROUTES,
+  INACTIVEROUTES,
+  BUS_DATA_HERE,
+  CAMPUS,
+  BUS_INFO,
+} from './types';
 
 var geodist = require('geodist');
 
@@ -23,6 +31,7 @@ export const getBusStops = action => {
       dispatch({ type: NEARBYBUS, payload: [] });
       dispatch({ type: ALLBUS, payload: [] });
       dispatch({ type: BUS_DATA_HERE, payload: 'no' });
+      dispatch({ type: BUS_INFO, payload: {} });
     };
   } else {
     campus = campusIndex[0];
@@ -43,6 +52,7 @@ export const getBusStops = action => {
   var routes_active = [];
   var routes_inactive = [];
   var routes_with_bus = [];
+  var bus_info_collect = {};
 
   var getUserLocation = new Promise((resolve, reject) => {
     user_location = {};
@@ -111,6 +121,9 @@ export const getBusStops = action => {
             routes_inactive.push(r);
           }
           route_name[element.route_id] = element.long_name;
+          if (!Object.keys(bus_info_collect).includes('r' + element.route_id)) {
+            bus_info_collect['r' + element.route_id] = { rname: element.long_name };
+          }
         });
         resolve(route_name);
       });
@@ -149,6 +162,9 @@ export const getBusStops = action => {
           });
           s.distance = distance.toFixed(2);
           all_stops.push(s);
+          if (!Object.keys(bus_info_collect).includes('s' + element.stop_id)) {
+            bus_info_collect['s' + element.stop_id] = { sname: element.name, distance: s.distance };
+          }
         });
         routes_active.forEach(function(element) {
           element.stops.forEach(function(e) {
@@ -162,6 +178,7 @@ export const getBusStops = action => {
             e.distance = all_stops.find(obj => obj.sid == e.sid).distance;
           });
         });
+        dispatch({ type: BUS_INFO, payload: bus_info_collect });
         dispatch({ type: ACTIVEROUTES, payload: routes_active });
         dispatch({ type: INACTIVEROUTES, payload: routes_inactive });
         dispatch({
