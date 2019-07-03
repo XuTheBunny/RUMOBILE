@@ -91,6 +91,8 @@ class Route extends Component {
     if (this.props.hasPrediction == 'here') {
       return thisRoute.stops.map(stop => (
         <StopInRoute
+          rid={this.props.data}
+          sid={stop.sid}
           sname={stop.sname}
           distance={stop.distance}
           prediction={this.singlePrediction(stop.sid)}

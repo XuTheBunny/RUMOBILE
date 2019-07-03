@@ -2,10 +2,10 @@ import React from 'react';
 import { Text, View, Image, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import { getPrediction } from '../actions';
+import { addFavoriteBus, deleteFavoriteBus } from '../actions';
 
 class StopInRoute extends React.Component {
-  state = { like: false };
+  state = { like: this.props.bus_favorites.includes(this.props.sid + '-' + this.props.rid) };
 
   formPrediction() {
     if (this.props.prediction.length > 0) {
@@ -36,6 +36,11 @@ class StopInRoute extends React.Component {
       >
         <TouchableOpacity
           onPress={() => {
+            if (this.state.like) {
+              this.props.deleteFavoriteBus(this.props.sid + '-' + this.props.rid);
+            } else {
+              this.props.addFavoriteBus(this.props.sid + '-' + this.props.rid);
+            }
             this.setState({
               like: !this.state.like,
             });
@@ -111,4 +116,13 @@ const styles = {
   },
 };
 
-export default StopInRoute;
+const mapStateToProps = state => {
+  return {
+    bus_favorites: state.favorite.bus_favorites,
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { addFavoriteBus, deleteFavoriteBus },
+)(StopInRoute);

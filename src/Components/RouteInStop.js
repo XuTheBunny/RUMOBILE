@@ -2,25 +2,27 @@ import React from 'react';
 import { Text, View, Image, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import { getPrediction } from '../actions';
+import { addFavoriteBus, deleteFavoriteBus } from '../actions';
 import { routeColor } from '../../bus_color.json';
 
 var color = 'rgb(142, 142, 147)';
 var tag = '?';
 
 class RouteInStop extends React.Component {
-  state = { like: false };
+  state = { like: this.props.bus_favorites.includes(this.props.sid + '-' + this.props.rid) };
 
   formPrediction() {
     if (this.props.prediction.length > 0) {
       return this.props.prediction.map((n, index) => (
         <View key={index}>
           {n < 1 ? (
-            <View style={styles.predictionContainer}>
+            <View style={styles.predictionHorizontal}>
               <Text style={{ fontSize: 22, color: 'rgb(237, 69, 69)' }}>Now</Text>
             </View>
           ) : (
-            <View style={styles.predictionContainer}>
+            <View
+              style={this.props.today ? styles.predictionVertical : styles.predictionHorizontal}
+            >
               <Text style={{ fontSize: 22 }}>{n}</Text>
               <Text style={{ fontSize: 11, marginLeft: 2, color: 'rgb(200, 199, 204)' }}>min</Text>
             </View>
@@ -51,19 +53,26 @@ class RouteInStop extends React.Component {
           </View>
           {this.formPrediction()}
         </View>
-        <TouchableOpacity
-          onPress={() => {
-            this.setState({
-              like: !this.state.like,
-            });
-          }}
-        >
-          {this.state.like ? (
-            <Image style={styles.heartImage} source={require('../images/Like/LikeFilled.png')} />
-          ) : (
-            <Image style={styles.heartImage} source={require('../images/Like/Like.png')} />
-          )}
-        </TouchableOpacity>
+        {this.props.sid && (
+          <TouchableOpacity
+            onPress={() => {
+              if (this.state.like) {
+                this.props.deleteFavoriteBus(this.props.sid + '-' + this.props.rid);
+              } else {
+                this.props.addFavoriteBus(this.props.sid + '-' + this.props.rid);
+              }
+              this.setState({
+                like: !this.state.like,
+              });
+            }}
+          >
+            {this.state.like ? (
+              <Image style={styles.heartImage} source={require('../images/Like/LikeFilled.png')} />
+            ) : (
+              <Image style={styles.heartImage} source={require('../images/Like/Like.png')} />
+            )}
+          </TouchableOpacity>
+        )}
       </View>
     );
   }
@@ -97,13 +106,21 @@ const styles = {
     marginLeft: 20,
     marginTop: 10,
   },
-  predictionContainer: {
+  predictionHorizontal: {
     width: 74,
     paddingRight: 10,
     marginTop: 5,
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
+  },
+  predictionVertical: {
+    width: 60,
+    paddingRight: 10,
+    marginTop: 5,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   busIconText: {
     fontSize: 15,
@@ -116,4 +133,13 @@ const styles = {
   },
 };
 
-export default RouteInStop;
+const mapStateToProps = state => {
+  return {
+    bus_favorites: state.favorite.bus_favorites,
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { addFavoriteBus, deleteFavoriteBus },
+)(RouteInStop);
