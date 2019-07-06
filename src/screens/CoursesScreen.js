@@ -88,6 +88,7 @@ class CoursesScreen extends Component {
         {this.props.classHere == 'here' ? (
           <FlatList
             data={this.props.class}
+            keyExtractor={this._keyExtractor}
             renderItem={({ item, index }) => this.courseItem(item)}
             ListEmptyComponent={this.courseEmpty()}
           />

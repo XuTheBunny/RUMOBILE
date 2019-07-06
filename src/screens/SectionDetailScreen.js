@@ -20,7 +20,7 @@ import MeetingItem from '../Components/MeetingItem';
 import { getOneClass } from '../actions';
 
 class SectionDetailScreen extends Component {
-  _keyExtractor = (item, index) => item.courseNumber;
+  _keyExtractor = (item, index) => item.day + item.startTime;
 
   state = {
     course: {},
@@ -106,6 +106,7 @@ class SectionDetailScreen extends Component {
             </TouchableOpacity>
           </View>
           <FlatList
+            keyExtractor={this._keyExtractor}
             data={this.state.section.data}
             renderItem={({ item, index }) => <MeetingItem item={item} />}
           />
