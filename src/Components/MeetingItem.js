@@ -30,13 +30,13 @@ class MeetingItem extends Component {
   };
 
   resetColor() {
-    color = 'rgb(142, 142, 147)';
+    color = 'rgb(229, 25, 54)';
   }
 
   isColor() {
     color = this.props.item.campus
       ? campusColor.find(obj => obj.campus == this.props.item.campus).ccolor
-      : 'rgb(142, 142, 147)';
+      : 'rgb(229, 25, 54)';
   }
 
   render() {
@@ -55,18 +55,18 @@ class MeetingItem extends Component {
               <View>
                 <Text style={{ fontSize: 14, marginBottom: 5 }}>{this.props.item.building}</Text>
                 <View style={{ flexDirection: 'row' }}>
-                  <View
-                    style={{
-                      backgroundColor: color,
-                      paddingVertical: 3,
-                      paddingHorizontal: 4,
-                      borderRadius: 3,
-                    }}
-                  >
-                    <Text style={{ fontSize: 10, color: 'white' }}>{this.props.item.campus}</Text>
-                  </View>
-                  <Text style={{ fontSize: 12, color: 'rgb(109,109,114)', marginLeft: 4 }}>
-                    {this.props.item.room}
+                <View
+                  style={{
+                    backgroundColor: color,
+                    paddingVertical: 3,
+                    paddingHorizontal: 4,
+                    borderRadius: 3,
+                  }}
+                >
+                  <Text style={{ fontSize: 10, color: 'white', textTransform: 'capitalize' }}>
+                    {this.props.item.campus
+                      ? campusColor.find(obj => obj.campus == this.props.item.campus).cName
+                      : 'Rutgers'}
                   </Text>
                 </View>
               </View>
