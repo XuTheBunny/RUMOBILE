@@ -2,7 +2,15 @@ import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
-import { View, Text, ScrollView, TouchableOpacity, LayoutAnimation, AppState } from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  LayoutAnimation,
+  AppState,
+  RefreshControl,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import Header from '../Components/Header';
 import { getBusStops } from '../actions';
@@ -19,27 +27,37 @@ class BusScreen extends Component {
     showRoute2: true,
     selectedIndex: 0,
     appState: AppState.currentState,
+    refreshing: false,
   };
 
   componentWillUpdate() {
     LayoutAnimation.easeInEaseOut();
   }
 
-  componentDidMount() {
-    AppState.addEventListener('change', this._handleAppStateChange);
-  }
+  // componentDidMount() {
+  //   AppState.addEventListener('change', this._handleAppStateChange);
+  // }
+  //
+  // componentWillUnmount() {
+  //   AppState.removeEventListener('change', this._handleAppStateChange);
+  // }
+  //
+  // _handleAppStateChange = nextAppState => {
+  //   if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
+  //     this.props.getBusStops('clean');
+  //     this.props.getBusStops(this.props.campus);
+  //   }
+  //   this.setState({ appState: nextAppState });
+  // };
 
-  componentWillUnmount() {
-    AppState.removeEventListener('change', this._handleAppStateChange);
-  }
-
-  _handleAppStateChange = nextAppState => {
-    if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
-      this.props.getBusStops('clean');
-      this.props.getBusStops(this.props.campus);
+  onRefresh() {
+    this.setState({ refreshing: true });
+    this.props.getBusStops('clean');
+    this.props.getBusStops(this.props.campus);
+    if (this.props.data_here == 'here') {
+      this.setState({ refreshing: false });
     }
-    this.setState({ appState: nextAppState });
-  };
+  }
 
   render() {
     return (
@@ -59,81 +77,91 @@ class BusScreen extends Component {
             tabTextStyle={styles.tabTextStyle}
           />
         </View>
-        {this.state.selectedIndex == 1 ? (
-          <ScrollView style={{ marginTop: 12 }}>
-            <View style={styles.viewStyle}>
-              <Text style={styles.fontStyle}>Nearby</Text>
-              <TouchableOpacity
-                onPress={() => {
-                  this.setState({
-                    showStop1: !this.state.show1,
-                  });
-                }}
-              >
-                <Icon
-                  name={this.state.showStop1 ? 'chevron-down' : 'chevron-up'}
-                  size={35}
-                  color="rgb(138,138,143)"
-                />
-              </TouchableOpacity>
-            </View>
-            {this.state.showStop1 && <NearbyList />}
-            <View style={styles.viewStyle}>
-              <Text style={styles.fontStyle}>All</Text>
-              <TouchableOpacity
-                onPress={() => {
-                  this.setState({
-                    showStop2: !this.state.showStop2,
-                  });
-                }}
-              >
-                <Icon
-                  name={this.state.show2 ? 'chevron-down' : 'chevron-up'}
-                  size={35}
-                  color="rgb(138,138,143)"
-                />
-              </TouchableOpacity>
-            </View>
-            {this.state.showStop2 && <AllList />}
-          </ScrollView>
-        ) : (
-          <ScrollView style={{ marginTop: 12 }}>
-            <View style={styles.viewStyle}>
-              <Text style={styles.fontStyle}>Active Routes</Text>
-              <TouchableOpacity
-                onPress={() => {
-                  this.setState({
-                    showRoute1: !this.state.showRoute1,
-                  });
-                }}
-              >
-                <Icon
-                  name={this.state.show1 ? 'chevron-down' : 'chevron-up'}
-                  size={35}
-                  color="rgb(138,138,143)"
-                />
-              </TouchableOpacity>
-            </View>
-            {this.state.showRoute1 && <ActiveList />}
-            <View style={styles.viewStyle}>
-              <Text style={styles.fontStyle}>Inactive Routes</Text>
-              <TouchableOpacity
-                onPress={() => {
-                  this.setState({
-                    showRoute2: !this.state.showRoute2,
-                  });
-                }}
-              >
-                <Icon
-                  name={this.state.show2 ? 'chevron-down' : 'chevron-up'}
-                  size={35}
-                  color="rgb(138,138,143)"
-                />
-              </TouchableOpacity>
-            </View>
-            {this.state.showRoute2 && <InactiveList />}
-          </ScrollView>
-        )}
+        <ScrollView
+          style={{ marginTop: 12 }}
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this.onRefresh.bind(this)}
+            />
+          }
+        >
+          {this.state.selectedIndex == 1 ? (
+            <>
+              <View style={styles.viewStyle}>
+                <Text style={styles.fontStyle}>Nearby</Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    this.setState({
+                      showStop1: !this.state.show1,
+                    });
+                  }}
+                >
+                  <Icon
+                    name={this.state.showStop1 ? 'chevron-down' : 'chevron-up'}
+                    size={35}
+                    color="rgb(138,138,143)"
+                  />
+                </TouchableOpacity>
+              </View>
+              {this.state.showStop1 && <NearbyList />}
+              <View style={styles.viewStyle}>
+                <Text style={styles.fontStyle}>All</Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    this.setState({
+                      showStop2: !this.state.showStop2,
+                    });
+                  }}
+                >
+                  <Icon
+                    name={this.state.show2 ? 'chevron-down' : 'chevron-up'}
+                    size={35}
+                    color="rgb(138,138,143)"
+                  />
+                </TouchableOpacity>
+              </View>
+              {this.state.showStop2 && <AllList />}
+            </>
+          ) : (
+            <>
+              <View style={styles.viewStyle}>
+                <Text style={styles.fontStyle}>Active Routes</Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    this.setState({
+                      showRoute1: !this.state.showRoute1,
+                    });
+                  }}
+                >
+                  <Icon
+                    name={this.state.show1 ? 'chevron-down' : 'chevron-up'}
+                    size={35}
+                    color="rgb(138,138,143)"
+                  />
+                </TouchableOpacity>
+              </View>
+              {this.state.showRoute1 && <ActiveList />}
+              <View style={styles.viewStyle}>
+                <Text style={styles.fontStyle}>Inactive Routes</Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    this.setState({
+                      showRoute2: !this.state.showRoute2,
+                    });
+                  }}
+                >
+                  <Icon
+                    name={this.state.show2 ? 'chevron-down' : 'chevron-up'}
+                    size={35}
+                    color="rgb(138,138,143)"
+                  />
+                </TouchableOpacity>
+              </View>
+              {this.state.showRoute2 && <InactiveList />}
+            </>
+          )}
+        </ScrollView>
       </View>
     );
   }
@@ -171,6 +199,7 @@ const styles = {
 const mapStateToProps = state => {
   return {
     campus: state.bus.campus,
+    data_here: state.bus.data_here,
   };
 };
 
