@@ -99,8 +99,9 @@ export const getOneClass = (classCode, classSetting) => {
       const b = meetingTime.buildingCode || '';
       const c = meetingTime.roomNumber || '';
       meeting.place = a + ' ' + b + ' ' + c;
-    } else {
-      meeting.place = 'No data avaliable 🤷🏻‍';
+    }
+    if (meeting.day.length == 0) {
+      meeting.place = 'Independent Study';
     }
     return meeting;
   };
