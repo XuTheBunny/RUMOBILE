@@ -11,7 +11,7 @@ import {
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import BackHeader from '../Components/BackHeader';
+import BackButton from '../Components/BackButton';
 import Loading from '../Components/Loading';
 import { getOneClass } from '../actions';
 
@@ -82,12 +82,13 @@ class CoursesScreen extends Component {
     return (
       <View style={styles.home}>
         <View style={styles.topButtonContainer}>
-          <BackHeader text={'Subjects'} />
+          <BackButton text={'Subjects'} />
         </View>
         <Text style={styles.headerText}>{this.props.courseName}</Text>
         {this.props.classHere == 'here' ? (
           <FlatList
             data={this.props.class}
+            keyExtractor={this._keyExtractor}
             renderItem={({ item, index }) => this.courseItem(item)}
             ListEmptyComponent={this.courseEmpty()}
           />

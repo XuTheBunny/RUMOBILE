@@ -3,7 +3,7 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 import { View, Text, TouchableOpacity, Image, ImageBackground, ScrollView } from 'react-native';
-import BackHeader from '../Components/BackHeader';
+import BackButton from '../Components/BackButton';
 import { foodTab } from '../actions';
 import FoodSection from '../Components/FoodSection';
 
@@ -29,7 +29,7 @@ class FoodList extends Component {
   render() {
     return (
       <View style={styles.home}>
-        <BackHeader text={'Food'} />
+        <BackButton text={'Food'} />
         <View style={styles.titleBar}>
           <Text style={styles.titleText}>{this.props.data.location_name}</Text>
           <SegmentedControlTab

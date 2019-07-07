@@ -10,7 +10,7 @@ import {
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import BackHeader from '../Components/BackHeader';
+import BackButton from '../Components/BackButton';
 import Loading from '../Components/Loading';
 import { getAllClass, getOneClass } from '../actions';
 
@@ -77,7 +77,7 @@ class SubjectsScreen extends Component {
     return (
       <View style={styles.home}>
         <View style={styles.topButtonContainer}>
-          <BackHeader text={'More'} />
+          <BackButton text={'More'} />
           <TouchableOpacity>
             <Text style={styles.editButton}>Edit</Text>
           </TouchableOpacity>

@@ -12,7 +12,7 @@ import {
   Image,
   RefreshControl,
 } from 'react-native';
-import ClearHeader from '../Components/ClearHeader';
+import BackButton from '../Components/BackButton';
 import RouteInStop from '../Components/RouteInStop';
 import { getPrediction } from '../actions';
 var cleanPrediction = {};
@@ -118,7 +118,7 @@ class Stop extends Component {
           style={styles.stopHeaderContainer}
           source={require('../images/Bus/BusBackground.jpeg')}
         >
-          <ClearHeader text={'Bus'} />
+          <BackButton text={'Bus'} clear={true} />
           <Text style={styles.stopHeaderTitle}>{thisStop.sname}</Text>
           <View style={styles.stopDistanceBox}>
             <Text style={styles.stopDistance}>{thisStop.distance}</Text>
@@ -151,6 +151,7 @@ const styles = {
   stopHeaderContainer: {
     flexDirection: 'column',
     backgroundColor: 'black',
+    paddingTop: 15,
   },
   stopHeaderTitle: {
     color: 'white',

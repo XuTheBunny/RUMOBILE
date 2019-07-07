@@ -99,7 +99,7 @@ class TodayScreen extends Component {
   }
 
   onClassPress() {
-    Actions.subjects_screen();
+    Actions.jump('subjects_screen');
   }
 
   formBusId() {

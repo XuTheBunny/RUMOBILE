@@ -137,10 +137,10 @@
     }
   ],
   "campusColor": [
-    { "campus": "COLLEGE AVENUE", "ccolor": "#FEC938" },
-    { "campus": "BUSCH", "ccolor": "#8D3092" },
-    { "campus": "LIVINGSTON", "ccolor": "#006FBA" },
-    { "campus": "DOUGLAS/COOK", "ccolor": "#65BE6B" },
-    { "campus": "RUTGERS", "ccolor": "#E51936" }
+    { "campus": "COLLEGE AVENUE", "ccolor": "#FEC938", "cName": "College Ave" },
+    { "campus": "BUSCH", "ccolor": "#8D3092", "cName": "Busch" },
+    { "campus": "LIVINGSTON", "ccolor": "#006FBA", "cName": "Livingston" },
+    { "campus": "DOUGLAS/COOK", "ccolor": "#65BE6B", "cName": "Cook/Douglass" },
+    { "campus": "RUTGERS", "ccolor": "#E51936", "cName": "Rutgers" }
   ]
 }

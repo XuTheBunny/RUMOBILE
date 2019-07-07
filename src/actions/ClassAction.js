@@ -21,13 +21,13 @@ export const getOneClass = (classCode, classSetting) => {
     classSetting.level;
 
   weekName = {
-    M: ['Monday', 'A'],
-    T: ['Tuesday', 'B'],
-    W: ['Wednesday', 'C'],
-    TH: ['Thursday', 'D'],
-    F: ['Friday', 'E'],
-    S: ['Saturday', 'F'],
-    U: ['Sunday', 'G'],
+    M: ['Monday', 'B'],
+    T: ['Tuesday', 'C'],
+    W: ['Wednesday', 'D'],
+    TH: ['Thursday', 'E'],
+    F: ['Friday', 'F'],
+    S: ['Saturday', 'G'],
+    U: ['Sunday', 'H'],
   };
 
   ampm = { A: ' AM', P: ' PM' };
@@ -79,7 +79,7 @@ export const getOneClass = (classCode, classSetting) => {
   const formSectionMeeting = meetingTime => {
     const meeting = {};
     meeting.day = meetingTime.meetingDay ? this.weekName[meetingTime.meetingDay][0] : '';
-    meeting.w = meetingTime.meetingDay ? this.weekName[meetingTime.meetingDay][1] : 'Z';
+    meeting.w = meetingTime.meetingDay ? this.weekName[meetingTime.meetingDay][1] : 'A';
     meeting.building = meetingTime.buildingCode;
     meeting.campus = meetingTime.campusName;
     meeting.room = 'Room ' + meetingTime.roomNumber;
@@ -99,8 +99,9 @@ export const getOneClass = (classCode, classSetting) => {
       const b = meetingTime.buildingCode || '';
       const c = meetingTime.roomNumber || '';
       meeting.place = a + ' ' + b + ' ' + c;
-    } else {
-      meeting.place = 'No data avaliable 🤷🏻‍';
+    }
+    if (meeting.day.length == 0) {
+      meeting.place = 'Independent Study';
     }
     return meeting;
   };
@@ -116,11 +117,13 @@ export const getOneClass = (classCode, classSetting) => {
         course.courseNumber = oneClass[c].courseNumber;
         course.title = oneClass[c].title;
         course.credits = oneClass[c].credits;
-        course.opens = oneClass[c].sections.filter(s => s.openStatus).length;
-        course.all = oneClass[c].sections.length;
         course.sections = [];
-        for (s in oneClass[c].sections) {
-          course.sections.push(formSection(oneClass[c].sections[s]));
+        if (oneClass[c].sections && oneClass[c].sections.length > 0) {
+          course.opens = oneClass[c].sections.filter(s => s.openStatus).length;
+          course.all = oneClass[c].sections.length;
+          for (s in oneClass[c].sections) {
+            course.sections.push(formSection(oneClass[c].sections[s]));
+          }
         }
         courseList.push(course);
       }

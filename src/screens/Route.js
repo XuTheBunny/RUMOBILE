@@ -10,7 +10,7 @@ import {
   StatusBar,
   RefreshControl,
 } from 'react-native';
-import ClearHeader from '../Components/ClearHeader';
+import BackButton from '../Components/BackButton';
 import StopInRoute from '../Components/StopInRoute';
 import { getPrediction } from '../actions';
 import { routeColor } from '../../bus_color.json';
@@ -109,8 +109,8 @@ class Route extends Component {
     return (
       <View style={styles.screen}>
         <StatusBar barStyle="light-content" />
-        <View style={{ backgroundColor: color }}>
-          <ClearHeader text={'Bus'} />
+        <View style={{ backgroundColor: color, paddingTop: 15 }}>
+          <BackButton text={'Bus'} clear={true} />
           <View style={styles.routeHeaderContainer}>
             <Text style={styles.routeHeaderTitle}>{thisRoute.rname}</Text>
             <TouchableOpacity>
