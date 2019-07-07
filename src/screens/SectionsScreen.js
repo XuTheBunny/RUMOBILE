@@ -73,14 +73,16 @@ class SectionsScreen extends Component {
     );
   };
 
-  sectionDetail(courseNumber, sectionNumber) {
-    Actions.section_detail_screen({ courseNumber, sectionNumber });
+  sectionDetail(subjectNumber, courseNumber, sectionNumber) {
+    Actions.section_detail_screen({ subjectNumber, courseNumber, sectionNumber });
   }
 
   sectionList = item => {
     return (
       <TouchableOpacity
-        onPress={() => this.sectionDetail(this.props.courseNumber, item.title.number)}
+        onPress={() =>
+          this.sectionDetail(this.props.subjectNumber, this.props.courseNumber, item.title.number)
+        }
       >
         <View style={styles.itemBorder}>
           {this.sectionTitle(item.title)}

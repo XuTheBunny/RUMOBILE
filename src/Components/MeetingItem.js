@@ -32,9 +32,11 @@ class MeetingItem extends Component {
     color = this.props.item.campus
       ? campusColor.find(obj => obj.campus == this.props.item.campus).ccolor
       : 'rgb(229, 25, 54)';
-    buildingName = building.find(obj => obj.tag.includes(this.props.item.building.toLowerCase()))
-      ? building.find(obj => obj.tag.includes(this.props.item.building.toLowerCase())).bName
-      : this.props.item.building;
+    buildingName =
+      this.props.item.building &&
+      building.find(obj => obj.tag.includes(this.props.item.building.toLowerCase()))
+        ? building.find(obj => obj.tag.includes(this.props.item.building.toLowerCase())).bName
+        : this.props.item.building;
     return (
       <TouchableOpacity>
         {!this.props.className && this.props.item.day.length > 0 && (

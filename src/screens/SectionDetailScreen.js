@@ -17,7 +17,7 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import BackButton from '../Components/BackButton';
 import Loading from '../Components/Loading';
 import MeetingItem from '../Components/MeetingItem';
-import { getOneClass } from '../actions';
+import { getOneClass, addFavoriteClass, deleteFavoriteClass } from '../actions';
 
 class SectionDetailScreen extends Component {
   _keyExtractor = (item, index) => item.day + item.startTime;
@@ -25,7 +25,12 @@ class SectionDetailScreen extends Component {
   state = {
     course: {},
     section: {},
-    like: false,
+    like:
+      this.props.class_favorites.filter(
+        item =>
+          item.classId ==
+          this.props.subjectNumber + '-' + this.props.courseNumber + '-' + this.props.sectionNumber,
+      ).length > 0,
   };
 
   componentWillUpdate() {
@@ -38,6 +43,9 @@ class SectionDetailScreen extends Component {
     } else {
       courseObj = this.props.class.find(obj => obj.courseNumber == this.props.courseNumber);
       sectionObj = courseObj.sections.find(obj => obj.key == this.props.sectionNumber);
+      sectionObj.classId =
+        this.props.subjectNumber + '-' + this.props.courseNumber + '-' + this.props.sectionNumber;
+      sectionObj.className = courseObj.title;
       this.setState({ section: sectionObj });
       this.setState({ course: courseObj });
     }
@@ -90,6 +98,11 @@ class SectionDetailScreen extends Component {
             <Text style={styles.sectionTitle}>Schedule</Text>
             <TouchableOpacity
               onPress={() => {
+                if (this.state.like) {
+                  this.props.deleteFavoriteClass(this.state.section);
+                } else {
+                  this.props.addFavoriteClass(this.state.section);
+                }
                 this.setState({
                   like: !this.state.like,
                 });
@@ -174,10 +187,11 @@ const mapStateToProps = state => {
     class: state.class.class,
     classHere: state.class.class_data_here,
     classSetting: state.class.class_setting,
+    class_favorites: state.favorite.class_favorites,
   };
 };
 
 export default connect(
   mapStateToProps,
-  { getOneClass },
+  { getOneClass, addFavoriteClass, deleteFavoriteClass },
 )(SectionDetailScreen);

@@ -30,7 +30,11 @@ class CoursesScreen extends Component {
 
   courseItem = item => {
     return (
-      <TouchableOpacity onPress={() => this.sections(item.courseNumber)}>
+      <TouchableOpacity
+        onPress={() =>
+          this.sections(this.props.courseName.split('(')[1].split(')')[0], item.courseNumber)
+        }
+      >
         <View style={styles.itemContainer}>
           <View style={{ flex: 1 }}>
             <Text style={styles.itemTitle}>
@@ -74,8 +78,8 @@ class CoursesScreen extends Component {
     );
   };
 
-  sections(courseNumber) {
-    Actions.sections_screen({ courseNumber });
+  sections(subjectNumber, courseNumber) {
+    Actions.sections_screen({ subjectNumber, courseNumber });
   }
 
   render() {
