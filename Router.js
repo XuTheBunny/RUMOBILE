@@ -53,22 +53,22 @@ const RouterComponent = () => {
       <Scene key="root" hideNavBar>
         <Scene key="tabbar" tabs={true} activeTintColor="rgb(237,69,69)">
           <Scene key="today" title="Today" icon={TabIcon}>
-            <Scene key="today_screen" component={TodayScreen} hideNavBar type="reset" />
+            <Scene key="today_screen" component={TodayScreen} hideNavBar />
           </Scene>
           <Scene key="bus" title="Bus" icon={TabIcon}>
-            <Scene key="bus_screen" component={BusScreen} hideNavBar type="reset" />
+            <Scene key="bus_screen" component={BusScreen} hideNavBar />
             <Scene key="stop" component={Stop} hideNavBar />
             <Scene key="route" component={Route} hideNavBar />
           </Scene>
           <Scene key="food" title="Food" icon={TabIcon}>
-            <Scene key="food_screen" component={FoodScreen} hideNavBar type="reset" />
+            <Scene key="food_screen" component={FoodScreen} hideNavBar />
             <Scene key="food_list" component={FoodList} hideNavBar />
           </Scene>
           <Scene key="links" title="Links" icon={TabIcon}>
-            <Scene key="links_screen" component={LinkScreen} hideNavBar type="reset" />
+            <Scene key="links_screen" component={LinkScreen} hideNavBar />
           </Scene>
           <Scene key="more" title="More" icon={TabIcon}>
-            <Scene key="more_screen" component={MoreScreen} hideNavBar type="reset" />
+            <Scene key="more_screen" component={MoreScreen} hideNavBar />
             <Scene key="subjects_screen" component={SubjectsScreen} hideNavBar />
             <Scene key="courses_screen" component={CoursesScreen} hideNavBar />
             <Scene key="sections_screen" component={SectionsScreen} hideNavBar />
