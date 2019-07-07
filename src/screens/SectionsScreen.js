@@ -14,7 +14,7 @@ import {
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import ClearHeader from '../Components/ClearHeader';
+import BackButton from '../Components/BackButton';
 import Loading from '../Components/Loading';
 import { getOneClass } from '../actions';
 
@@ -99,7 +99,7 @@ class SectionsScreen extends Component {
           style={styles.headerContainer}
           source={require('../images/Class/ClassBackground.jpeg')}
         >
-          <ClearHeader text={'Courses'} />
+          <BackButton text={'Courses'} clear={true} />
           <Text style={styles.headerTitle}>{this.state.course.title}</Text>
           <View style={styles.headerNote}>
             <View style={styles.opens}>

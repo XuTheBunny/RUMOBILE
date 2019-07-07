@@ -14,7 +14,7 @@ import {
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import ClearHeader from '../Components/ClearHeader';
+import BackButton from '../Components/BackButton';
 import Loading from '../Components/Loading';
 import MeetingItem from '../Components/MeetingItem';
 import { getOneClass } from '../actions';
@@ -55,7 +55,7 @@ class SectionDetailScreen extends Component {
               : { backgroundColor: 'rgb(237,69,69)' },
           ]}
         >
-          <ClearHeader text={'Sections'} />
+          <BackButton text={'Sections'} clear={true} />
           <Text style={styles.headerTitle}>{this.state.course.title}</Text>
           <View style={styles.headerNote}>
             <View>

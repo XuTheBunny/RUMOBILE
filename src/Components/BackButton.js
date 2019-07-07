@@ -4,20 +4,26 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/Entypo';
 import CardItem from './CardItem';
-import { getPrediction } from '../actions';
+import { getOneClass, getPrediction } from '../actions';
 
-class ClearHeader extends React.Component {
+class BackButton extends React.Component {
   backUp() {
-    this.props.getPrediction('clean', []);
+    if (this.props.text == 'Subjects') {
+      this.props.getOneClass('clean', null);
+    }
+    if (this.props.text == 'Bus') {
+      this.props.getPrediction('clean', []);
+    }
     Actions.pop();
   }
 
   render() {
+    color = this.props.clear ? 'white' : '#ed4545';
     return (
       <TouchableOpacity onPress={() => this.backUp()}>
         <View style={styles.viewStyle}>
-          <Icon name="chevron-left" size={30} color="white" />
-          <Text style={styles.textStyle}>{this.props.text}</Text>
+          <Icon name="chevron-left" size={30} color={color} />
+          <Text style={[styles.textStyle, { color: color }]}>{this.props.text}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -29,11 +35,10 @@ const styles = {
     fontWeight: '500',
     paddingRight: 200,
     fontFamily: 'system font',
-    color: 'white',
   },
   viewStyle: {
     flexDirection: 'row',
-    paddingTop: 35,
+    paddingTop: 32,
     alignItems: 'center',
   },
 };
@@ -44,5 +49,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getPrediction },
-)(ClearHeader);
+  { getOneClass, getPrediction },
+)(BackButton);
