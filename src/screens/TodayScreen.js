@@ -14,7 +14,9 @@ import { Actions } from 'react-native-router-flux';
 import Header from '../Components/Header';
 import HomeBanner from '../Components/HomeBanner';
 import RouteInStop from '../Components/RouteInStop';
+import MeetingItem from '../Components/MeetingItem';
 import { routeColor } from '../../bus_color.json';
+import { noClass } from '../../message.json';
 
 import {
   loginUser,
@@ -50,9 +52,6 @@ class TodayScreen extends Component {
         if (!sid.includes(bid.split('-')[0])) {
           sid.push(bid.split('-')[0]);
         }
-        // if (Object.keys(this.state.busName).includes(bid.split('-')[1])) {
-        //   this.setState({ busRefreshing: false });
-        // }
       });
 
       this.props.getPrediction(rid, sid, true);
@@ -122,6 +121,88 @@ class TodayScreen extends Component {
       }
     });
     return idList;
+  }
+
+  formClass() {
+    classList = [
+      { title: 'Independent Study', data: [] },
+      { title: 'Monday', data: [] },
+      { title: 'Tuesday', data: [] },
+      { title: 'Wednesday', data: [] },
+      { title: 'Thursday', data: [] },
+      { title: 'Friday', data: [] },
+      { title: 'Saturday', data: [] },
+      { title: 'Sunday', data: [] },
+    ];
+    this.props.class_favorites.forEach(function(c) {
+      c.data.forEach(function(d) {
+        d.className = c.className;
+        if (d.w == 'A') {
+          classList.find(obj => obj.title == 'Independent Study').data.push(d);
+        } else {
+          classList.find(obj => obj.title == d.day).data.push(d);
+        }
+      });
+    });
+    return classList;
+  }
+
+  renderFavClass() {
+    if (this.props.class_favorites.length > 0) {
+      classList = this.formClass();
+      d = new Date();
+      n = d.getDay() == 0 ? d.getDay() + 7 : d.getDay();
+      todayClass = classList[n].data;
+      i = Math.floor(Math.random() * noClass.length);
+      if (todayClass.length > 0) {
+        todayClass.forEach(function(item) {
+          if (
+            item.pmCode == ' PM' &&
+            parseInt(item.startTime.split(':')[0]) < parseInt(item.endTime.split(':')[0])
+          ) {
+            item.hour =
+              (parseInt(item.startTime.split(':')[0]) + 12).toString() +
+              ':' +
+              item.startTime.split(':')[1];
+          } else {
+            if (item.startTime.length < 5) {
+              item.hour = '0' + item.startTime;
+            } else {
+              item.hour = item.startTime;
+            }
+          }
+        });
+        return (
+          <View style={{ paddingVertical: 9 }}>
+            {todayClass
+              .sort((a, b) => (a.hour > b.hour ? 1 : b.hour > a.hour ? -1 : 0))
+              .map((item, index) => (
+                <MeetingItem
+                  key={item.day + item.startTime + index.toString()}
+                  item={item}
+                  className={item.className}
+                />
+              ))}
+          </View>
+        );
+      } else {
+        return (
+          <View style={[styles.cardBodyContainer, { marginVertical: 20 }]}>
+            <Text style={styles.emptyEmoji}>{noClass[i].split('-')[1]}</Text>
+            <Text style={styles.emptyText}>{noClass[i].split('-')[0]}</Text>
+          </View>
+        );
+      }
+    } else {
+      return (
+        <View style={[styles.cardBodyContainer, { marginVertical: 20 }]}>
+          <Text style={styles.emptyText}>Quickly access your schedule of classes here.</Text>
+          <TouchableOpacity onPress={this.onClassPress.bind(this)}>
+            <Text style={styles.emptyButton}>Add Classes</Text>
+          </TouchableOpacity>
+        </View>
+      );
+    }
   }
 
   renderFavBus() {
@@ -211,12 +292,7 @@ class TodayScreen extends Component {
                   <Text style={styles.cardTitle}>Edit</Text>
                 </TouchableOpacity>
               </View>
-              <View style={[styles.cardBodyContainer, { marginVertical: 20 }]}>
-                <Text style={styles.emptyText}>Quickly access your schedule of classes here.</Text>
-                <TouchableOpacity onPress={this.onClassPress.bind(this)}>
-                  <Text style={styles.emptyButton}>Add Classes</Text>
-                </TouchableOpacity>
-              </View>
+              {this.renderFavClass()}
             </View>
           )}
 
@@ -281,6 +357,12 @@ const styles = {
     width: '100%',
     textAlign: 'center',
   },
+  emptyEmoji: {
+    fontSize: 30,
+    width: '100%',
+    textAlign: 'center',
+    paddingBottom: 5,
+  },
   emptyImage: {
     height: 230,
     width: 230,
@@ -308,6 +390,7 @@ const mapStateToProps = state => {
     banner: state.home.banner,
     dateText: state.home.dateText,
     classSetting: state.class.class_setting,
+    class_favorites: state.favorite.class_favorites,
     bus_favorites: state.favorite.bus_favorites,
     today_prediction: state.bus.today_prediction,
     today_has_prediction: state.bus.today_has_prediction,
