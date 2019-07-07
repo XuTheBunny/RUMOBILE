@@ -13,8 +13,7 @@ import {
 } from 'react-native';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import { campusColor } from '../../bus_color.json';
-
-var color = 'rgb(142, 142, 147)';
+import { building } from '../../building.json';
 
 class MeetingItem extends Component {
   formTime = item => {
@@ -29,19 +28,13 @@ class MeetingItem extends Component {
     return timeObj;
   };
 
-  resetColor() {
-    color = 'rgb(229, 25, 54)';
-  }
-
-  isColor() {
+  render() {
     color = this.props.item.campus
       ? campusColor.find(obj => obj.campus == this.props.item.campus).ccolor
       : 'rgb(229, 25, 54)';
-  }
-
-  render() {
-    this.resetColor();
-    this.isColor();
+    buildingName = building.find(obj => obj.tag.includes(this.props.item.building.toLowerCase()))
+      ? building.find(obj => obj.tag.includes(this.props.item.building.toLowerCase())).bName
+      : this.props.item.building;
     return (
       <TouchableOpacity>
         {!this.props.className && this.props.item.day.length > 0 && (
@@ -66,7 +59,7 @@ class MeetingItem extends Component {
                 </Text>
               ) : (
                 <Text style={{ fontSize: 14, marginBottom: 5 }}>
-                  {this.props.item.building || 'Independent Study'}
+                  {this.props.item.building ? buildingName : 'Independent Study'}
                 </Text>
               )}
               <View style={{ flexDirection: 'row' }}>
