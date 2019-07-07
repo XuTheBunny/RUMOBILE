@@ -117,11 +117,13 @@ export const getOneClass = (classCode, classSetting) => {
         course.courseNumber = oneClass[c].courseNumber;
         course.title = oneClass[c].title;
         course.credits = oneClass[c].credits;
-        course.opens = oneClass[c].sections.filter(s => s.openStatus).length;
-        course.all = oneClass[c].sections.length;
         course.sections = [];
-        for (s in oneClass[c].sections) {
-          course.sections.push(formSection(oneClass[c].sections[s]));
+        if (oneClass[c].sections && oneClass[c].sections.length > 0) {
+          course.opens = oneClass[c].sections.filter(s => s.openStatus).length;
+          course.all = oneClass[c].sections.length;
+          for (s in oneClass[c].sections) {
+            course.sections.push(formSection(oneClass[c].sections[s]));
+          }
         }
         courseList.push(course);
       }
