@@ -19,7 +19,7 @@ var color = 'rgb(142, 142, 147)';
 class MeetingItem extends Component {
   formTime = item => {
     const timeObj = {};
-    if (item.startTime > item.endTime) {
+    if (parseInt(item.startTime.split(':')[0]) > parseInt(item.endTime.split(':')[0])) {
       timeObj.startTime = item.startTime + 'AM';
       timeObj.endTime = item.endTime + 'PM';
     } else {
@@ -42,19 +42,34 @@ class MeetingItem extends Component {
   render() {
     this.resetColor();
     this.isColor();
-    if (this.props.item.day != '') {
-      return (
-        <TouchableOpacity>
+    return (
+      <TouchableOpacity>
+        {!this.props.className && this.props.item.day.length > 0 && (
           <Text style={styles.itemTitle}>{this.props.item.day}</Text>
-          <View style={styles.itemRow}>
-            <View style={{ flexDirection: 'row' }}>
+        )}
+        <View style={styles.itemRow}>
+          <View style={{ flexDirection: 'row' }}>
+            {this.props.item.day == '' ? (
+              <View style={styles.timeBox}>
+                <Text style={styles.startTime}>All Day</Text>
+              </View>
+            ) : (
               <View style={styles.timeBox}>
                 <Text style={styles.startTime}>{this.formTime(this.props.item).startTime}</Text>
                 <Text style={styles.endTime}>{this.formTime(this.props.item).endTime}</Text>
               </View>
-              <View>
-                <Text style={{ fontSize: 14, marginBottom: 5 }}>{this.props.item.building}</Text>
-                <View style={{ flexDirection: 'row' }}>
+            )}
+            <View>
+              {this.props.className ? (
+                <Text style={{ fontSize: 14, marginBottom: 5, textTransform: 'capitalize' }}>
+                  {this.props.className}
+                </Text>
+              ) : (
+                <Text style={{ fontSize: 14, marginBottom: 5 }}>
+                  {this.props.item.building || 'Independent Study'}
+                </Text>
+              )}
+              <View style={{ flexDirection: 'row' }}>
                 <View
                   style={{
                     backgroundColor: color,
@@ -69,17 +84,27 @@ class MeetingItem extends Component {
                       : 'Rutgers'}
                   </Text>
                 </View>
+                <Text style={{ fontSize: 12, color: 'rgb(109,109,114)', marginLeft: 4 }}>
+                  {this.props.className && this.props.item.building && (
+                    <Text>{this.props.item.building + ' '}</Text>
+                  )}
+                  {this.props.item.room != 'Room null' && (
+                    <Text>
+                      {this.props.className
+                        ? this.props.item.room.split(' ')[1]
+                        : this.props.item.room}
+                    </Text>
+                  )}
+                </Text>
               </View>
             </View>
-            <EvilIcons name="chevron-right" size={30} color="rgb(138,138,143)" />
           </View>
-        </TouchableOpacity>
-      );
-    } else {
-      return (
-        <Text style={[styles.sectionText, { marginLeft: 10 }]}>No meeting time data available</Text>
-      );
-    }
+          {!this.props.className && (
+            <EvilIcons name="chevron-right" size={30} color="rgb(138,138,143)" />
+          )}
+        </View>
+      </TouchableOpacity>
+    );
   }
 }
 
@@ -104,6 +129,8 @@ const styles = {
     borderRightColor: 'rgb(235,235,235)',
     borderRightWidth: 0.5,
     width: 90,
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
   startTime: {
     textAlign: 'right',
