@@ -21,13 +21,13 @@ export const getOneClass = (classCode, classSetting) => {
     classSetting.level;
 
   weekName = {
-    M: ['Monday', 'A'],
-    T: ['Tuesday', 'B'],
-    W: ['Wednesday', 'C'],
-    TH: ['Thursday', 'D'],
-    F: ['Friday', 'E'],
-    S: ['Saturday', 'F'],
-    U: ['Sunday', 'G'],
+    M: ['Monday', 'B'],
+    T: ['Tuesday', 'C'],
+    W: ['Wednesday', 'D'],
+    TH: ['Thursday', 'E'],
+    F: ['Friday', 'F'],
+    S: ['Saturday', 'G'],
+    U: ['Sunday', 'H'],
   };
 
   ampm = { A: ' AM', P: ' PM' };
@@ -79,7 +79,7 @@ export const getOneClass = (classCode, classSetting) => {
   const formSectionMeeting = meetingTime => {
     const meeting = {};
     meeting.day = meetingTime.meetingDay ? this.weekName[meetingTime.meetingDay][0] : '';
-    meeting.w = meetingTime.meetingDay ? this.weekName[meetingTime.meetingDay][1] : 'Z';
+    meeting.w = meetingTime.meetingDay ? this.weekName[meetingTime.meetingDay][1] : 'A';
     meeting.building = meetingTime.buildingCode;
     meeting.campus = meetingTime.campusName;
     meeting.room = 'Room ' + meetingTime.roomNumber;
