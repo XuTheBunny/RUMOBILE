@@ -57,7 +57,10 @@ class SectionsScreen extends Component {
 
   sectionItem = item => {
     return (
-      <View style={[styles.itemRow, { marginTop: 10 }]} key={item.place + item.day}>
+      <View
+        style={[styles.itemRow, { marginTop: 10 }]}
+        key={item.place + item.day + item.startTime}
+      >
         <View style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
           <View style={{ width: 105 }}>
             <Text style={styles.itemNote}>{item.day}</Text>

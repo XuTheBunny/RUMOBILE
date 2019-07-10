@@ -69,6 +69,7 @@ const styles = {
   home: {
     flex: 1,
     backgroundColor: 'rgb(255, 255, 255)',
+    paddingTop: 15,
   },
   statusBar: {
     flexDirection: 'row',
