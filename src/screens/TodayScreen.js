@@ -25,6 +25,7 @@ import {
   pullDate,
   getBusStops,
   getAllClass,
+  deleteFavoriteClass,
   deleteFavoriteBus,
   getPrediction,
 } from '../actions';
@@ -101,6 +102,10 @@ class TodayScreen extends Component {
     Actions.jump('subjects_screen');
   }
 
+  onFavClassPress(classList, today) {
+    Actions.favClass_screen({ classList, today });
+  }
+
   formBusId() {
     idList = [];
     this.props.bus_favorites.forEach(function(bid) {
@@ -144,18 +149,9 @@ class TodayScreen extends Component {
         }
       });
     });
-    return classList;
-  }
-
-  renderFavClass() {
-    if (this.props.class_favorites.length > 0) {
-      classList = this.formClass();
-      d = new Date();
-      n = d.getDay() == 0 ? d.getDay() + 7 : d.getDay();
-      todayClass = classList[n].data;
-      i = Math.floor(Math.random() * noClass.length);
-      if (todayClass.length > 0) {
-        todayClass.forEach(function(item) {
+    classList.forEach(function(c) {
+      if (c.data.length > 0) {
+        c.data.forEach(function(item) {
           if (
             item.pmCode == ' PM' &&
             parseInt(item.startTime.split(':')[0]) < parseInt(item.endTime.split(':')[0])
@@ -172,25 +168,42 @@ class TodayScreen extends Component {
             }
           }
         });
+        c.data.sort((a, b) => (a.hour > b.hour ? 1 : b.hour > a.hour ? -1 : 0));
+      }
+    });
+
+    return classList;
+  }
+
+  renderFavClass() {
+    if (this.props.class_favorites.length > 0) {
+      classList = this.formClass();
+      d = new Date();
+      n = d.getDay() == 0 ? d.getDay() + 7 : d.getDay();
+      todayClass = classList[n].data;
+      i = Math.floor(Math.random() * noClass.length);
+      if (todayClass.length > 0) {
         return (
-          <View style={{ paddingVertical: 9 }}>
-            {todayClass
-              .sort((a, b) => (a.hour > b.hour ? 1 : b.hour > a.hour ? -1 : 0))
-              .map((item, index) => (
+          <TouchableOpacity onPress={() => this.onFavClassPress(classList, classList[n].title)}>
+            <View style={{ paddingVertical: 9 }}>
+              {todayClass.map((item, index) => (
                 <MeetingItem
                   key={item.day + item.startTime + index.toString()}
                   item={item}
                   className={item.className}
                 />
               ))}
-          </View>
+            </View>
+          </TouchableOpacity>
         );
       } else {
         return (
-          <View style={[styles.cardBodyContainer, { marginVertical: 20 }]}>
-            <Text style={styles.emptyEmoji}>{noClass[i].split('-')[1]}</Text>
-            <Text style={styles.emptyText}>{noClass[i].split('-')[0]}</Text>
-          </View>
+          <TouchableOpacity onPress={() => this.onFavClassPress(classList, classList[n].title)}>
+            <View style={[styles.cardBodyContainer, { marginVertical: 20 }]}>
+              <Text style={styles.emptyEmoji}>{noClass[i].split('-')[1]}</Text>
+              <Text style={styles.emptyText}>{noClass[i].split('-')[0]}</Text>
+            </View>
+          </TouchableOpacity>
         );
       }
     } else {
@@ -281,21 +294,18 @@ class TodayScreen extends Component {
             />
           }
         >
-          {this.state.classEmpty && (
-            <View style={styles.cardContainer}>
-              <View style={styles.cardTitleContainer}>
-                <View style={{ flexDirection: 'row' }}>
-                  <Image style={styles.cardIcon} source={require('../images/Today/Class.png')} />
-                  <Text style={styles.cardTitle}>Classes</Text>
-                </View>
-                <TouchableOpacity>
-                  <Text style={styles.cardTitle}>Edit</Text>
-                </TouchableOpacity>
+          <View style={styles.cardContainer}>
+            <View style={styles.cardTitleContainer}>
+              <View style={{ flexDirection: 'row' }}>
+                <Image style={styles.cardIcon} source={require('../images/Today/Class.png')} />
+                <Text style={styles.cardTitle}>Classes</Text>
               </View>
-              {this.renderFavClass()}
+              <TouchableOpacity>
+                <Text style={styles.cardTitle}>Edit</Text>
+              </TouchableOpacity>
             </View>
-          )}
-
+            {this.renderFavClass()}
+          </View>
           <View style={styles.cardContainer}>
             <View style={styles.cardTitleContainer}>
               <View style={{ flexDirection: 'row' }}>
@@ -407,6 +417,7 @@ export default connect(
     pullDate,
     getBusStops,
     getAllClass,
+    deleteFavoriteClass,
     deleteFavoriteBus,
     getPrediction,
   },
