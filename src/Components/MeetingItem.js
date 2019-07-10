@@ -38,7 +38,7 @@ class MeetingItem extends Component {
         ? building.find(obj => obj.tag.includes(this.props.item.building.toLowerCase())).bName
         : this.props.item.building;
     return (
-      <TouchableOpacity>
+      <View style={this.props.addStyle}>
         {!this.props.className && this.props.item.day.length > 0 && (
           <Text style={styles.itemTitle}>{this.props.item.day}</Text>
         )}
@@ -60,7 +60,7 @@ class MeetingItem extends Component {
                   {this.props.className}
                 </Text>
               ) : (
-                <Text style={{ fontSize: 14, marginBottom: 5 }}>
+                <Text style={{ fontSize: 14, marginBottom: 5, maxWidth: 230 }}>
                   {this.props.item.building ? buildingName : 'Independent Study'}
                 </Text>
               )}
@@ -95,10 +95,12 @@ class MeetingItem extends Component {
             </View>
           </View>
           {!this.props.className && (
-            <EvilIcons name="chevron-right" size={30} color="rgb(138,138,143)" />
+            <TouchableOpacity>
+              <EvilIcons name="chevron-right" size={30} color="rgb(138,138,143)" />
+            </TouchableOpacity>
           )}
         </View>
-      </TouchableOpacity>
+      </View>
     );
   }
 }
