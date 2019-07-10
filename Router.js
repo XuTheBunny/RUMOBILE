@@ -2,6 +2,7 @@ import React from 'react';
 import { Image } from 'react-native';
 import { Scene, Router } from 'react-native-router-flux';
 import TodayScreen from './src/screens/TodayScreen';
+import FavClassScreen from './src/screens/FavClassScreen';
 import BusScreen from './src/screens/BusScreen';
 import Route from './src/screens/Route';
 import Stop from './src/screens/Stop';
@@ -52,8 +53,9 @@ const RouterComponent = () => {
     <Router>
       <Scene key="root" hideNavBar>
         <Scene key="tabbar" tabs={true} activeTintColor="rgb(237,69,69)">
-          <Scene key="today" title="Today" icon={TabIcon}>
+          <Scene key="today" title="Today" icon={TabIcon} modal={true}>
             <Scene key="today_screen" component={TodayScreen} hideNavBar />
+            <Scene key="favClass_screen" component={FavClassScreen} hideNavBar hideTabBar />
           </Scene>
           <Scene key="bus" title="Bus" icon={TabIcon}>
             <Scene key="bus_screen" component={BusScreen} hideNavBar />
