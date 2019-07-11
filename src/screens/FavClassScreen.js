@@ -39,21 +39,26 @@ class FavClassScreen extends Component {
             {title}
           </Text>
         </View>
-        <View
-          style={
-            data.length == 0 && title != 'Independent Study'
-              ? {
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  backgroundColor: 'white',
-                }
-              : { display: 'none' }
-          }
-        >
-          <Text style={styles.sectionEmpty}>No classes</Text>
-        </View>
       </>
+    );
+  };
+
+  renderFooter = ({ title, data }) => {
+    return (
+      <View
+        style={
+          data.length == 0 && title != 'Independent Study'
+            ? {
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: 'white',
+              }
+            : { display: 'none' }
+        }
+      >
+        <Text style={styles.sectionEmpty}>No classes</Text>
+      </View>
     );
   };
 
@@ -99,6 +104,9 @@ class FavClassScreen extends Component {
             renderItem={({ item, index, section }) => this.renderItem(item, index)}
             renderSectionHeader={({ section: { title, data } }) =>
               this.renderHeader({ title, data })
+            }
+            renderSectionFooter={({ section: { title, data } }) =>
+              this.renderFooter({ title, data })
             }
             sections={this.props.classList}
             keyExtractor={(item, index) => item + index}
