@@ -50,7 +50,7 @@ export default (state = INITIAL_STATE, action) => {
     case CAMPUS:
       return { ...state, campus: action.payload };
     case BUS_INFO:
-      return { ...state, bus_info: action.payload };
+      return { ...state, bus_info: Object.assign(state.bus_info, action.payload) };
     default:
       return state;
   }

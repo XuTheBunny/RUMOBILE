@@ -31,7 +31,6 @@ export const getBusStops = action => {
       dispatch({ type: NEARBYBUS, payload: [] });
       dispatch({ type: ALLBUS, payload: [] });
       dispatch({ type: BUS_DATA_HERE, payload: 'no' });
-      dispatch({ type: BUS_INFO, payload: {} });
     };
   } else {
     campus = campusIndex[0];
