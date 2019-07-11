@@ -106,6 +106,10 @@ class TodayScreen extends Component {
     Actions.favClass_screen({ classList, today });
   }
 
+  onFavBusPress() {
+    Actions.favBus_screen();
+  }
+
   formBusId() {
     idList = [];
     this.props.bus_favorites.forEach(function(bid) {
@@ -243,29 +247,35 @@ class TodayScreen extends Component {
         }
       });
       return (
-        <View style={{ paddingVertical: 9 }}>
-          {idList
-            .sort((a, b) => (a.distance > b.distance ? 1 : b.distance > a.distance ? -1 : 0))
-            .map(s => (
-              <View key={s.sid}>
-                <View style={styles.flexContainer}>
-                  <Text style={{ fontSize: 17, fontWeight: '600', maxWidth: 270 }}>{s.sname}</Text>
-                  <Text style={{ fontSize: 11, color: 'rgb(200, 199, 204)' }}>{s.distance} mi</Text>
+        <TouchableOpacity onPress={() => this.onFavBusPress()}>
+          <View style={{ paddingVertical: 9 }}>
+            {idList
+              .sort((a, b) => (a.distance > b.distance ? 1 : b.distance > a.distance ? -1 : 0))
+              .map(s => (
+                <View key={s.sid}>
+                  <View style={styles.flexContainer}>
+                    <Text style={{ fontSize: 17, fontWeight: '600', maxWidth: 270 }}>
+                      {s.sname}
+                    </Text>
+                    <Text style={{ fontSize: 11, color: 'rgb(200, 199, 204)' }}>
+                      {s.distance} mi
+                    </Text>
+                  </View>
+                  {s.rid
+                    .sort((a, b) => (a.rname > b.rname ? 1 : b.rname > a.rname ? -1 : 0))
+                    .map(r => (
+                      <RouteInStop
+                        today={true}
+                        rid={r.rid}
+                        key={s.sid + r.rid}
+                        rname={r.rname}
+                        prediction={r.prediction}
+                      />
+                    ))}
                 </View>
-                {s.rid
-                  .sort((a, b) => (a.rname > b.rname ? 1 : b.rname > a.rname ? -1 : 0))
-                  .map(r => (
-                    <RouteInStop
-                      today={true}
-                      rid={r.rid}
-                      key={s.sid + r.rid}
-                      rname={r.rname}
-                      prediction={r.prediction}
-                    />
-                  ))}
-              </View>
-            ))}
-        </View>
+              ))}
+          </View>
+        </TouchableOpacity>
       );
     } else {
       return (
