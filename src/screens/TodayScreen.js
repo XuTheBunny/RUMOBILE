@@ -138,6 +138,7 @@ class TodayScreen extends Component {
           rid: [{ rid: r, rname: rn, prediction: [] }],
           distance: d,
           sname: sn,
+          predictionCount: 0,
         });
       }
     });
@@ -200,35 +201,65 @@ class TodayScreen extends Component {
       i = Math.floor(Math.random() * noClass.length);
       if (todayClass.length > 0) {
         return (
-          <TouchableOpacity onPress={() => this.onFavClassPress(classList, classList[n].title)}>
-            <View style={{ paddingVertical: 9 }}>
-              {todayClass.map((item, index) => (
-                <MeetingItem
-                  key={item.day + item.startTime + index.toString()}
-                  item={item}
-                  className={item.className}
-                />
-              ))}
+          <View style={styles.cardContainer}>
+            <View style={styles.cardTitleContainer}>
+              <View style={{ flexDirection: 'row' }}>
+                <Image style={styles.cardIcon} source={require('../images/Today/Bus.jpg')} />
+                <Text style={styles.cardTitle}>Buses</Text>
+              </View>
+              <TouchableOpacity onPress={() => this.onFavClassPress(classList, classList[n].title)}>
+                <Text style={styles.cardTitle}>Edit</Text>
+              </TouchableOpacity>
             </View>
-          </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.onFavClassPress(classList, classList[n].title)}>
+              <View style={{ paddingVertical: 9 }}>
+                {todayClass.map((item, index) => (
+                  <MeetingItem
+                    key={item.day + item.startTime + index.toString()}
+                    item={item}
+                    className={item.className}
+                  />
+                ))}
+              </View>
+            </TouchableOpacity>
+          </View>
         );
       } else {
         return (
-          <TouchableOpacity onPress={() => this.onFavClassPress(classList, classList[n].title)}>
-            <View style={[styles.cardBodyContainer, { marginVertical: 20 }]}>
-              <Text style={styles.emptyEmoji}>{noClass[i].split('-')[1]}</Text>
-              <Text style={styles.emptyText}>{noClass[i].split('-')[0]}</Text>
+          <View style={styles.cardContainer}>
+            <View style={styles.cardTitleContainer}>
+              <View style={{ flexDirection: 'row' }}>
+                <Image style={styles.cardIcon} source={require('../images/Today/Bus.jpg')} />
+                <Text style={styles.cardTitle}>Buses</Text>
+              </View>
+              <TouchableOpacity onPress={() => this.onFavClassPress(classList, classList[n].title)}>
+                <Text style={styles.cardTitle}>Edit</Text>
+              </TouchableOpacity>
             </View>
-          </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.onFavClassPress(classList, classList[n].title)}>
+              <View style={[styles.cardBodyContainer, { marginVertical: 20 }]}>
+                <Text style={styles.emptyEmoji}>{noClass[i].split('-')[1]}</Text>
+                <Text style={styles.emptyText}>{noClass[i].split('-')[0]}</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         );
       }
     } else {
       return (
-        <View style={[styles.cardBodyContainer, { marginVertical: 20 }]}>
-          <Text style={styles.emptyText}>Quickly access your schedule of classes here.</Text>
-          <TouchableOpacity onPress={this.onClassPress.bind(this)}>
-            <Text style={styles.emptyButton}>Add Classes</Text>
-          </TouchableOpacity>
+        <View style={styles.cardContainer}>
+          <View style={styles.cardTitleContainer}>
+            <View style={{ flexDirection: 'row' }}>
+              <Image style={styles.cardIcon} source={require('../images/Today/Bus.jpg')} />
+              <Text style={styles.cardTitle}>Buses</Text>
+            </View>
+          </View>
+          <View style={[styles.cardBodyContainer, { marginVertical: 20 }]}>
+            <Text style={styles.emptyText}>Quickly access your schedule of classes here.</Text>
+            <TouchableOpacity onPress={this.onClassPress.bind(this)}>
+              <Text style={styles.emptyButton}>Add Classes</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       );
     }
@@ -254,49 +285,95 @@ class TodayScreen extends Component {
                 .find(obj => obj.sid == s.stop_id)
                 .rid.find(obj => obj.rid == element.route_id)
                 .prediction.push(diffMins);
+              idList.find(obj => obj.sid == s.stop_id).predictionCount += 1;
             }
           });
         }
       });
-      return (
-        <TouchableOpacity onPress={() => this.onFavBusPress()}>
-          <View style={{ paddingVertical: 9 }}>
-            {idList
-              .sort((a, b) => (a.distance > b.distance ? 1 : b.distance > a.distance ? -1 : 0))
-              .map(s => (
-                <View key={s.sid}>
-                  <View style={styles.flexContainer}>
-                    <Text style={{ fontSize: 17, fontWeight: '600', maxWidth: 270 }}>
-                      {s.sname}
-                    </Text>
-                    <Text style={{ fontSize: 11, color: 'rgb(200, 199, 204)' }}>
-                      {s.distance} mi
-                    </Text>
-                  </View>
-                  {s.rid
-                    .sort((a, b) => (a.rname > b.rname ? 1 : b.rname > a.rname ? -1 : 0))
-                    .map(r => (
-                      <RouteInStop
-                        today={true}
-                        rid={r.rid}
-                        key={s.sid + r.rid}
-                        rname={r.rname}
-                        prediction={r.prediction}
-                      />
-                    ))}
-                </View>
-              ))}
+      if (idList.filter(s => s.predictionCount > 0).length > 0) {
+        return (
+          <View style={styles.cardContainer}>
+            <View style={styles.cardTitleContainer}>
+              <View style={{ flexDirection: 'row' }}>
+                <Image style={styles.cardIcon} source={require('../images/Today/Class.png')} />
+                <Text style={styles.cardTitle}>Classes</Text>
+              </View>
+              <TouchableOpacity onPress={() => this.onFavBusPress()}>
+                <Text style={styles.cardTitle}>Edit</Text>
+              </TouchableOpacity>
+            </View>
+            <TouchableOpacity onPress={() => this.onFavBusPress()}>
+              <View style={{ paddingVertical: 9 }}>
+                {idList
+                  .sort((a, b) => (a.distance > b.distance ? 1 : b.distance > a.distance ? -1 : 0))
+                  .filter(s => s.predictionCount > 0)
+                  .map(s => (
+                    <View key={s.sid}>
+                      <View style={styles.flexContainer}>
+                        <Text style={{ fontSize: 17, fontWeight: '600', maxWidth: 270 }}>
+                          {s.sname}
+                        </Text>
+                        <Text style={{ fontSize: 11, color: 'rgb(200, 199, 204)' }}>
+                          {s.distance} mi
+                        </Text>
+                      </View>
+                      {s.rid
+                        .sort((a, b) => (a.rname > b.rname ? 1 : b.rname > a.rname ? -1 : 0))
+                        .filter(r => r.prediction.length > 0)
+                        .map(r => (
+                          <RouteInStop
+                            today={true}
+                            rid={r.rid}
+                            key={s.sid + r.rid}
+                            rname={r.rname}
+                            prediction={r.prediction}
+                          />
+                        ))}
+                    </View>
+                  ))}
+              </View>
+            </TouchableOpacity>
           </View>
-        </TouchableOpacity>
-      );
+        );
+      } else {
+        return (
+          <View style={styles.cardContainer}>
+            <View style={styles.cardTitleContainer}>
+              <View style={{ flexDirection: 'row' }}>
+                <Image style={styles.cardIcon} source={require('../images/Today/Class.png')} />
+                <Text style={styles.cardTitle}>Classes</Text>
+              </View>
+              <TouchableOpacity onPress={() => this.onFavBusPress()}>
+                <Text style={styles.cardTitle}>Edit</Text>
+              </TouchableOpacity>
+            </View>
+            <TouchableOpacity onPress={() => this.onFavBusPress()}>
+              <View style={[styles.cardBodyContainer, { marginBottom: 30 }]}>
+                <Image style={styles.emptyImage} source={require('../images/Today/noBus.png')} />
+                <Text style={[styles.emptyText, { marginTop: 10 }]}>
+                  None of your favorite buses are active now.
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        );
+      }
     } else {
       return (
-        <View style={[styles.cardBodyContainer, { marginBottom: 20 }]}>
-          <Image style={styles.emptyImage} source={require('../images/Today/noBus.png')} />
-          <Text style={styles.emptyText}>Quickly access your favorites buses here.</Text>
-          <TouchableOpacity onPress={this.onBusPress.bind(this)}>
-            <Text style={styles.emptyButton}>Add Buses</Text>
-          </TouchableOpacity>
+        <View style={styles.cardContainer}>
+          <View style={styles.cardTitleContainer}>
+            <View style={{ flexDirection: 'row' }}>
+              <Image style={styles.cardIcon} source={require('../images/Today/Class.png')} />
+              <Text style={styles.cardTitle}>Classes</Text>
+            </View>
+          </View>
+          <View style={[styles.cardBodyContainer, { marginBottom: 20 }]}>
+            <Image style={styles.emptyImage} source={require('../images/Today/noBus.png')} />
+            <Text style={styles.emptyText}>Quickly access your favorites buses here.</Text>
+            <TouchableOpacity onPress={this.onBusPress.bind(this)}>
+              <Text style={styles.emptyButton}>Add Buses</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       );
     }
@@ -317,30 +394,8 @@ class TodayScreen extends Component {
               />
             }
           >
-            <View style={styles.cardContainer}>
-              <View style={styles.cardTitleContainer}>
-                <View style={{ flexDirection: 'row' }}>
-                  <Image style={styles.cardIcon} source={require('../images/Today/Class.png')} />
-                  <Text style={styles.cardTitle}>Classes</Text>
-                </View>
-                <TouchableOpacity>
-                  <Text style={styles.cardTitle}>Edit</Text>
-                </TouchableOpacity>
-              </View>
-              {this.renderFavClass()}
-            </View>
-            <View style={styles.cardContainer}>
-              <View style={styles.cardTitleContainer}>
-                <View style={{ flexDirection: 'row' }}>
-                  <Image style={styles.cardIcon} source={require('../images/Today/Bus.jpg')} />
-                  <Text style={styles.cardTitle}>Buses</Text>
-                </View>
-                <TouchableOpacity>
-                  <Text style={styles.cardTitle}>Edit</Text>
-                </TouchableOpacity>
-              </View>
-              {this.renderFavBus()}
-            </View>
+            {this.renderFavClass()}
+            {this.renderFavBus()}
           </ScrollView>
         </View>
       </SafeAreaView>
@@ -414,6 +469,7 @@ const styles = {
   flexContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'flex-end',
     marginHorizontal: 13,
   },
 };

@@ -105,29 +105,31 @@ class SectionsScreen extends Component {
           style={styles.headerContainer}
           source={require('../images/Class/ClassBackground.jpeg')}
         >
-          <BackButton text={'Courses'} clear={true} />
-          <Text style={styles.headerTitle}>{this.state.course.title}</Text>
-          <View style={styles.headerNote}>
-            <View style={styles.opens}>
-              <Text
-                style={[
-                  { fontSize: 17 },
-                  this.state.course.opens > 0
-                    ? { color: 'rgb(96,178,6)' }
-                    : { color: 'rgb(255,46,59)' },
-                ]}
-              >
-                {this.state.course.opens} open sections of {this.state.course.all}
-              </Text>
           <SafeAreaView>
+            <BackButton text={'Courses'} clear={true} />
+            <Text style={styles.headerTitle}>{this.state.course.title}</Text>
+            <View style={styles.headerNote}>
+              <View style={styles.opens}>
+                <Text
+                  style={[
+                    { fontSize: 17 },
+                    this.state.course.opens > 0
+                      ? { color: 'rgb(96,178,6)' }
+                      : { color: 'rgb(255,46,59)' },
+                  ]}
+                >
+                  {this.state.course.opens} open sections of {this.state.course.all}
+                </Text>
+              </View>
+              {this.state.course.credits != null && (
+                <Text style={{ fontSize: 13, color: 'white', paddingBottom: 11 }}>
+                  <Text style={{ fontSize: 35, fontWeight: '500' }}>
+                    {this.state.course.credits}
+                  </Text>
+                  <Text style={styles.stopDistanceText}> credits</Text>
+                </Text>
+              )}
             </View>
-            {this.state.course.credits != null && (
-              <Text style={{ fontSize: 13, color: 'white', paddingBottom: 11 }}>
-                <Text style={{ fontSize: 35, fontWeight: '500' }}>{this.state.course.credits}</Text>
-                <Text style={styles.stopDistanceText}> credits</Text>
-              </Text>
-            )}
-          </View>
           </SafeAreaView>
         </ImageBackground>
         <FlatList

@@ -77,7 +77,9 @@ export default class LinkScreen extends Component {
       <TouchableOpacity key={link.title} onPress={() => Linking.openURL(link.url)}>
         <View style={styles.viewStyle}>
           <Image style={{ width: 28, height: 28 }} source={link.src} />
-          <Text style={styles.textStyle}>{link.title}</Text>
+          <View style={styles.textContainer}>
+            <Text style={styles.textStyle}>{link.title}</Text>
+          </View>
         </View>
       </TouchableOpacity>
     ));
@@ -100,14 +102,18 @@ const styles = {
   textStyle: {
     fontFamily: 'system font',
     fontSize: 17,
-    paddingLeft: 26,
   },
   viewStyle: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 10,
-    marginLeft: 16,
+    paddingVertical: 10,
+    marginLeft: 26,
+  },
+  textContainer: {
     borderBottomColor: 'rgb(235,235,235)',
     borderBottomWidth: 0.5,
+    marginLeft: 26,
+    flex: 1,
+    paddingVertical: 7,
   },
 };
