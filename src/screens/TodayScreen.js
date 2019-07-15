@@ -19,11 +19,9 @@ import RouteInStop from '../Components/RouteInStop';
 import MeetingItem from '../Components/MeetingItem';
 import { routeColor } from '../../bus_color.json';
 import { noClass } from '../../message.json';
-
 import {
   loginUser,
   pullBanner,
-  timeAction,
   pullDate,
   getBusStops,
   getAllClass,
@@ -32,10 +30,10 @@ import {
   getPrediction,
 } from '../actions';
 
+var timer = 0;
 class TodayScreen extends Component {
   state = {
     busRefreshing: false,
-    classEmpty: true,
     appState: AppState.currentState,
   };
 
@@ -46,6 +44,8 @@ class TodayScreen extends Component {
     //Logins In firebase Admin which has read-only access to the RTD
     this.props.loginUser(FIREBASE_USER, FIREBASE_PASSWORD);
     this.props.getPrediction('clean', [], true);
+    this.props.getBusStops('clean');
+    this.props.getBusStops(this.props.campus);
     if (this.props.bus_favorites.length > 0) {
       rid = [];
       sid = [];
@@ -67,26 +67,22 @@ class TodayScreen extends Component {
     //this.timer = setInterval(()=> this.Time(), 1000);
     //This pulls the FireBase Header Data
     this.props.pullBanner();
-    this.props.getBusStops('clean');
-    this.props.getBusStops(this.props.campus);
+    timer = setInterval(() => this.Time(), 30000);
     AppState.addEventListener('change', this._handleAppStateChange);
   }
 
-  Time() {
-    var x = new Date();
-    this.props.timeAction(x);
+  componentWillUnmount() {
     AppState.removeEventListener('change', this._handleAppStateChange);
   }
 
-  onRefresh() {
-    this.setState({ busRefreshing: true });
-    this.props.getPrediction('clean', [], true);
   _handleAppStateChange = nextAppState => {
     if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
       this.Time();
     }
     this.setState({ appState: nextAppState });
   };
+
+  Time() {
     rid = [];
     sid = [];
     if (this.props.bus_favorites.length > 0) {
@@ -100,6 +96,11 @@ class TodayScreen extends Component {
       });
       this.props.getPrediction(rid, sid, true);
     }
+  }
+
+  onRefresh() {
+    this.setState({ busRefreshing: true });
+    this.Time();
     this.setState({ busRefreshing: false });
   }
 
@@ -305,41 +306,43 @@ class TodayScreen extends Component {
     return (
       <SafeAreaView style={styles.home}>
         <StatusBar barStyle="dark-content" />
-        <Header text={'Today'} dateText={this.props.dateText} showProfilePic={true} />
-        <HomeBanner message={this.props.banner} />
-        <ScrollView
-          refreshControl={
-            <RefreshControl
-              refreshing={this.state.busRefreshing}
-              onRefresh={this.onRefresh.bind(this)}
-            />
-          }
-        >
-          <View style={styles.cardContainer}>
-            <View style={styles.cardTitleContainer}>
-              <View style={{ flexDirection: 'row' }}>
-                <Image style={styles.cardIcon} source={require('../images/Today/Class.png')} />
-                <Text style={styles.cardTitle}>Classes</Text>
+        <View style={{ flex: 1, backgroundColor: 'white' }}>
+          <Header text={'Today'} dateText={this.props.dateText} showProfilePic={true} />
+          <HomeBanner message={this.props.banner} />
+          <ScrollView
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.busRefreshing}
+                onRefresh={this.onRefresh.bind(this)}
+              />
+            }
+          >
+            <View style={styles.cardContainer}>
+              <View style={styles.cardTitleContainer}>
+                <View style={{ flexDirection: 'row' }}>
+                  <Image style={styles.cardIcon} source={require('../images/Today/Class.png')} />
+                  <Text style={styles.cardTitle}>Classes</Text>
+                </View>
+                <TouchableOpacity>
+                  <Text style={styles.cardTitle}>Edit</Text>
+                </TouchableOpacity>
               </View>
-              <TouchableOpacity>
-                <Text style={styles.cardTitle}>Edit</Text>
-              </TouchableOpacity>
+              {this.renderFavClass()}
             </View>
-            {this.renderFavClass()}
-          </View>
-          <View style={styles.cardContainer}>
-            <View style={styles.cardTitleContainer}>
-              <View style={{ flexDirection: 'row' }}>
-                <Image style={styles.cardIcon} source={require('../images/Today/Bus.jpg')} />
-                <Text style={styles.cardTitle}>Buses</Text>
+            <View style={styles.cardContainer}>
+              <View style={styles.cardTitleContainer}>
+                <View style={{ flexDirection: 'row' }}>
+                  <Image style={styles.cardIcon} source={require('../images/Today/Bus.jpg')} />
+                  <Text style={styles.cardTitle}>Buses</Text>
+                </View>
+                <TouchableOpacity>
+                  <Text style={styles.cardTitle}>Edit</Text>
+                </TouchableOpacity>
               </View>
-              <TouchableOpacity>
-                <Text style={styles.cardTitle}>Edit</Text>
-              </TouchableOpacity>
+              {this.renderFavBus()}
             </View>
-            {this.renderFavBus()}
-          </View>
-        </ScrollView>
+          </ScrollView>
+        </View>
       </SafeAreaView>
     );
   }
@@ -421,6 +424,7 @@ const mapStateToProps = state => {
     banner: state.home.banner,
     dateText: state.home.dateText,
     classSetting: state.class.class_setting,
+    campus: state.bus.campus,
     class_favorites: state.favorite.class_favorites,
     bus_favorites: state.favorite.bus_favorites,
     today_prediction: state.bus.today_prediction,
@@ -434,7 +438,6 @@ export default connect(
   {
     loginUser,
     pullBanner,
-    timeAction,
     pullDate,
     getBusStops,
     getAllClass,
