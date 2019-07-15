@@ -138,6 +138,7 @@ class TodayScreen extends Component {
           rid: [{ rid: r, rname: rn, prediction: [] }],
           distance: d,
           sname: sn,
+          predictionCount: 0,
         });
       }
     });
@@ -284,6 +285,7 @@ class TodayScreen extends Component {
                 .find(obj => obj.sid == s.stop_id)
                 .rid.find(obj => obj.rid == element.route_id)
                 .prediction.push(diffMins);
+              idList.find(obj => obj.sid == s.stop_id).predictionCount += 1;
             }
           });
         }
