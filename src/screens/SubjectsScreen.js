@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   SectionList,
   LayoutAnimation,
+  SafeAreaView,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -75,7 +76,7 @@ class SubjectsScreen extends Component {
 
   render() {
     return (
-      <View style={styles.home}>
+      <SafeAreaView style={styles.home}>
         <View style={styles.topButtonContainer}>
           <BackButton text={'More'} />
           <TouchableOpacity>
@@ -111,7 +112,7 @@ class SubjectsScreen extends Component {
         ) : (
           <Loading />
         )}
-      </View>
+      </SafeAreaView>
     );
   }
 }
@@ -122,8 +123,6 @@ const styles = {
     backgroundColor: 'rgb(255, 255, 255)',
   },
   topButtonContainer: {
-    height: 95,
-    paddingTop: 15,
     flexDirection: 'row',
     alignItems: 'flex-end',
     justifyContent: 'space-between',

@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   StatusBar,
   RefreshControl,
+  SafeAreaView,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
@@ -292,7 +293,7 @@ class TodayScreen extends Component {
 
   render() {
     return (
-      <View style={styles.home}>
+      <SafeAreaView style={styles.home}>
         <StatusBar barStyle="dark-content" />
         <Header text={'Today'} dateText={this.props.dateText} showProfilePic={true} />
         <HomeBanner message={this.props.banner} />
@@ -329,7 +330,7 @@ class TodayScreen extends Component {
             {this.renderFavBus()}
           </View>
         </ScrollView>
-      </View>
+      </SafeAreaView>
     );
   }
 }

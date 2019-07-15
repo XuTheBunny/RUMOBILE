@@ -9,6 +9,7 @@ import {
   LayoutAnimation,
   StatusBar,
   RefreshControl,
+  SafeAreaView,
 } from 'react-native';
 import BackButton from '../Components/BackButton';
 import StopInRoute from '../Components/StopInRoute';
@@ -107,7 +108,7 @@ class Route extends Component {
     this.resetColor();
     this.isColor();
     return (
-      <View style={styles.screen}>
+      <SafeAreaView style={[styles.screen, { backgroundColor: color }]}>
         <StatusBar barStyle="light-content" />
         <View style={{ backgroundColor: color, paddingTop: 15 }}>
           <BackButton text={'Bus'} clear={true} />
@@ -130,7 +131,7 @@ class Route extends Component {
         >
           {this.renderPrediction()}
         </ScrollView>
-      </View>
+      </SafeAreaView>
     );
   }
 }
