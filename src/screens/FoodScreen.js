@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Image, ImageBackground, AppState } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  ImageBackground,
+  AppState,
+  SafeAreaView,
+} from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import Header from '../Components/Header';
@@ -170,7 +178,7 @@ class FoodScreen extends Component {
 
   render() {
     return (
-      <View style={styles.home}>
+      <SafeAreaView style={styles.home}>
         <Header text={'Food'} />
         <View style={styles.bodyGrid}>
           <Text style={styles.baseText}>PLACES TO EAT</Text>
@@ -178,7 +186,7 @@ class FoodScreen extends Component {
           <Text style={styles.subText}>Food is essential to life!</Text>
           {this.renderFood()}
         </View>
-      </View>
+      </SafeAreaView>
     );
   }
 }

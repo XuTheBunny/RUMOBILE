@@ -10,6 +10,7 @@ import {
   LayoutAnimation,
   StatusBar,
   ScrollView,
+  SafeAreaView,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -53,7 +54,14 @@ class SectionDetailScreen extends Component {
 
   render() {
     return (
-      <View style={styles.home}>
+      <SafeAreaView
+        style={[
+          styles.home,
+          this.state.section.title.openStatus
+            ? { backgroundColor: 'rgb(90,175,79)' }
+            : { backgroundColor: 'rgb(237,69,69)' },
+        ]}
+      >
         <StatusBar barStyle="light-content" />
         <View
           style={[
@@ -130,7 +138,7 @@ class SectionDetailScreen extends Component {
             {this.state.section.title.sectionNotes || 'No Data'}
           </Text>
         </ScrollView>
-      </View>
+      </SafeAreaView>
     );
   }
 }

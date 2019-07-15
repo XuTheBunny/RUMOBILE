@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
-import { View, Text, TouchableOpacity, Image, ScrollView, Linking } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+  Linking,
+  SafeAreaView,
+} from 'react-native';
 import SafariView from 'react-native-safari-view';
 import Header from '../Components/Header';
 
@@ -29,11 +37,6 @@ export default class LinkScreen extends Component {
       title: 'Targum',
       url: 'http://www.dailytargum.com/',
       src: require('../images/Links/News.png'),
-    });
-    links.push({
-      title: 'RU Listings',
-      url: 'https://www.rulistings.com',
-      src: require('../images/Links/Sales.png'),
     });
     links.push({
       title: 'Rutgers Reddit',
@@ -81,10 +84,10 @@ export default class LinkScreen extends Component {
   }
   render() {
     return (
-      <View style={styles.home}>
-        <Header text={'Link'} />
+      <SafeAreaView style={styles.home}>
+        <Header text={'Links'} />
         <ScrollView style={{ marginTop: 5 }}>{this.LinkList()}</ScrollView>
-      </View>
+      </SafeAreaView>
     );
   }
 }

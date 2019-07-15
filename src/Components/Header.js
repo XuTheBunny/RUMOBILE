@@ -25,7 +25,6 @@ class Header extends React.Component {
 }
 const styles = {
   viewStyle: {
-    marginTop: 35,
     justifyContent: 'center',
     paddingHorizontal: 20,
     elevation: 2,

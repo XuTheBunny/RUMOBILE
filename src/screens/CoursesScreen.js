@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   FlatList,
   LayoutAnimation,
+  SafeAreaView,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -84,10 +85,8 @@ class CoursesScreen extends Component {
 
   render() {
     return (
-      <View style={styles.home}>
-        <View style={styles.topButtonContainer}>
-          <BackButton text={'Subjects'} />
-        </View>
+      <SafeAreaView style={styles.home}>
+        <BackButton text={'Subjects'} />
         <Text style={styles.headerText}>{this.props.courseName}</Text>
         {this.props.classHere == 'here' ? (
           <FlatList
@@ -99,7 +98,7 @@ class CoursesScreen extends Component {
         ) : (
           <Loading />
         )}
-      </View>
+      </SafeAreaView>
     );
   }
 }
@@ -108,12 +107,6 @@ const styles = {
   home: {
     flex: 1,
     backgroundColor: 'rgb(255, 255, 255)',
-  },
-  topButtonContainer: {
-    height: 95,
-    paddingTop: 15,
-    flexDirection: 'row',
-    alignItems: 'flex-end',
   },
   headerText: {
     fontWeight: '600',

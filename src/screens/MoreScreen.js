@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { setCampus, getBusStops, getAllClass } from '../actions';
-import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Image, SafeAreaView } from 'react-native';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Header from '../Components/Header';
@@ -44,7 +44,7 @@ class MoreScreen extends Component {
 
   render() {
     return (
-      <View style={styles.home}>
+      <SafeAreaView style={styles.home}>
         <Header text={'More'} />
         <Text style={styles.titleText}>Rutgers Buses Campus</Text>
         <View style={styles.titleContainer}>
@@ -90,7 +90,7 @@ class MoreScreen extends Component {
             </View>
           </TouchableOpacity>
         </ScrollView>
-      </View>
+      </SafeAreaView>
     );
   }
 }

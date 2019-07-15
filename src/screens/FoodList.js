@@ -2,7 +2,15 @@ import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
-import { View, Text, TouchableOpacity, Image, ImageBackground, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  ImageBackground,
+  ScrollView,
+  SafeAreaView,
+} from 'react-native';
 import BackButton from '../Components/BackButton';
 import { foodTab } from '../actions';
 import FoodSection from '../Components/FoodSection';
@@ -28,7 +36,7 @@ class FoodList extends Component {
 
   render() {
     return (
-      <View style={styles.home}>
+      <SafeAreaView style={styles.home}>
         <BackButton text={'Food'} />
         <View style={styles.titleBar}>
           <Text style={styles.titleText}>{this.props.data.location_name}</Text>
@@ -60,7 +68,7 @@ class FoodList extends Component {
             <Text style={styles.emptyText}>There is currently no food at this time.</Text>
           </View>
         )}
-      </View>
+      </SafeAreaView>
     );
   }
 }

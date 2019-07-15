@@ -11,6 +11,7 @@ import {
   ImageBackground,
   Image,
   RefreshControl,
+  SafeAreaView,
 } from 'react-native';
 import BackButton from '../Components/BackButton';
 import RouteInStop from '../Components/RouteInStop';
@@ -124,6 +125,8 @@ class Stop extends Component {
             <Text style={styles.stopDistance}>{thisStop.distance}</Text>
             <Text style={styles.stopDistanceText}> miles away</Text>
           </View>
+          <SafeAreaView>
+          </SafeAreaView>
         </ImageBackground>
         <ScrollView
           refreshControl={

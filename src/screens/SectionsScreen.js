@@ -10,6 +10,7 @@ import {
   LayoutAnimation,
   StatusBar,
   SectionList,
+  SafeAreaView,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -118,6 +119,7 @@ class SectionsScreen extends Component {
               >
                 {this.state.course.opens} open sections of {this.state.course.all}
               </Text>
+          <SafeAreaView>
             </View>
             {this.state.course.credits != null && (
               <Text style={{ fontSize: 13, color: 'white', paddingBottom: 11 }}>
@@ -126,6 +128,7 @@ class SectionsScreen extends Component {
               </Text>
             )}
           </View>
+          </SafeAreaView>
         </ImageBackground>
         <FlatList
           data={this.state.course.sections}
