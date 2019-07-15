@@ -38,7 +38,7 @@ const styles = {
   },
   viewStyle: {
     flexDirection: 'row',
-    paddingTop: 32,
+    paddingTop: 15,
     alignItems: 'center',
   },
 };
