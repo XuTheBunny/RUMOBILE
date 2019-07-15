@@ -2,7 +2,15 @@ import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { deleteFavoriteBus, getBusStops, getPrediction } from '../actions';
-import { View, Text, ScrollView, TouchableOpacity, Image, StatusBar } from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  Image,
+  StatusBar,
+  SafeAreaView,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import RouteInStop from '../Components/RouteInStop';
 
@@ -110,33 +118,31 @@ class FavBusScreen extends Component {
 
   render() {
     return (
-      <View style={styles.home}>
-        <StatusBar barStyle="light-content" />
-        <View style={styles.cardContainer}>
-          <View style={styles.headerContainer}>
-            <View style={{ height: 64, flexDirection: 'column', justifyContent: 'space-between' }}>
-              <Text style={styles.subHeader}>FAVORITE</Text>
-              <Text style={styles.cardHeader}>My Buses</Text>
-            </View>
-            <View
-              style={{
-                height: 64,
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-            >
-              <TouchableOpacity onPress={() => this.backUp()}>
-                <Icon name="closecircle" size={35} color="rgb(151, 151, 151)" />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Text style={styles.editButton}>Edit</Text>
-              </TouchableOpacity>
-            </View>
+      <SafeAreaView style={styles.home}>
+        <StatusBar barStyle="dark-content" />
+        <View style={styles.headerContainer}>
+          <View style={{ height: 64, flexDirection: 'column', justifyContent: 'space-between' }}>
+            <Text style={styles.subHeader}>FAVORITE</Text>
+            <Text style={styles.cardHeader}>My Buses</Text>
           </View>
-          <ScrollView>{this.renderFavBus()}</ScrollView>
+          <View
+            style={{
+              height: 64,
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            <TouchableOpacity onPress={() => this.backUp()}>
+              <Icon name="closecircle" size={35} color="rgb(151, 151, 151)" />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Text style={styles.editButton}>Edit</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
+        <ScrollView>{this.renderFavBus()}</ScrollView>
+      </SafeAreaView>
     );
   }
 }
@@ -144,7 +150,7 @@ class FavBusScreen extends Component {
 const styles = {
   home: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.78)',
+    backgroundColor: 'white',
   },
   cardContainer: {
     flex: 1,

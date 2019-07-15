@@ -10,6 +10,7 @@ import {
   Image,
   StatusBar,
   SectionList,
+  SafeAreaView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import MeetingItem from '../Components/MeetingItem';
@@ -75,44 +76,38 @@ class FavClassScreen extends Component {
 
   render() {
     return (
-      <View style={styles.home}>
-        <StatusBar barStyle="light-content" />
-        <View style={styles.cardContainer}>
-          <View style={styles.headerContainer}>
-            <View style={{ height: 64, flexDirection: 'column', justifyContent: 'space-between' }}>
-              <Text style={styles.subHeader}>THIS WEEK</Text>
-              <Text style={styles.cardHeader}>My Schedule</Text>
-            </View>
-            <View
-              style={{
-                height: 64,
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-            >
-              <TouchableOpacity onPress={() => this.backUp()}>
-                <Icon name="closecircle" size={35} color="rgb(151, 151, 151)" />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Text style={styles.editButton}>Edit</Text>
-              </TouchableOpacity>
-            </View>
+      <SafeAreaView style={styles.home}>
+        <StatusBar barStyle="dark-content" />
+        <View style={styles.headerContainer}>
+          <View style={{ height: 64, flexDirection: 'column', justifyContent: 'space-between' }}>
+            <Text style={styles.subHeader}>THIS WEEK</Text>
+            <Text style={styles.cardHeader}>My Schedule</Text>
           </View>
-          <SectionList
-            stickySectionHeadersDisabled
-            renderItem={({ item, index, section }) => this.renderItem(item, index)}
-            renderSectionHeader={({ section: { title, data } }) =>
-              this.renderHeader({ title, data })
-            }
-            renderSectionFooter={({ section: { title, data } }) =>
-              this.renderFooter({ title, data })
-            }
-            sections={this.props.classList}
-            keyExtractor={(item, index) => item + index}
-          />
+          <View
+            style={{
+              height: 64,
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            <TouchableOpacity onPress={() => this.backUp()}>
+              <Icon name="closecircle" size={35} color="rgb(151, 151, 151)" />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Text style={styles.editButton}>Edit</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
+        <SectionList
+          stickySectionHeadersDisabled
+          renderItem={({ item, index, section }) => this.renderItem(item, index)}
+          renderSectionHeader={({ section: { title, data } }) => this.renderHeader({ title, data })}
+          renderSectionFooter={({ section: { title, data } }) => this.renderFooter({ title, data })}
+          sections={this.props.classList}
+          keyExtractor={(item, index) => item + index}
+        />
+      </SafeAreaView>
     );
   }
 }
@@ -120,7 +115,7 @@ class FavClassScreen extends Component {
 const styles = {
   home: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.78)',
+    backgroundColor: 'white',
   },
   cardContainer: {
     flex: 1,
