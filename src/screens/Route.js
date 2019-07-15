@@ -11,6 +11,7 @@ import {
   RefreshControl,
   SafeAreaView,
 } from 'react-native';
+import NotificationBar from '../Components/NotificationBar';
 import BackButton from '../Components/BackButton';
 import StopInRoute from '../Components/StopInRoute';
 import { getPrediction } from '../actions';
@@ -20,7 +21,7 @@ var nearestId = '';
 var thisRoute = {};
 
 class Route extends Component {
-  state = { refreshing: false };
+  state = { refreshing: false, currentCampus: '', showWarning: false };
 
   componentWillMount() {
     allRoutes = this.props.activeRoutes.concat(this.props.inactiveRoutes);
@@ -35,6 +36,7 @@ class Route extends Component {
     nearestId = duplicate.sort((a, b) =>
       a.distance > b.distance ? 1 : b.distance > a.distance ? -1 : 0,
     )[0].sid;
+    this.setState({ currentCampus: this.props.campus });
   }
 
   componentWillUpdate() {
@@ -51,22 +53,36 @@ class Route extends Component {
 
   onRefresh() {
     this.setState({ refreshing: true });
-    this.props.getPrediction('clean', []);
-    allRoutes = this.props.activeRoutes.concat(this.props.inactiveRoutes);
-    rid = [this.props.data];
-    sid = [];
-    thisRoute = allRoutes.find(obj => obj.rid == this.props.data);
-    thisRoute.stops.forEach(function(element) {
-      sid.push(element.sid);
-    });
-    this.props.getPrediction(rid, sid);
-    duplicate = JSON.parse(JSON.stringify(thisRoute.stops));
-    nearestId = duplicate.sort((a, b) =>
-      a.distance > b.distance ? 1 : b.distance > a.distance ? -1 : 0,
-    )[0].sid;
-    if (this.props.hasPrediction == 'here') {
-      this.setState({ refreshing: false });
+    if (this.props.campus == this.state.currentCampus) {
+      this.props.getPrediction('clean', []);
+      allRoutes = this.props.activeRoutes.concat(this.props.inactiveRoutes);
+      rid = [this.props.data];
+      sid = [];
+      thisRoute = allRoutes.find(obj => obj.rid == this.props.data);
+      thisRoute.stops.forEach(function(element) {
+        sid.push(element.sid);
+      });
+      this.props.getPrediction(rid, sid);
+      duplicate = JSON.parse(JSON.stringify(thisRoute.stops));
+      nearestId = duplicate.sort((a, b) =>
+        a.distance > b.distance ? 1 : b.distance > a.distance ? -1 : 0,
+      )[0].sid;
+      if (this.props.hasPrediction == 'here') {
+        this.setState({ refreshing: false });
+      }
+    } else {
+      this.setState({ refreshing: false, showWarning: true });
+      setTimeout(
+        function() {
+          this.setState({ showWarning: false });
+        }.bind(this),
+        2000,
+      );
     }
+  }
+
+  foldNofitication() {
+    this.setState({ showWarning: false });
   }
 
   singlePrediction(sid) {
@@ -110,7 +126,10 @@ class Route extends Component {
     return (
       <SafeAreaView style={[styles.screen, { backgroundColor: color }]}>
         <StatusBar barStyle="light-content" />
-        <View style={{ backgroundColor: color, paddingTop: 15 }}>
+        {this.state.showWarning && (
+          <NotificationBar text="Yoo, u have changed to the other campus." color="rgb(237,69,69)" />
+        )}
+        <View style={{ backgroundColor: color }}>
           <BackButton text={'Bus'} clear={true} />
           <View style={styles.routeHeaderContainer}>
             <Text style={styles.routeHeaderTitle}>{thisRoute.rname}</Text>
@@ -122,6 +141,7 @@ class Route extends Component {
           </View>
         </View>
         <ScrollView
+          style={{ backgroundColor: 'rgb(255, 255, 255)' }}
           refreshControl={
             <RefreshControl
               refreshing={this.state.refreshing}
@@ -139,7 +159,6 @@ class Route extends Component {
 const styles = {
   screen: {
     flex: 1,
-    backgroundColor: 'rgb(255, 255, 255)',
   },
   routeHeaderContainer: {
     flexDirection: 'row',
@@ -175,6 +194,7 @@ const mapStateToProps = state => {
     inactiveRoutes: state.bus.inactive_data,
     prediction: state.bus.prediction,
     hasPrediction: state.bus.has_prediction,
+    campus: state.bus.campus,
   };
 };
 
