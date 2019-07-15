@@ -162,7 +162,10 @@ export const getBusStops = action => {
           s.distance = distance.toFixed(2);
           all_stops.push(s);
           if (!Object.keys(bus_info_collect).includes('s' + element.stop_id)) {
-            bus_info_collect['s' + element.stop_id] = { sname: element.name, distance: s.distance };
+            bus_info_collect['s' + element.stop_id] = {
+              sname: element.name,
+              distance: distance.toFixed(1),
+            };
           }
         });
         routes_active.forEach(function(element) {
