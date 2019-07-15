@@ -39,11 +39,6 @@ export default class LinkScreen extends Component {
       src: require('../images/Links/News.png'),
     });
     links.push({
-      title: 'RU Listings',
-      url: 'https://www.rulistings.com',
-      src: require('../images/Links/Sales.png'),
-    });
-    links.push({
       title: 'Rutgers Reddit',
       url: 'https://m.reddit.com/r/rutgers/',
       src: require('../images/Links/Reddit.png'),
