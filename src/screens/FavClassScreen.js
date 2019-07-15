@@ -32,7 +32,7 @@ class FavClassScreen extends Component {
         >
           <Image
             style={title == this.props.today ? styles.sectionHeaderImage : { display: 'none' }}
-            source={require('../images/Today/Today-flag.png')}
+            source={require('../images/Today/Today.png')}
           />
           <Text
             style={[styles.sectionHeader, title == this.props.today ? { paddingRight: 83 } : {}]}
@@ -58,7 +58,7 @@ class FavClassScreen extends Component {
             : { display: 'none' }
         }
       >
-        <Text style={styles.sectionEmpty}>No classes</Text>
+        <Text style={styles.sectionEmpty}>NO CLASSES</Text>
       </View>
     );
   };
@@ -150,9 +150,11 @@ const styles = {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'white',
+    paddingVertical: 8,
   },
   sectionHeaderImage: {
-    width: 83,
+    width: 66,
+    height: 25,
     resizeMode: 'contain',
   },
   sectionHeader: {
