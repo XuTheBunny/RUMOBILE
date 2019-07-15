@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   StatusBar,
   RefreshControl,
+  AppState,
   SafeAreaView,
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -35,6 +36,7 @@ class TodayScreen extends Component {
   state = {
     busRefreshing: false,
     classEmpty: true,
+    appState: AppState.currentState,
   };
 
   componentWillMount() {
@@ -67,16 +69,24 @@ class TodayScreen extends Component {
     this.props.pullBanner();
     this.props.getBusStops('clean');
     this.props.getBusStops(this.props.campus);
+    AppState.addEventListener('change', this._handleAppStateChange);
   }
 
   Time() {
     var x = new Date();
     this.props.timeAction(x);
+    AppState.removeEventListener('change', this._handleAppStateChange);
   }
 
   onRefresh() {
     this.setState({ busRefreshing: true });
     this.props.getPrediction('clean', [], true);
+  _handleAppStateChange = nextAppState => {
+    if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
+      this.Time();
+    }
+    this.setState({ appState: nextAppState });
+  };
     rid = [];
     sid = [];
     if (this.props.bus_favorites.length > 0) {
