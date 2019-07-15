@@ -108,8 +108,8 @@ export default class LinkScreen extends Component {
   }
   render() {
     return (
-        <Header text={'Link'} />
       <SafeAreaView style={styles.home}>
+        <Header text={'Links'} />
         <ScrollView style={{ marginTop: 5 }}>{this.LinkList()}</ScrollView>
       </SafeAreaView>
     );
