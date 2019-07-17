@@ -13,6 +13,7 @@ import {
   RefreshControl,
   SafeAreaView,
 } from 'react-native';
+import NotificationBar from '../Components/NotificationBar';
 import BackButton from '../Components/BackButton';
 import RouteInStop from '../Components/RouteInStop';
 import { getPrediction } from '../actions';
@@ -22,7 +23,7 @@ var inactive_route = [];
 var thisStop = {};
 
 class Stop extends Component {
-  state = { refreshing: false };
+  state = { refreshing: false, currentCampus: '', showWarning: false };
 
   componentWillMount() {
     cleanPrediction = {};
@@ -41,6 +42,7 @@ class Stop extends Component {
       }
     });
     this.props.getPrediction(rid, sid);
+    this.setState({ currentCampus: this.props.campus });
   }
 
   componentWillUpdate() {
@@ -61,25 +63,35 @@ class Stop extends Component {
 
   onRefresh() {
     this.setState({ refreshing: true });
-    this.props.getPrediction('clean', []);
-    cleanPrediction = {};
-    active_route = [];
-    inactive_route = [];
-    sid = [this.props.data];
-    rid = [];
-    thisStop = this.props.allStops.find(obj => obj.sid == this.props.data);
-    thisStop.routes.forEach(function(element) {
-      if (element.isActive) {
-        rid.push(element.rid);
-        active_route.push(element);
-        cleanPrediction[element.rid] = [];
-      } else {
-        inactive_route.push(element);
+    if (this.props.campus == this.state.currentCampus) {
+      this.props.getPrediction('clean', []);
+      cleanPrediction = {};
+      active_route = [];
+      inactive_route = [];
+      sid = [this.props.data];
+      rid = [];
+      thisStop = this.props.allStops.find(obj => obj.sid == this.props.data);
+      thisStop.routes.forEach(function(element) {
+        if (element.isActive) {
+          rid.push(element.rid);
+          active_route.push(element);
+          cleanPrediction[element.rid] = [];
+        } else {
+          inactive_route.push(element);
+        }
+      });
+      this.props.getPrediction(rid, sid);
+      if (this.props.hasPrediction == 'here') {
+        this.setState({ refreshing: false });
       }
-    });
-    this.props.getPrediction(rid, sid);
-    if (this.props.hasPrediction == 'here') {
-      this.setState({ refreshing: false });
+    } else {
+      this.setState({ refreshing: false, showWarning: true });
+      setTimeout(
+        function() {
+          this.setState({ showWarning: false });
+        }.bind(this),
+        2000,
+      );
     }
   }
 
@@ -114,18 +126,21 @@ class Stop extends Component {
     return (
       <View style={styles.screen}>
         <StatusBar barStyle="light-content" />
+        {this.state.showWarning && (
+          <NotificationBar text="Yoo, u have changed to the other campus." color="rgb(237,69,69)" />
+        )}
         <ImageBackground
           imageStyle={{ opacity: 0.7 }}
           style={styles.stopHeaderContainer}
           source={require('../images/Bus/BusBackground.jpeg')}
         >
-          <BackButton text={'Bus'} clear={true} />
-          <Text style={styles.stopHeaderTitle}>{thisStop.sname}</Text>
-          <View style={styles.stopDistanceBox}>
-            <Text style={styles.stopDistance}>{thisStop.distance}</Text>
-            <Text style={styles.stopDistanceText}> miles away</Text>
-          </View>
           <SafeAreaView>
+            <BackButton text={'Bus'} clear={true} />
+            <Text style={styles.stopHeaderTitle}>{thisStop.sname}</Text>
+            <View style={styles.stopDistanceBox}>
+              <Text style={styles.stopDistance}>{thisStop.distance}</Text>
+              <Text style={styles.stopDistanceText}> miles away</Text>
+            </View>
           </SafeAreaView>
         </ImageBackground>
         <ScrollView
@@ -196,6 +211,7 @@ const mapStateToProps = state => {
     allStops: state.bus.all_data,
     prediction: state.bus.prediction,
     hasPrediction: state.bus.has_prediction,
+    campus: state.bus.campus,
   };
 };
 
