@@ -78,7 +78,7 @@ class SectionDetailScreen extends Component {
         <View
           style={[
             styles.headerContainer,
-            this.state.section.openStatus
+            this.state.section.title.openStatus
               ? { backgroundColor: 'rgb(90,175,79)' }
               : { backgroundColor: 'rgb(237,69,69)' },
           ]}
@@ -162,12 +162,9 @@ class SectionDetailScreen extends Component {
 const styles = {
   home: {
     flex: 1,
-    backgroundColor: 'rgb(255, 255, 255)',
   },
   headerContainer: {
-    paddingTop: 15,
-    paddingBottom: 11,
-    marginBottom: 25,
+    paddingBottom: 20,
     flexDirection: 'column',
     backgroundColor: 'rgb(96,178,6)',
   },
