@@ -28,6 +28,22 @@ class MeetingItem extends Component {
     return timeObj;
   };
 
+  buildingName() {
+    if (this.props.item.place == 'Independent Study') {
+      return 'Independent Study';
+    } else {
+      if (this.props.item.building) {
+        if (building.find(obj => obj.tag.includes(this.props.item.building.toLowerCase()))) {
+          return building.find(obj => obj.tag.includes(this.props.item.building.toLowerCase()))
+            .bName;
+        } else {
+          return this.props.item.building;
+        }
+      } else {
+        return 'No building data';
+      }
+    }
+  }
 
   campusIcon() {
     var color = '';
@@ -58,11 +74,6 @@ class MeetingItem extends Component {
   }
 
   render() {
-    buildingName =
-      this.props.item.building &&
-      building.find(obj => obj.tag.includes(this.props.item.building.toLowerCase()))
-        ? building.find(obj => obj.tag.includes(this.props.item.building.toLowerCase())).bName
-        : this.props.item.building;
     return (
       <View style={this.props.addStyle}>
         {!this.props.className && this.props.item.day.length > 0 && (
@@ -87,7 +98,7 @@ class MeetingItem extends Component {
                 </Text>
               ) : (
                 <Text style={{ fontSize: 14, marginBottom: 5, maxWidth: 230 }}>
-                  {this.props.item.building ? buildingName : 'Independent Study'}
+                  {this.buildingName()}
                 </Text>
               )}
               <View style={{ flexDirection: 'row' }}>
