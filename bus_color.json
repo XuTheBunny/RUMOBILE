@@ -141,6 +141,13 @@
     { "campus": "BUSCH", "ccolor": "#8D3092", "cName": "Busch" },
     { "campus": "LIVINGSTON", "ccolor": "#006FBA", "cName": "Livingston" },
     { "campus": "DOUGLAS/COOK", "ccolor": "#65BE6B", "cName": "Cook/Douglass" },
+    { "campus": "NEWARK", "ccolor": "#E51936", "cName": "Newark" },
+    { "campus": "CAMDEN", "ccolor": "#E51936", "cName": "Camdem" },
+    { "campus": "CAMDEN COUNTY COLLEGE", "ccolor": "#4A4A4A", "cName": "Camdem CC" },
+    { "campus": "DOWNTOWN NB", "ccolor": "#4A4A4A", "cName": "Downtown NB" },
+    { "campus": "COUNTY COLLEGE OF MORR", "ccolor": "#4A4A4A", "cName": "CC of Morr" },
+    { "campus": "ATLANTIC CITY/MAYS LAN", "ccolor": "#4A4A4A", "cName": "Mays Landing" },
+    { "campus": "BROOKDALE COMMUNITY CO", "ccolor": "#4A4A4A", "cName": "Brookdale CC" },
     { "campus": "RUTGERS", "ccolor": "#E51936", "cName": "Rutgers" }
   ]
 }

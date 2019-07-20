@@ -30,7 +30,13 @@ class SectionDetailScreen extends Component {
       this.props.class_favorites.filter(
         item =>
           item.classId ==
-          this.props.subjectNumber + '-' + this.props.courseNumber + '-' + this.props.sectionNumber,
+          this.props.subjectNumber +
+            '-' +
+            this.props.courseNumber +
+            '-' +
+            this.props.sectionNumber +
+            '-' +
+            this.props.classSetting.semester,
       ).length > 0,
   };
 
@@ -45,7 +51,13 @@ class SectionDetailScreen extends Component {
       courseObj = this.props.class.find(obj => obj.courseNumber == this.props.courseNumber);
       sectionObj = courseObj.sections.find(obj => obj.key == this.props.sectionNumber);
       sectionObj.classId =
-        this.props.subjectNumber + '-' + this.props.courseNumber + '-' + this.props.sectionNumber;
+        this.props.subjectNumber +
+        '-' +
+        this.props.courseNumber +
+        '-' +
+        this.props.sectionNumber +
+        '-' +
+        this.props.classSetting.semester;
       sectionObj.className = courseObj.title;
       this.setState({ section: sectionObj });
       this.setState({ course: courseObj });
@@ -66,7 +78,7 @@ class SectionDetailScreen extends Component {
         <View
           style={[
             styles.headerContainer,
-            this.state.section.openStatus
+            this.state.section.title.openStatus
               ? { backgroundColor: 'rgb(90,175,79)' }
               : { backgroundColor: 'rgb(237,69,69)' },
           ]}
@@ -94,7 +106,9 @@ class SectionDetailScreen extends Component {
             </View>
           </View>
         </View>
-        <ScrollView style={{ marginLeft: 16 }}>
+        <ScrollView
+          style={{ paddingLeft: 16, paddingTop: 23, backgroundColor: 'rgb(255, 255, 255)' }}
+        >
           <View
             style={{
               flex: 1,
@@ -131,12 +145,14 @@ class SectionDetailScreen extends Component {
             data={this.state.section.data}
             renderItem={({ item, index }) => <MeetingItem item={item} />}
           />
-          <Text style={styles.sectionTitle}>Instructors</Text>
-          <Text style={styles.sectionText}>{this.state.section.title.instructors}</Text>
-          <Text style={styles.sectionTitle}>Section Notes</Text>
-          <Text style={styles.sectionText}>
-            {this.state.section.title.sectionNotes || 'No Data'}
-          </Text>
+          <View style={{ paddingRight: 16 }}>
+            <Text style={styles.sectionTitle}>Instructors</Text>
+            <Text style={styles.sectionText}>{this.state.section.title.instructors}</Text>
+            <Text style={styles.sectionTitle}>Section Notes</Text>
+            <Text style={styles.sectionText}>
+              {this.state.section.title.sectionNotes || 'No Data'}
+            </Text>
+          </View>
         </ScrollView>
       </SafeAreaView>
     );
@@ -146,12 +162,9 @@ class SectionDetailScreen extends Component {
 const styles = {
   home: {
     flex: 1,
-    backgroundColor: 'rgb(255, 255, 255)',
   },
   headerContainer: {
-    paddingTop: 15,
-    paddingBottom: 11,
-    marginBottom: 25,
+    paddingBottom: 20,
     flexDirection: 'column',
     backgroundColor: 'rgb(96,178,6)',
   },

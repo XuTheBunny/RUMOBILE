@@ -63,11 +63,9 @@ export const getAllClass = (stage, classSetting) => {
     axios.get(all_class_url).then(response => {
       if (response.status == 200) {
         if (response.data.length > 0) {
-          console.log('Fetching class full list - Using API data');
           allClass = reformatData(response.data);
         } else {
-          console.log('Fetching class full list - Using BACKUP data');
-          allClass = reformatData(ALL_CLASS);
+          allClass = [];
         }
       } else {
         console.log(response);

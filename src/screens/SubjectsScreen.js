@@ -7,6 +7,7 @@ import {
   SectionList,
   LayoutAnimation,
   SafeAreaView,
+  StatusBar,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -30,6 +31,21 @@ class SubjectsScreen extends Component {
       this.setState({ sections: this.props.classList });
     } else {
       this.props.getAllClass(null, this.props.classSetting);
+    }
+  }
+
+  renderSetting() {
+    const s = [0, 'spring', 2, 3, 4, 5, 6, 'summer', 8, 'fall'];
+    const settingString = [
+      s[this.props.classSetting.semester[0][0]],
+      this.props.classSetting.semester[0].slice(1),
+      ...this.props.classSetting.campus,
+      ...this.props.classSetting.level,
+    ].join(' ');
+    if (settingString.length > 25) {
+      return <Text style={styles.headerNote}>{settingString.substring(0, 25) + '...'}</Text>;
+    } else {
+      return <Text style={styles.headerNote}>{settingString}</Text>;
     }
   }
 
@@ -77,15 +93,16 @@ class SubjectsScreen extends Component {
   render() {
     return (
       <SafeAreaView style={styles.home}>
+        <StatusBar barStyle="dark-content" />
         <View style={styles.topButtonContainer}>
           <BackButton text={'More'} />
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => Actions.classSetting_screen()}>
             <Text style={styles.editButton}>Edit</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.headerContainer}>
           <Text style={styles.headerText}>Subjects</Text>
-          <Text style={styles.headerNote}>FALL 2019 NB U</Text>
+          {this.renderSetting()}
         </View>
         <View style={styles.searchBar}>
           <EvilIcons name="search" size={20} color="rgb(138,138,143)" />
@@ -108,6 +125,7 @@ class SubjectsScreen extends Component {
             }
             sections={this.state.search ? this.state.sections : this.props.classList}
             keyExtractor={(item, index) => item + index}
+            ListEmptyComponent={() => <Text style={styles.emptyText}>No classes found.</Text>}
           />
         ) : (
           <Loading />
@@ -147,6 +165,7 @@ const styles = {
   headerNote: {
     fontSize: 13,
     color: 'rgb(142, 142, 142)',
+    textTransform: 'uppercase',
   },
   searchBar: {
     backgroundColor: 'rgba(142, 142, 147, 0.1)',
@@ -172,6 +191,13 @@ const styles = {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+  },
+  emptyText: {
+    fontSize: 15,
+    color: 'rgb(142, 142, 147)',
+    width: '100%',
+    textAlign: 'center',
+    marginTop: 50,
   },
 };
 
