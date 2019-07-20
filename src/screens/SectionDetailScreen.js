@@ -30,7 +30,13 @@ class SectionDetailScreen extends Component {
       this.props.class_favorites.filter(
         item =>
           item.classId ==
-          this.props.subjectNumber + '-' + this.props.courseNumber + '-' + this.props.sectionNumber,
+          this.props.subjectNumber +
+            '-' +
+            this.props.courseNumber +
+            '-' +
+            this.props.sectionNumber +
+            '-' +
+            this.props.classSetting.semester,
       ).length > 0,
   };
 
@@ -45,7 +51,13 @@ class SectionDetailScreen extends Component {
       courseObj = this.props.class.find(obj => obj.courseNumber == this.props.courseNumber);
       sectionObj = courseObj.sections.find(obj => obj.key == this.props.sectionNumber);
       sectionObj.classId =
-        this.props.subjectNumber + '-' + this.props.courseNumber + '-' + this.props.sectionNumber;
+        this.props.subjectNumber +
+        '-' +
+        this.props.courseNumber +
+        '-' +
+        this.props.sectionNumber +
+        '-' +
+        this.props.classSetting.semester;
       sectionObj.className = courseObj.title;
       this.setState({ section: sectionObj });
       this.setState({ course: courseObj });
