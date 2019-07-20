@@ -125,6 +125,7 @@ class SubjectsScreen extends Component {
             }
             sections={this.state.search ? this.state.sections : this.props.classList}
             keyExtractor={(item, index) => item + index}
+            ListEmptyComponent={() => <Text style={styles.emptyText}>No classes found.</Text>}
           />
         ) : (
           <Loading />
@@ -190,6 +191,13 @@ const styles = {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+  },
+  emptyText: {
+    fontSize: 15,
+    color: 'rgb(142, 142, 147)',
+    width: '100%',
+    textAlign: 'center',
+    marginTop: 50,
   },
 };
 
