@@ -106,7 +106,9 @@ class SectionDetailScreen extends Component {
             </View>
           </View>
         </View>
-        <ScrollView style={{ marginLeft: 16 }}>
+        <ScrollView
+          style={{ paddingLeft: 16, paddingTop: 23, backgroundColor: 'rgb(255, 255, 255)' }}
+        >
           <View
             style={{
               flex: 1,
@@ -143,12 +145,14 @@ class SectionDetailScreen extends Component {
             data={this.state.section.data}
             renderItem={({ item, index }) => <MeetingItem item={item} />}
           />
-          <Text style={styles.sectionTitle}>Instructors</Text>
-          <Text style={styles.sectionText}>{this.state.section.title.instructors}</Text>
-          <Text style={styles.sectionTitle}>Section Notes</Text>
-          <Text style={styles.sectionText}>
-            {this.state.section.title.sectionNotes || 'No Data'}
-          </Text>
+          <View style={{ paddingRight: 16 }}>
+            <Text style={styles.sectionTitle}>Instructors</Text>
+            <Text style={styles.sectionText}>{this.state.section.title.instructors}</Text>
+            <Text style={styles.sectionTitle}>Section Notes</Text>
+            <Text style={styles.sectionText}>
+              {this.state.section.title.sectionNotes || 'No Data'}
+            </Text>
+          </View>
         </ScrollView>
       </SafeAreaView>
     );
