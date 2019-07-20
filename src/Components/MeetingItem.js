@@ -28,10 +28,36 @@ class MeetingItem extends Component {
     return timeObj;
   };
 
+
+  campusIcon() {
+    var color = '';
+    var name = '';
+    if (this.props.item.campus) {
+      color = campusColor.find(obj => obj.campus == this.props.item.campus)
+        ? campusColor.find(obj => obj.campus == this.props.item.campus).ccolor
+        : 'rgb(74, 74, 74)';
+      name = campusColor.find(obj => obj.campus == this.props.item.campus)
+        ? campusColor.find(obj => obj.campus == this.props.item.campus).cName
+        : this.props.item.campus;
+    } else {
+      color = 'rgb(229, 25, 54)';
+      name = 'Rutgers';
+    }
+    return (
+      <View
+        style={{
+          backgroundColor: color,
+          paddingVertical: 3,
+          paddingHorizontal: 4,
+          borderRadius: 3,
+        }}
+      >
+        <Text style={{ fontSize: 10, color: 'white' }}>{name}</Text>
+      </View>
+    );
+  }
+
   render() {
-    color = this.props.item.campus
-      ? campusColor.find(obj => obj.campus == this.props.item.campus).ccolor
-      : 'rgb(229, 25, 54)';
     buildingName =
       this.props.item.building &&
       building.find(obj => obj.tag.includes(this.props.item.building.toLowerCase()))
@@ -65,20 +91,7 @@ class MeetingItem extends Component {
                 </Text>
               )}
               <View style={{ flexDirection: 'row' }}>
-                <View
-                  style={{
-                    backgroundColor: color,
-                    paddingVertical: 3,
-                    paddingHorizontal: 4,
-                    borderRadius: 3,
-                  }}
-                >
-                  <Text style={{ fontSize: 10, color: 'white', textTransform: 'capitalize' }}>
-                    {this.props.item.campus
-                      ? campusColor.find(obj => obj.campus == this.props.item.campus).cName
-                      : 'Rutgers'}
-                  </Text>
-                </View>
+                {this.campusIcon()}
                 <Text style={{ fontSize: 12, color: 'rgb(109,109,114)', marginLeft: 4 }}>
                   {this.props.className && this.props.item.building && (
                     <Text>{this.props.item.building + ' '}</Text>
