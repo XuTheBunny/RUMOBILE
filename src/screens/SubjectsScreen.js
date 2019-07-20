@@ -34,6 +34,21 @@ class SubjectsScreen extends Component {
     }
   }
 
+  renderSetting() {
+    const s = [0, 'spring', 2, 3, 4, 5, 6, 'summer', 8, 'fall'];
+    const settingString = [
+      s[this.props.classSetting.semester[0][0]],
+      this.props.classSetting.semester[0].slice(1),
+      ...this.props.classSetting.campus,
+      ...this.props.classSetting.level,
+    ].join(' ');
+    if (settingString.length > 25) {
+      return <Text style={styles.headerNote}>{settingString.substring(0, 25) + '...'}</Text>;
+    } else {
+      return <Text style={styles.headerNote}>{settingString}</Text>;
+    }
+  }
+
   renderHeader = ({ title, data }) => {
     return (
       <Text style={[styles.sectionHeader, data.length == 0 ? { display: 'none' } : {}]}>
@@ -87,7 +102,7 @@ class SubjectsScreen extends Component {
         </View>
         <View style={styles.headerContainer}>
           <Text style={styles.headerText}>Subjects</Text>
-          <Text style={styles.headerNote}>FALL 2019 NB U</Text>
+          {this.renderSetting()}
         </View>
         <View style={styles.searchBar}>
           <EvilIcons name="search" size={20} color="rgb(138,138,143)" />
@@ -149,6 +164,7 @@ const styles = {
   headerNote: {
     fontSize: 13,
     color: 'rgb(142, 142, 142)',
+    textTransform: 'uppercase',
   },
   searchBar: {
     backgroundColor: 'rgba(142, 142, 147, 0.1)',
