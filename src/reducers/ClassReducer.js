@@ -8,9 +8,9 @@ import {
 
 const INITIAL_STATE = {
   class_setting: {
-    semester: '92019',
-    campus: 'NB',
-    level: 'UG',
+    semester: ['92019'],
+    campus: ['NB'],
+    level: ['U'],
   },
   class_list: [],
   class: [],
