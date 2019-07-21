@@ -46,17 +46,6 @@ class MoreScreen extends Component {
     return (
       <SafeAreaView style={styles.home}>
         <Header text={'More'} />
-        <Text style={styles.titleText}>Rutgers Buses Campus</Text>
-        <View style={styles.titleContainer}>
-          <SegmentedControlTab
-            values={['New Brunswick', 'Newark']}
-            selectedIndex={this.state.selectedIndex}
-            onTabPress={this.handleIndexChange}
-            activeTabStyle={styles.activeTabStyle}
-            tabStyle={styles.tabStyle}
-            tabTextStyle={styles.tabTextStyle}
-          />
-        </View>
         <View style={{ marginTop: 16 }}>
           <ScrollView>
             <TouchableOpacity
