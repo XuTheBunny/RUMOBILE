@@ -57,39 +57,55 @@ class MoreScreen extends Component {
             tabTextStyle={styles.tabTextStyle}
           />
         </View>
-        <ScrollView>
-          <TouchableOpacity
-            onPress={() => {
-              Actions.subjects_screen();
-            }}
-          >
-            <View style={styles.listContainer}>
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Image style={styles.iconStyle} source={require('../images/More/Classes.png')} />
-                <Text style={styles.listText}>Classes</Text>
+        <View style={{ marginTop: 16 }}>
+          <ScrollView>
+            <TouchableOpacity
+              onPress={() => {
+                Actions.subjects_screen();
+              }}
+            >
+              <View style={{ flexDirection: 'row', paddingHorizontal: 15 }}>
+                <Image
+                  style={styles.iconStyle}
+                  source={require('../images/More/coursesicon.png')}
+                />
+                <View style={styles.listContainer}>
+                  <Text style={styles.listText}>Classes</Text>
+                  <EvilIcons name="chevron-right" size={30} color="rgb(138,138,143)" />
+                </View>
               </View>
-              <EvilIcons name="chevron-right" size={30} color="rgb(138,138,143)" />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <View style={styles.listContainer}>
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Image style={styles.iconStyle} source={require('../images/More/Red.png')} />
-                <Text style={styles.listText}>About</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                Actions.aboutMe_screen();
+              }}
+            >
+              <View style={{ flexDirection: 'row', paddingHorizontal: 16 }}>
+                <Image style={styles.iconStyle} source={require('../images/More/abouticon.png')} />
+                <View style={styles.listContainer}>
+                  <Text style={styles.listText}>About</Text>
+                  <EvilIcons name="chevron-right" size={30} color="rgb(138,138,143)" />
+                </View>
               </View>
-              <EvilIcons name="chevron-right" size={30} color="rgb(138,138,143)" />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <View style={styles.listContainer}>
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Image style={styles.iconStyle} source={require('../images/More/Settings.png')} />
-                <Text style={styles.listText}>Settings</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                Actions.setting_screen();
+              }}
+            >
+              <View style={{ flexDirection: 'row', paddingHorizontal: 15 }}>
+                <Image
+                  style={styles.iconStyle}
+                  source={require('../images/More/settingsicon.png')}
+                />
+                <View style={styles.listContainer}>
+                  <Text style={styles.listText}>Settings</Text>
+                  <EvilIcons name="chevron-right" size={30} color="rgb(138,138,143)" />
+                </View>
               </View>
-              <EvilIcons name="chevron-right" size={30} color="rgb(138,138,143)" />
-            </View>
-          </TouchableOpacity>
-        </ScrollView>
+            </TouchableOpacity>
+          </ScrollView>
+        </View>
       </SafeAreaView>
     );
   }
@@ -120,19 +136,22 @@ const styles = {
     color: '#ed4545',
   },
   listContainer: {
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 15,
-    paddingVertical: 8,
+    paddingVertical: 11,
     borderBottomColor: 'rgb(235,235,235)',
     borderBottomWidth: 0.5,
+    marginLeft: 17,
   },
   iconStyle: {
-    height: 29,
-    width: 29,
+    height: 24,
+    width: 24,
+    resizeMode: 'contain',
+    marginTop: 11,
+    marginLeft: 2,
   },
   listText: {
-    paddingLeft: 15,
     fontSize: 17,
   },
 };
