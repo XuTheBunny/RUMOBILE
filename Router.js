@@ -1,6 +1,6 @@
 import React from 'react';
-import { Image } from 'react-native';
 import { Scene, Router } from 'react-native-router-flux';
+import TabIcon from './src/Components/TabIcon';
 import TodayScreen from './src/screens/TodayScreen';
 import FavClassScreen from './src/screens/FavClassScreen';
 import FavBusScreen from './src/screens/FavBusScreen';
@@ -16,39 +16,6 @@ import CoursesScreen from './src/screens/CoursesScreen';
 import SectionsScreen from './src/screens/SectionsScreen';
 import SectionDetailScreen from './src/screens/SectionDetailScreen';
 import ClassSettingScreen from './src/screens/ClassSettingScreen';
-
-const TabIcon = ({ focused, title }) => {
-  const selection = focused ? 'Selected' : 'Unselected';
-  const tabImage = {
-    Today: {
-      Selected: require('./src/images/TabBar/TodaySelected.jpg'),
-      Unselected: require('./src/images/TabBar/TodayUnselected.jpg'),
-    },
-    Bus: {
-      Selected: require('./src/images/TabBar/BusSelected.jpg'),
-      Unselected: require('./src/images/TabBar/BusUnselected.jpg'),
-    },
-    Food: {
-      Selected: require('./src/images/TabBar/FoodSelected.jpg'),
-      Unselected: require('./src/images/TabBar/FoodUnselected.jpg'),
-    },
-    Links: {
-      Selected: require('./src/images/TabBar/LinksSelected.png'),
-      Unselected: require('./src/images/TabBar/LinksUnselected.jpg'),
-    },
-    More: {
-      Selected: require('./src/images/TabBar/MoreSelected.png'),
-      Unselected: require('./src/images/TabBar/MoreUnselected.jpg'),
-    },
-  };
-  return (
-    <Image
-      style={{ width: 27, height: 24, marginTop: 15, marginBottom: 10 }}
-      resizeMode="contain"
-      source={tabImage[title][selection]}
-    />
-  );
-};
 
 const RouterComponent = () => {
   return (
