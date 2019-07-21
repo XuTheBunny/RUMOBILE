@@ -24,10 +24,6 @@ class SectionsScreen extends Component {
     course: {},
   };
 
-  componentWillUpdate() {
-    LayoutAnimation.easeInEaseOut();
-  }
-
   componentWillMount() {
     if (this.props.classHere == 'here') {
       this.setState({

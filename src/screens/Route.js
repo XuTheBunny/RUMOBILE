@@ -39,10 +39,6 @@ class Route extends Component {
     this.setState({ currentCampus: this.props.campus });
   }
 
-  componentWillUpdate() {
-    LayoutAnimation.easeInEaseOut();
-  }
-
   resetColor() {
     color = 'rgb(142, 142, 147)';
   }

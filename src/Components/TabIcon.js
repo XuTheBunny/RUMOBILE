@@ -28,10 +28,6 @@ const tabImage = {
 };
 
 class TabIcon extends Component {
-  componentWillUpdate() {
-    console.log(this.props);
-  }
-
   renderFavCounts() {
     if (this.props.title == 'Today' && !this.props.focused && this.props.counts > 0) {
       return (

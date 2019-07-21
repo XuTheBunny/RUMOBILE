@@ -40,10 +40,6 @@ class SectionDetailScreen extends Component {
       ).length > 0,
   };
 
-  componentWillUpdate() {
-    LayoutAnimation.easeInEaseOut();
-  }
-
   componentWillMount() {
     if (this.props.classHere == 'no') {
       this.props.getOneClass(this.props.code, this.props.classSetting);

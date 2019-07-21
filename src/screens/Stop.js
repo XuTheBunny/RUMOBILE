@@ -45,10 +45,6 @@ class Stop extends Component {
     this.setState({ currentCampus: this.props.campus });
   }
 
-  componentWillUpdate() {
-    LayoutAnimation.easeInEaseOut();
-  }
-
   renderInactive() {
     return inactive_route.map(route => (
       <RouteInStop

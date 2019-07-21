@@ -31,10 +31,6 @@ class BusScreen extends Component {
     refreshing: false,
   };
 
-  componentWillUpdate() {
-    LayoutAnimation.easeInEaseOut();
-  }
-
   // componentDidMount() {
   //   AppState.addEventListener('change', this._handleAppStateChange);
   // }
