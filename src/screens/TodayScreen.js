@@ -229,8 +229,8 @@ class TodayScreen extends Component {
           <View style={styles.cardContainer}>
             <View style={styles.cardTitleContainer}>
               <View style={{ flexDirection: 'row' }}>
-                <Image style={styles.cardIcon} source={require('../images/Today/Bus.jpg')} />
-                <Text style={styles.cardTitle}>Buses</Text>
+                <Image style={styles.cardIcon} source={require('../images/Today/Class.png')} />
+                <Text style={styles.cardTitle}>Classes</Text>
               </View>
               <TouchableOpacity onPress={() => this.onFavClassPress(classList, classList[n].title)}>
                 <Text style={styles.cardTitle}>Edit</Text>
@@ -250,8 +250,8 @@ class TodayScreen extends Component {
         <View style={styles.cardContainer}>
           <View style={styles.cardTitleContainer}>
             <View style={{ flexDirection: 'row' }}>
-              <Image style={styles.cardIcon} source={require('../images/Today/Bus.jpg')} />
-              <Text style={styles.cardTitle}>Buses</Text>
+              <Image style={styles.cardIcon} source={require('../images/Today/Class.png')} />
+              <Text style={styles.cardTitle}>Classes</Text>
             </View>
           </View>
           <View style={[styles.cardBodyContainer, { marginVertical: 20 }]}>
@@ -295,8 +295,8 @@ class TodayScreen extends Component {
           <View style={styles.cardContainer}>
             <View style={styles.cardTitleContainer}>
               <View style={{ flexDirection: 'row' }}>
-                <Image style={styles.cardIcon} source={require('../images/Today/Class.png')} />
-                <Text style={styles.cardTitle}>Classes</Text>
+                <Image style={styles.cardIcon} source={require('../images/Today/Bus.jpg')} />
+                <Text style={styles.cardTitle}>Buses</Text>
               </View>
               <TouchableOpacity onPress={() => this.onFavBusPress()}>
                 <Text style={styles.cardTitle}>Edit</Text>
@@ -340,8 +340,8 @@ class TodayScreen extends Component {
           <View style={styles.cardContainer}>
             <View style={styles.cardTitleContainer}>
               <View style={{ flexDirection: 'row' }}>
-                <Image style={styles.cardIcon} source={require('../images/Today/Class.png')} />
-                <Text style={styles.cardTitle}>Classes</Text>
+                <Image style={styles.cardIcon} source={require('../images/Today/Bus.jpg')} />
+                <Text style={styles.cardTitle}>Buses</Text>
               </View>
               <TouchableOpacity onPress={() => this.onFavBusPress()}>
                 <Text style={styles.cardTitle}>Edit</Text>
@@ -363,8 +363,8 @@ class TodayScreen extends Component {
         <View style={styles.cardContainer}>
           <View style={styles.cardTitleContainer}>
             <View style={{ flexDirection: 'row' }}>
-              <Image style={styles.cardIcon} source={require('../images/Today/Class.png')} />
-              <Text style={styles.cardTitle}>Classes</Text>
+              <Image style={styles.cardIcon} source={require('../images/Today/Bus.jpg')} />
+              <Text style={styles.cardTitle}>Buses</Text>
             </View>
           </View>
           <View style={[styles.cardBodyContainer, { marginBottom: 20 }]}>
