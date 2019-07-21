@@ -30,22 +30,6 @@ class BusScreen extends Component {
     appState: AppState.currentState,
   };
 
-  // componentDidMount() {
-  //   AppState.addEventListener('change', this._handleAppStateChange);
-  // }
-  //
-  // componentWillUnmount() {
-  //   AppState.removeEventListener('change', this._handleAppStateChange);
-  // }
-  //
-  // _handleAppStateChange = nextAppState => {
-  //   if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
-  //     this.props.getBusStops('clean');
-  //     this.props.getBusStops(this.props.campus);
-  //   }
-  //   this.setState({ appState: nextAppState });
-  // };
-
   onRefresh() {
     this.props.getBusStops('clean');
     this.props.getBusStops(this.props.campus);
