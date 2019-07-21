@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, Image, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import { addFavoriteBus, deleteFavoriteBus } from '../actions';
+import { addFavoriteBus, deleteFavoriteBus, setCounts } from '../actions';
 import { routeColor } from '../../bus_color.json';
 
 var color = 'rgb(142, 142, 147)';
@@ -59,6 +59,7 @@ class RouteInStop extends React.Component {
               if (this.state.like) {
                 this.props.deleteFavoriteBus(this.props.sid + '-' + this.props.rid);
               } else {
+                this.props.setCounts(1);
                 this.props.addFavoriteBus(this.props.sid + '-' + this.props.rid);
               }
               this.setState({
@@ -141,5 +142,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { addFavoriteBus, deleteFavoriteBus },
+  { addFavoriteBus, deleteFavoriteBus, setCounts },
 )(RouteInStop);

@@ -18,7 +18,7 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import BackButton from '../Components/BackButton';
 import Loading from '../Components/Loading';
 import MeetingItem from '../Components/MeetingItem';
-import { getOneClass, addFavoriteClass, deleteFavoriteClass } from '../actions';
+import { getOneClass, addFavoriteClass, deleteFavoriteClass, setCounts } from '../actions';
 
 class SectionDetailScreen extends Component {
   _keyExtractor = (item, index) => item.day + item.startTime;
@@ -123,6 +123,7 @@ class SectionDetailScreen extends Component {
                 if (this.state.like) {
                   this.props.deleteFavoriteClass(this.state.section);
                 } else {
+                  this.props.setCounts(1);
                   this.props.addFavoriteClass(this.state.section);
                 }
                 this.setState({
@@ -214,5 +215,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getOneClass, addFavoriteClass, deleteFavoriteClass },
+  { getOneClass, addFavoriteClass, deleteFavoriteClass, setCounts },
 )(SectionDetailScreen);
