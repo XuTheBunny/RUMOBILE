@@ -8,6 +8,7 @@ import {
   BUS_DATA_HERE,
   CAMPUS,
   BUS_INFO,
+  LOCATION_SHARING,
 } from './types';
 
 var geodist = require('geodist');
@@ -70,7 +71,10 @@ export const getBusStops = action => {
           resolve(user_location);
         });
       } else {
-        console.log(error.message);
+        console.log('User Location is not allowed');
+        user_location.lat = 'no';
+        user_location.lon = 'no';
+        resolve(user_location);
       }
     });
   });

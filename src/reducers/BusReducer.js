@@ -10,6 +10,7 @@ import {
   TODAY_PREDICTION_DATA_HERE,
   CAMPUS,
   BUS_INFO,
+  LOCATION_SHARING,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -24,6 +25,7 @@ const INITIAL_STATE = {
   today_has_prediction: 'no',
   campus: 'newBrunswick',
   bus_info: {},
+  location_sharing: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -51,6 +53,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, campus: action.payload };
     case BUS_INFO:
       return { ...state, bus_info: Object.assign(state.bus_info, action.payload) };
+    case LOCATION_SHARING:
+      return { ...state, location_sharing: action.payload };
     default:
       return state;
   }
