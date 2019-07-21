@@ -35,7 +35,7 @@ class FavClassScreen extends Component {
             source={require('../images/Today/Today.png')}
           />
           <Text
-            style={[styles.sectionHeader, title == this.props.today ? { paddingRight: 83 } : {}]}
+            style={[styles.sectionHeader, title == this.props.today ? { paddingRight: 66 } : {}]}
           >
             {title}
           </Text>
