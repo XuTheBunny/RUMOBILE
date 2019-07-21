@@ -11,6 +11,7 @@ import {
   AppState,
   RefreshControl,
   SafeAreaView,
+  StatusBar,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import Header from '../Components/Header';
@@ -38,6 +39,7 @@ class BusScreen extends Component {
   render() {
     return (
       <SafeAreaView style={styles.home}>
+        <StatusBar barStyle="dark-content" />
         <Header text={'Bus'} />
         <View style={{ paddingHorizontal: 13, marginTop: 10 }}>
           <SegmentedControlTab
