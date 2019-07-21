@@ -24,8 +24,6 @@ class SectionDetailScreen extends Component {
   _keyExtractor = (item, index) => item.day + item.startTime;
 
   state = {
-    course: {},
-    section: {},
     like:
       this.props.class_favorites.filter(
         item =>
@@ -43,29 +41,26 @@ class SectionDetailScreen extends Component {
   componentDidMount() {
     if (this.props.classHere == 'no') {
       this.props.getOneClass(this.props.code, this.props.classSetting);
-    } else {
-      courseObj = this.props.class.find(obj => obj.courseNumber == this.props.courseNumber);
-      sectionObj = courseObj.sections.find(obj => obj.key == this.props.sectionNumber);
-      sectionObj.classId =
-        this.props.subjectNumber +
-        '-' +
-        this.props.courseNumber +
-        '-' +
-        this.props.sectionNumber +
-        '-' +
-        this.props.classSetting.semester;
-      sectionObj.className = courseObj.title;
-      this.setState({ section: sectionObj });
-      this.setState({ course: courseObj });
     }
   }
 
   render() {
+    courseObj = this.props.class.find(obj => obj.courseNumber == this.props.courseNumber);
+    sectionObj = courseObj.sections.find(obj => obj.key == this.props.sectionNumber);
+    sectionObj.classId =
+      this.props.subjectNumber +
+      '-' +
+      this.props.courseNumber +
+      '-' +
+      this.props.sectionNumber +
+      '-' +
+      this.props.classSetting.semester;
+    sectionObj.className = courseObj.title;
     return (
       <SafeAreaView
         style={[
           styles.home,
-          this.state.section.title.openStatus
+          sectionObj.title.openStatus
             ? { backgroundColor: 'rgb(90,175,79)' }
             : { backgroundColor: 'rgb(237,69,69)' },
         ]}
@@ -74,13 +69,13 @@ class SectionDetailScreen extends Component {
         <View
           style={[
             styles.headerContainer,
-            this.state.section.title.openStatus
+            sectionObj.title.openStatus
               ? { backgroundColor: 'rgb(90,175,79)' }
               : { backgroundColor: 'rgb(237,69,69)' },
           ]}
         >
           <BackButton text={'Sections'} clear={true} />
-          <Text style={styles.headerTitle}>{this.state.course.title}</Text>
+          <Text style={styles.headerTitle}>{courseObj.title}</Text>
           <View style={styles.headerNote}>
             <View>
               <Text style={{ fontSize: 25, fontWeight: '500', color: 'white' }}>
@@ -90,13 +85,13 @@ class SectionDetailScreen extends Component {
             </View>
             <View>
               <Text style={{ fontSize: 25, fontWeight: '500', color: 'white' }}>
-                {this.state.section.title.index || 'no data'}
+                {sectionObj.title.index || 'no data'}
               </Text>
               <Text style={{ fontSize: 13, color: 'white' }}>INDEX</Text>
             </View>
             <View>
               <Text style={{ fontSize: 25, fontWeight: '500', color: 'white' }}>
-                {this.state.course.credits || 'no data'}
+                {courseObj.credits || 'no data'}
               </Text>
               <Text style={{ fontSize: 13, color: 'white' }}>CREDITS</Text>
             </View>
@@ -117,10 +112,10 @@ class SectionDetailScreen extends Component {
             <TouchableOpacity
               onPress={() => {
                 if (this.state.like) {
-                  this.props.deleteFavoriteClass(this.state.section);
+                  this.props.deleteFavoriteClass(sectionObj);
                 } else {
                   this.props.setCounts(1);
-                  this.props.addFavoriteClass(this.state.section);
+                  this.props.addFavoriteClass(sectionObj);
                 }
                 this.setState({
                   like: !this.state.like,
@@ -139,16 +134,14 @@ class SectionDetailScreen extends Component {
           </View>
           <FlatList
             keyExtractor={this._keyExtractor}
-            data={this.state.section.data}
+            data={sectionObj.data}
             renderItem={({ item, index }) => <MeetingItem item={item} />}
           />
           <View style={{ paddingRight: 16 }}>
             <Text style={styles.sectionTitle}>Instructors</Text>
-            <Text style={styles.sectionText}>{this.state.section.title.instructors}</Text>
+            <Text style={styles.sectionText}>{sectionObj.title.instructors}</Text>
             <Text style={styles.sectionTitle}>Section Notes</Text>
-            <Text style={styles.sectionText}>
-              {this.state.section.title.sectionNotes || 'No Data'}
-            </Text>
+            <Text style={styles.sectionText}>{sectionObj.title.sectionNotes || 'No Data'}</Text>
           </View>
         </ScrollView>
       </SafeAreaView>
