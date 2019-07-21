@@ -28,36 +28,11 @@ class BusScreen extends Component {
     showRoute2: true,
     selectedIndex: 0,
     appState: AppState.currentState,
-    refreshing: false,
   };
 
-  componentWillUpdate() {
-    LayoutAnimation.easeInEaseOut();
-  }
-
-  // componentDidMount() {
-  //   AppState.addEventListener('change', this._handleAppStateChange);
-  // }
-  //
-  // componentWillUnmount() {
-  //   AppState.removeEventListener('change', this._handleAppStateChange);
-  // }
-  //
-  // _handleAppStateChange = nextAppState => {
-  //   if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
-  //     this.props.getBusStops('clean');
-  //     this.props.getBusStops(this.props.campus);
-  //   }
-  //   this.setState({ appState: nextAppState });
-  // };
-
   onRefresh() {
-    this.setState({ refreshing: true });
     this.props.getBusStops('clean');
     this.props.getBusStops(this.props.campus);
-    if (this.props.data_here == 'here') {
-      this.setState({ refreshing: false });
-    }
   }
 
   render() {
@@ -82,7 +57,7 @@ class BusScreen extends Component {
           style={{ marginTop: 12 }}
           refreshControl={
             <RefreshControl
-              refreshing={this.state.refreshing}
+              refreshing={this.props.data_here == 'no'}
               onRefresh={this.onRefresh.bind(this)}
             />
           }

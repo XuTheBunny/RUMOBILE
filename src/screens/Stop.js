@@ -25,7 +25,7 @@ var thisStop = {};
 class Stop extends Component {
   state = { refreshing: false, currentCampus: '', showWarning: false };
 
-  componentWillMount() {
+  componentDidMount() {
     cleanPrediction = {};
     active_route = [];
     inactive_route = [];
@@ -43,10 +43,6 @@ class Stop extends Component {
     });
     this.props.getPrediction(rid, sid);
     this.setState({ currentCampus: this.props.campus });
-  }
-
-  componentWillUpdate() {
-    LayoutAnimation.easeInEaseOut();
   }
 
   renderInactive() {

@@ -22,11 +22,7 @@ class SubjectsScreen extends Component {
     sections: [],
   };
 
-  componentWillUpdate() {
-    LayoutAnimation.easeInEaseOut();
-  }
-
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.classList.legnth > 0) {
       this.setState({ sections: this.props.classList });
     } else {

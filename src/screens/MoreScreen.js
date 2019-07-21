@@ -12,7 +12,7 @@ class MoreScreen extends Component {
     selectedIndex: 0,
   };
 
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.campus == 'newBrunswick') {
       this.setState({
         selectedIndex: 0,

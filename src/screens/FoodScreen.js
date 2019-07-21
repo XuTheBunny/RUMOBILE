@@ -15,12 +15,8 @@ import { foodPull } from '../actions';
 
 class FoodScreen extends Component {
   state = { appState: AppState.currentState };
-
-  componentWillMount() {
-    this.props.foodPull('https://rumobile.rutgers.edu/1/rutgers-dining.txt');
-  }
-
   componentDidMount() {
+    this.props.foodPull('https://rumobile.rutgers.edu/1/rutgers-dining.txt');
     AppState.addEventListener('change', this._handleAppStateChange);
   }
 

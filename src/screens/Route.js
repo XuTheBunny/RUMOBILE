@@ -16,14 +16,13 @@ import BackButton from '../Components/BackButton';
 import StopInRoute from '../Components/StopInRoute';
 import { getPrediction } from '../actions';
 import { routeColor } from '../../bus_color.json';
-var color = 'rgb(142, 142, 147)';
 var nearestId = '';
 var thisRoute = {};
 
 class Route extends Component {
   state = { refreshing: false, currentCampus: '', showWarning: false };
 
-  componentWillMount() {
+  componentDidMount() {
     allRoutes = this.props.activeRoutes.concat(this.props.inactiveRoutes);
     rid = [this.props.data];
     sid = [];
@@ -37,18 +36,6 @@ class Route extends Component {
       a.distance > b.distance ? 1 : b.distance > a.distance ? -1 : 0,
     )[0].sid;
     this.setState({ currentCampus: this.props.campus });
-  }
-
-  componentWillUpdate() {
-    LayoutAnimation.easeInEaseOut();
-  }
-
-  resetColor() {
-    color = 'rgb(142, 142, 147)';
-  }
-
-  isColor() {
-    color = routeColor.find(obj => obj.rname == thisRoute.rname).rcolor;
   }
 
   onRefresh() {
@@ -121,8 +108,9 @@ class Route extends Component {
   }
 
   render() {
-    this.resetColor();
-    this.isColor();
+    color = routeColor.find(obj => obj.rname == thisRoute.rname)
+      ? routeColor.find(obj => obj.rname == thisRoute.rname).rcolor
+      : 'rgb(142, 142, 147)';
     return (
       <SafeAreaView style={[styles.screen, { backgroundColor: color }]}>
         <StatusBar barStyle="light-content" />

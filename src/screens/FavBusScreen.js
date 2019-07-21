@@ -17,7 +17,7 @@ import RouteInStop from '../Components/RouteInStop';
 var timer = 0;
 
 class FavBusScreen extends Component {
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.bus_favorites.length > 0) {
       rid = [];
       sid = [];
