@@ -28,7 +28,6 @@ class BusScreen extends Component {
     showRoute2: true,
     selectedIndex: 0,
     appState: AppState.currentState,
-    refreshing: false,
   };
 
   // componentDidMount() {
@@ -48,12 +47,8 @@ class BusScreen extends Component {
   // };
 
   onRefresh() {
-    this.setState({ refreshing: true });
     this.props.getBusStops('clean');
     this.props.getBusStops(this.props.campus);
-    if (this.props.data_here == 'here') {
-      this.setState({ refreshing: false });
-    }
   }
 
   render() {
@@ -78,7 +73,7 @@ class BusScreen extends Component {
           style={{ marginTop: 12 }}
           refreshControl={
             <RefreshControl
-              refreshing={this.state.refreshing}
+              refreshing={this.props.data_here == 'no'}
               onRefresh={this.onRefresh.bind(this)}
             />
           }
