@@ -75,6 +75,7 @@ class TodayScreen extends Component {
   _handleAppStateChange = nextAppState => {
     if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
       this.Time();
+      this.props.getBusStops(this.props.campus);
     }
     this.setState({ appState: nextAppState });
   };
