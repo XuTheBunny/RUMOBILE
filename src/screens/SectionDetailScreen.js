@@ -40,7 +40,7 @@ class SectionDetailScreen extends Component {
       ).length > 0,
   };
 
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.classHere == 'no') {
       this.props.getOneClass(this.props.code, this.props.classSetting);
     } else {

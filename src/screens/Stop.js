@@ -25,7 +25,7 @@ var thisStop = {};
 class Stop extends Component {
   state = { refreshing: false, currentCampus: '', showWarning: false };
 
-  componentWillMount() {
+  componentDidMount() {
     cleanPrediction = {};
     active_route = [];
     inactive_route = [];

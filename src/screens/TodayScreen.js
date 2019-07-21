@@ -37,7 +37,7 @@ class TodayScreen extends Component {
     appState: AppState.currentState,
   };
 
-  componentWillMount() {
+  componentDidMount() {
     //Handles the Date Text at the top of the Header
     this.props.pullDate(new Date());
 
@@ -60,9 +60,6 @@ class TodayScreen extends Component {
 
       this.props.getPrediction(rid, sid, true);
     }
-  }
-
-  componentDidMount() {
     //At Every Second, the method below Time() is run. Use this to monitor refreshes
     //this.timer = setInterval(()=> this.Time(), 1000);
     //This pulls the FireBase Header Data

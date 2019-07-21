@@ -16,7 +16,7 @@ import { foodTab } from '../actions';
 import FoodSection from '../Components/FoodSection';
 
 class FoodList extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.foodTab(0);
   }
 

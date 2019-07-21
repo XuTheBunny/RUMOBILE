@@ -24,7 +24,7 @@ class SectionsScreen extends Component {
     course: {},
   };
 
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.classHere == 'here') {
       this.setState({
         course: this.props.class.find(obj => obj.courseNumber == this.props.courseNumber),

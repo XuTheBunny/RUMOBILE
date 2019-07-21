@@ -19,7 +19,7 @@ import { getOneClass } from '../actions';
 class CoursesScreen extends Component {
   _keyExtractor = (item, index) => item.courseNumber;
 
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.classHere == 'no') {
       this.props.getOneClass(this.props.code, this.props.classSetting);
     }

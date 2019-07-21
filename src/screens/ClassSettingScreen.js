@@ -46,7 +46,7 @@ class ClassSettingScreen extends Component {
     this.props.getAllClass(null, this.state);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.setState({
       semester: this.props.classSetting.semester,
       campus: this.props.classSetting.campus,

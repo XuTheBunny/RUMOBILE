@@ -23,7 +23,7 @@ var thisRoute = {};
 class Route extends Component {
   state = { refreshing: false, currentCampus: '', showWarning: false };
 
-  componentWillMount() {
+  componentDidMount() {
     allRoutes = this.props.activeRoutes.concat(this.props.inactiveRoutes);
     rid = [this.props.data];
     sid = [];
