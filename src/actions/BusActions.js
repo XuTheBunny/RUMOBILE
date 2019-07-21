@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import RNLocation from 'react-native-location';
 import {
   NEARBYBUS,
   ALLBUS,
@@ -55,18 +55,24 @@ export const getBusStops = action => {
 
   var getUserLocation = new Promise((resolve, reject) => {
     user_location = {};
-    navigator.geolocation.getCurrentPosition(
-      position => {
-        user_location.lat = position.coords.latitude;
-        user_location.lon = position.coords.longitude;
-        console.log('User Location: ' + user_location.lat + ',' + user_location.lon);
-        resolve(user_location);
+
+    RNLocation.requestPermission({
+      ios: 'whenInUse',
+      android: {
+        detail: 'coarse',
       },
-      error => {
+    }).then(granted => {
+      if (granted) {
+        RNLocation.getLatestLocation({ timeout: 60000 }).then(latestLocation => {
+          user_location.lat = latestLocation.latitude;
+          user_location.lon = latestLocation.longitude;
+          console.log('User Location: ' + user_location.lat + ',' + user_location.lon);
+          resolve(user_location);
+        });
+      } else {
         console.log(error.message);
-      },
-      { enableHighAccuracy: true, timeout: 5000, maximumAge: 6000 },
-    );
+      }
+    });
   });
 
   var checkHaveBus = new Promise((resolve, reject) => {
