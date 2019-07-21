@@ -134,7 +134,12 @@ class FavBusScreen extends Component {
             }}
           >
             <TouchableOpacity onPress={() => this.backUp()}>
-              <Icon name="closecircle" size={35} color="rgb(151, 151, 151)" />
+              <View style={styles.closeButton}>
+                <Image
+                  style={styles.iconStyle}
+                  source={require('../images/Today/actionClose.png')}
+                />
+              </View>
             </TouchableOpacity>
             <TouchableOpacity>
               <Text style={styles.editButton}>Edit</Text>
@@ -199,6 +204,24 @@ const styles = {
     paddingTop: 14,
     paddingBottom: 8,
     paddingHorizontal: 23,
+  },
+  iconStyle: {
+    height: 13,
+    width: 13,
+  },
+  closeButton: {
+    height: 28,
+    width: 28,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 8,
+    borderRadius: 14,
+    shadowColor: 'rgb(220, 220, 220)',
+    shadowOpacity: 0.8,
+    shadowOffset: { width: 0, height: 1 },
+    shadowRadius: 2,
+    backgroundColor: 'white',
   },
 };
 
