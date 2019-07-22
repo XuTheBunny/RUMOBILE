@@ -8,6 +8,7 @@ import {
   BUS_DATA_HERE,
   CAMPUS,
   BUS_INFO,
+  LOCATION_SHARING,
 } from './types';
 
 var geodist = require('geodist');
@@ -70,7 +71,10 @@ export const getBusStops = action => {
           resolve(user_location);
         });
       } else {
-        console.log(error.message);
+        console.log('User Location is not allowed');
+        user_location.lat = 'no';
+        user_location.lon = 'no';
+        resolve(user_location);
       }
     });
   });
@@ -161,16 +165,20 @@ export const getBusStops = action => {
             routes.push(r);
           });
           s.routes = routes;
-          distance = geodist(user_location, element.location, {
-            exact: true,
-            unit: 'miles',
-          });
-          s.distance = distance.toFixed(2);
+          if (user_location.lat == 'no') {
+            distance = '--';
+          } else {
+            distance = geodist(user_location, element.location, {
+              exact: true,
+              unit: 'miles',
+            });
+          }
+          s.distance = distance == '--' ? '--' : distance.toFixed(2);
           all_stops.push(s);
           if (!Object.keys(bus_info_collect).includes('s' + element.stop_id)) {
             bus_info_collect['s' + element.stop_id] = {
               sname: element.name,
-              distance: distance.toFixed(1),
+              distance: distance == '--' ? '--' : distance.toFixed(1),
             };
           }
         });
@@ -189,16 +197,29 @@ export const getBusStops = action => {
         dispatch({ type: BUS_INFO, payload: bus_info_collect });
         dispatch({ type: ACTIVEROUTES, payload: routes_active });
         dispatch({ type: INACTIVEROUTES, payload: routes_inactive });
-        dispatch({
-          type: NEARBYBUS,
-          payload: all_stops
-            .sort((a, b) => (a.distance > b.distance ? 1 : b.distance > a.distance ? -1 : 0))
-            .slice(0, nearby_count),
-        });
-        dispatch({
-          type: ALLBUS,
-          payload: all_stops.sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0)),
-        });
+        if (all_stops[0].distance == '--') {
+          dispatch({
+            type: NEARBYBUS,
+            payload: [],
+          });
+          dispatch({
+            type: ALLBUS,
+            payload: all_stops.sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0)),
+          });
+          dispatch({ type: LOCATION_SHARING, payload: false });
+        } else {
+          dispatch({
+            type: NEARBYBUS,
+            payload: all_stops
+              .sort((a, b) => (a.distance > b.distance ? 1 : b.distance > a.distance ? -1 : 0))
+              .slice(0, nearby_count),
+          });
+          dispatch({
+            type: ALLBUS,
+            payload: all_stops.sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0)),
+          });
+          dispatch({ type: LOCATION_SHARING, payload: true });
+        }
         dispatch({ type: BUS_DATA_HERE, payload: 'here' });
       });
     });

@@ -26,6 +26,7 @@ export const PREDICTION_DATA_HERE = 'prediction_data_here';
 export const TODAY_PREDICTION = 'today_prediction';
 export const TODAY_PREDICTION_DATA_HERE = 'today_prediction_data_here';
 export const BUS_INFO = 'bus_info';
+export const LOCATION_SHARING = 'location_sharing';
 
 export const LINK_LIST = 'link_list';
 

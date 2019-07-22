@@ -30,7 +30,7 @@ export default class LinkScreen extends Component {
     });
     links.push({
       title: 'Library Hours',
-      url: 'https://m.libraries.rutgers.edu/hours.php',
+      url: 'https://www.libraries.rutgers.edu',
       src: require('../images/Links/Clock.png'),
     });
     links.push({

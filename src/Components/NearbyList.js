@@ -15,11 +15,27 @@ class NearbyList extends Component {
   }
 
   render() {
-    return <View>{this.renderList()}</View>;
+    return (
+      <View>
+        {this.props.nearby.length > 0 ? (
+          this.renderList()
+        ) : (
+          <Text style={styles.emptyText}>Location services not enabled.</Text>
+        )}
+      </View>
+    );
   }
 }
 
-const styles = {};
+const styles = {
+  emptyText: {
+    fontSize: 15,
+    color: 'rgb(142, 142, 147)',
+    width: '100%',
+    textAlign: 'center',
+    paddingVertical: 10,
+  },
+};
 
 const mapStateToProps = state => {
   return {
