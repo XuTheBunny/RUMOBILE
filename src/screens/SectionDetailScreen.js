@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
 import {
   View,
   Text,
@@ -36,6 +37,20 @@ class SectionDetailScreen extends Component {
             '-' +
             this.props.classSetting.semester,
       ).length > 0,
+  };
+
+  storeFavClassData = async (classObj, add) => {
+    var favClassArray = [];
+    if (add) {
+      favClassArray = [...this.props.class_favorites, classObj];
+    } else {
+      favClassArray = this.props.class_favorites.filter(item => classObj.classId !== item.classId);
+    }
+    try {
+      await AsyncStorage.setItem('class_favorites', JSON.stringify({ classFav: favClassArray }));
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   componentDidMount() {
@@ -113,9 +128,11 @@ class SectionDetailScreen extends Component {
               onPress={() => {
                 if (this.state.like) {
                   this.props.deleteFavoriteClass(sectionObj);
+                  this.storeFavClassData(sectionObj, false);
                 } else {
                   this.props.setCounts(1);
                   this.props.addFavoriteClass(sectionObj);
+                  this.storeFavClassData(sectionObj, true);
                 }
                 this.setState({
                   like: !this.state.like,
