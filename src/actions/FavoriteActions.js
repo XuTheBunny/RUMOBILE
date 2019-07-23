@@ -1,21 +1,22 @@
 import {
   ADD_FAVORITE_BUS,
   DELETE_FAVORITE_BUS,
+  SET_FAVORITE_BUS,
   ADD_FAVORITE_CLASS,
   DELETE_FAVORITE_CLASS,
 } from './types';
 
-export const addFavoriteBus = (val) => {
-  return (dispatch) => {
+export const addFavoriteBus = val => {
+  return dispatch => {
     dispatch({ type: ADD_FAVORITE_BUS, payload: val });
-  }
-}
+  };
+};
 
-export const deleteFavoriteBus = (val) => {
-  return (dispatch) => {
+export const deleteFavoriteBus = val => {
+  return dispatch => {
     dispatch({ type: DELETE_FAVORITE_BUS, payload: val });
-  }
-}
+  };
+};
 
 export const addFavoriteClass = (val) => {
   return (dispatch) => {
@@ -28,3 +29,9 @@ export const deleteFavoriteClass = (val) => {
     dispatch({ type: DELETE_FAVORITE_CLASS, payload: val });
   }
 }
+
+export const setFavoriteBus = val => {
+  return dispatch => {
+    dispatch({ type: SET_FAVORITE_BUS, payload: val });
+  };
+};

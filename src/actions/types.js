@@ -38,5 +38,6 @@ export const CLASS_DATA_HERE = 'class_data_here';
 
 export const ADD_FAVORITE_BUS = 'add_favorite_bus';
 export const DELETE_FAVORITE_BUS = 'delete_favorite_bus';
+export const SET_FAVORITE_BUS = 'set_favorite_bus';
 export const ADD_FAVORITE_CLASS = 'add_favorite_class';
 export const DELETE_FAVORITE_CLASS = 'delete_favorite_CLASS';
