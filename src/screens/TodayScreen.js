@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { FIREBASE_USER, FIREBASE_PASSWORD } from '../../env.json';
+import AsyncStorage from '@react-native-community/async-storage';
 import {
   View,
   Text,
@@ -29,6 +30,7 @@ import {
   deleteFavoriteClass,
   deleteFavoriteBus,
   getPrediction,
+  setCampus,
   getBusInfo,
 } from '../actions';
 
@@ -39,8 +41,31 @@ class TodayScreen extends Component {
     appState: AppState.currentState,
   };
 
+  storeData = async (key, value) => {
+    try {
+      await AsyncStorage.setItem(key, value);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  getCampusData = async () => {
+    try {
+      const w = await AsyncStorage.getItem('campus');
+      if (w == null) {
+        this.storeData('campus', this.props.campus);
+      } else {
+        this.props.setCampus(w);
+      }
+      this.props.getBusStops('clean');
+      this.props.getBusStops(this.props.campus);
+    } catch (e) {
+      console.log(e);
+    }
+  };
   componentDidMount() {
     this.props.getBusInfo();
+    this.getCampusData();
     //Handles the Date Text at the top of the Header
     this.props.pullDate(new Date());
 
@@ -501,6 +526,7 @@ export default connect(
     deleteFavoriteClass,
     deleteFavoriteBus,
     getPrediction,
+    setCampus,
     getBusInfo,
   },
 )(TodayScreen);
