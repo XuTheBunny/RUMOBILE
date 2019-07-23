@@ -19,6 +19,7 @@ import RouteInStop from '../Components/RouteInStop';
 import MeetingItem from '../Components/MeetingItem';
 import { routeColor } from '../../bus_color.json';
 import { noClass } from '../../message.json';
+import Loading from '../Components/Loading';
 import {
   loginUser,
   pullBanner,
@@ -28,6 +29,7 @@ import {
   deleteFavoriteClass,
   deleteFavoriteBus,
   getPrediction,
+  getBusInfo,
 } from '../actions';
 
 var timer = 0;
@@ -38,6 +40,7 @@ class TodayScreen extends Component {
   };
 
   componentDidMount() {
+    this.props.getBusInfo();
     //Handles the Date Text at the top of the Header
     this.props.pullDate(new Date());
 
@@ -393,7 +396,7 @@ class TodayScreen extends Component {
             }
           >
             {this.renderFavClass()}
-            {this.renderFavBus()}
+            {Object.keys(this.props.bus_info).length > 0 ? this.renderFavBus() : <Loading />}
           </ScrollView>
         </View>
       </SafeAreaView>
@@ -498,5 +501,6 @@ export default connect(
     deleteFavoriteClass,
     deleteFavoriteBus,
     getPrediction,
+    getBusInfo,
   },
 )(TodayScreen);
