@@ -32,6 +32,7 @@ import {
   getPrediction,
   setCampus,
   setClass,
+  setFavoriteClass,
   setFavoriteBus,
   getBusInfo,
 } from '../actions';
@@ -79,6 +80,18 @@ class TodayScreen extends Component {
     }
   };
 
+  getFavClassData = async () => {
+    try {
+      const w = await AsyncStorage.getItem('class_favorites');
+      if (w == null) {
+        this.storeData('class_favorites', JSON.stringify({ classFav: this.props.class_favorites }));
+      } else {
+        this.props.setFavoriteClass(JSON.parse(w).classFav);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   getFavBusData = async () => {
     try {
@@ -100,6 +113,7 @@ class TodayScreen extends Component {
     this.props.getBusInfo();
     this.getCampusData();
     this.getClassSettingData();
+    this.getFavClassData();
     this.getFavBusData();
     //Handles the Date Text at the top of the Header
     this.props.pullDate(new Date());
@@ -563,6 +577,7 @@ export default connect(
     getPrediction,
     setCampus,
     setClass,
+    setFavoriteClass,
     setFavoriteBus,
     getBusInfo,
   },
