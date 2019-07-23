@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { setCampus, getBusStops } from '../actions';
@@ -38,6 +39,16 @@ class SettingScreen extends Component {
     };
   }
 
+  storeCampusData = async index => {
+    campusIndex = ['newBrunswick', 'newark'];
+    console.log('campus', campusIndex[index]);
+    try {
+      await AsyncStorage.setItem('campus', campusIndex[index]);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   handleIndexChange = index => {
     campusIndex = ['newBrunswick', 'newark'];
     this.props.setCampus(campusIndex[index]);
@@ -46,10 +57,10 @@ class SettingScreen extends Component {
     this.setState({
       selectedIndex: index,
     });
+    this.storeCampusData(index);
   };
 
   render() {
-    console.log(this.props);
     return (
       <SafeAreaView style={styles.home}>
         <BackButton text={'More'} />
