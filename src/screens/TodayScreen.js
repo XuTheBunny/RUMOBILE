@@ -31,6 +31,7 @@ import {
   deleteFavoriteBus,
   getPrediction,
   setCampus,
+  setClass,
   getBusInfo,
 } from '../actions';
 
@@ -63,9 +64,24 @@ class TodayScreen extends Component {
       console.log(e);
     }
   };
+
+  getClassSettingData = async () => {
+    try {
+      const w = await AsyncStorage.getItem('class_setting');
+      if (w == null) {
+        this.storeData('class_setting', JSON.stringify(this.props.class_setting));
+      } else {
+        this.props.setClass(JSON.parse(w));
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   componentDidMount() {
     this.props.getBusInfo();
     this.getCampusData();
+    this.getClassSettingData();
     //Handles the Date Text at the top of the Header
     this.props.pullDate(new Date());
 
@@ -505,7 +521,7 @@ const mapStateToProps = state => {
     login: state.home.login,
     banner: state.home.banner,
     dateText: state.home.dateText,
-    classSetting: state.class.class_setting,
+    class_setting: state.class.class_setting,
     campus: state.bus.campus,
     class_favorites: state.favorite.class_favorites,
     bus_favorites: state.favorite.bus_favorites,
@@ -527,6 +543,7 @@ export default connect(
     deleteFavoriteBus,
     getPrediction,
     setCampus,
+    setClass,
     getBusInfo,
   },
 )(TodayScreen);
