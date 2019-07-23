@@ -104,6 +104,20 @@ class TodayScreen extends Component {
       } else {
         this.props.setFavoriteBus(JSON.parse(w).busFav);
       }
+      if (this.props.bus_favorites.length > 0) {
+        rid = [];
+        sid = [];
+        this.props.bus_favorites.forEach(function(bid) {
+          if (!rid.includes(bid.split('-')[1])) {
+            rid.push(bid.split('-')[1]);
+          }
+          if (!sid.includes(bid.split('-')[0])) {
+            sid.push(bid.split('-')[0]);
+          }
+        });
+
+        this.props.getPrediction(rid, sid, true);
+      }
     } catch (e) {
       console.log(e);
     }
@@ -121,22 +135,7 @@ class TodayScreen extends Component {
     //Logins In firebase Admin which has read-only access to the RTD
     this.props.loginUser(FIREBASE_USER, FIREBASE_PASSWORD);
     this.props.getPrediction('clean', [], true);
-    this.props.getBusStops('clean');
-    this.props.getBusStops(this.props.campus);
-    if (this.props.bus_favorites.length > 0) {
-      rid = [];
-      sid = [];
-      this.props.bus_favorites.forEach(function(bid) {
-        if (!rid.includes(bid.split('-')[1])) {
-          rid.push(bid.split('-')[1]);
-        }
-        if (!sid.includes(bid.split('-')[0])) {
-          sid.push(bid.split('-')[0]);
-        }
-      });
 
-      this.props.getPrediction(rid, sid, true);
-    }
     //At Every Second, the method below Time() is run. Use this to monitor refreshes
     //this.timer = setInterval(()=> this.Time(), 1000);
     //This pulls the FireBase Header Data
