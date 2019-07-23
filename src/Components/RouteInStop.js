@@ -1,4 +1,5 @@
 import React from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
 import { Text, View, Image, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -10,6 +11,20 @@ var tag = '?';
 
 class RouteInStop extends React.Component {
   state = { like: this.props.bus_favorites.includes(this.props.sid + '-' + this.props.rid) };
+
+  storeFavBusData = async (busId, add) => {
+    var favBusArray = [];
+    if (add) {
+      favBusArray = [...this.props.bus_favorites, busId];
+    } else {
+      favBusArray = this.props.bus_favorites.filter(item => busId !== item);
+    }
+    try {
+      await AsyncStorage.setItem('bus_favorites', JSON.stringify({ busFav: favBusArray }));
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   formPrediction() {
     if (this.props.prediction.length > 0) {
@@ -58,9 +73,11 @@ class RouteInStop extends React.Component {
             onPress={() => {
               if (this.state.like) {
                 this.props.deleteFavoriteBus(this.props.sid + '-' + this.props.rid);
+                this.storeFavBusData(this.props.sid + '-' + this.props.rid, false);
               } else {
                 this.props.setCounts(1);
                 this.props.addFavoriteBus(this.props.sid + '-' + this.props.rid);
+                this.storeFavBusData(this.props.sid + '-' + this.props.rid, true);
               }
               this.setState({
                 like: !this.state.like,

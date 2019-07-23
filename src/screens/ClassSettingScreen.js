@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { setClass, getAllClass } from '../actions';
@@ -39,11 +40,20 @@ class ClassSettingScreen extends Component {
     ],
   };
 
+  storeClassSettingData = async () => {
+    try {
+      await AsyncStorage.setItem('class_setting', JSON.stringify(this.state));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   backUp() {
     this.props.getAllClass('clean', null);
     this.props.setClass(this.state);
     Actions.pop();
     this.props.getAllClass(null, this.state);
+    this.storeClassSettingData();
   }
 
   componentDidMount() {

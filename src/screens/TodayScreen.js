@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { FIREBASE_USER, FIREBASE_PASSWORD } from '../../env.json';
+import AsyncStorage from '@react-native-community/async-storage';
 import {
   View,
   Text,
@@ -19,6 +20,7 @@ import RouteInStop from '../Components/RouteInStop';
 import MeetingItem from '../Components/MeetingItem';
 import { routeColor } from '../../bus_color.json';
 import { noClass } from '../../message.json';
+import Loading from '../Components/Loading';
 import {
   loginUser,
   pullBanner,
@@ -28,6 +30,11 @@ import {
   deleteFavoriteClass,
   deleteFavoriteBus,
   getPrediction,
+  setCampus,
+  setClass,
+  setFavoriteClass,
+  setFavoriteBus,
+  getBusInfo,
 } from '../actions';
 
 var timer = 0;
@@ -37,29 +44,98 @@ class TodayScreen extends Component {
     appState: AppState.currentState,
   };
 
+  storeData = async (key, value) => {
+    try {
+      await AsyncStorage.setItem(key, value);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  getCampusData = async () => {
+    try {
+      const w = await AsyncStorage.getItem('campus');
+      if (w == null) {
+        this.storeData('campus', this.props.campus);
+      } else {
+        this.props.setCampus(w);
+      }
+      this.props.getBusStops('clean');
+      this.props.getBusStops(this.props.campus);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  getClassSettingData = async () => {
+    try {
+      const w = await AsyncStorage.getItem('class_setting');
+      if (w == null) {
+        this.storeData('class_setting', JSON.stringify(this.props.class_setting));
+      } else {
+        this.props.setClass(JSON.parse(w));
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  getFavClassData = async () => {
+    try {
+      const w = await AsyncStorage.getItem('class_favorites');
+      if (w == null) {
+        this.storeData('class_favorites', JSON.stringify({ classFav: this.props.class_favorites }));
+      } else {
+        this.props.setFavoriteClass(JSON.parse(w).classFav);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  getFavBusData = async () => {
+    try {
+      const w = await AsyncStorage.getItem('bus_favorites');
+      if (w == null) {
+        this.storeData(
+          'bus_favorites',
+          JSON.stringify({ busFav: this.props.this.props.bus_favorites }),
+        );
+      } else {
+        this.props.setFavoriteBus(JSON.parse(w).busFav);
+      }
+      if (this.props.bus_favorites.length > 0) {
+        rid = [];
+        sid = [];
+        this.props.bus_favorites.forEach(function(bid) {
+          if (!rid.includes(bid.split('-')[1])) {
+            rid.push(bid.split('-')[1]);
+          }
+          if (!sid.includes(bid.split('-')[0])) {
+            sid.push(bid.split('-')[0]);
+          }
+        });
+
+        this.props.getPrediction(rid, sid, true);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   componentDidMount() {
+    this.props.getBusInfo();
+    this.getCampusData();
+    this.getClassSettingData();
+    this.getFavClassData();
+    this.getFavBusData();
     //Handles the Date Text at the top of the Header
     this.props.pullDate(new Date());
 
     //Logins In firebase Admin which has read-only access to the RTD
     this.props.loginUser(FIREBASE_USER, FIREBASE_PASSWORD);
     this.props.getPrediction('clean', [], true);
-    this.props.getBusStops('clean');
-    this.props.getBusStops(this.props.campus);
-    if (this.props.bus_favorites.length > 0) {
-      rid = [];
-      sid = [];
-      this.props.bus_favorites.forEach(function(bid) {
-        if (!rid.includes(bid.split('-')[1])) {
-          rid.push(bid.split('-')[1]);
-        }
-        if (!sid.includes(bid.split('-')[0])) {
-          sid.push(bid.split('-')[0]);
-        }
-      });
 
-      this.props.getPrediction(rid, sid, true);
-    }
     //At Every Second, the method below Time() is run. Use this to monitor refreshes
     //this.timer = setInterval(()=> this.Time(), 1000);
     //This pulls the FireBase Header Data
@@ -393,7 +469,7 @@ class TodayScreen extends Component {
             }
           >
             {this.renderFavClass()}
-            {this.renderFavBus()}
+            {Object.keys(this.props.bus_info).length > 0 ? this.renderFavBus() : <Loading />}
           </ScrollView>
         </View>
       </SafeAreaView>
@@ -477,7 +553,7 @@ const mapStateToProps = state => {
     login: state.home.login,
     banner: state.home.banner,
     dateText: state.home.dateText,
-    classSetting: state.class.class_setting,
+    class_setting: state.class.class_setting,
     campus: state.bus.campus,
     class_favorites: state.favorite.class_favorites,
     bus_favorites: state.favorite.bus_favorites,
@@ -498,5 +574,10 @@ export default connect(
     deleteFavoriteClass,
     deleteFavoriteBus,
     getPrediction,
+    setCampus,
+    setClass,
+    setFavoriteClass,
+    setFavoriteBus,
+    getBusInfo,
   },
 )(TodayScreen);
