@@ -4,6 +4,7 @@ import {
   SET_FAVORITE_BUS,
   ADD_FAVORITE_CLASS,
   DELETE_FAVORITE_CLASS,
+  SET_FAVORITE_CLASS,
 } from './types';
 
 export const addFavoriteBus = val => {
@@ -18,20 +19,26 @@ export const deleteFavoriteBus = val => {
   };
 };
 
-export const addFavoriteClass = (val) => {
-  return (dispatch) => {
+export const addFavoriteClass = val => {
+  return dispatch => {
     dispatch({ type: ADD_FAVORITE_CLASS, payload: val });
-  }
-}
+  };
+};
 
-export const deleteFavoriteClass = (val) => {
-  return (dispatch) => {
+export const deleteFavoriteClass = val => {
+  return dispatch => {
     dispatch({ type: DELETE_FAVORITE_CLASS, payload: val });
-  }
-}
+  };
+};
 
 export const setFavoriteBus = val => {
   return dispatch => {
     dispatch({ type: SET_FAVORITE_BUS, payload: val });
+  };
+};
+
+export const setFavoriteClass = val => {
+  return dispatch => {
+    dispatch({ type: SET_FAVORITE_CLASS, payload: val });
   };
 };
