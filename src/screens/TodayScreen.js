@@ -18,7 +18,7 @@ import Header from '../Components/Header';
 import HomeBanner from '../Components/HomeBanner';
 import RouteInStop from '../Components/RouteInStop';
 import MeetingItem from '../Components/MeetingItem';
-import { routeColor } from '../../bus_color.json';
+import { routeColor, busInfo } from '../../bus_color.json';
 import { noClass } from '../../message.json';
 import Loading from '../Components/Loading';
 import {
@@ -151,6 +151,7 @@ class TodayScreen extends Component {
   _handleAppStateChange = nextAppState => {
     if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
       this.Time();
+      this.props.getBusInfo();
       this.props.getBusStops(this.props.campus);
     }
     this.setState({ appState: nextAppState });
@@ -197,6 +198,7 @@ class TodayScreen extends Component {
   }
 
   formBusId() {
+    info = Object.keys(this.props.bus_info).length > 0 ? this.props.bus_info : busInfo;
     idList = [];
     this.props.bus_favorites.forEach(function(bid) {
       s = bid.split('-')[0];
@@ -340,7 +342,6 @@ class TodayScreen extends Component {
   }
 
   renderFavBus() {
-    info = this.props.bus_info;
     prediction = [];
     prediction = this.props.today_prediction;
     if (this.props.bus_favorites.length > 0) {
@@ -469,7 +470,7 @@ class TodayScreen extends Component {
             }
           >
             {this.renderFavClass()}
-            {Object.keys(this.props.bus_info).length > 0 ? this.renderFavBus() : <Loading />}
+            {this.renderFavBus()}
           </ScrollView>
         </View>
       </SafeAreaView>
