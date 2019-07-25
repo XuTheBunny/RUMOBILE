@@ -36,6 +36,9 @@ class RouterComponent extends Component {
     return (
       <Router
         onStateChange={() => {
+          if (Actions.currentScene == 'today_screen') {
+            this.props.setCounts(0);
+          }
           if (lightStatusBar.includes(Actions.currentScene)) {
             StatusBar.setBarStyle('light-content');
           } else {
