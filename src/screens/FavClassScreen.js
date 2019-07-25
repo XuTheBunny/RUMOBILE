@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
+import { SwipeRow } from 'react-native-swipe-list-view';
 import { deleteFavoriteClass } from '../actions';
 import {
   View,
@@ -65,12 +66,26 @@ class FavClassScreen extends Component {
 
   renderItem = (item, index) => {
     return (
-      <MeetingItem
+      <SwipeRow
         key={item.day + item.startTime + index.toString()}
-        item={item}
-        className={item.className}
-        addStyle={{ marginLeft: 30 }}
-      />
+        disableRightSwipe
+        rightOpenValue={-75}
+      >
+        <View style={styles.rowBack}>
+          <TouchableOpacity
+            onPress={() => {
+              sectionObj = this.props.class_favorites.find(obj => obj.classId == item.classId);
+              this.props.deleteFavoriteClass(sectionObj);
+              this.storeFavClassData(sectionObj);
+            }}
+          >
+            <Text style={{ color: 'white', padding: 15 }}>Delete</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.rowFront}>
+          <MeetingItem item={item} className={item.className} addStyle={{ marginLeft: 30 }} />
+        </View>
+      </SwipeRow>
     );
   };
 
@@ -192,6 +207,19 @@ const styles = {
     shadowOffset: { width: 0, height: 1 },
     shadowRadius: 2,
     backgroundColor: 'white',
+  },
+  rowFront: {
+    backgroundColor: 'white',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+  },
+  rowBack: {
+    flex: 1,
+    backgroundColor: 'rgb(237, 69, 69)',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
   },
 };
 
