@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
+import { StatusBar } from 'react-native';
 import { setCounts } from './src/actions';
 import { Scene, Router, Modal } from 'react-native-router-flux';
 import TabIcon from './src/Components/TabIcon';
@@ -21,10 +23,26 @@ import ClassSettingScreen from './src/screens/ClassSettingScreen';
 import SettingScreen from './src/screens/SettingScreen';
 import AboutMeScreen from './src/screens/AboutMeScreen';
 
-  return (
-    <Router>
+const lightStatusBar = [
+  'stop',
+  'route',
+  'aboutMe_screen',
+  'sections_screen',
+  'section_detail_screen',
+];
+
 class RouterComponent extends Component {
   render() {
+    return (
+      <Router
+        onStateChange={() => {
+          if (lightStatusBar.includes(Actions.currentScene)) {
+            StatusBar.setBarStyle('light-content');
+          } else {
+            StatusBar.setBarStyle('dark-content');
+          }
+        }}
+      >
         <Modal key="modal" hideNavBar>
           <Scene key="root" hideNavBar>
             <Scene key="tabbar" tabs={true} activeTintColor="rgb(237,69,69)">
