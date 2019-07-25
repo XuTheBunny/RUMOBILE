@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { SwipeRow } from 'react-native-swipe-list-view';
+import AsyncStorage from '@react-native-community/async-storage';
 import { deleteFavoriteClass } from '../actions';
 import {
   View,
@@ -25,6 +26,17 @@ class FavClassScreen extends Component {
   backUp() {
     Actions.pop();
   }
+
+
+  storeFavClassData = async classObj => {
+    var favClassArray = [];
+    favClassArray = this.props.class_favorites.filter(item => classObj.classId !== item.classId);
+    try {
+      await AsyncStorage.setItem('class_favorites', JSON.stringify({ classFav: favClassArray }));
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   renderHeader = ({ title, data }) => {
     return (
