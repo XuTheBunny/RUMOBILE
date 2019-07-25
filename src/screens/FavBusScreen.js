@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { SwipeRow } from 'react-native-swipe-list-view';
+import AsyncStorage from '@react-native-community/async-storage';
 import { deleteFavoriteBus, getBusStops, getPrediction } from '../actions';
 import {
   View,
@@ -21,6 +22,16 @@ var timer = 0;
 class FavBusScreen extends Component {
   state = {
     editing: false,
+  };
+
+  storeFavBusData = async busId => {
+    var favBusArray = [];
+    favBusArray = this.props.bus_favorites.filter(item => busId !== item);
+    try {
+      await AsyncStorage.setItem('bus_favorites', JSON.stringify({ busFav: favBusArray }));
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   componentDidMount() {
