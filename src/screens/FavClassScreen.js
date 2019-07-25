@@ -12,11 +12,16 @@ import {
   StatusBar,
   SectionList,
   SafeAreaView,
+  LayoutAnimation,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/AntDesign';
+import Icon from 'react-native-vector-icons/Ionicons';
 import MeetingItem from '../Components/MeetingItem';
 
 class FavClassScreen extends Component {
+  state = {
+    editing: false,
+  };
+
   backUp() {
     Actions.pop();
   }
@@ -83,6 +88,27 @@ class FavClassScreen extends Component {
           </TouchableOpacity>
         </View>
         <View style={styles.rowFront}>
+          {this.state.editing && (
+            <TouchableOpacity
+              onPress={() => {
+                sectionObj = this.props.class_favorites.find(obj => obj.classId == item.classId);
+                this.props.deleteFavoriteClass(sectionObj);
+                this.storeFavClassData(sectionObj);
+              }}
+            >
+              <View
+                style={{
+                  backgroundColor: 'white',
+                  flex: 1,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  paddingLeft: 20,
+                }}
+              >
+                <Icon name="ios-remove-circle" size={22} color="rgb(237, 69, 69)" />
+              </View>
+            </TouchableOpacity>
+          )}
           <MeetingItem item={item} className={item.className} addStyle={{ marginLeft: 30 }} />
         </View>
       </SwipeRow>
@@ -114,8 +140,13 @@ class FavClassScreen extends Component {
                 />
               </View>
             </TouchableOpacity>
-            <TouchableOpacity>
-              <Text style={styles.editButton}>Edit</Text>
+            <TouchableOpacity
+              onPress={() => {
+                LayoutAnimation.easeInEaseOut();
+                this.setState({ editing: !this.state.editing });
+              }}
+            >
+              <Text style={styles.editButton}>{this.state.editing ? 'Save' : 'Edit'}</Text>
             </TouchableOpacity>
           </View>
         </View>
