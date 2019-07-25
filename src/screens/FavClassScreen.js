@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
+import { SwipeRow } from 'react-native-swipe-list-view';
+import AsyncStorage from '@react-native-community/async-storage';
 import { deleteFavoriteClass } from '../actions';
 import {
   View,
@@ -11,14 +13,78 @@ import {
   StatusBar,
   SectionList,
   SafeAreaView,
+  LayoutAnimation,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/AntDesign';
+import Icon from 'react-native-vector-icons/Ionicons';
 import MeetingItem from '../Components/MeetingItem';
 
 class FavClassScreen extends Component {
+  state = {
+    editing: false,
+  };
+
   backUp() {
     Actions.pop();
   }
+
+  formClass() {
+    classList = [
+      { title: 'Independent Study', data: [] },
+      { title: 'Monday', data: [] },
+      { title: 'Tuesday', data: [] },
+      { title: 'Wednesday', data: [] },
+      { title: 'Thursday', data: [] },
+      { title: 'Friday', data: [] },
+      { title: 'Saturday', data: [] },
+      { title: 'Sunday', data: [] },
+    ];
+    this.props.class_favorites.forEach(function(c) {
+      c.data.forEach(function(d) {
+        d.className = c.className;
+        if (d.w == 'A') {
+          d.classId = c.classId;
+          classList.find(obj => obj.title == 'Independent Study').data.push(d);
+        } else {
+          d.classId = c.classId;
+          classList.find(obj => obj.title == d.day).data.push(d);
+        }
+      });
+    });
+    classList.forEach(function(c) {
+      if (c.data.length > 0) {
+        c.data.forEach(function(item) {
+          if (
+            item.pmCode == ' PM' &&
+            parseInt(item.startTime.split(':')[0]) < parseInt(item.endTime.split(':')[0])
+          ) {
+            item.hour =
+              (parseInt(item.startTime.split(':')[0]) + 12).toString() +
+              ':' +
+              item.startTime.split(':')[1];
+          } else {
+            if (item.startTime.length < 5) {
+              item.hour = '0' + item.startTime;
+            } else {
+              item.hour = item.startTime;
+            }
+          }
+        });
+        c.data.sort((a, b) => (a.hour > b.hour ? 1 : b.hour > a.hour ? -1 : 0));
+      }
+    });
+
+    return classList;
+  }
+
+  storeFavClassData = async classObj => {
+    var favClassArray = [];
+    favClassArray = this.props.class_favorites.filter(item => classObj.classId !== item.classId);
+    try {
+      await AsyncStorage.setItem('class_favorites', JSON.stringify({ classFav: favClassArray }));
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   renderHeader = ({ title, data }) => {
     return (
@@ -65,12 +131,47 @@ class FavClassScreen extends Component {
 
   renderItem = (item, index) => {
     return (
-      <MeetingItem
+      <SwipeRow
         key={item.day + item.startTime + index.toString()}
-        item={item}
-        className={item.className}
-        addStyle={{ marginLeft: 30 }}
-      />
+        disableRightSwipe
+        rightOpenValue={-75}
+      >
+        <View style={styles.rowBack}>
+          <TouchableOpacity
+            onPress={() => {
+              sectionObj = this.props.class_favorites.find(obj => obj.classId == item.classId);
+              this.props.deleteFavoriteClass(sectionObj);
+              this.storeFavClassData(sectionObj);
+            }}
+          >
+            <Text style={{ color: 'white', padding: 15 }}>Delete</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.rowFront}>
+          {this.state.editing && (
+            <TouchableOpacity
+              onPress={() => {
+                sectionObj = this.props.class_favorites.find(obj => obj.classId == item.classId);
+                this.props.deleteFavoriteClass(sectionObj);
+                this.storeFavClassData(sectionObj);
+              }}
+            >
+              <View
+                style={{
+                  backgroundColor: 'white',
+                  flex: 1,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  paddingLeft: 20,
+                }}
+              >
+                <Icon name="ios-remove-circle" size={22} color="rgb(237, 69, 69)" />
+              </View>
+            </TouchableOpacity>
+          )}
+          <MeetingItem item={item} className={item.className} addStyle={{ marginLeft: 30 }} />
+        </View>
+      </SwipeRow>
     );
   };
 
@@ -99,8 +200,13 @@ class FavClassScreen extends Component {
                 />
               </View>
             </TouchableOpacity>
-            <TouchableOpacity>
-              <Text style={styles.editButton}>Edit</Text>
+            <TouchableOpacity
+              onPress={() => {
+                LayoutAnimation.easeInEaseOut();
+                this.setState({ editing: !this.state.editing });
+              }}
+            >
+              <Text style={styles.editButton}>{this.state.editing ? 'Save' : 'Edit'}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -109,7 +215,7 @@ class FavClassScreen extends Component {
           renderItem={({ item, index, section }) => this.renderItem(item, index)}
           renderSectionHeader={({ section: { title, data } }) => this.renderHeader({ title, data })}
           renderSectionFooter={({ section: { title, data } }) => this.renderFooter({ title, data })}
-          sections={this.props.classList}
+          sections={this.formClass()}
           keyExtractor={(item, index) => item + index}
         />
       </SafeAreaView>
@@ -193,11 +299,24 @@ const styles = {
     shadowRadius: 2,
     backgroundColor: 'white',
   },
+  rowFront: {
+    backgroundColor: 'white',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+  },
+  rowBack: {
+    flex: 1,
+    backgroundColor: 'rgb(237, 69, 69)',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
 };
 
 const mapStateToProps = state => {
   return {
-    classSetting: state.class.class_setting,
+    class_favorites: state.favorite.class_favorites,
   };
 };
 
