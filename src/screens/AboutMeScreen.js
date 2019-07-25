@@ -1,21 +1,12 @@
 import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
-import {
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  Image,
-  StatusBar,
-  SafeAreaView,
-} from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Image, SafeAreaView } from 'react-native';
 
 class AboutMeScreen extends Component {
   state = { y: 0, width: 0 };
   render() {
     return (
       <View style={styles.home}>
-        <StatusBar barStyle="light-content" />
         <SafeAreaView>
           <View
             style={{

@@ -10,7 +10,6 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
-  StatusBar,
   SectionList,
   SafeAreaView,
   LayoutAnimation,
@@ -178,7 +177,6 @@ class FavClassScreen extends Component {
   render() {
     return (
       <SafeAreaView style={styles.home}>
-        <StatusBar barStyle="dark-content" />
         <View style={styles.headerContainer}>
           <View style={{ height: 64, flexDirection: 'column', justifyContent: 'space-between' }}>
             <Text style={styles.subHeader}>THIS WEEK</Text>

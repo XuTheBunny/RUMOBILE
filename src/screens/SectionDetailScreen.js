@@ -8,8 +8,6 @@ import {
   TextInput,
   TouchableOpacity,
   FlatList,
-  LayoutAnimation,
-  StatusBar,
   ScrollView,
   SafeAreaView,
 } from 'react-native';
@@ -80,7 +78,6 @@ class SectionDetailScreen extends Component {
             : { backgroundColor: 'rgb(237,69,69)' },
         ]}
       >
-        <StatusBar barStyle="light-content" />
         <View
           style={[
             styles.headerContainer,

@@ -9,7 +9,6 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
-  StatusBar,
   SectionList,
   SafeAreaView,
 } from 'react-native';
@@ -67,7 +66,6 @@ class ClassSettingScreen extends Component {
   render() {
     return (
       <SafeAreaView style={styles.home}>
-        <StatusBar barStyle="dark-content" />
         {this.state.campus.length == 0 && (
           <NotificationBar text="Choose at least one campus." color="rgb(237,69,69)" />
         )}

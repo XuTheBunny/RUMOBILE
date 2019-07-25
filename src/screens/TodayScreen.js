@@ -7,7 +7,6 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
-  StatusBar,
   RefreshControl,
   AppState,
   SafeAreaView,
@@ -457,7 +456,6 @@ class TodayScreen extends Component {
   render() {
     return (
       <SafeAreaView style={styles.home}>
-        <StatusBar barStyle="dark-content" />
         <View style={{ flex: 1, backgroundColor: 'white' }}>
           <Header text={'Today'} dateText={this.props.dateText} showProfilePic={true} />
           <HomeBanner message={this.props.banner} />
