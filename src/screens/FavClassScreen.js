@@ -27,6 +27,54 @@ class FavClassScreen extends Component {
     Actions.pop();
   }
 
+  formClass() {
+    classList = [
+      { title: 'Independent Study', data: [] },
+      { title: 'Monday', data: [] },
+      { title: 'Tuesday', data: [] },
+      { title: 'Wednesday', data: [] },
+      { title: 'Thursday', data: [] },
+      { title: 'Friday', data: [] },
+      { title: 'Saturday', data: [] },
+      { title: 'Sunday', data: [] },
+    ];
+    this.props.class_favorites.forEach(function(c) {
+      c.data.forEach(function(d) {
+        d.className = c.className;
+        if (d.w == 'A') {
+          d.classId = c.classId;
+          classList.find(obj => obj.title == 'Independent Study').data.push(d);
+        } else {
+          d.classId = c.classId;
+          classList.find(obj => obj.title == d.day).data.push(d);
+        }
+      });
+    });
+    classList.forEach(function(c) {
+      if (c.data.length > 0) {
+        c.data.forEach(function(item) {
+          if (
+            item.pmCode == ' PM' &&
+            parseInt(item.startTime.split(':')[0]) < parseInt(item.endTime.split(':')[0])
+          ) {
+            item.hour =
+              (parseInt(item.startTime.split(':')[0]) + 12).toString() +
+              ':' +
+              item.startTime.split(':')[1];
+          } else {
+            if (item.startTime.length < 5) {
+              item.hour = '0' + item.startTime;
+            } else {
+              item.hour = item.startTime;
+            }
+          }
+        });
+        c.data.sort((a, b) => (a.hour > b.hour ? 1 : b.hour > a.hour ? -1 : 0));
+      }
+    });
+
+    return classList;
+  }
 
   storeFavClassData = async classObj => {
     var favClassArray = [];
@@ -167,7 +215,7 @@ class FavClassScreen extends Component {
           renderItem={({ item, index, section }) => this.renderItem(item, index)}
           renderSectionHeader={({ section: { title, data } }) => this.renderHeader({ title, data })}
           renderSectionFooter={({ section: { title, data } }) => this.renderFooter({ title, data })}
-          sections={this.props.classList}
+          sections={this.formClass()}
           keyExtractor={(item, index) => item + index}
         />
       </SafeAreaView>
@@ -268,7 +316,7 @@ const styles = {
 
 const mapStateToProps = state => {
   return {
-    classSetting: state.class.class_setting,
+    class_favorites: state.favorite.class_favorites,
   };
 };
 
