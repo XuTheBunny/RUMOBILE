@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
+import { SwipeRow } from 'react-native-swipe-list-view';
 import { deleteFavoriteBus, getBusStops, getPrediction } from '../actions';
 import {
   View,
@@ -94,13 +95,26 @@ class FavBusScreen extends Component {
                 {s.rid
                   .sort((a, b) => (a.rname > b.rname ? 1 : b.rname > a.rname ? -1 : 0))
                   .map(r => (
-                    <RouteInStop
-                      today={true}
-                      rid={r.rid}
-                      key={s.sid + r.rid}
-                      rname={r.rname}
-                      prediction={r.prediction}
-                    />
+                    <SwipeRow key={s.sid + r.rid} disableRightSwipe rightOpenValue={-75}>
+                      <View style={styles.rowBack}>
+                        <TouchableOpacity
+                          onPress={() => {
+                            this.props.deleteFavoriteBus(s.sid + '-' + r.rid);
+                            this.storeFavBusData(s.sid + '-' + r.rid);
+                          }}
+                        >
+                          <Text style={{ color: 'white', padding: 15 }}>Delete</Text>
+                        </TouchableOpacity>
+                      </View>
+                      <View style={styles.rowFront}>
+                        <RouteInStop
+                          today={true}
+                          rid={r.rid}
+                          rname={r.rname}
+                          prediction={r.prediction}
+                        />
+                      </View>
+                    </SwipeRow>
                   ))}
               </View>
             ))}
@@ -222,6 +236,19 @@ const styles = {
     shadowOffset: { width: 0, height: 1 },
     shadowRadius: 2,
     backgroundColor: 'white',
+  },
+  rowFront: {
+    backgroundColor: 'white',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+  },
+  rowBack: {
+    flex: 1,
+    backgroundColor: 'rgb(237, 69, 69)',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
   },
 };
 
