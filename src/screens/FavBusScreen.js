@@ -11,13 +11,18 @@ import {
   Image,
   StatusBar,
   SafeAreaView,
+  LayoutAnimation,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/AntDesign';
+import Icon from 'react-native-vector-icons/Ionicons';
 import RouteInStop from '../Components/RouteInStop';
 
 var timer = 0;
 
 class FavBusScreen extends Component {
+  state = {
+    editing: false,
+  };
+
   componentDidMount() {
     if (this.props.bus_favorites.length > 0) {
       rid = [];
@@ -107,6 +112,26 @@ class FavBusScreen extends Component {
                         </TouchableOpacity>
                       </View>
                       <View style={styles.rowFront}>
+                        {this.state.editing && (
+                          <TouchableOpacity
+                            onPress={() => {
+                              this.props.deleteFavoriteBus(s.sid + '-' + r.rid);
+                              this.storeFavBusData(s.sid + '-' + r.rid);
+                            }}
+                          >
+                            <View
+                              style={{
+                                backgroundColor: 'white',
+                                flex: 1,
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                paddingLeft: 20,
+                              }}
+                            >
+                              <Icon name="ios-remove-circle" size={22} color="rgb(237, 69, 69)" />
+                            </View>
+                          </TouchableOpacity>
+                        )}
                         <RouteInStop
                           today={true}
                           rid={r.rid}
@@ -155,8 +180,13 @@ class FavBusScreen extends Component {
                 />
               </View>
             </TouchableOpacity>
-            <TouchableOpacity>
-              <Text style={styles.editButton}>Edit</Text>
+            <TouchableOpacity
+              onPress={() => {
+                LayoutAnimation.easeInEaseOut();
+                this.setState({ editing: !this.state.editing });
+              }}
+            >
+              <Text style={styles.editButton}>{this.state.editing ? 'Save' : 'Edit'}</Text>
             </TouchableOpacity>
           </View>
         </View>
