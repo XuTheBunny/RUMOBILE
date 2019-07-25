@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
+import { SwipeRow } from 'react-native-swipe-list-view';
+import AsyncStorage from '@react-native-community/async-storage';
 import { deleteFavoriteBus, getBusStops, getPrediction } from '../actions';
 import {
   View,
@@ -10,13 +12,28 @@ import {
   Image,
   StatusBar,
   SafeAreaView,
+  LayoutAnimation,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/AntDesign';
+import Icon from 'react-native-vector-icons/Ionicons';
 import RouteInStop from '../Components/RouteInStop';
 
 var timer = 0;
 
 class FavBusScreen extends Component {
+  state = {
+    editing: false,
+  };
+
+  storeFavBusData = async busId => {
+    var favBusArray = [];
+    favBusArray = this.props.bus_favorites.filter(item => busId !== item);
+    try {
+      await AsyncStorage.setItem('bus_favorites', JSON.stringify({ busFav: favBusArray }));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   componentDidMount() {
     if (this.props.bus_favorites.length > 0) {
       rid = [];
@@ -94,13 +111,46 @@ class FavBusScreen extends Component {
                 {s.rid
                   .sort((a, b) => (a.rname > b.rname ? 1 : b.rname > a.rname ? -1 : 0))
                   .map(r => (
-                    <RouteInStop
-                      today={true}
-                      rid={r.rid}
-                      key={s.sid + r.rid}
-                      rname={r.rname}
-                      prediction={r.prediction}
-                    />
+                    <SwipeRow key={s.sid + r.rid} disableRightSwipe rightOpenValue={-75}>
+                      <View style={styles.rowBack}>
+                        <TouchableOpacity
+                          onPress={() => {
+                            this.props.deleteFavoriteBus(s.sid + '-' + r.rid);
+                            this.storeFavBusData(s.sid + '-' + r.rid);
+                          }}
+                        >
+                          <Text style={{ color: 'white', padding: 15 }}>Delete</Text>
+                        </TouchableOpacity>
+                      </View>
+                      <View style={styles.rowFront}>
+                        {this.state.editing && (
+                          <TouchableOpacity
+                            onPress={() => {
+                              this.props.deleteFavoriteBus(s.sid + '-' + r.rid);
+                              this.storeFavBusData(s.sid + '-' + r.rid);
+                            }}
+                          >
+                            <View
+                              style={{
+                                backgroundColor: 'white',
+                                flex: 1,
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                paddingLeft: 20,
+                              }}
+                            >
+                              <Icon name="ios-remove-circle" size={22} color="rgb(237, 69, 69)" />
+                            </View>
+                          </TouchableOpacity>
+                        )}
+                        <RouteInStop
+                          today={true}
+                          rid={r.rid}
+                          rname={r.rname}
+                          prediction={r.prediction}
+                        />
+                      </View>
+                    </SwipeRow>
                   ))}
               </View>
             ))}
@@ -141,8 +191,13 @@ class FavBusScreen extends Component {
                 />
               </View>
             </TouchableOpacity>
-            <TouchableOpacity>
-              <Text style={styles.editButton}>Edit</Text>
+            <TouchableOpacity
+              onPress={() => {
+                LayoutAnimation.easeInEaseOut();
+                this.setState({ editing: !this.state.editing });
+              }}
+            >
+              <Text style={styles.editButton}>{this.state.editing ? 'Save' : 'Edit'}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -222,6 +277,19 @@ const styles = {
     shadowOffset: { width: 0, height: 1 },
     shadowRadius: 2,
     backgroundColor: 'white',
+  },
+  rowFront: {
+    backgroundColor: 'white',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+  },
+  rowBack: {
+    flex: 1,
+    backgroundColor: 'rgb(237, 69, 69)',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
   },
 };
 
