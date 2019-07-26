@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   FlatList,
   LayoutAnimation,
-  StatusBar,
   ScrollView,
 } from 'react-native';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';

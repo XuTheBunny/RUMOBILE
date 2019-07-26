@@ -6,8 +6,6 @@ import {
   Text,
   TouchableOpacity,
   ScrollView,
-  LayoutAnimation,
-  StatusBar,
   ImageBackground,
   Image,
   RefreshControl,
@@ -121,7 +119,6 @@ class Stop extends Component {
   render() {
     return (
       <View style={styles.screen}>
-        <StatusBar barStyle="light-content" />
         {this.state.showWarning && (
           <NotificationBar text="Yoo, u have changed to the other campus." color="rgb(237,69,69)" />
         )}

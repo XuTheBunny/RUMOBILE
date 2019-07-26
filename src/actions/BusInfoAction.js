@@ -60,35 +60,37 @@ export const getBusInfo = action => {
   });
 
   var getStopsInfoNB = new Promise((resolve, reject) => {
-    const all_stops_url =
-      base_url + 'stops.json?geo_area=' + campusGeoArea.newBrunswick + '&agencies=' + agency_id;
-    axios({
-      method: 'get',
-      url: all_stops_url,
-      headers: {
-        Accept: 'application/json',
-        'X-Mashape-Key': 'Pcl9MfLNF0mshcAni8CgyFuxVXTap1NA0RxjsnoxN4439f9hBq',
-      },
-    }).then(response => {
-      data = response.data.data;
-      data.forEach(function(element) {
-        var distance = null;
-        if (user_location.lat == 'no') {
-          distance = '--';
-        } else {
-          distance = geodist(user_location, element.location, {
-            exact: true,
-            unit: 'miles',
-          });
-        }
-        if (!Object.keys(bus_info_collect).includes('s' + element.stop_id)) {
-          bus_info_collect['s' + element.stop_id] = {
-            sname: element.name,
-            distance: distance == '--' ? '--' : distance.toFixed(1),
-          };
-        }
+    Promise.all([getUserLocation]).then(value => {
+      const all_stops_url =
+        base_url + 'stops.json?geo_area=' + campusGeoArea.newBrunswick + '&agencies=' + agency_id;
+      axios({
+        method: 'get',
+        url: all_stops_url,
+        headers: {
+          Accept: 'application/json',
+          'X-Mashape-Key': 'Pcl9MfLNF0mshcAni8CgyFuxVXTap1NA0RxjsnoxN4439f9hBq',
+        },
+      }).then(response => {
+        data = response.data.data;
+        data.forEach(function(element) {
+          var distance = null;
+          if (user_location.lat == 'no') {
+            distance = '--';
+          } else {
+            distance = geodist(user_location, element.location, {
+              exact: true,
+              unit: 'miles',
+            });
+          }
+          if (!Object.keys(bus_info_collect).includes('s' + element.stop_id)) {
+            bus_info_collect['s' + element.stop_id] = {
+              sname: element.name,
+              distance: distance == '--' ? '--' : distance.toFixed(1),
+            };
+          }
+        });
+        resolve(bus_info_collect);
       });
-      resolve(bus_info_collect);
     });
   });
 
@@ -114,35 +116,37 @@ export const getBusInfo = action => {
   });
 
   var getStopsInfoNK = new Promise((resolve, reject) => {
-    const all_stops_url =
-      base_url + 'stops.json?geo_area=' + campusGeoArea.newark + '&agencies=' + agency_id;
-    axios({
-      method: 'get',
-      url: all_stops_url,
-      headers: {
-        Accept: 'application/json',
-        'X-Mashape-Key': 'Pcl9MfLNF0mshcAni8CgyFuxVXTap1NA0RxjsnoxN4439f9hBq',
-      },
-    }).then(response => {
-      data = response.data.data;
-      data.forEach(function(element) {
-        var distance = null;
-        if (user_location.lat == 'no') {
-          distance = '--';
-        } else {
-          distance = geodist(user_location, element.location, {
-            exact: true,
-            unit: 'miles',
-          });
-        }
-        if (!Object.keys(bus_info_collect).includes('s' + element.stop_id)) {
-          bus_info_collect['s' + element.stop_id] = {
-            sname: element.name,
-            distance: distance == '--' ? '--' : distance.toFixed(1),
-          };
-        }
+    Promise.all([getUserLocation]).then(value => {
+      const all_stops_url =
+        base_url + 'stops.json?geo_area=' + campusGeoArea.newark + '&agencies=' + agency_id;
+      axios({
+        method: 'get',
+        url: all_stops_url,
+        headers: {
+          Accept: 'application/json',
+          'X-Mashape-Key': 'Pcl9MfLNF0mshcAni8CgyFuxVXTap1NA0RxjsnoxN4439f9hBq',
+        },
+      }).then(response => {
+        data = response.data.data;
+        data.forEach(function(element) {
+          var distance = null;
+          if (user_location.lat == 'no') {
+            distance = '--';
+          } else {
+            distance = geodist(user_location, element.location, {
+              exact: true,
+              unit: 'miles',
+            });
+          }
+          if (!Object.keys(bus_info_collect).includes('s' + element.stop_id)) {
+            bus_info_collect['s' + element.stop_id] = {
+              sname: element.name,
+              distance: distance == '--' ? '--' : distance.toFixed(1),
+            };
+          }
+        });
+        resolve(bus_info_collect);
       });
-      resolve(bus_info_collect);
     });
   });
 

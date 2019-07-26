@@ -7,8 +7,6 @@ import {
   TextInput,
   TouchableOpacity,
   FlatList,
-  LayoutAnimation,
-  StatusBar,
   SectionList,
   SafeAreaView,
 } from 'react-native';
@@ -95,7 +93,6 @@ class SectionsScreen extends Component {
   render() {
     return (
       <View style={styles.home}>
-        <StatusBar barStyle="light-content" />
         <ImageBackground
           imageStyle={{ opacity: 0.7 }}
           style={styles.headerContainer}

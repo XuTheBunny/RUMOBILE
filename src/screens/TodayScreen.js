@@ -7,7 +7,6 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
-  StatusBar,
   RefreshControl,
   AppState,
   SafeAreaView,
@@ -18,7 +17,7 @@ import Header from '../Components/Header';
 import HomeBanner from '../Components/HomeBanner';
 import RouteInStop from '../Components/RouteInStop';
 import MeetingItem from '../Components/MeetingItem';
-import { routeColor } from '../../bus_color.json';
+import { routeColor, busInfo } from '../../bus_color.json';
 import { noClass } from '../../message.json';
 import Loading from '../Components/Loading';
 import {
@@ -151,6 +150,7 @@ class TodayScreen extends Component {
   _handleAppStateChange = nextAppState => {
     if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
       this.Time();
+      this.props.getBusInfo();
       this.props.getBusStops(this.props.campus);
     }
     this.setState({ appState: nextAppState });
@@ -185,7 +185,11 @@ class TodayScreen extends Component {
   }
 
   onClassPress() {
-    Actions.jump('subjects_screen');
+    if (this.props.class.length > 0) {
+      Actions.more();
+    } else {
+      Actions.jump('subjects_screen');
+    }
   }
 
   onFavClassPress(classList, today) {
@@ -197,6 +201,7 @@ class TodayScreen extends Component {
   }
 
   formBusId() {
+    info = Object.keys(this.props.bus_info).length > 0 ? this.props.bus_info : busInfo;
     idList = [];
     this.props.bus_favorites.forEach(function(bid) {
       s = bid.split('-')[0];
@@ -340,7 +345,6 @@ class TodayScreen extends Component {
   }
 
   renderFavBus() {
-    info = this.props.bus_info;
     prediction = [];
     prediction = this.props.today_prediction;
     if (this.props.bus_favorites.length > 0) {
@@ -456,7 +460,6 @@ class TodayScreen extends Component {
   render() {
     return (
       <SafeAreaView style={styles.home}>
-        <StatusBar barStyle="dark-content" />
         <View style={{ flex: 1, backgroundColor: 'white' }}>
           <Header text={'Today'} dateText={this.props.dateText} showProfilePic={true} />
           <HomeBanner message={this.props.banner} />
@@ -469,7 +472,7 @@ class TodayScreen extends Component {
             }
           >
             {this.renderFavClass()}
-            {Object.keys(this.props.bus_info).length > 0 ? this.renderFavBus() : <Loading />}
+            {this.renderFavBus()}
           </ScrollView>
         </View>
       </SafeAreaView>
@@ -554,6 +557,7 @@ const mapStateToProps = state => {
     banner: state.home.banner,
     dateText: state.home.dateText,
     class_setting: state.class.class_setting,
+    class: state.class.class,
     campus: state.bus.campus,
     class_favorites: state.favorite.class_favorites,
     bus_favorites: state.favorite.bus_favorites,

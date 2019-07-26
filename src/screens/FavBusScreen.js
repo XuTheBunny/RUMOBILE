@@ -10,7 +10,6 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
-  StatusBar,
   SafeAreaView,
   LayoutAnimation,
 } from 'react-native';
@@ -169,7 +168,6 @@ class FavBusScreen extends Component {
   render() {
     return (
       <SafeAreaView style={styles.home}>
-        <StatusBar barStyle="dark-content" />
         <View style={styles.headerContainer}>
           <View style={{ height: 64, flexDirection: 'column', justifyContent: 'space-between' }}>
             <Text style={styles.subHeader}>FAVORITE</Text>

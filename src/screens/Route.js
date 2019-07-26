@@ -6,8 +6,6 @@ import {
   Text,
   TouchableOpacity,
   ScrollView,
-  LayoutAnimation,
-  StatusBar,
   RefreshControl,
   SafeAreaView,
 } from 'react-native';
@@ -113,7 +111,6 @@ class Route extends Component {
       : 'rgb(142, 142, 147)';
     return (
       <SafeAreaView style={[styles.screen, { backgroundColor: color }]}>
-        <StatusBar barStyle="light-content" />
         {this.state.showWarning && (
           <NotificationBar text="Yoo, u have changed to the other campus." color="rgb(237,69,69)" />
         )}

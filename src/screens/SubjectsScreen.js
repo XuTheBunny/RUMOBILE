@@ -7,7 +7,6 @@ import {
   SectionList,
   LayoutAnimation,
   SafeAreaView,
-  StatusBar,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -89,7 +88,6 @@ class SubjectsScreen extends Component {
   render() {
     return (
       <SafeAreaView style={styles.home}>
-        <StatusBar barStyle="dark-content" />
         <View style={styles.topButtonContainer}>
           <BackButton text={'More'} />
           <TouchableOpacity onPress={() => Actions.classSetting_screen()}>
