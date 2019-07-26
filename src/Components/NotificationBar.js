@@ -26,7 +26,7 @@ const styles = {
   },
 
   text: {
-    marginLeft: 10,
+    marginLeft: 20,
     color: 'white',
   },
 };
