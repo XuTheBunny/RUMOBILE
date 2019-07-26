@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { FIREBASE_USER, FIREBASE_PASSWORD } from '../../env.json';
 import AsyncStorage from '@react-native-community/async-storage';
+import { SwipeRow } from 'react-native-swipe-list-view';
 import {
   View,
   Text,
@@ -306,17 +307,36 @@ class TodayScreen extends Component {
                 />
               </TouchableOpacity>
             </View>
-            <TouchableOpacity onPress={() => this.onFavClassPress(classList, classList[n].title)}>
-              <View style={{ paddingVertical: 9 }}>
-                {todayClass.map((item, index) => (
-                  <MeetingItem
-                    key={item.day + item.startTime + index.toString()}
-                    item={item}
-                    className={item.className}
-                  />
-                ))}
-              </View>
-            </TouchableOpacity>
+            <View style={{ paddingVertical: 9 }}>
+              {todayClass.map((item, index) => (
+                <SwipeRow
+                  key={item.day + item.startTime + index.toString()}
+                  disableRightSwipe
+                  disableLeftSwipe={this.state.editing == 'edit'}
+                  rightOpenValue={-75}
+                  onRowDidOpen={() => {
+                    this.setState({ editing: 'swipe' });
+                  }}
+                >
+                  <View style={styles.rowBack}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        sectionObj = this.props.class_favorites.find(
+                          obj => obj.classId == item.classId,
+                        );
+                        this.props.deleteFavoriteClass(sectionObj);
+                        this.onClassDelete(sectionObj);
+                      }}
+                    >
+                      <Text style={{ color: 'white', padding: 15 }}>Delete</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View style={styles.rowFront}>
+                    <MeetingItem item={item} className={item.className} />
+                  </View>
+                </SwipeRow>
+              ))}
+            </View>
           </View>
         );
       } else {
@@ -402,37 +422,54 @@ class TodayScreen extends Component {
                 />
               </TouchableOpacity>
             </View>
-            <TouchableOpacity onPress={() => this.onFavBusPress()}>
-              <View style={{ paddingVertical: 9 }}>
-                {idList
-                  .sort((a, b) => (a.distance > b.distance ? 1 : b.distance > a.distance ? -1 : 0))
-                  .filter(s => s.predictionCount > 0)
-                  .map(s => (
-                    <View key={s.sid}>
-                      <View style={styles.flexContainer}>
-                        <Text style={{ fontSize: 17, fontWeight: '600', maxWidth: 270 }}>
-                          {s.sname}
-                        </Text>
-                        <Text style={{ fontSize: 11, color: 'rgb(200, 199, 204)' }}>
-                          {s.distance} mi
-                        </Text>
-                      </View>
-                      {s.rid
-                        .sort((a, b) => (a.rname > b.rname ? 1 : b.rname > a.rname ? -1 : 0))
-                        .filter(r => r.prediction.length > 0)
-                        .map(r => (
-                          <RouteInStop
-                            today={true}
-                            rid={r.rid}
-                            key={s.sid + r.rid}
-                            rname={r.rname}
-                            prediction={r.prediction.slice(0, 4)}
-                          />
-                        ))}
+            <View style={{ paddingVertical: 9 }}>
+              {idList
+                .sort((a, b) => (a.distance > b.distance ? 1 : b.distance > a.distance ? -1 : 0))
+                .filter(s => s.predictionCount > 0)
+                .map(s => (
+                  <View key={s.sid}>
+                    <View style={styles.flexContainer}>
+                      <Text style={{ fontSize: 17, fontWeight: '600', maxWidth: 270 }}>
+                        {s.sname}
+                      </Text>
+                      <Text style={{ fontSize: 11, color: 'rgb(200, 199, 204)' }}>
+                        {s.distance} mi
+                      </Text>
                     </View>
-                  ))}
-              </View>
-            </TouchableOpacity>
+                    {s.rid
+                      .sort((a, b) => (a.rname > b.rname ? 1 : b.rname > a.rname ? -1 : 0))
+                      .filter(r => r.prediction.length > 0)
+                      .map(r => (
+                        <SwipeRow
+                          preview
+                          previewOpenValue={-75}
+                          key={s.sid + r.rid}
+                          disableRightSwipe
+                          rightOpenValue={-75}
+                        >
+                          <View style={styles.rowBack}>
+                            <TouchableOpacity
+                              onPress={() => {
+                                this.props.deleteFavoriteBus(s.sid + '-' + r.rid);
+                                this.onBusDelete(s.sid + '-' + r.rid);
+                              }}
+                            >
+                              <Text style={{ color: 'white', padding: 15 }}>Delete</Text>
+                            </TouchableOpacity>
+                          </View>
+                          <View style={styles.rowFront}>
+                            <RouteInStop
+                              today={true}
+                              rid={r.rid}
+                              rname={r.rname}
+                              prediction={r.prediction.slice(0, 4)}
+                            />
+                          </View>
+                        </SwipeRow>
+                      ))}
+                  </View>
+                ))}
+            </View>
           </View>
         );
       } else {
@@ -578,6 +615,19 @@ const styles = {
     justifyContent: 'space-between',
     alignItems: 'flex-end',
     marginHorizontal: 13,
+  },
+  rowFront: {
+    backgroundColor: 'white',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+  },
+  rowBack: {
+    flex: 1,
+    backgroundColor: 'rgb(237, 69, 69)',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
   },
 };
 
