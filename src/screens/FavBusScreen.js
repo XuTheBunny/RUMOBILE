@@ -236,8 +236,11 @@ const styles = {
     color: 'rgb(142, 142, 147)',
   },
   editButton: {
+    width: 36,
     fontSize: 14,
     color: 'rgb(237, 69, 69)',
+    textAlign: 'center',
+  },
   emptyContainer: {
     flex: 1,
     marginTop: 70,
