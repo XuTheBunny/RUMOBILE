@@ -200,6 +200,18 @@ class TodayScreen extends Component {
     Actions.favBus_screen();
   }
 
+  onBusDelete(busId) {
+    var favBusArray = [];
+    favBusArray = this.props.bus_favorites.filter(item => busId !== item);
+    this.storeData('bus_favorites', JSON.stringify({ busFav: favBusArray }));
+  }
+
+  onClassDelete(classObj) {
+    var favClassArray = [];
+    favClassArray = this.props.class_favorites.filter(item => classObj.classId !== item.classId);
+    this.storeData('class_favorites', JSON.stringify({ classFav: favClassArray }));
+  }
+
   formBusId() {
     info = Object.keys(this.props.bus_info).length > 0 ? this.props.bus_info : busInfo;
     idList = [];
