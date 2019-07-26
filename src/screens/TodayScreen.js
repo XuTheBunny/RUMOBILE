@@ -287,7 +287,10 @@ class TodayScreen extends Component {
                 <Text style={styles.cardTitle}>Classes</Text>
               </View>
               <TouchableOpacity onPress={() => this.onFavClassPress(classList, classList[n].title)}>
-                <Text style={styles.cardTitle}>Edit</Text>
+                <Image
+                  style={styles.moreIcon}
+                  source={require('../images/TabBar/MoreSelected.png')}
+                />
               </TouchableOpacity>
             </View>
             <TouchableOpacity onPress={() => this.onFavClassPress(classList, classList[n].title)}>
@@ -312,7 +315,10 @@ class TodayScreen extends Component {
                 <Text style={styles.cardTitle}>Classes</Text>
               </View>
               <TouchableOpacity onPress={() => this.onFavClassPress(classList, classList[n].title)}>
-                <Text style={styles.cardTitle}>Edit</Text>
+                <Image
+                  style={styles.moreIcon}
+                  source={require('../images/TabBar/MoreSelected.png')}
+                />
               </TouchableOpacity>
             </View>
             <TouchableOpacity onPress={() => this.onFavClassPress(classList, classList[n].title)}>
@@ -377,7 +383,10 @@ class TodayScreen extends Component {
                 <Text style={styles.cardTitle}>Buses</Text>
               </View>
               <TouchableOpacity onPress={() => this.onFavBusPress()}>
-                <Text style={styles.cardTitle}>Edit</Text>
+                <Image
+                  style={styles.moreIcon}
+                  source={require('../images/TabBar/MoreSelected.png')}
+                />
               </TouchableOpacity>
             </View>
             <TouchableOpacity onPress={() => this.onFavBusPress()}>
@@ -422,7 +431,10 @@ class TodayScreen extends Component {
                 <Text style={styles.cardTitle}>Buses</Text>
               </View>
               <TouchableOpacity onPress={() => this.onFavBusPress()}>
-                <Text style={styles.cardTitle}>Edit</Text>
+                <Image
+                  style={styles.moreIcon}
+                  source={require('../images/TabBar/MoreSelected.png')}
+                />
               </TouchableOpacity>
             </View>
             <TouchableOpacity onPress={() => this.onFavBusPress()}>
@@ -499,6 +511,7 @@ const styles = {
   cardTitleContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     paddingHorizontal: 8,
     paddingVertical: 6,
     borderBottomColor: 'rgb(233, 233, 233)',
@@ -510,6 +523,10 @@ const styles = {
   },
   cardIcon: {
     height: 15,
+    width: 15,
+  },
+  moreIcon: {
+    resizeMode: 'contain',
     width: 15,
   },
   cardTitle: {
