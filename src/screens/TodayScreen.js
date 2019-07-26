@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { FIREBASE_USER, FIREBASE_PASSWORD } from '../../env.json';
 import AsyncStorage from '@react-native-community/async-storage';
+import { SwipeRow } from 'react-native-swipe-list-view';
 import {
   View,
   Text,
@@ -200,6 +201,18 @@ class TodayScreen extends Component {
     Actions.favBus_screen();
   }
 
+  onBusDelete(busId) {
+    var favBusArray = [];
+    favBusArray = this.props.bus_favorites.filter(item => busId !== item);
+    this.storeData('bus_favorites', JSON.stringify({ busFav: favBusArray }));
+  }
+
+  onClassDelete(classObj) {
+    var favClassArray = [];
+    favClassArray = this.props.class_favorites.filter(item => classObj.classId !== item.classId);
+    this.storeData('class_favorites', JSON.stringify({ classFav: favClassArray }));
+  }
+
   formBusId() {
     info = Object.keys(this.props.bus_info).length > 0 ? this.props.bus_info : busInfo;
     idList = [];
@@ -239,8 +252,10 @@ class TodayScreen extends Component {
       c.data.forEach(function(d) {
         d.className = c.className;
         if (d.w == 'A') {
+          d.classId = c.classId;
           classList.find(obj => obj.title == 'Independent Study').data.push(d);
         } else {
+          d.classId = c.classId;
           classList.find(obj => obj.title == d.day).data.push(d);
         }
       });
@@ -267,7 +282,6 @@ class TodayScreen extends Component {
         c.data.sort((a, b) => (a.hour > b.hour ? 1 : b.hour > a.hour ? -1 : 0));
       }
     });
-
     return classList;
   }
 
@@ -287,20 +301,42 @@ class TodayScreen extends Component {
                 <Text style={styles.cardTitle}>Classes</Text>
               </View>
               <TouchableOpacity onPress={() => this.onFavClassPress(classList, classList[n].title)}>
-                <Text style={styles.cardTitle}>Edit</Text>
+                <Image
+                  style={styles.moreIcon}
+                  source={require('../images/TabBar/MoreSelected.png')}
+                />
               </TouchableOpacity>
             </View>
-            <TouchableOpacity onPress={() => this.onFavClassPress(classList, classList[n].title)}>
-              <View style={{ paddingVertical: 9 }}>
-                {todayClass.map((item, index) => (
-                  <MeetingItem
-                    key={item.day + item.startTime + index.toString()}
-                    item={item}
-                    className={item.className}
-                  />
-                ))}
-              </View>
-            </TouchableOpacity>
+            <View style={{ paddingVertical: 9 }}>
+              {todayClass.map((item, index) => (
+                <SwipeRow
+                  key={item.day + item.startTime + index.toString()}
+                  disableRightSwipe
+                  disableLeftSwipe={this.state.editing == 'edit'}
+                  rightOpenValue={-75}
+                  onRowDidOpen={() => {
+                    this.setState({ editing: 'swipe' });
+                  }}
+                >
+                  <View style={styles.rowBack}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        sectionObj = this.props.class_favorites.find(
+                          obj => obj.classId == item.classId,
+                        );
+                        this.props.deleteFavoriteClass(sectionObj);
+                        this.onClassDelete(sectionObj);
+                      }}
+                    >
+                      <Text style={{ color: 'white', padding: 15 }}>Delete</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View style={styles.rowFront}>
+                    <MeetingItem item={item} className={item.className} />
+                  </View>
+                </SwipeRow>
+              ))}
+            </View>
           </View>
         );
       } else {
@@ -312,7 +348,10 @@ class TodayScreen extends Component {
                 <Text style={styles.cardTitle}>Classes</Text>
               </View>
               <TouchableOpacity onPress={() => this.onFavClassPress(classList, classList[n].title)}>
-                <Text style={styles.cardTitle}>Edit</Text>
+                <Image
+                  style={styles.moreIcon}
+                  source={require('../images/TabBar/MoreSelected.png')}
+                />
               </TouchableOpacity>
             </View>
             <TouchableOpacity onPress={() => this.onFavClassPress(classList, classList[n].title)}>
@@ -377,40 +416,60 @@ class TodayScreen extends Component {
                 <Text style={styles.cardTitle}>Buses</Text>
               </View>
               <TouchableOpacity onPress={() => this.onFavBusPress()}>
-                <Text style={styles.cardTitle}>Edit</Text>
+                <Image
+                  style={styles.moreIcon}
+                  source={require('../images/TabBar/MoreSelected.png')}
+                />
               </TouchableOpacity>
             </View>
-            <TouchableOpacity onPress={() => this.onFavBusPress()}>
-              <View style={{ paddingVertical: 9 }}>
-                {idList
-                  .sort((a, b) => (a.distance > b.distance ? 1 : b.distance > a.distance ? -1 : 0))
-                  .filter(s => s.predictionCount > 0)
-                  .map(s => (
-                    <View key={s.sid}>
-                      <View style={styles.flexContainer}>
-                        <Text style={{ fontSize: 17, fontWeight: '600', maxWidth: 270 }}>
-                          {s.sname}
-                        </Text>
-                        <Text style={{ fontSize: 11, color: 'rgb(200, 199, 204)' }}>
-                          {s.distance} mi
-                        </Text>
-                      </View>
-                      {s.rid
-                        .sort((a, b) => (a.rname > b.rname ? 1 : b.rname > a.rname ? -1 : 0))
-                        .filter(r => r.prediction.length > 0)
-                        .map(r => (
-                          <RouteInStop
-                            today={true}
-                            rid={r.rid}
-                            key={s.sid + r.rid}
-                            rname={r.rname}
-                            prediction={r.prediction.slice(0, 4)}
-                          />
-                        ))}
+            <View style={{ paddingVertical: 9 }}>
+              {idList
+                .sort((a, b) => (a.distance > b.distance ? 1 : b.distance > a.distance ? -1 : 0))
+                .filter(s => s.predictionCount > 0)
+                .map(s => (
+                  <View key={s.sid}>
+                    <View style={styles.flexContainer}>
+                      <Text style={{ fontSize: 17, fontWeight: '600', maxWidth: 270 }}>
+                        {s.sname}
+                      </Text>
+                      <Text style={{ fontSize: 11, color: 'rgb(200, 199, 204)' }}>
+                        {s.distance} mi
+                      </Text>
                     </View>
-                  ))}
-              </View>
-            </TouchableOpacity>
+                    {s.rid
+                      .sort((a, b) => (a.rname > b.rname ? 1 : b.rname > a.rname ? -1 : 0))
+                      .filter(r => r.prediction.length > 0)
+                      .map(r => (
+                        <SwipeRow
+                          preview
+                          previewOpenValue={-75}
+                          key={s.sid + r.rid}
+                          disableRightSwipe
+                          rightOpenValue={-75}
+                        >
+                          <View style={styles.rowBack}>
+                            <TouchableOpacity
+                              onPress={() => {
+                                this.props.deleteFavoriteBus(s.sid + '-' + r.rid);
+                                this.onBusDelete(s.sid + '-' + r.rid);
+                              }}
+                            >
+                              <Text style={{ color: 'white', padding: 15 }}>Delete</Text>
+                            </TouchableOpacity>
+                          </View>
+                          <View style={styles.rowFront}>
+                            <RouteInStop
+                              today={true}
+                              rid={r.rid}
+                              rname={r.rname}
+                              prediction={r.prediction.slice(0, 4)}
+                            />
+                          </View>
+                        </SwipeRow>
+                      ))}
+                  </View>
+                ))}
+            </View>
           </View>
         );
       } else {
@@ -422,7 +481,10 @@ class TodayScreen extends Component {
                 <Text style={styles.cardTitle}>Buses</Text>
               </View>
               <TouchableOpacity onPress={() => this.onFavBusPress()}>
-                <Text style={styles.cardTitle}>Edit</Text>
+                <Image
+                  style={styles.moreIcon}
+                  source={require('../images/TabBar/MoreSelected.png')}
+                />
               </TouchableOpacity>
             </View>
             <TouchableOpacity onPress={() => this.onFavBusPress()}>
@@ -499,6 +561,7 @@ const styles = {
   cardTitleContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     paddingHorizontal: 8,
     paddingVertical: 6,
     borderBottomColor: 'rgb(233, 233, 233)',
@@ -510,6 +573,10 @@ const styles = {
   },
   cardIcon: {
     height: 15,
+    width: 15,
+  },
+  moreIcon: {
+    resizeMode: 'contain',
     width: 15,
   },
   cardTitle: {
@@ -548,6 +615,19 @@ const styles = {
     justifyContent: 'space-between',
     alignItems: 'flex-end',
     marginHorizontal: 13,
+  },
+  rowFront: {
+    backgroundColor: 'white',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+  },
+  rowBack: {
+    flex: 1,
+    backgroundColor: 'rgb(237, 69, 69)',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
   },
 };
 
