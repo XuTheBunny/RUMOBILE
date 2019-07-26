@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { Text, View, Image, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import { addFavoriteBus, deleteFavoriteBus, setCounts } from '../actions';
+import { addFavoriteBus, deleteFavoriteBus, setCounts, getPrediction } from '../actions';
 
 class StopInRoute extends React.Component {
   state = { like: this.props.bus_favorites.includes(this.props.sid + '-' + this.props.rid) };
@@ -19,6 +19,20 @@ class StopInRoute extends React.Component {
       await AsyncStorage.setItem('bus_favorites', JSON.stringify({ busFav: favBusArray }));
     } catch (e) {
       console.log(e);
+    }
+
+    if (favBusArray.length > 0) {
+      rid = [];
+      sid = [];
+      favBusArray.forEach(function(bid) {
+        if (!rid.includes(bid.split('-')[1])) {
+          rid.push(bid.split('-')[1]);
+        }
+        if (!sid.includes(bid.split('-')[0])) {
+          sid.push(bid.split('-')[0]);
+        }
+      });
+      this.props.getPrediction(rid, sid, true);
     }
   };
 
@@ -142,5 +156,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { addFavoriteBus, deleteFavoriteBus, setCounts },
+  { addFavoriteBus, deleteFavoriteBus, setCounts, getPrediction },
 )(StopInRoute);
