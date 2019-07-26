@@ -185,7 +185,11 @@ class TodayScreen extends Component {
   }
 
   onClassPress() {
-    Actions.jump('subjects_screen');
+    if (this.props.class.length > 0) {
+      Actions.more();
+    } else {
+      Actions.jump('subjects_screen');
+    }
   }
 
   onFavClassPress(classList, today) {
@@ -553,6 +557,7 @@ const mapStateToProps = state => {
     banner: state.home.banner,
     dateText: state.home.dateText,
     class_setting: state.class.class_setting,
+    class: state.class.class,
     campus: state.bus.campus,
     class_favorites: state.favorite.class_favorites,
     bus_favorites: state.favorite.bus_favorites,
