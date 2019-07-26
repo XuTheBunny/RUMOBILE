@@ -204,6 +204,7 @@ const styles = {
     color: 'rgb(236, 70, 70)',
   },
   bodyGrid: {
+    flex: 1,
     paddingLeft: 15,
     paddingRight: 15,
     paddingTop: 11,
@@ -216,19 +217,21 @@ const styles = {
     color: 'rgb(138, 138, 143)',
   },
   cardGrid: {
-    height: 355,
+    aspectRatio: 1,
+    flexDirection: 'column',
   },
   cardRow: {
-    flex: 1,
+    flex: 2,
     flexDirection: 'row',
-    paddingTop: 10,
     justifyContent: 'center',
+    alignItems: 'stretch',
+    alignContent: 'stretch',
   },
   cardBody: {
-    height: 167,
-    width: 167,
-    marginLeft: 5,
-    marginRight: 5,
+    flex: 2,
+    alignSelf: 'stretch',
+    aspectRatio: 1,
+    margin: 5,
   },
   cardTitle: {
     fontSize: 22,
