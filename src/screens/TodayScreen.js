@@ -251,8 +251,10 @@ class TodayScreen extends Component {
       c.data.forEach(function(d) {
         d.className = c.className;
         if (d.w == 'A') {
+          d.classId = c.classId;
           classList.find(obj => obj.title == 'Independent Study').data.push(d);
         } else {
+          d.classId = c.classId;
           classList.find(obj => obj.title == d.day).data.push(d);
         }
       });
@@ -279,7 +281,6 @@ class TodayScreen extends Component {
         c.data.sort((a, b) => (a.hour > b.hour ? 1 : b.hour > a.hour ? -1 : 0));
       }
     });
-
     return classList;
   }
 
