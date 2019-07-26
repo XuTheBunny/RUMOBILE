@@ -146,7 +146,7 @@ class FavBusScreen extends Component {
                           today={true}
                           rid={r.rid}
                           rname={r.rname}
-                          prediction={r.prediction}
+                          prediction={r.prediction.slice(0, 4)}
                         />
                       </View>
                     </SwipeRow>
@@ -157,7 +157,7 @@ class FavBusScreen extends Component {
       );
     } else {
       return (
-        <View style={{ marginTop: 20 }}>
+        <View style={styles.emptyContainer}>
           <Image style={styles.emptyImage} source={require('../images/Today/noBus.png')} />
           <Text style={styles.emptyText}>Quickly access your favorites buses here.</Text>
         </View>
@@ -236,14 +236,24 @@ const styles = {
     color: 'rgb(142, 142, 147)',
   },
   editButton: {
+    width: 36,
     fontSize: 14,
     color: 'rgb(237, 69, 69)',
+    textAlign: 'center',
+  },
+  emptyContainer: {
+    flex: 1,
+    marginTop: 70,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   emptyImage: {
     height: 230,
     width: 230,
   },
   emptyText: {
+    marginTop: 20,
     textAlign: 'center',
     fontSize: 13,
     fontWeight: '500',

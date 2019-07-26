@@ -108,9 +108,10 @@ const styles = {
     borderBottomColor: 'rgb(235,235,235)',
     borderBottomWidth: 0.5,
     paddingVertical: 12,
-    flex: 1,
+    flex: 2,
   },
   viewStyle: {
+    flex: 2,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
@@ -122,9 +123,10 @@ const styles = {
     marginTop: 14,
   },
   stopName: {
+    flex: 2,
     fontSize: 17,
     fontWeight: '500',
-    maxWidth: 230,
+    marginRight: 10,
   },
   distance: {
     width: 50,

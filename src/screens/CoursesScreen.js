@@ -6,7 +6,6 @@ import {
   TextInput,
   TouchableOpacity,
   FlatList,
-  LayoutAnimation,
   SafeAreaView,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';

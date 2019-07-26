@@ -47,6 +47,7 @@ class BusScreen extends Component {
               this.setState({
                 selectedIndex: index,
               });
+              LayoutAnimation.easeInEaseOut();
             }}
             activeTabStyle={styles.activeTabStyle}
             tabStyle={styles.tabStyle}

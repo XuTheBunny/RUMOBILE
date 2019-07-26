@@ -284,7 +284,7 @@ class TodayScreen extends Component {
             <View style={styles.cardTitleContainer}>
               <View style={{ flexDirection: 'row' }}>
                 <Image style={styles.cardIcon} source={require('../images/Today/Bus.jpg')} />
-                <Text style={styles.cardTitle}>Buses</Text>
+                <Text style={styles.cardTitle}>Classes</Text>
               </View>
               <TouchableOpacity onPress={() => this.onFavClassPress(classList, classList[n].title)}>
                 <Text style={styles.cardTitle}>Edit</Text>
@@ -404,7 +404,7 @@ class TodayScreen extends Component {
                             rid={r.rid}
                             key={s.sid + r.rid}
                             rname={r.rname}
-                            prediction={r.prediction}
+                            prediction={r.prediction.slice(0, 4)}
                           />
                         ))}
                     </View>
