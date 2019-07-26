@@ -146,7 +146,7 @@ class FavBusScreen extends Component {
                           today={true}
                           rid={r.rid}
                           rname={r.rname}
-                          prediction={r.prediction}
+                          prediction={r.prediction.slice(0, 4)}
                         />
                       </View>
                     </SwipeRow>

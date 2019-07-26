@@ -404,7 +404,7 @@ class TodayScreen extends Component {
                             rid={r.rid}
                             key={s.sid + r.rid}
                             rname={r.rname}
-                            prediction={r.prediction}
+                            prediction={r.prediction.slice(0, 4)}
                           />
                         ))}
                     </View>
