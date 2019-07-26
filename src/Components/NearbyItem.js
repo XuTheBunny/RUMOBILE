@@ -70,7 +70,8 @@ const styles = {
     fontFamily: 'system font',
     fontSize: 17,
     fontWeight: '100',
-    maxWidth: 270,
+    flex: 2,
+    marginRight: 10,
   },
   textStyle2: {
     fontFamily: 'system font',
