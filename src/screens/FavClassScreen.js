@@ -19,7 +19,7 @@ import MeetingItem from '../Components/MeetingItem';
 
 class FavClassScreen extends Component {
   state = {
-    editing: false,
+    editing: 'done',
   };
 
   backUp() {
@@ -133,6 +133,7 @@ class FavClassScreen extends Component {
       <SwipeRow
         key={item.day + item.startTime + index.toString()}
         disableRightSwipe
+        disableLeftSwipe={this.state.editing == 'edit'}
         rightOpenValue={-75}
       >
         <View style={styles.rowBack}>
@@ -147,7 +148,7 @@ class FavClassScreen extends Component {
           </TouchableOpacity>
         </View>
         <View style={styles.rowFront}>
-          {this.state.editing && (
+          {this.state.editing == 'edit' && (
             <TouchableOpacity
               onPress={() => {
                 sectionObj = this.props.class_favorites.find(obj => obj.classId == item.classId);
@@ -198,14 +199,20 @@ class FavClassScreen extends Component {
                 />
               </View>
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                LayoutAnimation.easeInEaseOut();
-                this.setState({ editing: !this.state.editing });
-              }}
-            >
-              <Text style={styles.editButton}>{this.state.editing ? 'Save' : 'Edit'}</Text>
-            </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  LayoutAnimation.easeInEaseOut();
+                  if (this.state.editing == 'done') {
+                    this.setState({ editing: 'edit' });
+                  } else {
+                    this.setState({ editing: 'done' });
+                  }
+                }}
+              >
+                <Text style={styles.editButton}>
+                  {this.state.editing == 'done' ? 'Edit' : 'Done'}
+                </Text>
+              </TouchableOpacity>
           </View>
         </View>
         <SectionList
