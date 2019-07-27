@@ -21,6 +21,7 @@ var timer = 0;
 class FavBusScreen extends Component {
   state = {
     editing: 'done',
+    swiped: [],
   };
 
   storeFavBusData = async busId => {
@@ -115,12 +116,31 @@ class FavBusScreen extends Component {
                       disableRightSwipe
                       disableLeftSwipe={this.state.editing == 'edit'}
                       rightOpenValue={-75}
+                      onRowDidOpen={() => {
+                        const id = s.sid + '-' + r.rid;
+                        var openedList = [...this.state.swiped, id];
+                        this.setState({
+                          swiped: openedList,
+                        });
+                      }}
+                      onRowDidClose={() => {
+                        const id = s.sid + '-' + r.rid;
+                        var openedList = this.state.swiped.filter(i => id !== i);
+                        this.setState({
+                          swiped: openedList,
+                        });
+                      }}
                     >
                       <View style={styles.rowBack}>
                         <TouchableOpacity
                           onPress={() => {
-                            this.props.deleteFavoriteBus(s.sid + '-' + r.rid);
-                            this.storeFavBusData(s.sid + '-' + r.rid);
+                            const id = s.sid + '-' + r.rid;
+                            this.props.deleteFavoriteBus(id);
+                            this.storeFavBusData(id);
+                            var openedList = this.state.swiped.filter(i => id !== i);
+                            this.setState({
+                              swiped: openedList,
+                            });
                           }}
                         >
                           <Text style={{ color: 'white', padding: 15 }}>Delete</Text>
@@ -194,6 +214,7 @@ class FavBusScreen extends Component {
                 />
               </View>
             </TouchableOpacity>
+            {this.state.swiped.length == 0 && (
               <TouchableOpacity
                 onPress={() => {
                   LayoutAnimation.easeInEaseOut();
@@ -208,6 +229,7 @@ class FavBusScreen extends Component {
                   {this.state.editing == 'done' ? 'Edit' : 'Done'}
                 </Text>
               </TouchableOpacity>
+            )}
           </View>
         </View>
         <ScrollView>{this.renderFavBus()}</ScrollView>
