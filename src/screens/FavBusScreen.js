@@ -20,7 +20,7 @@ var timer = 0;
 
 class FavBusScreen extends Component {
   state = {
-    editing: false,
+    editing: 'done',
   };
 
   storeFavBusData = async busId => {
@@ -110,7 +110,12 @@ class FavBusScreen extends Component {
                 {s.rid
                   .sort((a, b) => (a.rname > b.rname ? 1 : b.rname > a.rname ? -1 : 0))
                   .map(r => (
-                    <SwipeRow key={s.sid + r.rid} disableRightSwipe rightOpenValue={-75}>
+                    <SwipeRow
+                      key={s.sid + r.rid}
+                      disableRightSwipe
+                      disableLeftSwipe={this.state.editing == 'edit'}
+                      rightOpenValue={-75}
+                    >
                       <View style={styles.rowBack}>
                         <TouchableOpacity
                           onPress={() => {
@@ -122,7 +127,7 @@ class FavBusScreen extends Component {
                         </TouchableOpacity>
                       </View>
                       <View style={styles.rowFront}>
-                        {this.state.editing && (
+                        {this.state.editing == 'edit' && (
                           <TouchableOpacity
                             onPress={() => {
                               this.props.deleteFavoriteBus(s.sid + '-' + r.rid);
@@ -189,14 +194,20 @@ class FavBusScreen extends Component {
                 />
               </View>
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                LayoutAnimation.easeInEaseOut();
-                this.setState({ editing: !this.state.editing });
-              }}
-            >
-              <Text style={styles.editButton}>{this.state.editing ? 'Save' : 'Edit'}</Text>
-            </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  LayoutAnimation.easeInEaseOut();
+                  if (this.state.editing == 'done') {
+                    this.setState({ editing: 'edit' });
+                  } else {
+                    this.setState({ editing: 'done' });
+                  }
+                }}
+              >
+                <Text style={styles.editButton}>
+                  {this.state.editing == 'done' ? 'Edit' : 'Done'}
+                </Text>
+              </TouchableOpacity>
           </View>
         </View>
         <ScrollView>{this.renderFavBus()}</ScrollView>
