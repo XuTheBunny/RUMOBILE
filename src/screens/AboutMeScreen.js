@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
-import { View, Text, ScrollView, TouchableOpacity, Image, SafeAreaView } from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  Image,
+  SafeAreaView,
+  LayoutAnimation,
+} from 'react-native';
 
 class AboutMeScreen extends Component {
   state = { y: 0, width: 0 };
@@ -55,6 +63,7 @@ class AboutMeScreen extends Component {
           }}
           onLayout={event => {
             const layout = event.nativeEvent.layout;
+            LayoutAnimation.easeInEaseOut();
             this.setState({ y: layout.y, width: layout.width });
           }}
         >

@@ -20,7 +20,8 @@ var timer = 0;
 
 class FavBusScreen extends Component {
   state = {
-    editing: false,
+    editing: 'done',
+    swiped: [],
   };
 
   storeFavBusData = async busId => {
@@ -110,19 +111,43 @@ class FavBusScreen extends Component {
                 {s.rid
                   .sort((a, b) => (a.rname > b.rname ? 1 : b.rname > a.rname ? -1 : 0))
                   .map(r => (
-                    <SwipeRow key={s.sid + r.rid} disableRightSwipe rightOpenValue={-75}>
+                    <SwipeRow
+                      key={s.sid + r.rid}
+                      disableRightSwipe
+                      disableLeftSwipe={this.state.editing == 'edit'}
+                      rightOpenValue={-75}
+                      onRowDidOpen={() => {
+                        const id = s.sid + '-' + r.rid;
+                        var openedList = [...this.state.swiped, id];
+                        this.setState({
+                          swiped: openedList,
+                        });
+                      }}
+                      onRowDidClose={() => {
+                        const id = s.sid + '-' + r.rid;
+                        var openedList = this.state.swiped.filter(i => id !== i);
+                        this.setState({
+                          swiped: openedList,
+                        });
+                      }}
+                    >
                       <View style={styles.rowBack}>
                         <TouchableOpacity
                           onPress={() => {
-                            this.props.deleteFavoriteBus(s.sid + '-' + r.rid);
-                            this.storeFavBusData(s.sid + '-' + r.rid);
+                            const id = s.sid + '-' + r.rid;
+                            this.props.deleteFavoriteBus(id);
+                            this.storeFavBusData(id);
+                            var openedList = this.state.swiped.filter(i => id !== i);
+                            this.setState({
+                              swiped: openedList,
+                            });
                           }}
                         >
                           <Text style={{ color: 'white', padding: 15 }}>Delete</Text>
                         </TouchableOpacity>
                       </View>
                       <View style={styles.rowFront}>
-                        {this.state.editing && (
+                        {this.state.editing == 'edit' && (
                           <TouchableOpacity
                             onPress={() => {
                               this.props.deleteFavoriteBus(s.sid + '-' + r.rid);
@@ -189,14 +214,22 @@ class FavBusScreen extends Component {
                 />
               </View>
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                LayoutAnimation.easeInEaseOut();
-                this.setState({ editing: !this.state.editing });
-              }}
-            >
-              <Text style={styles.editButton}>{this.state.editing ? 'Save' : 'Edit'}</Text>
-            </TouchableOpacity>
+            {this.state.swiped.length == 0 && (
+              <TouchableOpacity
+                onPress={() => {
+                  LayoutAnimation.easeInEaseOut();
+                  if (this.state.editing == 'done') {
+                    this.setState({ editing: 'edit' });
+                  } else {
+                    this.setState({ editing: 'done' });
+                  }
+                }}
+              >
+                <Text style={styles.editButton}>
+                  {this.state.editing == 'done' ? 'Edit' : 'Done'}
+                </Text>
+              </TouchableOpacity>
+            )}
           </View>
         </View>
         <ScrollView>{this.renderFavBus()}</ScrollView>
