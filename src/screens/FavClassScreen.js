@@ -20,6 +20,7 @@ import MeetingItem from '../Components/MeetingItem';
 class FavClassScreen extends Component {
   state = {
     editing: 'done',
+    swiped: [],
   };
 
   backUp() {
@@ -71,7 +72,6 @@ class FavClassScreen extends Component {
         c.data.sort((a, b) => (a.hour > b.hour ? 1 : b.hour > a.hour ? -1 : 0));
       }
     });
-
     return classList;
   }
 
@@ -131,10 +131,24 @@ class FavClassScreen extends Component {
   renderItem = (item, index) => {
     return (
       <SwipeRow
-        key={item.day + item.startTime + index.toString()}
+        key={item.day + item.startTime + item.classId}
         disableRightSwipe
         disableLeftSwipe={this.state.editing == 'edit'}
         rightOpenValue={-75}
+        onRowDidOpen={() => {
+          const id = item.classId + item.day + item.startTime;
+          var openedList = [...this.state.swiped, id];
+          this.setState({
+            swiped: openedList,
+          });
+        }}
+        onRowDidClose={() => {
+          const id = item.classId + item.day + item.startTime;
+          var openedList = this.state.swiped.filter(i => id !== i);
+          this.setState({
+            swiped: openedList,
+          });
+        }}
       >
         <View style={styles.rowBack}>
           <TouchableOpacity
@@ -142,6 +156,10 @@ class FavClassScreen extends Component {
               sectionObj = this.props.class_favorites.find(obj => obj.classId == item.classId);
               this.props.deleteFavoriteClass(sectionObj);
               this.storeFavClassData(sectionObj);
+              var openedList = this.state.swiped.filter(i => !i.startsWith(item.classId));
+              this.setState({
+                swiped: openedList,
+              });
             }}
           >
             <Text style={{ color: 'white', padding: 15 }}>Delete</Text>
@@ -199,6 +217,7 @@ class FavClassScreen extends Component {
                 />
               </View>
             </TouchableOpacity>
+            {this.state.swiped.length == 0 && (
               <TouchableOpacity
                 onPress={() => {
                   LayoutAnimation.easeInEaseOut();
@@ -213,6 +232,7 @@ class FavClassScreen extends Component {
                   {this.state.editing == 'done' ? 'Edit' : 'Done'}
                 </Text>
               </TouchableOpacity>
+            )}
           </View>
         </View>
         <SectionList
