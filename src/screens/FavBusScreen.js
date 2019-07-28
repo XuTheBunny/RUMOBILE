@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import RouteInStop from '../Components/RouteInStop';
+import NotificationBar from '../Components/NotificationBar';
 
 var timer = 0;
 
@@ -193,6 +194,9 @@ class FavBusScreen extends Component {
   render() {
     return (
       <SafeAreaView style={styles.home}>
+        {!this.props.internet && (
+          <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
+        )}
         <View style={styles.headerContainer}>
           <View style={{ height: 64, flexDirection: 'column', justifyContent: 'space-between' }}>
             <Text style={styles.subHeader}>FAVORITE</Text>
@@ -340,6 +344,7 @@ const mapStateToProps = state => {
     bus_favorites: state.favorite.bus_favorites,
     today_prediction: state.bus.today_prediction,
     today_has_prediction: state.bus.today_has_prediction,
+    internet: state.home.internet,
   };
 };
 

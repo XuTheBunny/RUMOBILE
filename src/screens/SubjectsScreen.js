@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import BackButton from '../Components/BackButton';
 import Loading from '../Components/Loading';
+import NotificationBar from '../Components/NotificationBar';
 import { getAllClass, getOneClass } from '../actions';
 
 class SubjectsScreen extends Component {
@@ -80,6 +81,9 @@ class SubjectsScreen extends Component {
   render() {
     return (
       <SafeAreaView style={styles.home}>
+        {!this.props.internet && (
+          <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
+        )}
         <View style={styles.topButtonContainer}>
           <BackButton text={'More'} />
           <TouchableOpacity onPress={() => Actions.classSetting_screen()}>
@@ -192,6 +196,7 @@ const mapStateToProps = state => {
     classList: state.class.class_list,
     classListHere: state.class.class_list_data_here,
     classSetting: state.class.class_setting,
+    internet: state.home.internet,
   };
 };
 

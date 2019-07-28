@@ -11,6 +11,7 @@ import {
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import Header from '../Components/Header';
+import NotificationBar from '../Components/NotificationBar';
 import { foodPull } from '../actions';
 
 class FoodScreen extends Component {
@@ -175,6 +176,9 @@ class FoodScreen extends Component {
   render() {
     return (
       <SafeAreaView style={styles.home}>
+        {!this.props.internet && (
+          <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
+        )}
         <Header text={'Food'} />
         <View style={styles.bodyGrid}>
           <Text style={styles.baseText}>PLACES TO EAT</Text>
@@ -256,6 +260,7 @@ const mapStateToProps = state => {
     busch: state.food.busch,
     livingston: state.food.livingston,
     neilson: state.food.neilson,
+    internet: state.home.internet,
   };
 };
 

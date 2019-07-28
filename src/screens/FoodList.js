@@ -14,6 +14,7 @@ import {
 import BackButton from '../Components/BackButton';
 import { foodTab } from '../actions';
 import FoodSection from '../Components/FoodSection';
+import NotificationBar from '../Components/NotificationBar';
 
 class FoodList extends Component {
   componentDidMount() {
@@ -37,6 +38,9 @@ class FoodList extends Component {
   render() {
     return (
       <SafeAreaView style={styles.home}>
+        {!this.props.internet && (
+          <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
+        )}
         <BackButton text={'Food'} />
         <View style={styles.titleBar}>
           <Text style={styles.titleText}>{this.props.data.location_name}</Text>
@@ -151,6 +155,7 @@ const styles = {
 const mapStateToProps = state => {
   return {
     tab_index: state.food.tab_index,
+    internet: state.home.internet,
   };
 };
 

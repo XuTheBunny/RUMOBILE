@@ -114,6 +114,9 @@ class Route extends Component {
         {this.state.showWarning && (
           <NotificationBar text="Yoo, u have changed to the other campus." color="rgb(237,69,69)" />
         )}
+        {!this.props.internet && (
+          <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
+        )}
         <View style={{ backgroundColor: color }}>
           <BackButton text={'Bus'} clear={true} />
           <View style={styles.routeHeaderContainer}>
@@ -180,6 +183,7 @@ const mapStateToProps = state => {
     prediction: state.bus.prediction,
     hasPrediction: state.bus.has_prediction,
     campus: state.bus.campus,
+    internet: state.home.internet,
   };
 };
 

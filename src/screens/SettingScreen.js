@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 import BackButton from '../Components/BackButton';
+import NotificationBar from '../Components/NotificationBar';
 
 class SettingScreen extends Component {
   state = {
@@ -63,6 +64,9 @@ class SettingScreen extends Component {
   render() {
     return (
       <SafeAreaView style={styles.home}>
+        {!this.props.internet && (
+          <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
+        )}
         <BackButton text={'More'} />
         <Text style={styles.headerText}>Settings</Text>
         <View style={styles.cardContainer}>
@@ -180,6 +184,7 @@ const mapStateToProps = state => {
   return {
     campus: state.bus.campus,
     location_sharing: state.bus.location_sharing,
+    internet: state.home.internet,
   };
 };
 
