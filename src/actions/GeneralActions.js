@@ -10,10 +10,15 @@ export const timeAction = date => {
 
 export const loginUser = (email, password) => {
   return dispatch => {
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(dispatch({ type: FIREBASE_LOGIN, payload: 'successful' }));
+    try {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password)
+        .then(dispatch({ type: FIREBASE_LOGIN, payload: 'successful' }));
+    } catch (error) {
+      console.log(error);
+      dispatch({ type: FIREBASE_LOGIN, payload: '' });
+    }
   };
 };
 
