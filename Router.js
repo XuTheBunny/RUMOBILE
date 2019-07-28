@@ -39,6 +39,9 @@ class RouterComponent extends Component {
           if (Actions.currentScene == 'today_screen') {
             this.props.setCounts(0);
           }
+          if (Actions.currentScene == 'bus_screen') {
+            this.props.getPrediction('clean', []);
+          }
           if (Actions.currentScene == 'subjects_screen') {
             this.props.getOneClass('clean', null);
           }
@@ -95,5 +98,7 @@ export default connect(
   mapStateToProps,
   {
     setCounts,
+    getPrediction,
+    getOneClass,
   },
 )(RouterComponent);
