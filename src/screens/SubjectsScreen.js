@@ -108,6 +108,8 @@ class SubjectsScreen extends Component {
               ref={input => {
                 this.textInput = input;
               }}
+              spellCheck={false}
+              autoCorrect={false}
               clearTextOnFocus={true}
               onChangeText={text => {
                 this.searchUpdated(text);
