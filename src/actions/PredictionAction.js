@@ -36,15 +36,21 @@ export const getPrediction = (rid, sid, today) => {
         Accept: 'application/json',
         'X-Mashape-Key': 'Pcl9MfLNF0mshcAni8CgyFuxVXTap1NA0RxjsnoxN4439f9hBq',
       },
-    }).then(response => {
-      prediction = response.data.data;
-      if (today) {
-        dispatch({ type: TODAY_PREDICTION, payload: prediction });
-        dispatch({ type: TODAY_PREDICTION_DATA_HERE, payload: 'here' });
-      } else {
-        dispatch({ type: PREDICTION, payload: prediction });
-        dispatch({ type: PREDICTION_DATA_HERE, payload: 'here' });
-      }
-    });
+    })
+      .then(response => {
+        prediction = response.data.data;
+        if (today) {
+          dispatch({ type: TODAY_PREDICTION, payload: prediction });
+          dispatch({ type: TODAY_PREDICTION_DATA_HERE, payload: 'here' });
+        } else {
+          dispatch({ type: PREDICTION, payload: prediction });
+          dispatch({ type: PREDICTION_DATA_HERE, payload: 'here' });
+        }
+      })
+      .catch(function(error) {
+        console.log(error);
+        dispatch({ type: TODAY_PREDICTION, payload: [] });
+        dispatch({ type: TODAY_PREDICTION_DATA_HERE, payload: 'no' });
+      });
   };
 };
