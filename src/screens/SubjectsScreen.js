@@ -160,7 +160,7 @@ const styles = {
     justifyContent: 'space-between',
   },
   editButton: {
-    color: 'red',
+    color: 'rgb(237, 69, 69)',
     fontSize: 17,
     marginBottom: 12,
     marginRight: 20,
