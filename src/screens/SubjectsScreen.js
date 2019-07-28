@@ -87,17 +87,6 @@ class SubjectsScreen extends Component {
         {!this.props.internet && (
           <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
         )}
-        <View style={styles.searchBar}>
-          <EvilIcons name="search" size={20} color="rgb(138,138,143)" />
-          <TextInput
-            onChangeText={text => {
-              this.searchUpdated(text);
-            }}
-            placeholder="Search"
-            clearButtonMode="while-editing"
-            inlineImageLeft="search_icon"
-            style={{ fontSize: 17, flex: 1, marginLeft: 7 }}
-          />
         {!this.state.search && (
           <>
             <View style={styles.topButtonContainer}>
@@ -113,6 +102,22 @@ class SubjectsScreen extends Component {
           </>
         )}
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <View style={styles.searchBar}>
+            <EvilIcons name="search" size={20} color="rgb(138,138,143)" />
+            <TextInput
+              ref={input => {
+                this.textInput = input;
+              }}
+              clearTextOnFocus={true}
+              onChangeText={text => {
+                this.searchUpdated(text);
+              }}
+              onFocus={() => this.setState({ search: true })}
+              placeholder="Search"
+              clearButtonMode="while-editing"
+              inlineImageLeft="search_icon"
+              style={{ fontSize: 17, flex: 1, marginLeft: 7 }}
+            />
           </View>
           {this.state.search && (
             <TouchableOpacity
