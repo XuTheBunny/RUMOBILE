@@ -107,28 +107,35 @@ export const getOneClass = (classCode, classSetting) => {
   };
 
   return dispatch => {
-    axios.get(one_class_url).then(response => {
-      oneClass = response.data;
-      var courseList = [];
-      for (c in oneClass) {
-        var course = {};
-        course.key = oneClass[c].courseNumber;
-        course.title = oneClass[c].title;
-        course.courseNumber = oneClass[c].courseNumber;
-        course.title = oneClass[c].title;
-        course.credits = oneClass[c].credits;
-        course.sections = [];
-        if (oneClass[c].sections && oneClass[c].sections.length > 0) {
-          course.opens = oneClass[c].sections.filter(s => s.openStatus).length;
-          course.all = oneClass[c].sections.length;
-          for (s in oneClass[c].sections) {
-            course.sections.push(formSection(oneClass[c].sections[s]));
+    axios
+      .get(one_class_url)
+      .then(response => {
+        oneClass = response.data;
+        var courseList = [];
+        for (c in oneClass) {
+          var course = {};
+          course.key = oneClass[c].courseNumber;
+          course.title = oneClass[c].title;
+          course.courseNumber = oneClass[c].courseNumber;
+          course.title = oneClass[c].title;
+          course.credits = oneClass[c].credits;
+          course.sections = [];
+          if (oneClass[c].sections && oneClass[c].sections.length > 0) {
+            course.opens = oneClass[c].sections.filter(s => s.openStatus).length;
+            course.all = oneClass[c].sections.length;
+            for (s in oneClass[c].sections) {
+              course.sections.push(formSection(oneClass[c].sections[s]));
+            }
           }
+          courseList.push(course);
         }
-        courseList.push(course);
-      }
-      dispatch({ type: CLASS, payload: uniqByKey(courseList) });
-      dispatch({ type: CLASS_DATA_HERE, payload: 'here' });
-    });
+        dispatch({ type: CLASS, payload: uniqByKey(courseList) });
+        dispatch({ type: CLASS_DATA_HERE, payload: 'here' });
+      })
+      .catch(function(error) {
+        console.log(error);
+        dispatch({ type: CLASS, payload: [] });
+        dispatch({ type: CLASS_DATA_HERE, payload: 'no' });
+      });
   };
 };
