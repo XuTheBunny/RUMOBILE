@@ -1,4 +1,4 @@
-import { FIREBASE_LOGIN, BANNER_PULL, HOME_DATE, TIME, COUNTS } from '../actions/types';
+import { FIREBASE_LOGIN, BANNER_PULL, HOME_DATE, TIME, COUNTS, INTERNET } from '../actions/types';
 
 const INITIAL_STATE = {
   login: '',
@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   time: [],
   dateText: '',
   counts: 0,
+  internet: true,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -18,6 +19,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, time: action.payload };
     case HOME_DATE:
       return { ...state, dateText: action.payload };
+    case INTERNET:
+      return { ...state, internet: action.payload };
     case COUNTS:
       return { ...state, counts: state.counts * action.payload + action.payload };
     default:

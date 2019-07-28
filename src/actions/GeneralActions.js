@@ -1,4 +1,4 @@
-import { TIME, FIREBASE_LOGIN, COUNTS } from './types';
+import { TIME, FIREBASE_LOGIN, COUNTS, INTERNET } from './types';
 import firebase from 'firebase';
 
 export const timeAction = date => {
@@ -20,5 +20,11 @@ export const loginUser = (email, password) => {
 export const setCounts = counts => {
   return dispatch => {
     dispatch({ type: COUNTS, payload: counts });
+  };
+};
+
+export const hasInternet = internet => {
+  return dispatch => {
+    dispatch({ type: INTERNET, payload: internet });
   };
 };
