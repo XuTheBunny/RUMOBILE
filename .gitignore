@@ -4,6 +4,7 @@
 #
 # ENV
 env.json
+ios/GoogleService-Info.plist
 #
 # Xcode
 #
