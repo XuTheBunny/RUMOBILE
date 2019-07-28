@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { FIREBASE_USER, FIREBASE_PASSWORD } from '../../env.json';
 import AsyncStorage from '@react-native-community/async-storage';
+import NetInfo from '@react-native-community/netinfo';
 import { SwipeRow } from 'react-native-swipe-list-view';
 import {
   View,
@@ -35,6 +36,7 @@ import {
   setFavoriteClass,
   setFavoriteBus,
   getBusInfo,
+  hasInternet,
 } from '../actions';
 
 var timer = 0;
@@ -142,10 +144,16 @@ class TodayScreen extends Component {
     this.props.pullBanner();
     timer = setInterval(() => this.Time(), 30000);
     AppState.addEventListener('change', this._handleAppStateChange);
+    const unsubscribe = NetInfo.addEventListener(state => {
+      console.log('Connection type', state.type);
+      console.log('Is connected?', state.isConnected);
+      this.props.hasInternet(state.isConnected);
+    });
   }
 
   componentWillUnmount() {
     AppState.removeEventListener('change', this._handleAppStateChange);
+    unsubscribe();
   }
 
   _handleAppStateChange = nextAppState => {
@@ -663,5 +671,6 @@ export default connect(
     setFavoriteClass,
     setFavoriteBus,
     getBusInfo,
+    hasInternet,
   },
 )(TodayScreen);
