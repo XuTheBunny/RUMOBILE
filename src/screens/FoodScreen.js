@@ -120,56 +120,79 @@ class FoodScreen extends Component {
   }
 
   renderFood() {
-    if (this.props.trying_food_pull == 'pulled') {
+    if (!this.props.internet) {
       return (
-        <View style={styles.cardGrid}>
-          <View style={styles.cardRow}>
-            <TouchableOpacity onPress={() => this.foodList(this.props.brower)}>
-              <ImageBackground
-                source={require('../images/Food/browerImg.png')}
-                style={styles.cardBody}
-              >
-                <Text style={styles.cardTitle}>Brower</Text>
-                {this.openStatus('brower')}
-              </ImageBackground>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={() => this.foodList(this.props.busch)}>
-              <ImageBackground
-                source={require('../images/Food/buschImg.png')}
-                style={styles.cardBody}
-              >
-                <Text style={styles.cardTitle}>Busch</Text>
-                {this.openStatus('busch')}
-              </ImageBackground>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.cardRow}>
-            <TouchableOpacity onPress={() => this.foodList(this.props.livingston)}>
-              <ImageBackground
-                source={require('../images/Food/livingstonImg.png')}
-                style={styles.cardBody}
-              >
-                <Text style={styles.cardTitle}>Livingston</Text>
-                {this.openStatus('livingston')}
-              </ImageBackground>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={() => this.foodList(this.props.neilson)}>
-              <ImageBackground
-                source={require('../images/Food/neilsonImg.png')}
-                style={styles.cardBody}
-              >
-                <Text style={styles.cardTitle}>Neilson</Text>
-                {this.openStatus('neilson')}
-              </ImageBackground>
-            </TouchableOpacity>
-          </View>
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: 30,
+          }}
+        >
+          <Image
+            style={{ height: 300 }}
+            source={require('../images/Food/blankstate_nofood.png')}
+            resizeMode="contain"
+          />
+          <Text style={styles.emptyText}>There is currently no food data avaliable.</Text>
         </View>
       );
     } else {
-      return <Text>Pulling, Please Wait . . .</Text>;
+      if (this.props.trying_food_pull == 'pulled') {
+        return (
+          <View style={styles.cardGrid}>
+            <View style={styles.cardRow}>
+              <TouchableOpacity onPress={() => this.foodList(this.props.brower)}>
+                <ImageBackground
+                  source={require('../images/Food/browerImg.png')}
+                  style={styles.cardBody}
+                >
+                  <Text style={styles.cardTitle}>Brower</Text>
+                  {this.openStatus('brower')}
+                </ImageBackground>
+              </TouchableOpacity>
+
+              <TouchableOpacity onPress={() => this.foodList(this.props.busch)}>
+                <ImageBackground
+                  source={require('../images/Food/buschImg.png')}
+                  style={styles.cardBody}
+                >
+                  <Text style={styles.cardTitle}>Busch</Text>
+                  {this.openStatus('busch')}
+                </ImageBackground>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.cardRow}>
+              <TouchableOpacity onPress={() => this.foodList(this.props.livingston)}>
+                <ImageBackground
+                  source={require('../images/Food/livingstonImg.png')}
+                  style={styles.cardBody}
+                >
+                  <Text style={styles.cardTitle}>Livingston</Text>
+                  {this.openStatus('livingston')}
+                </ImageBackground>
+              </TouchableOpacity>
+
+              <TouchableOpacity onPress={() => this.foodList(this.props.neilson)}>
+                <ImageBackground
+                  source={require('../images/Food/neilsonImg.png')}
+                  style={styles.cardBody}
+                >
+                  <Text style={styles.cardTitle}>Neilson</Text>
+                  {this.openStatus('neilson')}
+                </ImageBackground>
+              </TouchableOpacity>
+            </View>
+          </View>
+        );
+      } else {
+        return (
+          <View style={{ marginTop: 30 }}>
+            <Text style={styles.emptyText}>Pulling, Please Wait . . .</Text>
+          </View>
+        );
+      }
     }
   }
 
@@ -250,6 +273,13 @@ const styles = {
     marginRight: 8,
     alignSelf: 'flex-end',
     marginTop: 98,
+  },
+  emptyText: {
+    fontSize: 15,
+    color: 'rgb(142, 142, 147)',
+    width: '100%',
+    textAlign: 'center',
+    marginTop: 20,
   },
 };
 
