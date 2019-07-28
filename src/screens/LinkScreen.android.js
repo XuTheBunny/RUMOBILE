@@ -77,10 +77,10 @@ class LinkScreen extends Component {
   LinkList() {
     return links.map(link => (
       <TouchableOpacity key={link.title} onPress={() => Linking.openURL(link.url)}>
-        <View style={styles.viewStyle}>
-          <Image style={{ width: 28, height: 28 }} source={link.src} />
-          <View style={styles.textContainer}>
-            <Text style={styles.textStyle}>{link.title}</Text>
+        <View style={{ flexDirection: 'row', paddingHorizontal: 15 }}>
+          <Image style={styles.iconStyle} source={link.src} />
+          <View style={styles.listContainer}>
+            <Text style={styles.listText}>{link.title}</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -93,7 +93,7 @@ class LinkScreen extends Component {
           <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
         )}
         <Header text={'Links'} />
-        <ScrollView style={{ marginTop: 5 }}>{this.LinkList()}</ScrollView>
+        <ScrollView style={{ marginTop: 16 }}>{this.LinkList()}</ScrollView>
       </SafeAreaView>
     );
   }
@@ -104,22 +104,25 @@ const styles = {
     flex: 1,
     backgroundColor: 'rgb(255, 255, 255)',
   },
-  textStyle: {
-    fontFamily: 'system font',
-    fontSize: 17,
-  },
-  viewStyle: {
+  listContainer: {
+    flex: 1,
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 10,
-    marginLeft: 26,
-  },
-  textContainer: {
+    paddingVertical: 11,
     borderBottomColor: 'rgb(235,235,235)',
     borderBottomWidth: 0.5,
-    marginLeft: 26,
-    flex: 1,
-    paddingVertical: 7,
+    marginLeft: 17,
+  },
+  iconStyle: {
+    height: 24,
+    width: 24,
+    resizeMode: 'contain',
+    marginVertical: 12,
+    marginLeft: 2,
+  },
+  listText: {
+    fontSize: 17,
   },
 };
 
