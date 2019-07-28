@@ -100,10 +100,7 @@ class TodayScreen extends Component {
     try {
       const w = await AsyncStorage.getItem('bus_favorites');
       if (w == null) {
-        this.storeData(
-          'bus_favorites',
-          JSON.stringify({ busFav: this.props.this.props.bus_favorites }),
-        );
+        this.storeData('bus_favorites', JSON.stringify({ busFav: this.props.bus_favorites }));
       } else {
         this.props.setFavoriteBus(JSON.parse(w).busFav);
       }
