@@ -69,16 +69,11 @@ class SubjectsScreen extends Component {
 
   searchUpdated = text => {
     let matchedItemsArray = [];
-    if (text === '') {
-      this.setState({ search: false, sections: this.props.classList });
-    } else {
-      this.props.classList.map(item => {
-        const filtered = item.data.filter(word => word.toUpperCase().includes(text.toUpperCase()));
-        matchedItemsArray.push({ title: item.title, data: filtered });
-      });
-      this.setState({ search: true, sections: matchedItemsArray });
-      console.log(this.state);
-    }
+    this.props.classList.map(item => {
+      const filtered = item.data.filter(word => word.toUpperCase().includes(text.toUpperCase()));
+      matchedItemsArray.push({ title: item.title, data: filtered });
+    });
+    this.setState({ search: true, sections: matchedItemsArray });
   };
 
   render() {
