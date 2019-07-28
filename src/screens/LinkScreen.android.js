@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 import {
   View,
   Text,
@@ -11,8 +12,9 @@ import {
 } from 'react-native';
 import SafariView from 'react-native-safari-view';
 import Header from '../Components/Header';
+import NotificationBar from '../Components/NotificationBar';
 
-export default class LinkScreen extends Component {
+class LinkScreen extends Component {
   constructor() {
     super();
     links = new Array();
@@ -87,6 +89,9 @@ export default class LinkScreen extends Component {
   render() {
     return (
       <SafeAreaView style={styles.home}>
+        {!this.props.internet && (
+          <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
+        )}
         <Header text={'Links'} />
         <ScrollView style={{ marginTop: 5 }}>{this.LinkList()}</ScrollView>
       </SafeAreaView>
@@ -117,3 +122,14 @@ const styles = {
     paddingVertical: 7,
   },
 };
+
+const mapStateToProps = state => {
+  return {
+    internet: state.home.internet,
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  {},
+)(LinkScreen);

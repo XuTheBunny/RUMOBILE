@@ -15,6 +15,7 @@ import { connect } from 'react-redux';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import BackButton from '../Components/BackButton';
 import Loading from '../Components/Loading';
+import NotificationBar from '../Components/NotificationBar';
 import { getOneClass } from '../actions';
 
 class SectionsScreen extends Component {
@@ -93,6 +94,9 @@ class SectionsScreen extends Component {
   render() {
     return (
       <View style={styles.home}>
+        {!this.props.internet && (
+          <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
+        )}
         <ImageBackground
           imageStyle={{ opacity: 0.7 }}
           style={styles.headerContainer}
@@ -224,6 +228,7 @@ const mapStateToProps = state => {
     class: state.class.class,
     classHere: state.class.class_data_here,
     classSetting: state.class.class_setting,
+    internet: state.home.internet,
   };
 };
 

@@ -6,6 +6,7 @@ import { View, Text, ScrollView, TouchableOpacity, Image, SafeAreaView } from 'r
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Header from '../Components/Header';
+import NotificationBar from '../Components/NotificationBar';
 
 class MoreScreen extends Component {
   state = {
@@ -45,6 +46,9 @@ class MoreScreen extends Component {
   render() {
     return (
       <SafeAreaView style={styles.home}>
+        {!this.props.internet && (
+          <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
+        )}
         <Header text={'More'} />
         <View style={{ marginTop: 16 }}>
           <ScrollView>
@@ -149,6 +153,7 @@ const mapStateToProps = state => {
   return {
     campus: state.bus.campus,
     classSetting: state.class.class_setting,
+    internet: state.home.internet,
   };
 };
 

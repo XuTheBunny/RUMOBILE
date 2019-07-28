@@ -17,6 +17,7 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import BackButton from '../Components/BackButton';
 import Loading from '../Components/Loading';
 import MeetingItem from '../Components/MeetingItem';
+import NotificationBar from '../Components/NotificationBar';
 import { getOneClass, addFavoriteClass, deleteFavoriteClass, setCounts } from '../actions';
 
 class SectionDetailScreen extends Component {
@@ -78,6 +79,9 @@ class SectionDetailScreen extends Component {
             : { backgroundColor: 'rgb(237,69,69)' },
         ]}
       >
+        {!this.props.internet && (
+          <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
+        )}
         <View
           style={[
             styles.headerContainer,
@@ -213,6 +217,7 @@ const mapStateToProps = state => {
     classHere: state.class.class_data_here,
     classSetting: state.class.class_setting,
     class_favorites: state.favorite.class_favorites,
+    internet: state.home.internet,
   };
 };
 

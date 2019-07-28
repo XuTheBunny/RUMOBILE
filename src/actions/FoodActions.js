@@ -12,13 +12,19 @@ import axios from 'axios';
 export const foodPull = url => {
   return dispatch => {
     dispatch({ type: TRYING_FOOD_PULL, payload: 'pulling' });
-    axios.get(url).then(response => {
-      dispatch({ type: BROWER_FOOD, payload: response.data[0] });
-      dispatch({ type: BUSCH_FOOD, payload: response.data[1] });
-      dispatch({ type: LIVINGSTON_FOOD, payload: response.data[2] });
-      dispatch({ type: NEILSON_FOOD, payload: response.data[3] });
-      dispatch({ type: TRYING_FOOD_PULL, payload: 'pulled' });
-    });
+    axios
+      .get(url)
+      .then(response => {
+        dispatch({ type: BROWER_FOOD, payload: response.data[0] });
+        dispatch({ type: BUSCH_FOOD, payload: response.data[1] });
+        dispatch({ type: LIVINGSTON_FOOD, payload: response.data[2] });
+        dispatch({ type: NEILSON_FOOD, payload: response.data[3] });
+        dispatch({ type: TRYING_FOOD_PULL, payload: 'pulled' });
+      })
+      .catch(function(error) {
+        console.log(error);
+        dispatch({ type: TRYING_FOOD_PULL, payload: 'pulling' });
+      });
   };
 };
 

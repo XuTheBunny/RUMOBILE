@@ -60,18 +60,25 @@ export const getAllClass = (stage, classSetting) => {
   };
 
   return dispatch => {
-    axios.get(all_class_url).then(response => {
-      if (response.status == 200) {
-        if (response.data.length > 0) {
-          allClass = reformatData(response.data);
+    axios
+      .get(all_class_url)
+      .then(response => {
+        if (response.status == 200) {
+          if (response.data.length > 0) {
+            allClass = reformatData(response.data);
+          } else {
+            allClass = [];
+          }
         } else {
-          allClass = [];
+          console.log(response);
         }
-      } else {
-        console.log(response);
-      }
-      dispatch({ type: CLASS_LIST, payload: allClass });
-      dispatch({ type: CLASS_LIST_DATA_HERE, payload: 'here' });
-    });
+        dispatch({ type: CLASS_LIST, payload: allClass });
+        dispatch({ type: CLASS_LIST_DATA_HERE, payload: 'here' });
+      })
+      .catch(function(error) {
+        console.log(error);
+        dispatch({ type: CLASS_LIST, payload: [] });
+        dispatch({ type: CLASS_LIST_DATA_HERE, payload: 'no' });
+      });
   };
 };

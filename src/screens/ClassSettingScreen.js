@@ -72,6 +72,9 @@ class ClassSettingScreen extends Component {
         {this.state.level.length == 0 && (
           <NotificationBar text="Choose at least one level." color="rgb(237,69,69)" />
         )}
+        {!this.props.internet && (
+          <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
+        )}
         <View style={styles.headerContainer}>
           <View style={{ height: 64, flexDirection: 'column', justifyContent: 'space-between' }}>
             <Text style={styles.subHeader}>OPTIONS</Text>
@@ -282,6 +285,7 @@ const styles = {
 const mapStateToProps = state => {
   return {
     classSetting: state.class.class_setting,
+    internet: state.home.internet,
   };
 };
 

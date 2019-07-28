@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 import {
   View,
   Text,
@@ -9,12 +10,16 @@ import {
   SafeAreaView,
   LayoutAnimation,
 } from 'react-native';
+import NotificationBar from '../Components/NotificationBar';
 
 class AboutMeScreen extends Component {
   state = { y: 0, width: 0 };
   render() {
     return (
       <View style={styles.home}>
+        {!this.props.internet && (
+          <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
+        )}
         <SafeAreaView>
           <View
             style={{
@@ -212,4 +217,13 @@ const styles = {
   },
 };
 
-export default AboutMeScreen;
+const mapStateToProps = state => {
+  return {
+    internet: state.home.internet,
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  {},
+)(AboutMeScreen);

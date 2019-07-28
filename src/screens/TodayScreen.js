@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { FIREBASE_USER, FIREBASE_PASSWORD } from '../../env.json';
 import AsyncStorage from '@react-native-community/async-storage';
+import NetInfo from '@react-native-community/netinfo';
 import { SwipeRow } from 'react-native-swipe-list-view';
 import {
   View,
@@ -18,6 +19,7 @@ import Header from '../Components/Header';
 import HomeBanner from '../Components/HomeBanner';
 import RouteInStop from '../Components/RouteInStop';
 import MeetingItem from '../Components/MeetingItem';
+import NotificationBar from '../Components/NotificationBar';
 import { routeColor, busInfo } from '../../bus_color.json';
 import { noClass } from '../../message.json';
 import Loading from '../Components/Loading';
@@ -35,6 +37,7 @@ import {
   setFavoriteClass,
   setFavoriteBus,
   getBusInfo,
+  hasInternet,
 } from '../actions';
 
 var timer = 0;
@@ -97,10 +100,7 @@ class TodayScreen extends Component {
     try {
       const w = await AsyncStorage.getItem('bus_favorites');
       if (w == null) {
-        this.storeData(
-          'bus_favorites',
-          JSON.stringify({ busFav: this.props.this.props.bus_favorites }),
-        );
+        this.storeData('bus_favorites', JSON.stringify({ busFav: this.props.bus_favorites }));
       } else {
         this.props.setFavoriteBus(JSON.parse(w).busFav);
       }
@@ -142,10 +142,16 @@ class TodayScreen extends Component {
     this.props.pullBanner();
     timer = setInterval(() => this.Time(), 30000);
     AppState.addEventListener('change', this._handleAppStateChange);
+    const unsubscribe = NetInfo.addEventListener(state => {
+      console.log('Connection type', state.type);
+      console.log('Is connected?', state.isConnected);
+      this.props.hasInternet(state.isConnected);
+    });
   }
 
   componentWillUnmount() {
     AppState.removeEventListener('change', this._handleAppStateChange);
+    unsubscribe();
   }
 
   _handleAppStateChange = nextAppState => {
@@ -441,7 +447,7 @@ class TodayScreen extends Component {
                       .filter(r => r.prediction.length > 0)
                       .map(r => (
                         <SwipeRow
-                          preview
+                          preview={false}
                           previewOpenValue={-75}
                           key={s.sid + r.rid}
                           disableRightSwipe
@@ -522,6 +528,9 @@ class TodayScreen extends Component {
   render() {
     return (
       <SafeAreaView style={styles.home}>
+        {!this.props.internet && (
+          <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
+        )}
         <View style={{ flex: 1, backgroundColor: 'white' }}>
           <Header text={'Today'} dateText={this.props.dateText} showProfilePic={true} />
           <HomeBanner message={this.props.banner} />
@@ -636,6 +645,7 @@ const mapStateToProps = state => {
     login: state.home.login,
     banner: state.home.banner,
     dateText: state.home.dateText,
+    internet: state.home.internet,
     class_setting: state.class.class_setting,
     class: state.class.class,
     campus: state.bus.campus,
@@ -663,5 +673,6 @@ export default connect(
     setFavoriteClass,
     setFavoriteBus,
     getBusInfo,
+    hasInternet,
   },
 )(TodayScreen);

@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import Header from '../Components/Header';
+import NotificationBar from '../Components/NotificationBar';
 import { getBusStops } from '../actions';
 import NearbyList from '../Components/NearbyList';
 import AllList from '../Components/AllList';
@@ -38,6 +39,9 @@ class BusScreen extends Component {
   render() {
     return (
       <SafeAreaView style={styles.home}>
+        {!this.props.internet && (
+          <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
+        )}
         <Header text={'Bus'} />
         <View style={{ paddingHorizontal: 13, marginTop: 10 }}>
           <SegmentedControlTab
@@ -177,6 +181,7 @@ const mapStateToProps = state => {
   return {
     campus: state.bus.campus,
     data_here: state.bus.data_here,
+    internet: state.home.internet,
   };
 };
 

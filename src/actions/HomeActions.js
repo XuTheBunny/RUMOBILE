@@ -3,12 +3,17 @@ import firebase from 'firebase';
 
 export const pullBanner = () => {
   return dispatch => {
-    firebase
-      .database()
-      .ref(`/banner`)
-      .on('value', snapshot => {
-        dispatch({ type: BANNER_PULL, payload: snapshot.val() });
-      });
+    try {
+      firebase
+        .database()
+        .ref(`/banner`)
+        .on('value', snapshot => {
+          dispatch({ type: BANNER_PULL, payload: snapshot.val() });
+        });
+    } catch (error) {
+      console.log(error);
+      dispatch({ type: BANNER_PULL, payload: 'Welcome to RUMobile 🐻' });
+    }
   };
 };
 

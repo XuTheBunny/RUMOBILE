@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import BackButton from '../Components/BackButton';
 import Loading from '../Components/Loading';
+import NotificationBar from '../Components/NotificationBar';
 import { getOneClass } from '../actions';
 
 class CoursesScreen extends Component {
@@ -81,6 +82,9 @@ class CoursesScreen extends Component {
   render() {
     return (
       <SafeAreaView style={styles.home}>
+        {!this.props.internet && (
+          <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
+        )}
         <BackButton text={'Subjects'} />
         <Text style={styles.headerText}>{this.props.courseName}</Text>
         {this.props.classHere == 'here' ? (
@@ -151,6 +155,7 @@ const mapStateToProps = state => {
     class: state.class.class,
     classHere: state.class.class_data_here,
     classSetting: state.class.class_setting,
+    internet: state.home.internet,
   };
 };
 

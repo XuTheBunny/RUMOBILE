@@ -16,6 +16,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MeetingItem from '../Components/MeetingItem';
+import NotificationBar from '../Components/NotificationBar';
 
 class FavClassScreen extends Component {
   state = {
@@ -196,6 +197,9 @@ class FavClassScreen extends Component {
   render() {
     return (
       <SafeAreaView style={styles.home}>
+        {!this.props.internet && (
+          <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
+        )}
         <View style={styles.headerContainer}>
           <View style={{ height: 64, flexDirection: 'column', justifyContent: 'space-between' }}>
             <Text style={styles.subHeader}>THIS WEEK</Text>
@@ -344,6 +348,7 @@ const styles = {
 const mapStateToProps = state => {
   return {
     class_favorites: state.favorite.class_favorites,
+    internet: state.home.internet,
   };
 };
 
