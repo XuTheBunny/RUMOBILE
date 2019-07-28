@@ -109,6 +109,21 @@ class SubjectsScreen extends Component {
             </View>
           </>
         )}
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          </View>
+          {this.state.search && (
+            <TouchableOpacity
+              onPress={() => {
+                this.textInput.blur();
+                this.setState({ search: false, sections: this.props.classList });
+                this.textInput.clear();
+              }}
+            >
+              <Text style={{ paddingRight: 15, fontSize: 17, color: 'rgb(237, 69, 69)' }}>
+                Cancel
+              </Text>
+            </TouchableOpacity>
+          )}
         </View>
         {this.props.classListHere == 'here' ? (
           <SectionList
@@ -169,6 +184,7 @@ const styles = {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    flex: 1,
   },
   sectionHeader: {
     fontWeight: '700',
