@@ -84,16 +84,6 @@ class SubjectsScreen extends Component {
         {!this.props.internet && (
           <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
         )}
-        <View style={styles.topButtonContainer}>
-          <BackButton text={'More'} />
-          <TouchableOpacity onPress={() => Actions.classSetting_screen()}>
-            <Text style={styles.editButton}>Edit</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.headerContainer}>
-          <Text style={styles.headerText}>Subjects</Text>
-          {this.renderSetting()}
-        </View>
         <View style={styles.searchBar}>
           <EvilIcons name="search" size={20} color="rgb(138,138,143)" />
           <TextInput
@@ -105,6 +95,20 @@ class SubjectsScreen extends Component {
             inlineImageLeft="search_icon"
             style={{ fontSize: 17, flex: 1, marginLeft: 7 }}
           />
+        {!this.state.search && (
+          <>
+            <View style={styles.topButtonContainer}>
+              <BackButton text={'More'} />
+              <TouchableOpacity onPress={() => Actions.classSetting_screen()}>
+                <Text style={styles.editButton}>Edit</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.headerContainer}>
+              <Text style={styles.headerText}>Subjects</Text>
+              {this.renderSetting()}
+            </View>
+          </>
+        )}
         </View>
         {this.props.classListHere == 'here' ? (
           <SectionList
