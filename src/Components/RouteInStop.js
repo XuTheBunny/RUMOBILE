@@ -44,18 +44,14 @@ class RouteInStop extends React.Component {
     if (this.props.prediction.length > 0) {
       return this.props.prediction.map((n, index) => (
         <View key={index}>
-          {n < 1 ? (
-            <View style={styles.predictionHorizontal}>
-              <Text style={{ fontSize: 22, color: 'rgb(237, 69, 69)' }}>Now</Text>
-            </View>
-          ) : (
-            <View
-              style={this.props.today ? styles.predictionVertical : styles.predictionHorizontal}
-            >
+          <View style={this.props.today ? styles.predictionVertical : styles.predictionHorizontal}>
+            {n < 1 ? (
+              <Text style={{ fontSize: 22, color: 'rgb(237, 69, 69)' }}>{'< 1'}</Text>
+            ) : (
               <Text style={{ fontSize: 22 }}>{n}</Text>
-              <Text style={{ fontSize: 11, marginLeft: 2, color: 'rgb(200, 199, 204)' }}>min</Text>
-            </View>
-          )}
+            )}
+            <Text style={{ fontSize: 11, marginLeft: 2, color: 'rgb(200, 199, 204)' }}>min</Text>
+          </View>
         </View>
       ));
     } else {
@@ -117,6 +113,7 @@ const styles = {
     marginRight: 19,
     justifyContent: 'space-between',
     alignItems: 'center',
+    height: 40,
   },
   imgContainer: {
     height: 40,

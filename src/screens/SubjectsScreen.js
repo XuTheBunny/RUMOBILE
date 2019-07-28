@@ -62,20 +62,18 @@ class SubjectsScreen extends Component {
     const code = item.substring(item.indexOf('(') + 1, item.indexOf(')'));
     this.props.getOneClass(code, this.props.classSetting);
     Actions.courses_screen({ code, courseName: item });
+    this.setState({ search: false, sections: this.props.classList });
+    this.textInput.clear();
+    this.textInput.blur();
   }
 
   searchUpdated = text => {
     let matchedItemsArray = [];
-    if (text === '') {
-      this.setState({ search: false, sections: this.props.classList });
-    } else {
-      this.props.classList.map(item => {
-        const filtered = item.data.filter(word => word.toUpperCase().includes(text.toUpperCase()));
-        matchedItemsArray.push({ title: item.title, data: filtered });
-      });
-      this.setState({ search: true, sections: matchedItemsArray });
-      console.log(this.state);
-    }
+    this.props.classList.map(item => {
+      const filtered = item.data.filter(word => word.toUpperCase().includes(text.toUpperCase()));
+      matchedItemsArray.push({ title: item.title, data: filtered });
+    });
+    this.setState({ search: true, sections: matchedItemsArray });
   };
 
   render() {
@@ -84,27 +82,53 @@ class SubjectsScreen extends Component {
         {!this.props.internet && (
           <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
         )}
-        <View style={styles.topButtonContainer}>
-          <BackButton text={'More'} />
-          <TouchableOpacity onPress={() => Actions.classSetting_screen()}>
-            <Text style={styles.editButton}>Edit</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.headerContainer}>
-          <Text style={styles.headerText}>Subjects</Text>
-          {this.renderSetting()}
-        </View>
-        <View style={styles.searchBar}>
-          <EvilIcons name="search" size={20} color="rgb(138,138,143)" />
-          <TextInput
-            onChangeText={text => {
-              this.searchUpdated(text);
-            }}
-            placeholder="Search"
-            clearButtonMode="while-editing"
-            inlineImageLeft="search_icon"
-            style={{ fontSize: 17, flex: 1, marginLeft: 7 }}
-          />
+        {!this.state.search && (
+          <>
+            <View style={styles.topButtonContainer}>
+              <BackButton text={'More'} />
+              <TouchableOpacity onPress={() => Actions.classSetting_screen()}>
+                <Text style={styles.editButton}>Edit</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.headerContainer}>
+              <Text style={styles.headerText}>Subjects</Text>
+              {this.renderSetting()}
+            </View>
+          </>
+        )}
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <View style={styles.searchBar}>
+            <EvilIcons name="search" size={20} color="rgb(138,138,143)" />
+            <TextInput
+              ref={input => {
+                this.textInput = input;
+              }}
+              spellCheck={false}
+              autoCorrect={false}
+              clearTextOnFocus={true}
+              onChangeText={text => {
+                this.searchUpdated(text);
+              }}
+              onFocus={() => this.setState({ search: true })}
+              placeholder="Search"
+              clearButtonMode="while-editing"
+              inlineImageLeft="search_icon"
+              style={{ fontSize: 17, flex: 1, marginLeft: 7 }}
+            />
+          </View>
+          {this.state.search && (
+            <TouchableOpacity
+              onPress={() => {
+                this.textInput.blur();
+                this.setState({ search: false, sections: this.props.classList });
+                this.textInput.clear();
+              }}
+            >
+              <Text style={{ paddingRight: 15, fontSize: 17, color: 'rgb(237, 69, 69)' }}>
+                Cancel
+              </Text>
+            </TouchableOpacity>
+          )}
         </View>
         {this.props.classListHere == 'here' ? (
           <SectionList
@@ -136,7 +160,7 @@ const styles = {
     justifyContent: 'space-between',
   },
   editButton: {
-    color: 'red',
+    color: 'rgb(237, 69, 69)',
     fontSize: 17,
     marginBottom: 12,
     marginRight: 20,
@@ -165,6 +189,7 @@ const styles = {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    flex: 1,
   },
   sectionHeader: {
     fontWeight: '700',
