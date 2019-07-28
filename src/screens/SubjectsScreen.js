@@ -62,6 +62,9 @@ class SubjectsScreen extends Component {
     const code = item.substring(item.indexOf('(') + 1, item.indexOf(')'));
     this.props.getOneClass(code, this.props.classSetting);
     Actions.courses_screen({ code, courseName: item });
+    this.setState({ search: false, sections: this.props.classList });
+    this.textInput.clear();
+    this.textInput.blur();
   }
 
   searchUpdated = text => {
