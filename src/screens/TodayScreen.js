@@ -450,7 +450,7 @@ class TodayScreen extends Component {
                       .filter(r => r.prediction.length > 0)
                       .map(r => (
                         <SwipeRow
-                          preview
+                          preview={false}
                           previewOpenValue={-75}
                           key={s.sid + r.rid}
                           disableRightSwipe
