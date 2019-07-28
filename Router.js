@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { StatusBar } from 'react-native';
-import { setCounts } from './src/actions';
+import { setCounts, getPrediction, getOneClass } from './src/actions';
 import { Scene, Router, Modal } from 'react-native-router-flux';
 import TabIcon from './src/Components/TabIcon';
 import TodayScreen from './src/screens/TodayScreen';
@@ -38,6 +38,12 @@ class RouterComponent extends Component {
         onStateChange={() => {
           if (Actions.currentScene == 'today_screen') {
             this.props.setCounts(0);
+          }
+          if (Actions.currentScene == 'bus_screen') {
+            this.props.getPrediction('clean', []);
+          }
+          if (Actions.currentScene == 'subjects_screen') {
+            this.props.getOneClass('clean', null);
           }
           if (lightStatusBar.includes(Actions.currentScene)) {
             StatusBar.setBarStyle('light-content');
@@ -92,5 +98,7 @@ export default connect(
   mapStateToProps,
   {
     setCounts,
+    getPrediction,
+    getOneClass,
   },
 )(RouterComponent);
