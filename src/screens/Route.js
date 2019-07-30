@@ -121,11 +121,6 @@ class Route extends Component {
           <BackButton text={'Bus'} clear={true} />
           <View style={styles.routeHeaderContainer}>
             <Text style={styles.routeHeaderTitle}>{thisRoute.rname}</Text>
-            <TouchableOpacity>
-              <View style={styles.routeMapButton}>
-                <Text style={styles.routeMapText}>Map</Text>
-              </View>
-            </TouchableOpacity>
           </View>
         </View>
         <ScrollView
@@ -157,12 +152,12 @@ const styles = {
     paddingBottom: 18,
   },
   routeHeaderTitle: {
+    flex: 2,
     fontSize: 22,
     fontWeight: '600',
     color: 'rgb(255, 255, 255)',
-    paddingLeft: 14,
+    paddingHorizontal: 14,
     paddingTop: 8,
-    maxWidth: 240,
   },
   routeMapButton: {
     borderWidth: 1,

@@ -23,21 +23,6 @@ import { getOneClass, addFavoriteClass, deleteFavoriteClass, setCounts } from '.
 class SectionDetailScreen extends Component {
   _keyExtractor = (item, index) => item.day + item.startTime;
 
-  state = {
-    like:
-      this.props.class_favorites.filter(
-        item =>
-          item.classId ==
-          this.props.subjectNumber +
-            '-' +
-            this.props.courseNumber +
-            '-' +
-            this.props.sectionNumber +
-            '-' +
-            this.props.classSetting.semester,
-      ).length > 0,
-  };
-
   storeFavClassData = async (classObj, add) => {
     var favClassArray = [];
     if (add) {
@@ -127,7 +112,19 @@ class SectionDetailScreen extends Component {
             <Text style={styles.sectionTitle}>Schedule</Text>
             <TouchableOpacity
               onPress={() => {
-                if (this.state.like) {
+                if (
+                  this.props.class_favorites.filter(
+                    item =>
+                      item.classId ==
+                      this.props.subjectNumber +
+                        '-' +
+                        this.props.courseNumber +
+                        '-' +
+                        this.props.sectionNumber +
+                        '-' +
+                        this.props.classSetting.semester,
+                  ).length > 0
+                ) {
                   this.props.deleteFavoriteClass(sectionObj);
                   this.storeFavClassData(sectionObj, false);
                 } else {
@@ -135,12 +132,19 @@ class SectionDetailScreen extends Component {
                   this.props.addFavoriteClass(sectionObj);
                   this.storeFavClassData(sectionObj, true);
                 }
-                this.setState({
-                  like: !this.state.like,
-                });
               }}
             >
-              {this.state.like ? (
+              {this.props.class_favorites.filter(
+                item =>
+                  item.classId ==
+                  this.props.subjectNumber +
+                    '-' +
+                    this.props.courseNumber +
+                    '-' +
+                    this.props.sectionNumber +
+                    '-' +
+                    this.props.classSetting.semester,
+              ).length > 0 ? (
                 <Image
                   style={styles.heartImage}
                   source={require('../images/Like/LikeFilled.png')}

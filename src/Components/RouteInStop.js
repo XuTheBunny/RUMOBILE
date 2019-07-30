@@ -10,8 +10,6 @@ var color = 'rgb(142, 142, 147)';
 var tag = '?';
 
 class RouteInStop extends React.Component {
-  state = { like: this.props.bus_favorites.includes(this.props.sid + '-' + this.props.rid) };
-
   storeFavBusData = async (busId, add) => {
     var favBusArray = [];
     if (add) {
@@ -81,7 +79,7 @@ class RouteInStop extends React.Component {
         {this.props.sid && (
           <TouchableOpacity
             onPress={() => {
-              if (this.state.like) {
+              if (this.props.bus_favorites.includes(this.props.sid + '-' + this.props.rid)) {
                 this.props.deleteFavoriteBus(this.props.sid + '-' + this.props.rid);
                 this.storeFavBusData(this.props.sid + '-' + this.props.rid, false);
               } else {
@@ -89,12 +87,9 @@ class RouteInStop extends React.Component {
                 this.props.addFavoriteBus(this.props.sid + '-' + this.props.rid);
                 this.storeFavBusData(this.props.sid + '-' + this.props.rid, true);
               }
-              this.setState({
-                like: !this.state.like,
-              });
             }}
           >
-            {this.state.like ? (
+            {this.props.bus_favorites.includes(this.props.sid + '-' + this.props.rid) ? (
               <Image style={styles.heartImage} source={require('../images/Like/LikeFilled.png')} />
             ) : (
               <Image style={styles.heartImage} source={require('../images/Like/Like.png')} />

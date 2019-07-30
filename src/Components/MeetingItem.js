@@ -116,11 +116,6 @@ class MeetingItem extends Component {
               </View>
             </View>
           </View>
-          {!this.props.className && (
-            <TouchableOpacity>
-              <EvilIcons name="chevron-right" size={30} color="rgb(138,138,143)" />
-            </TouchableOpacity>
-          )}
         </View>
       </View>
     );
