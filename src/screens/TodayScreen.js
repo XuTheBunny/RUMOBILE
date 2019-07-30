@@ -523,7 +523,7 @@ class TodayScreen extends Component {
           <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
         )}
         <View style={{ flex: 1, backgroundColor: 'white' }}>
-          <Header text={'Today'} dateText={this.props.dateText} showProfilePic={true} />
+          <Header text={'Today'} dateText={this.props.dateText} />
           <HomeBanner message={this.props.banner} />
           <ScrollView
             refreshControl={
