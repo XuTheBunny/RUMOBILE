@@ -1,7 +1,6 @@
-import { FIREBASE_LOGIN, BANNER_PULL, HOME_DATE, TIME, COUNTS, INTERNET } from '../actions/types';
+import { BANNER_PULL, HOME_DATE, TIME, COUNTS, INTERNET } from '../actions/types';
 
 const INITIAL_STATE = {
-  login: '',
   banner: 'Welcome to RUMobile 🐻',
   time: [],
   dateText: '',
@@ -11,8 +10,6 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case FIREBASE_LOGIN:
-      return { ...state, login: action.payload };
     case BANNER_PULL:
       return { ...state, banner: action.payload };
     case TIME:

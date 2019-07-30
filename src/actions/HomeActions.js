@@ -1,19 +1,19 @@
 import { BANNER_PULL, HOME_DATE } from './types';
-import firebase from 'firebase';
+import firebase from 'react-native-firebase';
 
 export const pullBanner = () => {
   return dispatch => {
-    try {
-      firebase
-        .database()
-        .ref(`/banner`)
-        .on('value', snapshot => {
-          dispatch({ type: BANNER_PULL, payload: snapshot.val() });
-        });
-    } catch (error) {
-      console.log(error);
-      dispatch({ type: BANNER_PULL, payload: 'Welcome to RUMobile 🐻' });
-    }
+    firebase
+      .firestore()
+      .doc('RUMobile/homeMessage')
+      .get()
+      .then(doc => {
+        dispatch({ type: BANNER_PULL, payload: doc.data().titleMessage });
+      })
+      .catch(e => {
+        console.log(e);
+        dispatch({ type: BANNER_PULL, payload: 'Welcome to RUMobile 🐻' });
+      });
   };
 };
 

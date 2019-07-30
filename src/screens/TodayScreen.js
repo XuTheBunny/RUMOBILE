@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { FIREBASE_USER, FIREBASE_PASSWORD } from '../../env.json';
 import AsyncStorage from '@react-native-community/async-storage';
 import NetInfo from '@react-native-community/netinfo';
 import { SwipeRow } from 'react-native-swipe-list-view';
@@ -129,16 +128,8 @@ class TodayScreen extends Component {
     this.getClassSettingData();
     this.getFavClassData();
     this.getFavBusData();
-    //Handles the Date Text at the top of the Header
     this.props.pullDate(new Date());
-
-    //Logins In firebase Admin which has read-only access to the RTD
-    this.props.loginUser(FIREBASE_USER, FIREBASE_PASSWORD);
     this.props.getPrediction('clean', [], true);
-
-    //At Every Second, the method below Time() is run. Use this to monitor refreshes
-    //this.timer = setInterval(()=> this.Time(), 1000);
-    //This pulls the FireBase Header Data
     this.props.pullBanner();
     timer = setInterval(() => this.Time(), 30000);
     AppState.addEventListener('change', this._handleAppStateChange);
