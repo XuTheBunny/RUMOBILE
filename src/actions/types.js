@@ -1,4 +1,3 @@
-export const FIREBASE_LOGIN = 'firebase_login';
 export const TIME = 'time';
 export const COUNTS = 'counts';
 export const INTERNET = 'internet';
