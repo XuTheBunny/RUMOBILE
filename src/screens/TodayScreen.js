@@ -85,10 +85,10 @@ class TodayScreen extends Component {
   getFavClassData = async () => {
     try {
       const w = await AsyncStorage.getItem('class_favorites');
-      if (w == null) {
-        this.storeData('class_favorites', JSON.stringify({ classFav: this.props.class_favorites }));
-      } else {
-        this.props.setFavoriteClass(JSON.parse(w).classFav);
+      if (w != null) {
+        if (JSON.parse(w).classFav.length > 0) {
+          this.props.setFavoriteClass(JSON.parse(w).classFav);
+        }
       }
     } catch (e) {
       console.log(e);
@@ -98,24 +98,22 @@ class TodayScreen extends Component {
   getFavBusData = async () => {
     try {
       const w = await AsyncStorage.getItem('bus_favorites');
-      if (w == null) {
-        this.storeData('bus_favorites', JSON.stringify({ busFav: this.props.bus_favorites }));
-      } else {
-        this.props.setFavoriteBus(JSON.parse(w).busFav);
-      }
-      if (this.props.bus_favorites.length > 0) {
-        rid = [];
-        sid = [];
-        this.props.bus_favorites.forEach(function(bid) {
-          if (!rid.includes(bid.split('-')[1])) {
-            rid.push(bid.split('-')[1]);
-          }
-          if (!sid.includes(bid.split('-')[0])) {
-            sid.push(bid.split('-')[0]);
-          }
-        });
+      if (w != null) {
+        if (JSON.parse(w).busFav.length > 0) {
+          this.props.setFavoriteBus(JSON.parse(w).busFav);
+          rid = [];
+          sid = [];
+          JSON.parse(w).busFav.forEach(function(bid) {
+            if (!rid.includes(bid.split('-')[1])) {
+              rid.push(bid.split('-')[1]);
+            }
+            if (!sid.includes(bid.split('-')[0])) {
+              sid.push(bid.split('-')[0]);
+            }
+          });
 
-        this.props.getPrediction(rid, sid, true);
+          this.props.getPrediction(rid, sid, true);
+        }
       }
     } catch (e) {
       console.log(e);
