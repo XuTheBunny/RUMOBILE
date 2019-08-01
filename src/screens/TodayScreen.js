@@ -85,10 +85,10 @@ class TodayScreen extends Component {
   getFavClassData = async () => {
     try {
       const w = await AsyncStorage.getItem('class_favorites');
-      if (w == null) {
-        this.storeData('class_favorites', JSON.stringify({ classFav: this.props.class_favorites }));
-      } else {
-        this.props.setFavoriteClass(JSON.parse(w).classFav);
+      if (w != null) {
+        if (JSON.parse(w).classFav.length > 0) {
+          this.props.setFavoriteClass(JSON.parse(w).classFav);
+        }
       }
     } catch (e) {
       console.log(e);
@@ -98,24 +98,22 @@ class TodayScreen extends Component {
   getFavBusData = async () => {
     try {
       const w = await AsyncStorage.getItem('bus_favorites');
-      if (w == null) {
-        this.storeData('bus_favorites', JSON.stringify({ busFav: this.props.bus_favorites }));
-      } else {
-        this.props.setFavoriteBus(JSON.parse(w).busFav);
-      }
-      if (this.props.bus_favorites.length > 0) {
-        rid = [];
-        sid = [];
-        this.props.bus_favorites.forEach(function(bid) {
-          if (!rid.includes(bid.split('-')[1])) {
-            rid.push(bid.split('-')[1]);
-          }
-          if (!sid.includes(bid.split('-')[0])) {
-            sid.push(bid.split('-')[0]);
-          }
-        });
+      if (w != null) {
+        if (JSON.parse(w).busFav.length > 0) {
+          this.props.setFavoriteBus(JSON.parse(w).busFav);
+          rid = [];
+          sid = [];
+          JSON.parse(w).busFav.forEach(function(bid) {
+            if (!rid.includes(bid.split('-')[1])) {
+              rid.push(bid.split('-')[1]);
+            }
+            if (!sid.includes(bid.split('-')[0])) {
+              sid.push(bid.split('-')[0]);
+            }
+          });
 
-        this.props.getPrediction(rid, sid, true);
+          this.props.getPrediction(rid, sid, true);
+        }
       }
     } catch (e) {
       console.log(e);
@@ -214,11 +212,11 @@ class TodayScreen extends Component {
     info = Object.keys(this.props.bus_info).length > 0 ? this.props.bus_info : busInfo;
     idList = [];
     this.props.bus_favorites.forEach(function(bid) {
-      s = bid.split('-')[0];
-      r = bid.split('-')[1];
-      sn = info['s' + s].sname;
-      rn = info['r' + r].rname;
-      d = info['s' + s].distance;
+      const s = bid.split('-')[0];
+      const r = bid.split('-')[1];
+      const sn = info['s' + s].sname;
+      const rn = info['r' + r].rname;
+      const d = info['s' + s].distance;
       if (idList.find(obj => obj.sid == s)) {
         idList.find(obj => obj.sid == s).rid.push({ rid: r, rname: rn, prediction: [] });
       } else {
@@ -285,9 +283,8 @@ class TodayScreen extends Component {
   renderFavClass() {
     if (this.props.class_favorites.length > 0) {
       classList = this.formClass();
-      d = new Date();
-      n = d.getDay() == 0 ? d.getDay() + 7 : d.getDay();
-      todayClass = classList[n].data;
+      today = this.props.dateText.split(',')[0].toLowerCase();
+      todayClass = classList.find(obj => obj.title.toLowerCase() === today).data;
       i = Math.floor(Math.random() * noClass.length);
       if (todayClass.length > 0) {
         return (
@@ -297,7 +294,7 @@ class TodayScreen extends Component {
                 <Image style={styles.cardIcon} source={require('../images/Today/Bus.jpg')} />
                 <Text style={styles.cardTitle}>Classes</Text>
               </View>
-              <TouchableOpacity onPress={() => this.onFavClassPress(classList, classList[n].title)}>
+              <TouchableOpacity onPress={() => this.onFavClassPress(classList, today)}>
                 <Image
                   style={styles.moreIcon}
                   source={require('../images/TabBar/MoreSelected.png')}
@@ -344,14 +341,14 @@ class TodayScreen extends Component {
                 <Image style={styles.cardIcon} source={require('../images/Today/Class.png')} />
                 <Text style={styles.cardTitle}>Classes</Text>
               </View>
-              <TouchableOpacity onPress={() => this.onFavClassPress(classList, classList[n].title)}>
+              <TouchableOpacity onPress={() => this.onFavClassPress(classList, today)}>
                 <Image
                   style={styles.moreIcon}
                   source={require('../images/TabBar/MoreSelected.png')}
                 />
               </TouchableOpacity>
             </View>
-            <TouchableOpacity onPress={() => this.onFavClassPress(classList, classList[n].title)}>
+            <TouchableOpacity onPress={() => this.onFavClassPress(classList, today)}>
               <View style={[styles.cardBodyContainer, { marginVertical: 20 }]}>
                 <Text style={styles.emptyEmoji}>{noClass[i].split('-')[1]}</Text>
                 <Text style={styles.emptyText}>{noClass[i].split('-')[0]}</Text>
