@@ -212,11 +212,11 @@ class TodayScreen extends Component {
     info = Object.keys(this.props.bus_info).length > 0 ? this.props.bus_info : busInfo;
     idList = [];
     this.props.bus_favorites.forEach(function(bid) {
-      s = bid.split('-')[0];
-      r = bid.split('-')[1];
-      sn = info['s' + s].sname;
-      rn = info['r' + r].rname;
-      d = info['s' + s].distance;
+      const s = bid.split('-')[0];
+      const r = bid.split('-')[1];
+      const sn = info['s' + s].sname;
+      const rn = info['r' + r].rname;
+      const d = info['s' + s].distance;
       if (idList.find(obj => obj.sid == s)) {
         idList.find(obj => obj.sid == s).rid.push({ rid: r, rname: rn, prediction: [] });
       } else {
