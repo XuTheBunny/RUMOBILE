@@ -283,9 +283,8 @@ class TodayScreen extends Component {
   renderFavClass() {
     if (this.props.class_favorites.length > 0) {
       classList = this.formClass();
-      d = new Date();
-      n = d.getDay() == 0 ? d.getDay() + 7 : d.getDay();
-      todayClass = classList[n].data;
+      today = this.props.dateText.split(',')[0].toLowerCase();
+      todayClass = classList.find(obj => obj.title.toLowerCase() === today).data;
       i = Math.floor(Math.random() * noClass.length);
       if (todayClass.length > 0) {
         return (
@@ -295,7 +294,7 @@ class TodayScreen extends Component {
                 <Image style={styles.cardIcon} source={require('../images/Today/Bus.jpg')} />
                 <Text style={styles.cardTitle}>Classes</Text>
               </View>
-              <TouchableOpacity onPress={() => this.onFavClassPress(classList, classList[n].title)}>
+              <TouchableOpacity onPress={() => this.onFavClassPress(classList, today)}>
                 <Image
                   style={styles.moreIcon}
                   source={require('../images/TabBar/MoreSelected.png')}
@@ -342,14 +341,14 @@ class TodayScreen extends Component {
                 <Image style={styles.cardIcon} source={require('../images/Today/Class.png')} />
                 <Text style={styles.cardTitle}>Classes</Text>
               </View>
-              <TouchableOpacity onPress={() => this.onFavClassPress(classList, classList[n].title)}>
+              <TouchableOpacity onPress={() => this.onFavClassPress(classList, today)}>
                 <Image
                   style={styles.moreIcon}
                   source={require('../images/TabBar/MoreSelected.png')}
                 />
               </TouchableOpacity>
             </View>
-            <TouchableOpacity onPress={() => this.onFavClassPress(classList, classList[n].title)}>
+            <TouchableOpacity onPress={() => this.onFavClassPress(classList, today)}>
               <View style={[styles.cardBodyContainer, { marginVertical: 20 }]}>
                 <Text style={styles.emptyEmoji}>{noClass[i].split('-')[1]}</Text>
                 <Text style={styles.emptyText}>{noClass[i].split('-')[0]}</Text>

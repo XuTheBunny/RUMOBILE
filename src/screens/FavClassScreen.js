@@ -97,11 +97,18 @@ class FavClassScreen extends Component {
           }
         >
           <Image
-            style={title == this.props.today ? styles.sectionHeaderImage : { display: 'none' }}
+            style={
+              title.toLowerCase() == this.props.today
+                ? styles.sectionHeaderImage
+                : { display: 'none' }
+            }
             source={require('../images/Today/Today.png')}
           />
           <Text
-            style={[styles.sectionHeader, title == this.props.today ? { paddingRight: 66 } : {}]}
+            style={[
+              styles.sectionHeader,
+              title.toLowerCase() == this.props.today ? { paddingRight: 66 } : {},
+            ]}
           >
             {title}
           </Text>
