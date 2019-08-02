@@ -72,6 +72,11 @@ class LinkScreen extends Component {
       url: 'https://finservices.rutgers.edu/otb/chooseSemester.htm?login=cas',
       src: require('../images/Links/Bank.png'),
     });
+    links.push({
+      title: 'Privacy Policy',
+      url: 'https://rumobile-cbb58.firebaseapp.com',
+      src: require('../images/Links/Privacy.png'),
+    });
 
     this.sfViewController = this.sfViewController.bind(this);
   }
