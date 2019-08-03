@@ -290,9 +290,9 @@ const styles = {
     color: 'rgb(142, 142, 147)',
   },
   editButton: {
-    width: 36,
-    fontSize: 14,
+    width: 44,
     color: 'rgb(237, 69, 69)',
+    fontSize: 17,
     textAlign: 'center',
   },
   sectionHeaderContainer: {
