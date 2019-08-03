@@ -25,8 +25,6 @@ class AboutMeScreen extends Component {
             style={{
               flexDirection: 'row',
               justifyContent: 'flex-end',
-              paddingTop: 3,
-              paddingRight: 24,
             }}
           >
             <TouchableOpacity onPress={() => Actions.pop()}>
@@ -214,6 +212,8 @@ const styles = {
     shadowOffset: { width: 0, height: 1 },
     shadowRadius: 2,
     backgroundColor: 'white',
+    marginVertical: 3,
+    marginHorizontal: 26,
   },
 };
 

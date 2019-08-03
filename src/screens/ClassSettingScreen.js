@@ -81,23 +81,24 @@ class ClassSettingScreen extends Component {
             <Text style={styles.cardHeader}>Classes</Text>
           </View>
           {this.state.campus.length > 0 && this.state.level.length > 0 && (
-            <View
-              style={{
-                height: 64,
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-            >
-              <TouchableOpacity onPress={() => this.backUp()}>
+            <TouchableOpacity onPress={() => this.backUp()}>
+              <View
+                style={{
+                  height: 64,
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  marginRight: 23,
+                }}
+              >
                 <View style={styles.closeButton}>
                   <Image
                     style={styles.iconStyle}
                     source={require('../images/Today/actionClose.png')}
                   />
                 </View>
-              </TouchableOpacity>
-            </View>
+              </View>
+            </TouchableOpacity>
           )}
         </View>
         <ScrollView>
@@ -209,7 +210,7 @@ const styles = {
   headerContainer: {
     marginTop: 18,
     marginBottom: 8,
-    marginHorizontal: 23,
+    marginLeft: 23,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
