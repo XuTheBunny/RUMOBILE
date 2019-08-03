@@ -23,6 +23,12 @@ class MeetingItem extends Component {
       timeObj.startTime = item.startTime + item.pmCode;
       timeObj.endTime = item.endTime + item.pmCode;
     }
+    if (parseInt(item.startTime.split(':')[0]) == 12) {
+      timeObj.startTime = item.startTime + 'PM';
+    }
+    if (parseInt(item.endTime.split(':')[0]) == 12) {
+      timeObj.endTime = item.endTime + 'PM';
+    }
     return timeObj;
   };
 
