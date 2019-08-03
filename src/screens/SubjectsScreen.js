@@ -163,7 +163,7 @@ const styles = {
     color: 'rgb(237, 69, 69)',
     fontSize: 17,
     marginBottom: 12,
-    marginRight: 20,
+    marginHorizontal: 20,
   },
   headerContainer: {
     marginTop: 10,
