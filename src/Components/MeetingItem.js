@@ -72,7 +72,7 @@ class MeetingItem extends Component {
           borderRadius: 3,
         }}
       >
-        <Text style={{ fontSize: 10, color: 'white' }}>{name}</Text>
+        <Text style={{ fontSize: 11, color: 'white', fontWeight: '400' }}>{name}</Text>
       </View>
     );
   }
@@ -105,7 +105,7 @@ class MeetingItem extends Component {
                   {this.buildingName()}
                 </Text>
               )}
-              <View style={{ flexDirection: 'row' }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 {this.campusIcon()}
                 <Text style={{ fontSize: 12, color: 'rgb(109,109,114)', marginLeft: 4 }}>
                   {this.props.className && this.props.item.building && (
