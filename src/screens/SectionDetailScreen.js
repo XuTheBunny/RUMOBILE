@@ -161,7 +161,7 @@ class SectionDetailScreen extends Component {
           />
           <View style={{ paddingRight: 16 }}>
             <Text style={styles.sectionTitle}>Instructors</Text>
-            <Text style={styles.sectionText}>{sectionObj.title.instructors}</Text>
+            <Text style={styles.sectionText}>{sectionObj.title.instructors || 'No Data'}</Text>
             <Text style={styles.sectionTitle}>Section Notes</Text>
             <Text style={styles.sectionText}>{sectionObj.title.sectionNotes || 'No Data'}</Text>
           </View>
