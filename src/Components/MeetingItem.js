@@ -133,7 +133,6 @@ const styles = {
     fontSize: 15,
     fontWeight: '600',
     marginVertical: 11,
-    marginLeft: 10,
     textTransform: 'uppercase',
   },
   itemRow: {
