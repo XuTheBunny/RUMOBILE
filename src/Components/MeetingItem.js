@@ -87,7 +87,7 @@ class MeetingItem extends Component {
           <View style={{ flexDirection: 'row' }}>
             {this.props.item.day == '' ? (
               <View style={styles.timeBox}>
-                <Text style={styles.startTime}>All Day</Text>
+                <Text style={styles.allDayTime}>All Day</Text>
               </View>
             ) : (
               <View style={styles.timeBox}>
@@ -155,6 +155,11 @@ const styles = {
   startTime: {
     textAlign: 'right',
     fontSize: 18,
+  },
+  allDayTime: {
+    textAlign: 'right',
+    fontSize: 15,
+    textTransform: 'uppercase',
   },
   endTime: {
     textAlign: 'right',
