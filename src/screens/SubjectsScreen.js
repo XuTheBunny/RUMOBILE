@@ -174,7 +174,7 @@ const styles = {
   },
   headerText: {
     fontWeight: '600',
-    fontSize: 22,
+    fontSize: 25,
   },
   headerNote: {
     fontSize: 13,
