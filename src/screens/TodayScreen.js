@@ -567,8 +567,6 @@ const styles = {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 8,
-    paddingVertical: 6,
     borderBottomColor: 'rgb(233, 233, 233)',
     borderBottomWidth: 1,
   },
@@ -577,17 +575,21 @@ const styles = {
     alignItems: 'center',
   },
   cardIcon: {
-    height: 15,
+    height: 27,
     width: 15,
+    resizeMode: 'contain',
+    marginHorizontal: 8,
   },
   moreIcon: {
     resizeMode: 'contain',
     width: 15,
+    height: 27,
+    marginHorizontal: 8,
   },
   cardTitle: {
     fontSize: 14,
     color: 'rgb(237, 69, 69)',
-    paddingLeft: 6,
+    paddingVertical: 6,
   },
   emptyText: {
     fontSize: 15,
