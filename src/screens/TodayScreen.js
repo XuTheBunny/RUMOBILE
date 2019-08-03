@@ -291,7 +291,7 @@ class TodayScreen extends Component {
           <View style={styles.cardContainer}>
             <View style={styles.cardTitleContainer}>
               <View style={{ flexDirection: 'row' }}>
-                <Image style={styles.cardIcon} source={require('../images/Today/Bus.jpg')} />
+                <Image style={styles.cardIcon} source={require('../images/Today/Class.png')} />
                 <Text style={styles.cardTitle}>Classes</Text>
               </View>
               <TouchableOpacity onPress={() => this.onFavClassPress(classList, today)}>
