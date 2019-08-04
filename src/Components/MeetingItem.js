@@ -20,8 +20,14 @@ class MeetingItem extends Component {
       timeObj.startTime = item.startTime + 'AM';
       timeObj.endTime = item.endTime + 'PM';
     } else {
-      timeObj.startTime = item.startTime + item.pmCode;
-      timeObj.endTime = item.endTime + item.pmCode;
+      timeObj.startTime = item.startTime + item.pmCode.trim();
+      timeObj.endTime = item.endTime + item.pmCode.trim();
+    }
+    if (parseInt(item.startTime.split(':')[0]) == 12) {
+      timeObj.startTime = item.startTime + 'PM';
+    }
+    if (parseInt(item.endTime.split(':')[0]) == 12) {
+      timeObj.endTime = item.endTime + 'PM';
     }
     return timeObj;
   };
@@ -66,7 +72,7 @@ class MeetingItem extends Component {
           borderRadius: 3,
         }}
       >
-        <Text style={{ fontSize: 10, color: 'white' }}>{name}</Text>
+        <Text style={{ fontSize: 11, color: 'white', fontWeight: '400' }}>{name}</Text>
       </View>
     );
   }
@@ -81,7 +87,7 @@ class MeetingItem extends Component {
           <View style={{ flexDirection: 'row' }}>
             {this.props.item.day == '' ? (
               <View style={styles.timeBox}>
-                <Text style={styles.startTime}>All Day</Text>
+                <Text style={styles.allDayTime}>All Day</Text>
               </View>
             ) : (
               <View style={styles.timeBox}>
@@ -99,7 +105,7 @@ class MeetingItem extends Component {
                   {this.buildingName()}
                 </Text>
               )}
-              <View style={{ flexDirection: 'row' }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 {this.campusIcon()}
                 <Text style={{ fontSize: 12, color: 'rgb(109,109,114)', marginLeft: 4 }}>
                   {this.props.className && this.props.item.building && (
@@ -127,7 +133,6 @@ const styles = {
     fontSize: 15,
     fontWeight: '600',
     marginVertical: 11,
-    marginLeft: 10,
     textTransform: 'uppercase',
   },
   itemRow: {
@@ -149,6 +154,11 @@ const styles = {
   startTime: {
     textAlign: 'right',
     fontSize: 18,
+  },
+  allDayTime: {
+    textAlign: 'right',
+    fontSize: 15,
+    textTransform: 'uppercase',
   },
   endTime: {
     textAlign: 'right',

@@ -2,6 +2,7 @@ import axios from 'axios';
 import RNLocation from 'react-native-location';
 import { BUS_INFO, LOCATION_SHARING } from './types';
 import { routeColor, busInfo } from '../../bus_color.json';
+import { API_KEY } from '../../env.json';
 
 var geodist = require('geodist');
 
@@ -47,7 +48,7 @@ export const getBusInfo = action => {
       url: all_routes_url,
       headers: {
         Accept: 'application/json',
-        'X-Mashape-Key': 'Pcl9MfLNF0mshcAni8CgyFuxVXTap1NA0RxjsnoxN4439f9hBq',
+        'X-Mashape-Key': API_KEY,
       },
     })
       .then(response => {
@@ -74,7 +75,7 @@ export const getBusInfo = action => {
         url: all_stops_url,
         headers: {
           Accept: 'application/json',
-          'X-Mashape-Key': 'Pcl9MfLNF0mshcAni8CgyFuxVXTap1NA0RxjsnoxN4439f9hBq',
+          'X-Mashape-Key': API_KEY,
         },
       })
         .then(response => {
@@ -113,7 +114,7 @@ export const getBusInfo = action => {
       url: all_routes_url,
       headers: {
         Accept: 'application/json',
-        'X-Mashape-Key': 'Pcl9MfLNF0mshcAni8CgyFuxVXTap1NA0RxjsnoxN4439f9hBq',
+        'X-Mashape-Key': API_KEY,
       },
     })
       .then(response => {

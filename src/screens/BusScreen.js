@@ -37,12 +37,13 @@ class BusScreen extends Component {
   }
 
   render() {
+    currentCampus = { newBrunswick: 'NEW BRUNSWICK', newark: 'NEWARK' };
     return (
       <SafeAreaView style={styles.home}>
         {!this.props.internet && (
           <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
         )}
-        <Header text={'Bus'} />
+        <Header text={'Buses'} dateText={currentCampus[this.props.campus]} />
         <View style={{ paddingHorizontal: 13, marginTop: 10 }}>
           <SegmentedControlTab
             values={['Routes', 'Stops']}
@@ -74,12 +75,12 @@ class BusScreen extends Component {
                 <TouchableOpacity
                   onPress={() => {
                     this.setState({
-                      showStop1: !this.state.show1,
+                      showStop1: !this.state.showStop1,
                     });
                   }}
                 >
                   <Icon
-                    name={this.state.showStop1 ? 'chevron-down' : 'chevron-up'}
+                    name={this.state.showStop1 ? 'chevron-up' : 'chevron-down'}
                     size={35}
                     color="rgb(138,138,143)"
                   />
@@ -96,7 +97,7 @@ class BusScreen extends Component {
                   }}
                 >
                   <Icon
-                    name={this.state.show2 ? 'chevron-down' : 'chevron-up'}
+                    name={this.state.showStop2 ? 'chevron-up' : 'chevron-down'}
                     size={35}
                     color="rgb(138,138,143)"
                   />
@@ -116,7 +117,7 @@ class BusScreen extends Component {
                   }}
                 >
                   <Icon
-                    name={this.state.show1 ? 'chevron-down' : 'chevron-up'}
+                    name={this.state.showRoute1 ? 'chevron-up' : 'chevron-down'}
                     size={35}
                     color="rgb(138,138,143)"
                   />
@@ -133,7 +134,7 @@ class BusScreen extends Component {
                   }}
                 >
                   <Icon
-                    name={this.state.show2 ? 'chevron-down' : 'chevron-up'}
+                    name={this.state.showRoute2 ? 'chevron-up' : 'chevron-down'}
                     size={35}
                     color="rgb(138,138,143)"
                   />

@@ -203,58 +203,74 @@ class FavClassScreen extends Component {
 
   render() {
     return (
-      <SafeAreaView style={styles.home}>
-        {!this.props.internet && (
-          <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
-        )}
-        <View style={styles.headerContainer}>
-          <View style={{ height: 64, flexDirection: 'column', justifyContent: 'space-between' }}>
-            <Text style={styles.subHeader}>THIS WEEK</Text>
-            <Text style={styles.cardHeader}>My Schedule</Text>
-          </View>
-          <View
-            style={{
-              height: 64,
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
-            <TouchableOpacity onPress={() => this.backUp()}>
-              <View style={styles.closeButton}>
-                <Image
-                  style={styles.iconStyle}
-                  source={require('../images/Today/actionClose.png')}
-                />
-              </View>
-            </TouchableOpacity>
-            {this.state.swiped.length == 0 && (
-              <TouchableOpacity
-                onPress={() => {
-                  LayoutAnimation.easeInEaseOut();
-                  if (this.state.editing == 'done') {
-                    this.setState({ editing: 'edit' });
-                  } else {
-                    this.setState({ editing: 'done' });
-                  }
-                }}
-              >
-                <Text style={styles.editButton}>
-                  {this.state.editing == 'done' ? 'Edit' : 'Done'}
-                </Text>
+      <View style={styles.home}>
+        <SafeAreaView>
+          {!this.props.internet && (
+            <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
+          )}
+          <View style={styles.headerContainer}>
+            <View style={{ height: 64, flexDirection: 'column', justifyContent: 'space-between' }}>
+              <Text style={styles.subHeader}>THIS WEEK</Text>
+              <Text style={styles.cardHeader}>My Schedule</Text>
+            </View>
+            <View
+              style={{
+                height: 64,
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
+              <TouchableOpacity onPress={() => this.backUp()}>
+                <View style={styles.closeButton}>
+                  <Image
+                    style={styles.iconStyle}
+                    source={require('../images/Today/actionClose.png')}
+                  />
+                </View>
               </TouchableOpacity>
-            )}
+              {this.state.swiped.length == 0 && (
+                <TouchableOpacity
+                  onPress={() => {
+                    LayoutAnimation.easeInEaseOut();
+                    if (this.state.editing == 'done') {
+                      this.setState({ editing: 'edit' });
+                    } else {
+                      this.setState({ editing: 'done' });
+                    }
+                  }}
+                >
+                  <Text style={styles.editButton}>
+                    {this.state.editing == 'done' ? 'Edit' : 'Done'}
+                  </Text>
+                </TouchableOpacity>
+              )}
+            </View>
           </View>
-        </View>
-        <SectionList
-          stickySectionHeadersDisabled
-          renderItem={({ item, index, section }) => this.renderItem(item, index)}
-          renderSectionHeader={({ section: { title, data } }) => this.renderHeader({ title, data })}
-          renderSectionFooter={({ section: { title, data } }) => this.renderFooter({ title, data })}
-          sections={this.formClass()}
-          keyExtractor={(item, index) => item + index}
-        />
-      </SafeAreaView>
+          {this.props.classList.length > 0 ? (
+            <SectionList
+              stickySectionHeadersDisabled
+              renderItem={({ item, index, section }) => this.renderItem(item, index)}
+              renderSectionHeader={({ section: { title, data } }) =>
+                this.renderHeader({ title, data })
+              }
+              renderSectionFooter={({ section: { title, data } }) =>
+                this.renderFooter({ title, data })
+              }
+              sections={this.formClass()}
+              keyExtractor={(item, index) => item + index}
+            />
+          ) : (
+            <View style={styles.emptyContainer}>
+              <Image
+                style={styles.emptyImage}
+                source={require('../images/Class/blankstate_nocourse.png')}
+              />
+              <Text style={styles.emptyText}>Quickly access your schedule of classes here.</Text>
+            </View>
+          )}
+        </SafeAreaView>
+      </View>
     );
   }
 }
@@ -290,9 +306,9 @@ const styles = {
     color: 'rgb(142, 142, 147)',
   },
   editButton: {
-    width: 36,
-    fontSize: 14,
+    width: 44,
     color: 'rgb(237, 69, 69)',
+    fontSize: 17,
     textAlign: 'center',
   },
   sectionHeaderContainer: {
@@ -308,10 +324,11 @@ const styles = {
   },
   sectionHeader: {
     flex: 1,
-    fontSize: 17,
+    fontSize: 15,
     fontWeight: '600',
     textAlign: 'center',
     paddingVertical: 8,
+    textTransform: 'uppercase',
   },
   sectionEmpty: {
     textAlign: 'center',
@@ -349,6 +366,23 @@ const styles = {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-end',
+  },
+  emptyContainer: {
+    marginTop: 70,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  emptyImage: {
+    height: 230,
+    width: 230,
+  },
+  emptyText: {
+    marginTop: 20,
+    textAlign: 'center',
+    fontSize: 13,
+    fontWeight: '500',
+    color: 'rgb(142, 142, 147)',
   },
 };
 

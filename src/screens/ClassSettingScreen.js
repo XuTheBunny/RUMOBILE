@@ -65,138 +65,147 @@ class ClassSettingScreen extends Component {
 
   render() {
     return (
-      <SafeAreaView style={styles.home}>
-        {this.state.campus.length == 0 && (
-          <NotificationBar text="Choose at least one campus." color="rgb(237,69,69)" />
-        )}
-        {this.state.level.length == 0 && (
-          <NotificationBar text="Choose at least one level." color="rgb(237,69,69)" />
-        )}
-        {!this.props.internet && (
-          <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
-        )}
-        <View style={styles.headerContainer}>
-          <View style={{ height: 64, flexDirection: 'column', justifyContent: 'space-between' }}>
-            <Text style={styles.subHeader}>OPTIONS</Text>
-            <Text style={styles.cardHeader}>Classes</Text>
-          </View>
-          {this.state.campus.length > 0 && this.state.level.length > 0 && (
-            <View
-              style={{
-                height: 64,
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-            >
-              <TouchableOpacity onPress={() => this.backUp()}>
-                <View style={styles.closeButton}>
-                  <Image
-                    style={styles.iconStyle}
-                    source={require('../images/Today/actionClose.png')}
-                  />
-                </View>
-              </TouchableOpacity>
-            </View>
+      <View style={styles.home}>
+        <SafeAreaView>
+          {this.state.campus.length == 0 && (
+            <NotificationBar text="Choose at least one campus." color="rgb(237,69,69)" />
           )}
-        </View>
-        <ScrollView>
-          <View style={styles.cardContainer}>
-            <View style={styles.cardTitleContainer}>
-              <Image style={styles.cardIcon} source={require('../images/More/semester.png')} />
-              <Text style={styles.cardTitle}>Semester</Text>
+          {this.state.level.length == 0 && (
+            <NotificationBar text="Choose at least one level." color="rgb(237,69,69)" />
+          )}
+          {!this.props.internet && (
+            <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
+          )}
+          <View style={styles.headerContainer}>
+            <View style={{ height: 64, flexDirection: 'column', justifyContent: 'space-between' }}>
+              <Text style={styles.subHeader}>OPTIONS</Text>
+              <Text style={styles.cardHeader}>Classes</Text>
             </View>
-            {this.classSettingObj.semester.map(obj => (
-              <TouchableOpacity
-                key={obj.key}
-                onPress={() => {
-                  if (!this.state.semester.includes(obj.key)) {
-                    this.setState({ semester: [obj.key] });
-                  }
-                }}
-              >
-                <View style={styles.listItem}>
-                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={{ fontSize: 24, color: 'rgb(74, 74, 74)' }}>{`\u2022`}</Text>
-                    <Text style={{ fontSize: 17, marginLeft: 11, maxWidth: 240 }}>{obj.value}</Text>
+            {this.state.campus.length > 0 && this.state.level.length > 0 && (
+              <TouchableOpacity onPress={() => this.backUp()}>
+                <View
+                  style={{
+                    height: 64,
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginRight: 23,
+                  }}
+                >
+                  <View style={styles.closeButton}>
+                    <Image
+                      style={styles.iconStyle}
+                      source={require('../images/Today/actionClose.png')}
+                    />
                   </View>
-                  {this.state.semester.includes(obj.key) && (
-                    <Icon name="check" size={13} color="rgb(237, 69, 69)" />
-                  )}
                 </View>
               </TouchableOpacity>
-            ))}
+            )}
           </View>
-          <View style={styles.cardContainer}>
-            <View style={styles.cardTitleContainer}>
-              <Image style={styles.cardIcon} source={require('../images/More/level.png')} />
-              <Text style={styles.cardTitle}>Level</Text>
-            </View>
-            {this.classSettingObj.level.map(obj => (
-              <TouchableOpacity
-                key={obj.key}
-                onPress={() => {
-                  if (this.state.level.includes(obj.key)) {
-                    this.setState({
-                      level: this.state.level.filter(item => obj.key !== item),
-                    });
-                  } else {
-                    if (this.state.level.length > 0) {
-                      this.setState({ level: [...this.state.level, obj.key] });
-                    } else {
-                      this.setState({ level: [obj.key] });
+          <ScrollView>
+            <View style={styles.cardContainer}>
+              <View style={styles.cardTitleContainer}>
+                <Image style={styles.cardIcon} source={require('../images/More/semester.png')} />
+                <Text style={styles.cardTitle}>Semester</Text>
+              </View>
+              {this.classSettingObj.semester.map(obj => (
+                <TouchableOpacity
+                  key={obj.key}
+                  onPress={() => {
+                    if (!this.state.semester.includes(obj.key)) {
+                      this.setState({ semester: [obj.key] });
                     }
-                  }
-                }}
-              >
-                <View style={styles.listItem}>
-                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={{ fontSize: 24, color: 'rgb(74, 74, 74)' }}>{`\u2022`}</Text>
-                    <Text style={{ fontSize: 17, marginLeft: 11, maxWidth: 240 }}>{obj.value}</Text>
+                  }}
+                >
+                  <View style={styles.listItem}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                      <Text style={{ fontSize: 24, color: 'rgb(74, 74, 74)' }}>{`\u2022`}</Text>
+                      <Text style={{ fontSize: 17, marginLeft: 11, maxWidth: 240 }}>
+                        {obj.value}
+                      </Text>
+                    </View>
+                    {this.state.semester.includes(obj.key) && (
+                      <Icon name="check" size={13} color="rgb(237, 69, 69)" />
+                    )}
                   </View>
-                  {this.state.level.includes(obj.key) && (
-                    <Icon name="check" size={13} color="rgb(237, 69, 69)" />
-                  )}
-                </View>
-              </TouchableOpacity>
-            ))}
-          </View>
-          <View style={styles.cardContainer}>
-            <View style={styles.cardTitleContainer}>
-              <Image style={styles.cardIcon} source={require('../images/More/campus.png')} />
-              <Text style={styles.cardTitle}>Campus</Text>
+                </TouchableOpacity>
+              ))}
             </View>
-            {this.classSettingObj.campus.map(obj => (
-              <TouchableOpacity
-                key={obj.key}
-                onPress={() => {
-                  if (this.state.campus.includes(obj.key)) {
-                    this.setState({
-                      campus: this.state.campus.filter(item => obj.key !== item),
-                    });
-                  } else {
-                    if (this.state.campus.length > 0) {
-                      this.setState({ campus: [...this.state.campus, obj.key] });
+            <View style={styles.cardContainer}>
+              <View style={styles.cardTitleContainer}>
+                <Image style={styles.cardIcon} source={require('../images/More/level.png')} />
+                <Text style={styles.cardTitle}>Level</Text>
+              </View>
+              {this.classSettingObj.level.map(obj => (
+                <TouchableOpacity
+                  key={obj.key}
+                  onPress={() => {
+                    if (this.state.level.includes(obj.key)) {
+                      this.setState({
+                        level: this.state.level.filter(item => obj.key !== item),
+                      });
                     } else {
-                      this.setState({ campus: [obj.key] });
+                      if (this.state.level.length > 0) {
+                        this.setState({ level: [...this.state.level, obj.key] });
+                      } else {
+                        this.setState({ level: [obj.key] });
+                      }
                     }
-                  }
-                }}
-              >
-                <View style={styles.listItem}>
-                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={{ fontSize: 24, color: 'rgb(74, 74, 74)' }}>{`\u2022`}</Text>
-                    <Text style={{ fontSize: 17, marginLeft: 11, maxWidth: 240 }}>{obj.value}</Text>
+                  }}
+                >
+                  <View style={styles.listItem}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                      <Text style={{ fontSize: 24, color: 'rgb(74, 74, 74)' }}>{`\u2022`}</Text>
+                      <Text style={{ fontSize: 17, marginLeft: 11, maxWidth: 240 }}>
+                        {obj.value}
+                      </Text>
+                    </View>
+                    {this.state.level.includes(obj.key) && (
+                      <Icon name="check" size={13} color="rgb(237, 69, 69)" />
+                    )}
                   </View>
-                  {this.state.campus.includes(obj.key) && (
-                    <Icon name="check" size={13} color="rgb(237, 69, 69)" />
-                  )}
-                </View>
-              </TouchableOpacity>
-            ))}
-          </View>
-        </ScrollView>
-      </SafeAreaView>
+                </TouchableOpacity>
+              ))}
+            </View>
+            <View style={styles.cardContainer}>
+              <View style={styles.cardTitleContainer}>
+                <Image style={styles.cardIcon} source={require('../images/More/campus.png')} />
+                <Text style={styles.cardTitle}>Campus</Text>
+              </View>
+              {this.classSettingObj.campus.map(obj => (
+                <TouchableOpacity
+                  key={obj.key}
+                  onPress={() => {
+                    if (this.state.campus.includes(obj.key)) {
+                      this.setState({
+                        campus: this.state.campus.filter(item => obj.key !== item),
+                      });
+                    } else {
+                      if (this.state.campus.length > 0) {
+                        this.setState({ campus: [...this.state.campus, obj.key] });
+                      } else {
+                        this.setState({ campus: [obj.key] });
+                      }
+                    }
+                  }}
+                >
+                  <View style={styles.listItem}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                      <Text style={{ fontSize: 24, color: 'rgb(74, 74, 74)' }}>{`\u2022`}</Text>
+                      <Text style={{ fontSize: 17, marginLeft: 11, maxWidth: 240 }}>
+                        {obj.value}
+                      </Text>
+                    </View>
+                    {this.state.campus.includes(obj.key) && (
+                      <Icon name="check" size={13} color="rgb(237, 69, 69)" />
+                    )}
+                  </View>
+                </TouchableOpacity>
+              ))}
+            </View>
+          </ScrollView>
+        </SafeAreaView>
+      </View>
     );
   }
 }
@@ -209,7 +218,7 @@ const styles = {
   headerContainer: {
     marginTop: 18,
     marginBottom: 8,
-    marginHorizontal: 23,
+    marginLeft: 23,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },

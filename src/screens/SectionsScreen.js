@@ -63,7 +63,7 @@ class SectionsScreen extends Component {
           </View>
           {item.startTime.length > 0 && (
             <Text style={{ fontSize: 15, color: 'black', fontWeight: '500' }}>
-              {item.startTime}-{item.endTime} {item.pmCode}
+              {item.startTime}-{item.endTime + item.pmCode.trim()}
             </Text>
           )}
         </View>
@@ -130,6 +130,7 @@ class SectionsScreen extends Component {
           </SafeAreaView>
         </ImageBackground>
         <FlatList
+          style={{ paddingTop: 23 }}
           data={this.state.course.sections}
           renderItem={({ item, index }) => this.sectionList(item)}
         />
@@ -146,7 +147,6 @@ const styles = {
   headerContainer: {
     paddingTop: 15,
     paddingBottom: 19,
-    marginBottom: 25,
     flexDirection: 'column',
     backgroundColor: 'black',
   },

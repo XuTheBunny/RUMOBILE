@@ -34,85 +34,24 @@ class FoodScreen extends Component {
 
   openStatus(name) {
     var open = false;
-    if (name == 'brower') {
-      for (var i = 0; i < this.props.brower.meals.length; i++) {
-        if (this.props.brower.meals[i].meal_avail == true) {
-          open = true;
-        }
-      }
-      if (open == true) {
-        return (
-          <Image source={require('../images/Food/openStatusIcon.png')} style={styles.cardStatus} />
-        );
-      } else {
-        return (
-          <Image
-            source={require('../images/Food/closedStatusIcon.png')}
-            style={styles.cardStatus}
-          />
-        );
+    for (var i = 0; i < this.props.brower.meals.length; i++) {
+      if (this.props[name].meals[i].meal_avail == true) {
+        open = true;
       }
     }
-
-    if (name == 'busch') {
-      for (var i = 0; i < this.props.busch.meals.length; i++) {
-        if (this.props.busch.meals[i].meal_avail == true) {
-          open = true;
-        }
-      }
-      if (open == true) {
-        return (
-          <Image source={require('../images/Food/openStatusIcon.png')} style={styles.cardStatus} />
-        );
-      } else {
-        return (
-          <Image
-            source={require('../images/Food/closedStatusIcon.png')}
-            style={styles.cardStatus}
-          />
-        );
-      }
-    }
-
-    if (name == 'livingston') {
-      for (var i = 0; i < this.props.livingston.meals.length; i++) {
-        if (this.props.livingston.meals[i].meal_avail == true) {
-          open = true;
-        }
-      }
-      if (open == true) {
-        return (
-          <Image source={require('../images/Food/openStatusIcon.png')} style={styles.cardStatus} />
-        );
-      } else {
-        return (
-          <Image
-            source={require('../images/Food/closedStatusIcon.png')}
-            style={styles.cardStatus}
-          />
-        );
-      }
-    }
-
-    if (name == 'neilson') {
-      for (var i = 0; i < this.props.neilson.meals.length; i++) {
-        if (this.props.neilson.meals[i].meal_avail == true) {
-          open = true;
-        }
-      }
-      if (open == true) {
-        return (
-          <Image source={require('../images/Food/openStatusIcon.png')} style={styles.cardStatus} />
-        );
-      } else {
-        return (
-          <Image
-            source={require('../images/Food/closedStatusIcon.png')}
-            style={styles.cardStatus}
-          />
-        );
-      }
-    }
+    return (
+      <View style={styles.cardStatus}>
+        <Text
+          style={{
+            fontSize: 13,
+            color: open ? 'rgb(146,207,72)' : 'rgb(237, 69, 69)',
+            fontWeight: '600',
+          }}
+        >
+          {open ? 'OPEN' : 'CLOSED'}
+        </Text>
+      </View>
+    );
   }
 
   foodList(d) {
@@ -257,6 +196,8 @@ const styles = {
   cardBody: {
     flex: 2,
     alignSelf: 'stretch',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
     aspectRatio: 1,
     margin: 5,
   },
@@ -268,11 +209,16 @@ const styles = {
     fontWeight: 'bold',
     backgroundColor: 'rgba(0,0,0,0)',
     color: 'white',
+    textTransform: 'capitalize',
   },
   cardStatus: {
     marginRight: 8,
+    marginBottom: 8,
     alignSelf: 'flex-end',
-    marginTop: 98,
+    backgroundColor: 'rgba(0,0,0,0.6)',
+    paddingHorizontal: 9,
+    paddingVertical: 4,
+    borderRadius: 4,
   },
   emptyText: {
     fontSize: 15,

@@ -10,6 +10,7 @@ import {
   BUS_INFO,
   LOCATION_SHARING,
 } from './types';
+import { API_KEY } from '../../env.json';
 
 var geodist = require('geodist');
 
@@ -85,7 +86,7 @@ export const getBusStops = action => {
       url: all_buses_url,
       headers: {
         Accept: 'application/json',
-        'X-Mashape-Key': 'Pcl9MfLNF0mshcAni8CgyFuxVXTap1NA0RxjsnoxN4439f9hBq',
+        'X-Mashape-Key': API_KEY,
       },
     })
       .then(response => {
@@ -115,7 +116,7 @@ export const getBusStops = action => {
         url: all_routes_url,
         headers: {
           Accept: 'application/json',
-          'X-Mashape-Key': 'Pcl9MfLNF0mshcAni8CgyFuxVXTap1NA0RxjsnoxN4439f9hBq',
+          'X-Mashape-Key': API_KEY,
         },
       })
         .then(response => {
@@ -159,7 +160,7 @@ export const getBusStops = action => {
         url: all_stops_url,
         headers: {
           Accept: 'application/json',
-          'X-Mashape-Key': 'Pcl9MfLNF0mshcAni8CgyFuxVXTap1NA0RxjsnoxN4439f9hBq',
+          'X-Mashape-Key': API_KEY,
         },
       })
         .then(response => {

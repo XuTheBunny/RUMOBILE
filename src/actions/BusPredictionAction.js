@@ -5,6 +5,7 @@ import {
   TODAY_PREDICTION,
   TODAY_PREDICTION_DATA_HERE,
 } from './types';
+import { API_KEY } from '../../env.json';
 
 export const getPrediction = (rid, sid, today) => {
   if (rid == 'clean') {
@@ -34,7 +35,7 @@ export const getPrediction = (rid, sid, today) => {
       url: prediction_url,
       headers: {
         Accept: 'application/json',
-        'X-Mashape-Key': 'Pcl9MfLNF0mshcAni8CgyFuxVXTap1NA0RxjsnoxN4439f9hBq',
+        'X-Mashape-Key': API_KEY,
       },
     })
       .then(response => {

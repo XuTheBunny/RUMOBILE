@@ -290,10 +290,12 @@ class TodayScreen extends Component {
         return (
           <View style={styles.cardContainer}>
             <View style={styles.cardTitleContainer}>
-              <View style={{ flexDirection: 'row' }}>
-                <Image style={styles.cardIcon} source={require('../images/Today/Bus.jpg')} />
-                <Text style={styles.cardTitle}>Classes</Text>
-              </View>
+              <TouchableOpacity onPress={() => this.onFavClassPress(classList, today)}>
+                <View style={{ flexDirection: 'row' }}>
+                  <Image style={styles.cardIcon} source={require('../images/Today/Class.png')} />
+                  <Text style={styles.cardTitle}>Classes</Text>
+                </View>
+              </TouchableOpacity>
               <TouchableOpacity onPress={() => this.onFavClassPress(classList, today)}>
                 <Image
                   style={styles.moreIcon}
@@ -337,10 +339,12 @@ class TodayScreen extends Component {
         return (
           <View style={styles.cardContainer}>
             <View style={styles.cardTitleContainer}>
-              <View style={{ flexDirection: 'row' }}>
-                <Image style={styles.cardIcon} source={require('../images/Today/Class.png')} />
-                <Text style={styles.cardTitle}>Classes</Text>
-              </View>
+              <TouchableOpacity onPress={() => this.onFavClassPress(classList, today)}>
+                <View style={{ flexDirection: 'row' }}>
+                  <Image style={styles.cardIcon} source={require('../images/Today/Class.png')} />
+                  <Text style={styles.cardTitle}>Classes</Text>
+                </View>
+              </TouchableOpacity>
               <TouchableOpacity onPress={() => this.onFavClassPress(classList, today)}>
                 <Image
                   style={styles.moreIcon}
@@ -361,10 +365,12 @@ class TodayScreen extends Component {
       return (
         <View style={styles.cardContainer}>
           <View style={styles.cardTitleContainer}>
-            <View style={{ flexDirection: 'row' }}>
-              <Image style={styles.cardIcon} source={require('../images/Today/Class.png')} />
-              <Text style={styles.cardTitle}>Classes</Text>
-            </View>
+            <TouchableOpacity onPress={() => this.onFavClassPress([], '')}>
+              <View style={{ flexDirection: 'row' }}>
+                <Image style={styles.cardIcon} source={require('../images/Today/Class.png')} />
+                <Text style={styles.cardTitle}>Classes</Text>
+              </View>
+            </TouchableOpacity>
           </View>
           <View style={[styles.cardBodyContainer, { marginVertical: 20 }]}>
             <Text style={styles.emptyText}>Quickly access your schedule of classes here.</Text>
@@ -405,10 +411,12 @@ class TodayScreen extends Component {
         return (
           <View style={styles.cardContainer}>
             <View style={styles.cardTitleContainer}>
-              <View style={{ flexDirection: 'row' }}>
-                <Image style={styles.cardIcon} source={require('../images/Today/Bus.jpg')} />
-                <Text style={styles.cardTitle}>Buses</Text>
-              </View>
+              <TouchableOpacity onPress={() => this.onFavBusPress()}>
+                <View style={{ flexDirection: 'row' }}>
+                  <Image style={styles.cardIcon} source={require('../images/Today/Bus.jpg')} />
+                  <Text style={styles.cardTitle}>Buses</Text>
+                </View>
+              </TouchableOpacity>
               <TouchableOpacity onPress={() => this.onFavBusPress()}>
                 <Image
                   style={styles.moreIcon}
@@ -470,10 +478,12 @@ class TodayScreen extends Component {
         return (
           <View style={styles.cardContainer}>
             <View style={styles.cardTitleContainer}>
-              <View style={{ flexDirection: 'row' }}>
-                <Image style={styles.cardIcon} source={require('../images/Today/Bus.jpg')} />
-                <Text style={styles.cardTitle}>Buses</Text>
-              </View>
+              <TouchableOpacity onPress={() => this.onFavBusPress()}>
+                <View style={{ flexDirection: 'row' }}>
+                  <Image style={styles.cardIcon} source={require('../images/Today/Bus.jpg')} />
+                  <Text style={styles.cardTitle}>Buses</Text>
+                </View>
+              </TouchableOpacity>
               <TouchableOpacity onPress={() => this.onFavBusPress()}>
                 <Image
                   style={styles.moreIcon}
@@ -496,10 +506,12 @@ class TodayScreen extends Component {
       return (
         <View style={styles.cardContainer}>
           <View style={styles.cardTitleContainer}>
-            <View style={{ flexDirection: 'row' }}>
-              <Image style={styles.cardIcon} source={require('../images/Today/Bus.jpg')} />
-              <Text style={styles.cardTitle}>Buses</Text>
-            </View>
+            <TouchableOpacity onPress={() => this.onFavBusPress()}>
+              <View style={{ flexDirection: 'row' }}>
+                <Image style={styles.cardIcon} source={require('../images/Today/Bus.jpg')} />
+                <Text style={styles.cardTitle}>Buses</Text>
+              </View>
+            </TouchableOpacity>
           </View>
           <View style={[styles.cardBodyContainer, { marginBottom: 20 }]}>
             <Image style={styles.emptyImage} source={require('../images/Today/noBus.png')} />
@@ -559,8 +571,6 @@ const styles = {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 8,
-    paddingVertical: 6,
     borderBottomColor: 'rgb(233, 233, 233)',
     borderBottomWidth: 1,
   },
@@ -569,17 +579,21 @@ const styles = {
     alignItems: 'center',
   },
   cardIcon: {
-    height: 15,
+    height: 27,
     width: 15,
+    resizeMode: 'contain',
+    marginHorizontal: 8,
   },
   moreIcon: {
     resizeMode: 'contain',
     width: 15,
+    height: 27,
+    marginHorizontal: 8,
   },
   cardTitle: {
     fontSize: 14,
     color: 'rgb(237, 69, 69)',
-    paddingLeft: 6,
+    paddingVertical: 6,
   },
   emptyText: {
     fontSize: 15,
