@@ -247,18 +247,28 @@ class FavClassScreen extends Component {
               )}
             </View>
           </View>
-          <SectionList
-            stickySectionHeadersDisabled
-            renderItem={({ item, index, section }) => this.renderItem(item, index)}
-            renderSectionHeader={({ section: { title, data } }) =>
-              this.renderHeader({ title, data })
-            }
-            renderSectionFooter={({ section: { title, data } }) =>
-              this.renderFooter({ title, data })
-            }
-            sections={this.formClass()}
-            keyExtractor={(item, index) => item + index}
-          />
+          {this.props.classList.length > 0 ? (
+            <SectionList
+              stickySectionHeadersDisabled
+              renderItem={({ item, index, section }) => this.renderItem(item, index)}
+              renderSectionHeader={({ section: { title, data } }) =>
+                this.renderHeader({ title, data })
+              }
+              renderSectionFooter={({ section: { title, data } }) =>
+                this.renderFooter({ title, data })
+              }
+              sections={this.formClass()}
+              keyExtractor={(item, index) => item + index}
+            />
+          ) : (
+            <View style={styles.emptyContainer}>
+              <Image
+                style={styles.emptyImage}
+                source={require('../images/Class/blankstate_nocourse.png')}
+              />
+              <Text style={styles.emptyText}>Quickly access your schedule of classes here.</Text>
+            </View>
+          )}
         </SafeAreaView>
       </View>
     );
@@ -356,6 +366,23 @@ const styles = {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-end',
+  },
+  emptyContainer: {
+    marginTop: 70,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  emptyImage: {
+    height: 230,
+    width: 230,
+  },
+  emptyText: {
+    marginTop: 20,
+    textAlign: 'center',
+    fontSize: 13,
+    fontWeight: '500',
+    color: 'rgb(142, 142, 147)',
   },
 };
 
