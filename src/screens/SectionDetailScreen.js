@@ -99,7 +99,7 @@ class SectionDetailScreen extends Component {
           </View>
         </View>
         <ScrollView
-          style={{ paddingLeft: 16, paddingTop: 23, backgroundColor: 'rgb(255, 255, 255)' }}
+          style={{ paddingLeft: 16, paddingTop: 10, backgroundColor: 'rgb(255, 255, 255)' }}
         >
           <View
             style={{
