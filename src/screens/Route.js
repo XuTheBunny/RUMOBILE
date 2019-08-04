@@ -18,7 +18,7 @@ var nearestId = '';
 var thisRoute = {};
 
 class Route extends Component {
-  state = { refreshing: false, currentCampus: '', showWarning: false };
+  state = { refreshing: false, currentCampus: '' };
 
   componentDidMount() {
     allRoutes = this.props.activeRoutes.concat(this.props.inactiveRoutes);
@@ -56,13 +56,8 @@ class Route extends Component {
         this.setState({ refreshing: false });
       }
     } else {
-      this.setState({ refreshing: false, showWarning: true });
-      setTimeout(
-        function() {
-          this.setState({ showWarning: false });
-        }.bind(this),
-        2000,
-      );
+      Actions.pop();
+      this.setState({ refreshing: false });
     }
   }
 
@@ -111,9 +106,6 @@ class Route extends Component {
       : 'rgb(142, 142, 147)';
     return (
       <SafeAreaView style={[styles.screen, { backgroundColor: color }]}>
-        {this.state.showWarning && (
-          <NotificationBar text="Yoo, u have changed to the other campus." color="rgb(237,69,69)" />
-        )}
         {!this.props.internet && (
           <NotificationBar text="There is no Internet connection" color="rgb(237,69,69)" />
         )}
