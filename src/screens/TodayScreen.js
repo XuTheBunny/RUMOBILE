@@ -365,10 +365,12 @@ class TodayScreen extends Component {
       return (
         <View style={styles.cardContainer}>
           <View style={styles.cardTitleContainer}>
-            <View style={{ flexDirection: 'row' }}>
-              <Image style={styles.cardIcon} source={require('../images/Today/Class.png')} />
-              <Text style={styles.cardTitle}>Classes</Text>
-            </View>
+            <TouchableOpacity onPress={() => this.onFavClassPress(classList, today)}>
+              <View style={{ flexDirection: 'row' }}>
+                <Image style={styles.cardIcon} source={require('../images/Today/Class.png')} />
+                <Text style={styles.cardTitle}>Classes</Text>
+              </View>
+            </TouchableOpacity>
           </View>
           <View style={[styles.cardBodyContainer, { marginVertical: 20 }]}>
             <Text style={styles.emptyText}>Quickly access your schedule of classes here.</Text>
@@ -504,10 +506,12 @@ class TodayScreen extends Component {
       return (
         <View style={styles.cardContainer}>
           <View style={styles.cardTitleContainer}>
-            <View style={{ flexDirection: 'row' }}>
-              <Image style={styles.cardIcon} source={require('../images/Today/Bus.jpg')} />
-              <Text style={styles.cardTitle}>Buses</Text>
-            </View>
+            <TouchableOpacity onPress={() => this.onFavBusPress()}>
+              <View style={{ flexDirection: 'row' }}>
+                <Image style={styles.cardIcon} source={require('../images/Today/Bus.jpg')} />
+                <Text style={styles.cardTitle}>Buses</Text>
+              </View>
+            </TouchableOpacity>
           </View>
           <View style={[styles.cardBodyContainer, { marginBottom: 20 }]}>
             <Image style={styles.emptyImage} source={require('../images/Today/noBus.png')} />
