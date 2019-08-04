@@ -35,7 +35,7 @@ class CoursesScreen extends Component {
         <View style={styles.itemContainer}>
           <View style={{ flex: 1 }}>
             <Text style={styles.itemTitle}>
-              {item.courseNumber} : {item.title}
+              {item.courseNumber}: {item.title}
             </Text>
             <View style={styles.itemNoteContainer}>
               <Text
