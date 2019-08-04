@@ -293,10 +293,10 @@ const styles = {
   },
   emptyText: {
     marginTop: 20,
-    textAlign: 'center',
-    fontSize: 13,
-    fontWeight: '500',
+    fontSize: 15,
     color: 'rgb(142, 142, 147)',
+    width: '100%',
+    textAlign: 'center',
   },
   sectionHeader: {
     flex: 1,
