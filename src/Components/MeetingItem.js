@@ -20,8 +20,8 @@ class MeetingItem extends Component {
       timeObj.startTime = item.startTime + 'AM';
       timeObj.endTime = item.endTime + 'PM';
     } else {
-      timeObj.startTime = item.startTime + item.pmCode;
-      timeObj.endTime = item.endTime + item.pmCode;
+      timeObj.startTime = item.startTime + item.pmCode.trim();
+      timeObj.endTime = item.endTime + item.pmCode.trim();
     }
     if (parseInt(item.startTime.split(':')[0]) == 12) {
       timeObj.startTime = item.startTime + 'PM';

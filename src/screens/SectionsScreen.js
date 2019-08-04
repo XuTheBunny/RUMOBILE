@@ -63,7 +63,7 @@ class SectionsScreen extends Component {
           </View>
           {item.startTime.length > 0 && (
             <Text style={{ fontSize: 15, color: 'black', fontWeight: '500' }}>
-              {item.startTime}-{item.endTime} {item.pmCode}
+              {item.startTime}-{item.endTime + item.pmCode.trim()}
             </Text>
           )}
         </View>
