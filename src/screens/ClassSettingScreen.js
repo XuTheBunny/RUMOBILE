@@ -119,9 +119,9 @@ class ClassSettingScreen extends Component {
                 }}
               >
                 <View style={styles.listItem}>
-                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', flex: 2 }}>
                     <Text style={{ fontSize: 24, color: 'rgb(74, 74, 74)' }}>{`\u2022`}</Text>
-                    <Text style={{ fontSize: 17, marginLeft: 11, maxWidth: 240 }}>{obj.value}</Text>
+                    <Text style={{ fontSize: 17, marginLeft: 11, flex: 2 }}>{obj.value}</Text>
                   </View>
                   {this.state.semester.includes(obj.key) && (
                     <Icon name="check" size={13} color="rgb(237, 69, 69)" />
@@ -187,13 +187,21 @@ class ClassSettingScreen extends Component {
                 }}
               >
                 <View style={styles.listItem}>
-                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      flex: 2,
+                    }}
+                  >
                     <Text style={{ fontSize: 24, color: 'rgb(74, 74, 74)' }}>{`\u2022`}</Text>
-                    <Text style={{ fontSize: 17, marginLeft: 11, maxWidth: 240 }}>{obj.value}</Text>
+                    <Text style={{ fontSize: 17, marginLeft: 11, flex: 2 }}>{obj.value}</Text>
                   </View>
-                  {this.state.campus.includes(obj.key) && (
-                    <Icon name="check" size={13} color="rgb(237, 69, 69)" />
-                  )}
+                  <View style={{ width: 30, flexDirection: 'row', justifyContent: 'flex-end' }}>
+                    {this.state.campus.includes(obj.key) && (
+                      <Icon name="check" size={13} color="rgb(237, 69, 69)" />
+                    )}
+                  </View>
                 </View>
               </TouchableOpacity>
             ))}
@@ -274,6 +282,7 @@ const styles = {
     textTransform: 'capitalize',
   },
   listItem: {
+    flex: 2,
     paddingLeft: 23,
     paddingRight: 16,
     paddingVertical: 11,
