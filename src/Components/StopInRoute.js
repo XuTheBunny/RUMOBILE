@@ -59,6 +59,7 @@ class StopInRoute extends React.Component {
         style={[
           styles.flexContainer,
           this.props.nearest && { backgroundColor: 'rgb(231, 255, 205)' },
+          this.props.index == 0 && { paddingTop: 8 },
         ]}
       >
         <TouchableOpacity
@@ -109,6 +110,7 @@ const styles = {
     flex: 2,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    paddingRight: 5,
   },
   heartImage: {
     width: 22,

@@ -86,8 +86,9 @@ class Route extends Component {
 
   renderPrediction() {
     if (this.props.hasPrediction == 'here') {
-      return thisRoute.stops.map(stop => (
+      return thisRoute.stops.map((stop, index) => (
         <StopInRoute
+          index={index}
           rid={this.props.data}
           sid={stop.sid}
           sname={stop.sname}
