@@ -372,6 +372,12 @@ class TodayScreen extends Component {
                 <Text style={styles.cardTitle}>Classes</Text>
               </View>
             </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.onFavClassPress([], '')}>
+              <Image
+                style={styles.moreIcon}
+                source={require('../images/TabBar/MoreSelected.png')}
+              />
+            </TouchableOpacity>
           </View>
           <View style={[styles.cardBodyContainer, { marginVertical: 20 }]}>
             <Text style={styles.emptyText}>Quickly access your schedule of classes here.</Text>
@@ -512,6 +518,12 @@ class TodayScreen extends Component {
                 <Image style={styles.cardIcon} source={require('../images/Today/Bus.jpg')} />
                 <Text style={styles.cardTitle}>Buses</Text>
               </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.onFavBusPress()}>
+              <Image
+                style={styles.moreIcon}
+                source={require('../images/TabBar/MoreSelected.png')}
+              />
             </TouchableOpacity>
           </View>
           <View style={[styles.cardBodyContainer, { marginBottom: 20 }]}>
