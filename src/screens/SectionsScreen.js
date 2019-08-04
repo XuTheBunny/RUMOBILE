@@ -162,14 +162,12 @@ const styles = {
     marginTop: 7,
     marginRight: 19,
     flexDirection: 'row',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     justifyContent: 'space-between',
   },
   opens: {
-    paddingRight: 19,
-    paddingLeft: 12,
-    paddingTop: 18,
-    paddingBottom: 11,
+    paddingHorizontal: 19,
+    paddingVertical: 6,
     backgroundColor: 'rgba(0,0,0,0.3)',
   },
   itemContainer: {
