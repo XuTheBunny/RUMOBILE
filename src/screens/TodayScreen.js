@@ -166,6 +166,7 @@ class TodayScreen extends Component {
       });
       this.props.getPrediction(rid, sid, true);
     }
+    this.props.pullDate(new Date());
   }
 
   onRefresh() {
