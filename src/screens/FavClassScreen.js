@@ -22,6 +22,7 @@ class FavClassScreen extends Component {
   state = {
     editing: 'done',
     swiped: [],
+    width: 0,
   };
 
   backUp() {
@@ -108,6 +109,9 @@ class FavClassScreen extends Component {
             style={[
               styles.sectionHeader,
               title.toLowerCase() == this.props.today ? { paddingRight: 66 } : {},
+              {
+                textAlign: this.state.width < 600 ? 'center' : 'left',
+              },
             ]}
           >
             {title}
@@ -123,15 +127,25 @@ class FavClassScreen extends Component {
         style={
           data.length == 0 && title != 'Independent Study'
             ? {
-                flexDirection: 'row',
-                justifyContent: 'center',
-                alignItems: 'center',
+                flex: 2,
                 backgroundColor: 'white',
               }
             : { display: 'none' }
         }
       >
-        <Text style={styles.sectionEmpty}>NO CLASSES</Text>
+        <Text
+          style={[
+            styles.sectionEmpty,
+            {
+              textAlign: this.state.width < 600 ? 'center' : 'left',
+            },
+            {
+              paddingHorizontal: this.state.width < 600 ? 0 : 65,
+            },
+          ]}
+        >
+          NO CLASSES
+        </Text>
       </View>
     );
   };
@@ -208,7 +222,13 @@ class FavClassScreen extends Component {
           {!this.props.internet && (
             <NotificationBar text="There is no Internet connection" color="rgb(237,69,69)" />
           )}
-          <View style={styles.headerContainer}>
+          <View
+            style={styles.headerContainer}
+            onLayout={event => {
+              const layout = event.nativeEvent.layout;
+              this.setState({ width: layout.width });
+            }}
+          >
             <View style={{ height: 64, flexDirection: 'column', justifyContent: 'space-between' }}>
               <Text style={styles.subHeader}>THIS WEEK</Text>
               <Text style={styles.cardHeader}>My Schedule</Text>
@@ -327,12 +347,11 @@ const styles = {
     flex: 1,
     fontSize: 15,
     fontWeight: '600',
-    textAlign: 'center',
     paddingVertical: 8,
     textTransform: 'uppercase',
+    marginHorizontal: 23,
   },
   sectionEmpty: {
-    textAlign: 'center',
     fontSize: 13,
     fontWeight: '500',
     color: 'rgb(142, 142, 147)',
