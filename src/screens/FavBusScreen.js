@@ -103,7 +103,7 @@ class FavBusScreen extends Component {
         }
       });
       return (
-        <>
+        <View style={{ marginBottom: 20 }}>
           {idList
             .sort((a, b) => (a.distance > b.distance ? 1 : b.distance > a.distance ? -1 : 0))
             .map(s => (
@@ -179,7 +179,7 @@ class FavBusScreen extends Component {
                   ))}
               </View>
             ))}
-        </>
+        </View>
       );
     } else {
       return (
@@ -237,8 +237,8 @@ class FavBusScreen extends Component {
               )}
             </View>
           </View>
-          <ScrollView>{this.renderFavBus()}</ScrollView>
         </SafeAreaView>
+        <ScrollView>{this.renderFavBus()}</ScrollView>
       </View>
     );
   }

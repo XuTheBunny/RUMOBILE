@@ -247,29 +247,30 @@ class FavClassScreen extends Component {
               )}
             </View>
           </View>
-          {this.props.classList.length > 0 ? (
-            <SectionList
-              stickySectionHeadersDisabled
-              renderItem={({ item, index, section }) => this.renderItem(item, index)}
-              renderSectionHeader={({ section: { title, data } }) =>
-                this.renderHeader({ title, data })
-              }
-              renderSectionFooter={({ section: { title, data } }) =>
-                this.renderFooter({ title, data })
-              }
-              sections={this.formClass()}
-              keyExtractor={(item, index) => item + index}
-            />
-          ) : (
-            <View style={styles.emptyContainer}>
-              <Image
-                style={styles.emptyImage}
-                source={require('../images/Class/blankstate_nocourse.png')}
-              />
-              <Text style={styles.emptyText}>Quickly access your schedule of classes here.</Text>
-            </View>
-          )}
         </SafeAreaView>
+        {this.props.classList.length > 0 ? (
+          <SectionList
+            style={{ marginBottom: 20 }}
+            stickySectionHeadersDisabled
+            renderItem={({ item, index, section }) => this.renderItem(item, index)}
+            renderSectionHeader={({ section: { title, data } }) =>
+              this.renderHeader({ title, data })
+            }
+            renderSectionFooter={({ section: { title, data } }) =>
+              this.renderFooter({ title, data })
+            }
+            sections={this.formClass()}
+            keyExtractor={(item, index) => item + index}
+          />
+        ) : (
+          <View style={styles.emptyContainer}>
+            <Image
+              style={styles.emptyImage}
+              source={require('../images/Class/blankstate_nocourse.png')}
+            />
+            <Text style={styles.emptyText}>Quickly access your schedule of classes here.</Text>
+          </View>
+        )}
       </View>
     );
   }
