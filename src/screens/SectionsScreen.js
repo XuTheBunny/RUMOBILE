@@ -95,7 +95,7 @@ class SectionsScreen extends Component {
     return (
       <View style={styles.home}>
         {!this.props.internet && (
-          <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
+          <NotificationBar text="There is no Internet connection" color="rgb(237,69,69)" />
         )}
         <ImageBackground
           imageStyle={{ opacity: 0.7 }}
@@ -130,9 +130,9 @@ class SectionsScreen extends Component {
           </SafeAreaView>
         </ImageBackground>
         <FlatList
-          style={{ paddingTop: 23 }}
           data={this.state.course.sections}
           renderItem={({ item, index }) => this.sectionList(item)}
+          ListHeaderComponent={() => <View style={{ height: 10 }} />}
         />
       </View>
     );
@@ -162,14 +162,12 @@ const styles = {
     marginTop: 7,
     marginRight: 19,
     flexDirection: 'row',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     justifyContent: 'space-between',
   },
   opens: {
-    paddingRight: 19,
-    paddingLeft: 12,
-    paddingTop: 18,
-    paddingBottom: 11,
+    paddingHorizontal: 19,
+    paddingVertical: 6,
     backgroundColor: 'rgba(0,0,0,0.3)',
   },
   itemContainer: {

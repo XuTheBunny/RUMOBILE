@@ -206,7 +206,7 @@ class FavClassScreen extends Component {
       <View style={styles.home}>
         <SafeAreaView>
           {!this.props.internet && (
-            <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
+            <NotificationBar text="There is no Internet connection" color="rgb(237,69,69)" />
           )}
           <View style={styles.headerContainer}>
             <View style={{ height: 64, flexDirection: 'column', justifyContent: 'space-between' }}>
@@ -247,29 +247,30 @@ class FavClassScreen extends Component {
               )}
             </View>
           </View>
-          {this.props.classList.length > 0 ? (
-            <SectionList
-              stickySectionHeadersDisabled
-              renderItem={({ item, index, section }) => this.renderItem(item, index)}
-              renderSectionHeader={({ section: { title, data } }) =>
-                this.renderHeader({ title, data })
-              }
-              renderSectionFooter={({ section: { title, data } }) =>
-                this.renderFooter({ title, data })
-              }
-              sections={this.formClass()}
-              keyExtractor={(item, index) => item + index}
-            />
-          ) : (
-            <View style={styles.emptyContainer}>
-              <Image
-                style={styles.emptyImage}
-                source={require('../images/Class/blankstate_nocourse.png')}
-              />
-              <Text style={styles.emptyText}>Quickly access your schedule of classes here.</Text>
-            </View>
-          )}
         </SafeAreaView>
+        {this.props.classList.length > 0 ? (
+          <SectionList
+            style={{ marginBottom: 20 }}
+            stickySectionHeadersDisabled
+            renderItem={({ item, index, section }) => this.renderItem(item, index)}
+            renderSectionHeader={({ section: { title, data } }) =>
+              this.renderHeader({ title, data })
+            }
+            renderSectionFooter={({ section: { title, data } }) =>
+              this.renderFooter({ title, data })
+            }
+            sections={this.formClass()}
+            keyExtractor={(item, index) => item + index}
+          />
+        ) : (
+          <View style={styles.emptyContainer}>
+            <Image
+              style={styles.emptyImage}
+              source={require('../images/Class/blankstate_nocourse.png')}
+            />
+            <Text style={styles.emptyText}>Quickly access your schedule of classes here</Text>
+          </View>
+        )}
       </View>
     );
   }
@@ -379,10 +380,10 @@ const styles = {
   },
   emptyText: {
     marginTop: 20,
-    textAlign: 'center',
-    fontSize: 13,
-    fontWeight: '500',
+    fontSize: 15,
     color: 'rgb(142, 142, 147)',
+    width: '100%',
+    textAlign: 'center',
   },
 };
 

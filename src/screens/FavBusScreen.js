@@ -103,7 +103,7 @@ class FavBusScreen extends Component {
         }
       });
       return (
-        <>
+        <View style={{ marginBottom: 20 }}>
           {idList
             .sort((a, b) => (a.distance > b.distance ? 1 : b.distance > a.distance ? -1 : 0))
             .map(s => (
@@ -179,13 +179,13 @@ class FavBusScreen extends Component {
                   ))}
               </View>
             ))}
-        </>
+        </View>
       );
     } else {
       return (
         <View style={styles.emptyContainer}>
           <Image style={styles.emptyImage} source={require('../images/Today/noBus.png')} />
-          <Text style={styles.emptyText}>Quickly access your favorites buses here.</Text>
+          <Text style={styles.emptyText}>Quickly access your favorites buses here</Text>
         </View>
       );
     }
@@ -196,7 +196,7 @@ class FavBusScreen extends Component {
       <View style={styles.home}>
         <SafeAreaView>
           {!this.props.internet && (
-            <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
+            <NotificationBar text="There is no Internet connection" color="rgb(237,69,69)" />
           )}
           <View style={styles.headerContainer}>
             <View style={{ height: 64, flexDirection: 'column', justifyContent: 'space-between' }}>
@@ -237,8 +237,8 @@ class FavBusScreen extends Component {
               )}
             </View>
           </View>
-          <ScrollView>{this.renderFavBus()}</ScrollView>
         </SafeAreaView>
+        <ScrollView>{this.renderFavBus()}</ScrollView>
       </View>
     );
   }
@@ -293,10 +293,10 @@ const styles = {
   },
   emptyText: {
     marginTop: 20,
-    textAlign: 'center',
-    fontSize: 13,
-    fontWeight: '500',
+    fontSize: 15,
     color: 'rgb(142, 142, 147)',
+    width: '100%',
+    textAlign: 'center',
   },
   sectionHeader: {
     flex: 1,

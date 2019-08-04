@@ -18,7 +18,7 @@ class AboutMeScreen extends Component {
     return (
       <View style={styles.home}>
         {!this.props.internet && (
-          <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
+          <NotificationBar text="There is no Internet connection" color="rgb(237,69,69)" />
         )}
         <SafeAreaView>
           <View
@@ -118,20 +118,7 @@ class AboutMeScreen extends Component {
                   September 1st, 2015
                 </Text>
               </View>
-              <Text
-                style={{
-                  fontSize: 8,
-                  backgroundColor: 'rgb(0, 111, 186)',
-                  paddingHorizontal: 4,
-                  paddingVertical: 1,
-                  borderRadius: 2,
-                  height: 12,
-                  color: 'white',
-                  marginLeft: 8,
-                }}
-              >
-                Lvl 5
-              </Text>
+              <Text style={[styles.lvlIcon, { backgroundColor: 'rgb(0, 111, 186)' }]}>Lvl 5</Text>
             </View>
             <View style={{ flexDirection: 'row', marginVertical: 15 }}>
               <Image
@@ -153,16 +140,12 @@ class AboutMeScreen extends Component {
                 </Text>
               </View>
               <Text
-                style={{
-                  fontSize: 8,
-                  backgroundColor: 'rgb(98, 166, 20)',
-                  paddingHorizontal: 4,
-                  paddingVertical: 1,
-                  borderRadius: 2,
-                  height: 12,
-                  color: 'white',
-                  marginLeft: 8,
-                }}
+                style={[
+                  styles.lvlIcon,
+                  {
+                    backgroundColor: 'rgb(98, 166, 20)',
+                  },
+                ]}
               >
                 Lvl 3
               </Text>
@@ -214,6 +197,16 @@ const styles = {
     backgroundColor: 'white',
     marginVertical: 3,
     marginHorizontal: 26,
+  },
+  lvlIcon: {
+    fontSize: 10,
+    paddingHorizontal: 5,
+    paddingVertical: 2,
+    borderRadius: 3,
+    height: 16,
+    color: 'white',
+    marginLeft: 8,
+    fontWeight: '500',
   },
 };
 

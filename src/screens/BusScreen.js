@@ -41,7 +41,7 @@ class BusScreen extends Component {
     return (
       <SafeAreaView style={styles.home}>
         {!this.props.internet && (
-          <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
+          <NotificationBar text="There is no Internet connection" color="rgb(237,69,69)" />
         )}
         <Header text={'Buses'} dateText={currentCampus[this.props.campus]} />
         <View style={{ paddingHorizontal: 13, marginTop: 10 }}>

@@ -166,6 +166,7 @@ class TodayScreen extends Component {
       });
       this.props.getPrediction(rid, sid, true);
     }
+    this.props.pullDate(new Date());
   }
 
   onRefresh() {
@@ -371,9 +372,15 @@ class TodayScreen extends Component {
                 <Text style={styles.cardTitle}>Classes</Text>
               </View>
             </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.onFavClassPress([], '')}>
+              <Image
+                style={styles.moreIcon}
+                source={require('../images/TabBar/MoreSelected.png')}
+              />
+            </TouchableOpacity>
           </View>
           <View style={[styles.cardBodyContainer, { marginVertical: 20 }]}>
-            <Text style={styles.emptyText}>Quickly access your schedule of classes here.</Text>
+            <Text style={styles.emptyText}>Quickly access your schedule of classes here</Text>
             <TouchableOpacity onPress={this.onClassPress.bind(this)}>
               <Text style={styles.emptyButton}>Add Classes</Text>
             </TouchableOpacity>
@@ -512,10 +519,16 @@ class TodayScreen extends Component {
                 <Text style={styles.cardTitle}>Buses</Text>
               </View>
             </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.onFavBusPress()}>
+              <Image
+                style={styles.moreIcon}
+                source={require('../images/TabBar/MoreSelected.png')}
+              />
+            </TouchableOpacity>
           </View>
           <View style={[styles.cardBodyContainer, { marginBottom: 20 }]}>
             <Image style={styles.emptyImage} source={require('../images/Today/noBus.png')} />
-            <Text style={styles.emptyText}>Quickly access your favorites buses here.</Text>
+            <Text style={styles.emptyText}>Quickly access your favorites buses here</Text>
             <TouchableOpacity onPress={this.onBusPress.bind(this)}>
               <Text style={styles.emptyButton}>Add Buses</Text>
             </TouchableOpacity>
@@ -529,7 +542,7 @@ class TodayScreen extends Component {
     return (
       <SafeAreaView style={styles.home}>
         {!this.props.internet && (
-          <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
+          <NotificationBar text="There is no Internet connection" color="rgb(237,69,69)" />
         )}
         <View style={{ flex: 1, backgroundColor: 'white' }}>
           <Header text={'Today'} dateText={this.props.dateText} />

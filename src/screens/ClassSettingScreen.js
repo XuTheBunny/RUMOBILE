@@ -74,7 +74,7 @@ class ClassSettingScreen extends Component {
             <NotificationBar text="Choose at least one level." color="rgb(237,69,69)" />
           )}
           {!this.props.internet && (
-            <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
+            <NotificationBar text="There is no Internet connection" color="rgb(237,69,69)" />
           )}
           <View style={styles.headerContainer}>
             <View style={{ height: 64, flexDirection: 'column', justifyContent: 'space-between' }}>
@@ -102,109 +102,103 @@ class ClassSettingScreen extends Component {
               </TouchableOpacity>
             )}
           </View>
-          <ScrollView>
-            <View style={styles.cardContainer}>
-              <View style={styles.cardTitleContainer}>
-                <Image style={styles.cardIcon} source={require('../images/More/semester.png')} />
-                <Text style={styles.cardTitle}>Semester</Text>
-              </View>
-              {this.classSettingObj.semester.map(obj => (
-                <TouchableOpacity
-                  key={obj.key}
-                  onPress={() => {
-                    if (!this.state.semester.includes(obj.key)) {
-                      this.setState({ semester: [obj.key] });
-                    }
-                  }}
-                >
-                  <View style={styles.listItem}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                      <Text style={{ fontSize: 24, color: 'rgb(74, 74, 74)' }}>{`\u2022`}</Text>
-                      <Text style={{ fontSize: 17, marginLeft: 11, maxWidth: 240 }}>
-                        {obj.value}
-                      </Text>
-                    </View>
-                    {this.state.semester.includes(obj.key) && (
-                      <Icon name="check" size={13} color="rgb(237, 69, 69)" />
-                    )}
-                  </View>
-                </TouchableOpacity>
-              ))}
-            </View>
-            <View style={styles.cardContainer}>
-              <View style={styles.cardTitleContainer}>
-                <Image style={styles.cardIcon} source={require('../images/More/level.png')} />
-                <Text style={styles.cardTitle}>Level</Text>
-              </View>
-              {this.classSettingObj.level.map(obj => (
-                <TouchableOpacity
-                  key={obj.key}
-                  onPress={() => {
-                    if (this.state.level.includes(obj.key)) {
-                      this.setState({
-                        level: this.state.level.filter(item => obj.key !== item),
-                      });
-                    } else {
-                      if (this.state.level.length > 0) {
-                        this.setState({ level: [...this.state.level, obj.key] });
-                      } else {
-                        this.setState({ level: [obj.key] });
-                      }
-                    }
-                  }}
-                >
-                  <View style={styles.listItem}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                      <Text style={{ fontSize: 24, color: 'rgb(74, 74, 74)' }}>{`\u2022`}</Text>
-                      <Text style={{ fontSize: 17, marginLeft: 11, maxWidth: 240 }}>
-                        {obj.value}
-                      </Text>
-                    </View>
-                    {this.state.level.includes(obj.key) && (
-                      <Icon name="check" size={13} color="rgb(237, 69, 69)" />
-                    )}
-                  </View>
-                </TouchableOpacity>
-              ))}
-            </View>
-            <View style={styles.cardContainer}>
-              <View style={styles.cardTitleContainer}>
-                <Image style={styles.cardIcon} source={require('../images/More/campus.png')} />
-                <Text style={styles.cardTitle}>Campus</Text>
-              </View>
-              {this.classSettingObj.campus.map(obj => (
-                <TouchableOpacity
-                  key={obj.key}
-                  onPress={() => {
-                    if (this.state.campus.includes(obj.key)) {
-                      this.setState({
-                        campus: this.state.campus.filter(item => obj.key !== item),
-                      });
-                    } else {
-                      if (this.state.campus.length > 0) {
-                        this.setState({ campus: [...this.state.campus, obj.key] });
-                      } else {
-                        this.setState({ campus: [obj.key] });
-                      }
-                    }
-                  }}
-                >
-                  <View style={styles.listItem}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                      <Text style={{ fontSize: 24, color: 'rgb(74, 74, 74)' }}>{`\u2022`}</Text>
-                      <Text style={{ fontSize: 17, marginLeft: 11, maxWidth: 240 }}>
-                        {obj.value}
-                      </Text>
-                    </View>
-                    {this.state.campus.includes(obj.key) && (
-                      <Icon name="check" size={13} color="rgb(237, 69, 69)" />
-                    )}
-                  </View>
-                </TouchableOpacity>
-              ))}
-            </View>
-          </ScrollView>
         </SafeAreaView>
+        <ScrollView style={{ marginBottom: 20 }}>
+          <View style={styles.cardContainer}>
+            <View style={styles.cardTitleContainer}>
+              <Image style={styles.cardIcon} source={require('../images/More/semester.png')} />
+              <Text style={styles.cardTitle}>Semester</Text>
+            </View>
+            {this.classSettingObj.semester.map(obj => (
+              <TouchableOpacity
+                key={obj.key}
+                onPress={() => {
+                  if (!this.state.semester.includes(obj.key)) {
+                    this.setState({ semester: [obj.key] });
+                  }
+                }}
+              >
+                <View style={styles.listItem}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <Text style={{ fontSize: 24, color: 'rgb(74, 74, 74)' }}>{`\u2022`}</Text>
+                    <Text style={{ fontSize: 17, marginLeft: 11, maxWidth: 240 }}>{obj.value}</Text>
+                  </View>
+                  {this.state.semester.includes(obj.key) && (
+                    <Icon name="check" size={13} color="rgb(237, 69, 69)" />
+                  )}
+                </View>
+              </TouchableOpacity>
+            ))}
+          </View>
+          <View style={styles.cardContainer}>
+            <View style={styles.cardTitleContainer}>
+              <Image style={styles.cardIcon} source={require('../images/More/level.png')} />
+              <Text style={styles.cardTitle}>Level</Text>
+            </View>
+            {this.classSettingObj.level.map(obj => (
+              <TouchableOpacity
+                key={obj.key}
+                onPress={() => {
+                  if (this.state.level.includes(obj.key)) {
+                    this.setState({
+                      level: this.state.level.filter(item => obj.key !== item),
+                    });
+                  } else {
+                    if (this.state.level.length > 0) {
+                      this.setState({ level: [...this.state.level, obj.key] });
+                    } else {
+                      this.setState({ level: [obj.key] });
+                    }
+                  }
+                }}
+              >
+                <View style={styles.listItem}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <Text style={{ fontSize: 24, color: 'rgb(74, 74, 74)' }}>{`\u2022`}</Text>
+                    <Text style={{ fontSize: 17, marginLeft: 11, maxWidth: 240 }}>{obj.value}</Text>
+                  </View>
+                  {this.state.level.includes(obj.key) && (
+                    <Icon name="check" size={13} color="rgb(237, 69, 69)" />
+                  )}
+                </View>
+              </TouchableOpacity>
+            ))}
+          </View>
+          <View style={styles.cardContainer}>
+            <View style={styles.cardTitleContainer}>
+              <Image style={styles.cardIcon} source={require('../images/More/campus.png')} />
+              <Text style={styles.cardTitle}>Campus</Text>
+            </View>
+            {this.classSettingObj.campus.map(obj => (
+              <TouchableOpacity
+                key={obj.key}
+                onPress={() => {
+                  if (this.state.campus.includes(obj.key)) {
+                    this.setState({
+                      campus: this.state.campus.filter(item => obj.key !== item),
+                    });
+                  } else {
+                    if (this.state.campus.length > 0) {
+                      this.setState({ campus: [...this.state.campus, obj.key] });
+                    } else {
+                      this.setState({ campus: [obj.key] });
+                    }
+                  }
+                }}
+              >
+                <View style={styles.listItem}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <Text style={{ fontSize: 24, color: 'rgb(74, 74, 74)' }}>{`\u2022`}</Text>
+                    <Text style={{ fontSize: 17, marginLeft: 11, maxWidth: 240 }}>{obj.value}</Text>
+                  </View>
+                  {this.state.campus.includes(obj.key) && (
+                    <Icon name="check" size={13} color="rgb(237, 69, 69)" />
+                  )}
+                </View>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </ScrollView>
       </View>
     );
   }

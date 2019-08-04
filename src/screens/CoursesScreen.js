@@ -35,7 +35,7 @@ class CoursesScreen extends Component {
         <View style={styles.itemContainer}>
           <View style={{ flex: 1 }}>
             <Text style={styles.itemTitle}>
-              {item.courseNumber} : {item.title}
+              {item.courseNumber}: {item.title}
             </Text>
             <View style={styles.itemNoteContainer}>
               <Text
@@ -83,7 +83,7 @@ class CoursesScreen extends Component {
     return (
       <SafeAreaView style={styles.home}>
         {!this.props.internet && (
-          <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
+          <NotificationBar text="There is no Internet connection" color="rgb(237,69,69)" />
         )}
         <BackButton text={'Subjects'} />
         <Text style={styles.headerText}>{this.props.courseName}</Text>

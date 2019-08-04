@@ -65,7 +65,7 @@ class SectionDetailScreen extends Component {
         ]}
       >
         {!this.props.internet && (
-          <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
+          <NotificationBar text="There is no Internet connection" color="rgb(237,69,69)" />
         )}
         <View
           style={[
@@ -99,7 +99,7 @@ class SectionDetailScreen extends Component {
           </View>
         </View>
         <ScrollView
-          style={{ paddingLeft: 16, paddingTop: 23, backgroundColor: 'rgb(255, 255, 255)' }}
+          style={{ paddingLeft: 16, paddingTop: 10, backgroundColor: 'rgb(255, 255, 255)' }}
         >
           <View
             style={{
