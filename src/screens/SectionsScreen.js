@@ -130,9 +130,9 @@ class SectionsScreen extends Component {
           </SafeAreaView>
         </ImageBackground>
         <FlatList
-          style={{ paddingTop: 23 }}
           data={this.state.course.sections}
           renderItem={({ item, index }) => this.sectionList(item)}
+          ListHeaderComponent={() => <View style={{ height: 10 }} />}
         />
       </View>
     );
