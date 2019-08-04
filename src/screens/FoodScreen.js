@@ -139,13 +139,13 @@ class FoodScreen extends Component {
     return (
       <SafeAreaView style={styles.home}>
         {!this.props.internet && (
-          <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
+          <NotificationBar text="There is no Internet connection" color="rgb(237,69,69)" />
         )}
         <Header text={'Food'} />
         <View style={styles.bodyGrid}>
           <Text style={styles.baseText}>PLACES TO EAT</Text>
           <Text style={styles.titleText}>Dining Halls</Text>
-          <Text style={styles.subText}>Food is essential to life!</Text>
+          <Text style={styles.subText}>Food is essential to life</Text>
           {this.renderFood()}
         </View>
       </SafeAreaView>

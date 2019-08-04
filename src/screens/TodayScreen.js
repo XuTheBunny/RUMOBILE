@@ -380,7 +380,7 @@ class TodayScreen extends Component {
             </TouchableOpacity>
           </View>
           <View style={[styles.cardBodyContainer, { marginVertical: 20 }]}>
-            <Text style={styles.emptyText}>Quickly access your schedule of classes here.</Text>
+            <Text style={styles.emptyText}>Quickly access your schedule of classes here</Text>
             <TouchableOpacity onPress={this.onClassPress.bind(this)}>
               <Text style={styles.emptyButton}>Add Classes</Text>
             </TouchableOpacity>
@@ -528,7 +528,7 @@ class TodayScreen extends Component {
           </View>
           <View style={[styles.cardBodyContainer, { marginBottom: 20 }]}>
             <Image style={styles.emptyImage} source={require('../images/Today/noBus.png')} />
-            <Text style={styles.emptyText}>Quickly access your favorites buses here.</Text>
+            <Text style={styles.emptyText}>Quickly access your favorites buses here</Text>
             <TouchableOpacity onPress={this.onBusPress.bind(this)}>
               <Text style={styles.emptyButton}>Add Buses</Text>
             </TouchableOpacity>
@@ -542,7 +542,7 @@ class TodayScreen extends Component {
     return (
       <SafeAreaView style={styles.home}>
         {!this.props.internet && (
-          <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
+          <NotificationBar text="There is no Internet connection" color="rgb(237,69,69)" />
         )}
         <View style={{ flex: 1, backgroundColor: 'white' }}>
           <Header text={'Today'} dateText={this.props.dateText} />

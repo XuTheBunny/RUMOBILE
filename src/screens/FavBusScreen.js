@@ -185,7 +185,7 @@ class FavBusScreen extends Component {
       return (
         <View style={styles.emptyContainer}>
           <Image style={styles.emptyImage} source={require('../images/Today/noBus.png')} />
-          <Text style={styles.emptyText}>Quickly access your favorites buses here.</Text>
+          <Text style={styles.emptyText}>Quickly access your favorites buses here</Text>
         </View>
       );
     }
@@ -196,7 +196,7 @@ class FavBusScreen extends Component {
       <View style={styles.home}>
         <SafeAreaView>
           {!this.props.internet && (
-            <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
+            <NotificationBar text="There is no Internet connection" color="rgb(237,69,69)" />
           )}
           <View style={styles.headerContainer}>
             <View style={{ height: 64, flexDirection: 'column', justifyContent: 'space-between' }}>

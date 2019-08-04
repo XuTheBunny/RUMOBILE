@@ -65,7 +65,7 @@ class SectionDetailScreen extends Component {
         ]}
       >
         {!this.props.internet && (
-          <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
+          <NotificationBar text="There is no Internet connection" color="rgb(237,69,69)" />
         )}
         <View
           style={[

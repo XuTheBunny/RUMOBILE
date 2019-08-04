@@ -18,7 +18,7 @@ class AboutMeScreen extends Component {
     return (
       <View style={styles.home}>
         {!this.props.internet && (
-          <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
+          <NotificationBar text="There is no Internet connection" color="rgb(237,69,69)" />
         )}
         <SafeAreaView>
           <View

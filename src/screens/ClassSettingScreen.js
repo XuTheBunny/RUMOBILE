@@ -74,7 +74,7 @@ class ClassSettingScreen extends Component {
             <NotificationBar text="Choose at least one level." color="rgb(237,69,69)" />
           )}
           {!this.props.internet && (
-            <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
+            <NotificationBar text="There is no Internet connection" color="rgb(237,69,69)" />
           )}
           <View style={styles.headerContainer}>
             <View style={{ height: 64, flexDirection: 'column', justifyContent: 'space-between' }}>

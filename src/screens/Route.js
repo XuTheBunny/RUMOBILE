@@ -115,7 +115,7 @@ class Route extends Component {
           <NotificationBar text="Yoo, u have changed to the other campus." color="rgb(237,69,69)" />
         )}
         {!this.props.internet && (
-          <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
+          <NotificationBar text="There is no Internet connection" color="rgb(237,69,69)" />
         )}
         <View style={{ backgroundColor: color }}>
           <BackButton text={'Bus'} clear={true} />

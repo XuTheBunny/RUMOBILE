@@ -114,7 +114,7 @@ class LinkScreen extends Component {
     return (
       <SafeAreaView style={styles.home}>
         {!this.props.internet && (
-          <NotificationBar text="There is no Internet connection." color="rgb(237,69,69)" />
+          <NotificationBar text="There is no Internet connection" color="rgb(237,69,69)" />
         )}
         <Header text={'Links'} />
         <ScrollView style={{ marginTop: 16 }}>{this.LinkList()}</ScrollView>
