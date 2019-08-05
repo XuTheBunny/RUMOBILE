@@ -148,7 +148,8 @@
     { "campus": "COUNTY COLLEGE OF MORR", "ccolor": "#4A4A4A", "cName": "CC of Morr" },
     { "campus": "ATLANTIC CITY/MAYS LAN", "ccolor": "#4A4A4A", "cName": "Mays Landing" },
     { "campus": "BROOKDALE COMMUNITY CO", "ccolor": "#4A4A4A", "cName": "Brookdale CC" },
-    { "campus": "RUTGERS", "ccolor": "#E51936", "cName": "Rutgers" }
+    { "campus": "RUTGERS", "ccolor": "#E51936", "cName": "Rutgers" },
+    { "campus": "MERCER COUNTY COLLEGE", "ccolor": "#4A4A4A", "cName": "Mercer CC" }
   ],
   "busInfo": {
     "r4012616": { "rname": "Route A" },

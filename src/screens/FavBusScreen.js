@@ -23,6 +23,7 @@ class FavBusScreen extends Component {
   state = {
     editing: 'done',
     swiped: [],
+    width: 0,
   };
 
   storeFavBusData = async busId => {
@@ -103,12 +104,27 @@ class FavBusScreen extends Component {
         }
       });
       return (
-        <View style={{ marginBottom: 20 }}>
+        <View style={{ marginBottom: 20, marginHorizontal: 23 }}>
           {idList
             .sort((a, b) => (a.distance > b.distance ? 1 : b.distance > a.distance ? -1 : 0))
             .map(s => (
-              <View key={s.sid}>
-                <Text style={styles.sectionHeader}>{s.sname}</Text>
+              <View
+                key={s.sid}
+                onLayout={event => {
+                  const layout = event.nativeEvent.layout;
+                  this.setState({ width: layout.width });
+                }}
+              >
+                <Text
+                  style={[
+                    styles.sectionHeader,
+                    {
+                      textAlign: this.state.width < 600 ? 'center' : 'left',
+                    },
+                  ]}
+                >
+                  {s.sname}
+                </Text>
                 {s.rid
                   .sort((a, b) => (a.rname > b.rname ? 1 : b.rname > a.rname ? -1 : 0))
                   .map(r => (
@@ -302,10 +318,8 @@ const styles = {
     flex: 1,
     fontSize: 17,
     fontWeight: '600',
-    textAlign: 'center',
     paddingTop: 14,
     paddingBottom: 8,
-    paddingHorizontal: 23,
   },
   iconStyle: {
     height: 13,

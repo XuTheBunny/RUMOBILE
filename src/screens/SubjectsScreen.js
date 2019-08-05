@@ -49,7 +49,7 @@ class SubjectsScreen extends Component {
     return (
       <TouchableOpacity onPress={() => this.courses(item)}>
         <View style={styles.sectionItem}>
-          <Text key={index} style={{ fontSize: 17, maxWidth: 300, textTransform: 'capitalize' }}>
+          <Text key={index} style={{ fontSize: 17, flex: 2, textTransform: 'capitalize' }}>
             {item}
           </Text>
           <EvilIcons name="chevron-right" size={30} color="rgb(138,138,143)" />
@@ -198,6 +198,7 @@ const styles = {
     paddingVertical: 4,
   },
   sectionItem: {
+    flex: 2,
     marginLeft: 16,
     paddingRight: 16,
     paddingVertical: 11,

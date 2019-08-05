@@ -15,7 +15,7 @@ import NotificationBar from '../Components/NotificationBar';
 import { foodPull } from '../actions';
 
 class FoodScreen extends Component {
-  state = { appState: AppState.currentState };
+  state = { appState: AppState.currentState, width: 0 };
   componentDidMount() {
     this.props.foodPull('https://rumobile.rutgers.edu/1/rutgers-dining.txt');
     AppState.addEventListener('change', this._handleAppStateChange);
@@ -78,13 +78,61 @@ class FoodScreen extends Component {
       );
     } else {
       if (this.props.trying_food_pull == 'pulled') {
-        return (
-          <View style={styles.cardGrid}>
-            <View style={styles.cardRow}>
+        if (this.state.width < 600) {
+          return (
+            <View style={styles.cardGrid}>
+              <View style={styles.cardRow}>
+                <TouchableOpacity onPress={() => this.foodList(this.props.brower)}>
+                  <ImageBackground
+                    source={require('../images/Food/browerImg.png')}
+                    style={styles.cardBody}
+                  >
+                    <Text style={styles.cardTitle}>Brower</Text>
+                    {this.openStatus('brower')}
+                  </ImageBackground>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={() => this.foodList(this.props.busch)}>
+                  <ImageBackground
+                    source={require('../images/Food/buschImg.png')}
+                    style={styles.cardBody}
+                  >
+                    <Text style={styles.cardTitle}>Busch</Text>
+                    {this.openStatus('busch')}
+                  </ImageBackground>
+                </TouchableOpacity>
+              </View>
+
+              <View style={styles.cardRow}>
+                <TouchableOpacity onPress={() => this.foodList(this.props.livingston)}>
+                  <ImageBackground
+                    source={require('../images/Food/livingstonImg.png')}
+                    style={styles.cardBody}
+                  >
+                    <Text style={styles.cardTitle}>Livingston</Text>
+                    {this.openStatus('livingston')}
+                  </ImageBackground>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={() => this.foodList(this.props.neilson)}>
+                  <ImageBackground
+                    source={require('../images/Food/neilsonImg.png')}
+                    style={styles.cardBody}
+                  >
+                    <Text style={styles.cardTitle}>Neilson</Text>
+                    {this.openStatus('neilson')}
+                  </ImageBackground>
+                </TouchableOpacity>
+              </View>
+            </View>
+          );
+        } else {
+          return (
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
               <TouchableOpacity onPress={() => this.foodList(this.props.brower)}>
                 <ImageBackground
                   source={require('../images/Food/browerImg.png')}
-                  style={styles.cardBody}
+                  style={[styles.cardFour, { width: (this.state.width - 60) / 4 }]}
                 >
                   <Text style={styles.cardTitle}>Brower</Text>
                   {this.openStatus('brower')}
@@ -94,19 +142,16 @@ class FoodScreen extends Component {
               <TouchableOpacity onPress={() => this.foodList(this.props.busch)}>
                 <ImageBackground
                   source={require('../images/Food/buschImg.png')}
-                  style={styles.cardBody}
+                  style={[styles.cardFour, { width: (this.state.width - 60) / 4 }]}
                 >
                   <Text style={styles.cardTitle}>Busch</Text>
                   {this.openStatus('busch')}
                 </ImageBackground>
               </TouchableOpacity>
-            </View>
-
-            <View style={styles.cardRow}>
               <TouchableOpacity onPress={() => this.foodList(this.props.livingston)}>
                 <ImageBackground
                   source={require('../images/Food/livingstonImg.png')}
-                  style={styles.cardBody}
+                  style={[styles.cardFour, { width: (this.state.width - 60) / 4 }]}
                 >
                   <Text style={styles.cardTitle}>Livingston</Text>
                   {this.openStatus('livingston')}
@@ -116,15 +161,15 @@ class FoodScreen extends Component {
               <TouchableOpacity onPress={() => this.foodList(this.props.neilson)}>
                 <ImageBackground
                   source={require('../images/Food/neilsonImg.png')}
-                  style={styles.cardBody}
+                  style={[styles.cardFour, { width: (this.state.width - 60) / 4 }]}
                 >
                   <Text style={styles.cardTitle}>Neilson</Text>
                   {this.openStatus('neilson')}
                 </ImageBackground>
               </TouchableOpacity>
             </View>
-          </View>
-        );
+          );
+        }
       } else {
         return (
           <View style={{ marginTop: 30 }}>
@@ -142,7 +187,13 @@ class FoodScreen extends Component {
           <NotificationBar text="There is no Internet connection" color="rgb(237,69,69)" />
         )}
         <Header text={'Food'} />
-        <View style={styles.bodyGrid}>
+        <View
+          style={styles.bodyGrid}
+          onLayout={event => {
+            const layout = event.nativeEvent.layout;
+            this.setState({ width: layout.width });
+          }}
+        >
           <Text style={styles.baseText}>PLACES TO EAT</Text>
           <Text style={styles.titleText}>Dining Halls</Text>
           <Text style={styles.subText}>Food is essential to life</Text>
@@ -200,6 +251,11 @@ const styles = {
     justifyContent: 'space-between',
     aspectRatio: 1,
     margin: 5,
+  },
+  cardFour: {
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    aspectRatio: 1,
   },
   cardTitle: {
     fontSize: 22,

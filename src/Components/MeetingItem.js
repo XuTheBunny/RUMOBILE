@@ -95,19 +95,28 @@ class MeetingItem extends Component {
                 <Text style={styles.endTime}>{this.formTime(this.props.item).endTime}</Text>
               </View>
             )}
-            <View>
+            <View style={{ flex: 2 }}>
               {this.props.className ? (
-                <Text style={{ fontSize: 14, marginBottom: 5, textTransform: 'capitalize' }}>
+                <Text
+                  style={{ fontSize: 14, marginBottom: 5, flex: 2, textTransform: 'capitalize' }}
+                >
                   {this.props.className}
                 </Text>
               ) : (
-                <Text style={{ fontSize: 14, marginBottom: 5, maxWidth: 230 }}>
+                <Text style={{ fontSize: 14, marginBottom: 5, flex: 2 }}>
                   {this.buildingName()}
                 </Text>
               )}
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 {this.campusIcon()}
-                <Text style={{ fontSize: 12, color: 'rgb(109,109,114)', marginLeft: 4 }}>
+                <Text
+                  style={{
+                    fontSize: 12,
+                    color: 'rgb(109,109,114)',
+                    marginLeft: 4,
+                    flex: 2,
+                  }}
+                >
                   {this.props.className && this.props.item.building && (
                     <Text>{this.props.item.building + ' '}</Text>
                   )}

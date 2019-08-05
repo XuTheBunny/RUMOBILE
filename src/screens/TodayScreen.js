@@ -438,10 +438,16 @@ class TodayScreen extends Component {
                 .map(s => (
                   <View key={s.sid}>
                     <View style={styles.flexContainer}>
-                      <Text style={{ fontSize: 17, fontWeight: '600', maxWidth: 270 }}>
+                      <Text
+                        style={{
+                          fontSize: 17,
+                          fontWeight: '600',
+                          flex: 2,
+                        }}
+                      >
                         {s.sname}
                       </Text>
-                      <Text style={{ fontSize: 11, color: 'rgb(200, 199, 204)' }}>
+                      <Text style={{ paddingLeft: 10, fontSize: 11, color: 'rgb(200, 199, 204)' }}>
                         {s.distance} mi
                       </Text>
                     </View>
