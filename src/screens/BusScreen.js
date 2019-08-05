@@ -37,7 +37,7 @@ class BusScreen extends Component {
   }
 
   render() {
-    currentCampus = { newBrunswick: 'NEW BRUNSWICK', newark: 'NEWARK' };
+    currentCampus = { newBrunswick: 'NEW BRUNSWICK', newark: 'NEWARK', camden: 'CAMDEN' };
     return (
       <SafeAreaView style={styles.home}>
         {!this.props.internet && (
