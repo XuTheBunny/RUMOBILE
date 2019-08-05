@@ -172,8 +172,79 @@ export const getBusInfo = action => {
     });
   });
 
+  var getRoutesInfoCM = new Promise((resolve, reject) => {
+    const all_routes_url = 'https://transloc-api-1-2.p.mashape.com/routes.json?&agencies=1233';
+    axios({
+      method: 'get',
+      url: all_routes_url,
+      headers: {
+        Accept: 'application/json',
+        'X-Mashape-Key': API_KEY,
+      },
+    })
+      .then(response => {
+        raw_data = response.data.data['1233'];
+        raw_data.forEach(function(element) {
+          if (!Object.keys(bus_info_collect).includes('r' + element.route_id)) {
+            bus_info_collect['r' + element.route_id] = { rname: element.long_name };
+          }
+        });
+        resolve(bus_info_collect);
+      })
+      .catch(function(error) {
+        console.log(error);
+        resolve({});
+      });
+  });
+
+  var getStopsInfoCM = new Promise((resolve, reject) => {
+    Promise.all([getUserLocation]).then(value => {
+      const all_stops_url = 'https://transloc-api-1-2.p.mashape.com/stops.json?&agencies=1233';
+      axios({
+        method: 'get',
+        url: all_stops_url,
+        headers: {
+          Accept: 'application/json',
+          'X-Mashape-Key': API_KEY,
+        },
+      })
+        .then(response => {
+          data = response.data.data;
+          data.forEach(function(element) {
+            var distance = null;
+            if (user_location.lat == 'no') {
+              distance = '--';
+            } else {
+              distance = geodist(user_location, element.location, {
+                exact: true,
+                unit: 'miles',
+              });
+            }
+            if (!Object.keys(bus_info_collect).includes('s' + element.stop_id)) {
+              bus_info_collect['s' + element.stop_id] = {
+                sname: element.name,
+                distance: distance == '--' ? '--' : distance.toFixed(1),
+              };
+            }
+          });
+          resolve(bus_info_collect);
+        })
+        .catch(function(error) {
+          console.log(error);
+          resolve({});
+        });
+    });
+  });
+
   return dispatch => {
-    Promise.all([getRoutesInfoNB, getStopsInfoNB, getRoutesInfoNK, getStopsInfoNK]).then(value => {
+    Promise.all([
+      getRoutesInfoNB,
+      getStopsInfoNB,
+      getRoutesInfoNK,
+      getStopsInfoNK,
+      getRoutesInfoCM,
+      getStopsInfoCM,
+    ]).then(value => {
       dispatch({
         type: BUS_INFO,
         payload: Object.keys(bus_info_collect).length > 0 ? bus_info_collect : busInfo,

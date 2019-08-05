@@ -18,8 +18,8 @@ const campusGeoArea = {
   newark: '40.841884%2C-74.011088%7C40.660668%2C-74.277053',
   newBrunswick: '40.382690%2C-74.595626%7C40.625639%2C-74.280317',
 };
-const campusIndex = ['newBrunswick', 'newark'];
-const agency_id = '1323';
+const campusIndex = ['newBrunswick', 'newark', 'camden'];
+var agency_id = '1323';
 const base_url = 'https://transloc-api-1-2.p.mashape.com/';
 
 export const getBusStops = action => {
@@ -37,12 +37,28 @@ export const getBusStops = action => {
   } else {
     campus = campusIndex[0];
   }
-  const all_stops_url =
+
+  var all_stops_url =
     base_url + 'stops.json?geo_area=' + campusGeoArea[campus] + '&agencies=' + agency_id;
-  const all_routes_url =
+  var all_routes_url =
     base_url + 'routes.json?geo_area=' + campusGeoArea[campus] + '&agencies=' + agency_id;
-  const all_buses_url =
+  var all_buses_url =
     base_url + 'vehicles.json?geo_area=' + campusGeoArea[campus] + '&agencies=' + agency_id;
+
+  if (campus == 'camden') {
+    agency_id = '1233';
+    all_stops_url = base_url + 'stops.json?&agencies=' + agency_id;
+    all_routes_url = base_url + 'routes.json?&agencies=' + agency_id;
+    all_buses_url = base_url + 'vehicles.json?&agencies=' + agency_id;
+  } else {
+    agency_id = '1323';
+    all_stops_url =
+      base_url + 'stops.json?geo_area=' + campusGeoArea[campus] + '&agencies=' + agency_id;
+    all_routes_url =
+      base_url + 'routes.json?geo_area=' + campusGeoArea[campus] + '&agencies=' + agency_id;
+    all_buses_url =
+      base_url + 'vehicles.json?geo_area=' + campusGeoArea[campus] + '&agencies=' + agency_id;
+  }
 
   var stop_name = {};
   var route_name = {};

@@ -27,8 +27,7 @@ export const getPrediction = (rid, sid, today) => {
     rid.join('%2C') +
     '&stops=' +
     sid.join('%2C') +
-    '&agencies=' +
-    agency_id;
+    '&agencies=1323,1233';
   return dispatch => {
     axios({
       method: 'get',

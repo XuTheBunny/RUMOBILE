@@ -12,56 +12,49 @@ import {
   SafeAreaView,
   Linking,
 } from 'react-native';
-import SegmentedControlTab from 'react-native-segmented-control-tab';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import BackButton from '../Components/BackButton';
 import NotificationBar from '../Components/NotificationBar';
 
 class SettingScreen extends Component {
-  state = {
-    selectedIndex: 0,
-  };
-
-  componentDidMount() {
-    if (this.props.campus == 'newBrunswick') {
-      this.setState({
-        selectedIndex: 0,
-      });
-    } else {
-      this.setState({
-        selectedIndex: 1,
-      });
-    }
-  }
-
   constructor() {
     super();
     this.state = {
-      selectedIndex: 0,
+      campus: '',
+      campusIndex: [
+        { key: 'newBrunswick', value: 'New Brunswick' },
+        { key: 'newark', value: 'Newark' },
+        { key: 'camden', value: 'Camden' },
+      ],
     };
   }
 
-  storeCampusData = async index => {
-    campusIndex = ['newBrunswick', 'newark'];
-    console.log('campus', campusIndex[index]);
+  componentDidMount() {
+    this.setState({
+      campus: this.props.campus,
+    });
+  }
+
+  storeCampusData = async key => {
     try {
-      await AsyncStorage.setItem('campus', campusIndex[index]);
+      await AsyncStorage.setItem('campus', key);
     } catch (e) {
       console.log(e);
     }
   };
 
-  handleIndexChange = index => {
-    campusIndex = ['newBrunswick', 'newark'];
-    this.props.setCampus(campusIndex[index]);
+  handleIndexChange = key => {
+    this.props.setCampus(key);
     this.props.getBusStops('clean');
-    this.props.getBusStops(campusIndex[index]);
+    this.props.getBusStops(key);
     this.setState({
-      selectedIndex: index,
+      campus: key,
     });
-    this.storeCampusData(index);
+    this.storeCampusData(key);
   };
 
   render() {
+    console.log(this.state);
     return (
       <SafeAreaView style={styles.home}>
         {!this.props.internet && (
@@ -76,19 +69,37 @@ class SettingScreen extends Component {
               <Text style={styles.cardTitle}>Buses Campus</Text>
             </View>
           </View>
-          <View style={[styles.cardBodyContainer, { marginBottom: 20 }]}>
-            <SegmentedControlTab
-              values={['New Brunswick', 'Newark']}
-              selectedIndex={this.state.selectedIndex}
-              onTabPress={this.handleIndexChange}
-              activeTabStyle={styles.activeTabStyle}
-              tabStyle={styles.tabStyle}
-              tabTextStyle={styles.tabTextStyle}
-            />
-          </View>
+          {this.state.campusIndex.map(obj => (
+            <TouchableOpacity
+              key={obj.key}
+              onPress={() => {
+                this.handleIndexChange(obj.key);
+              }}
+            >
+              <View style={styles.listItem}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Text style={{ fontSize: 24, color: 'rgb(74, 74, 74)' }}>{`\u2022`}</Text>
+                  <Text style={{ fontSize: 17, marginLeft: 11 }}>{obj.value}</Text>
+                </View>
+                {this.state.campus == obj.key && (
+                  <Icon name="check" size={13} color="rgb(237, 69, 69)" />
+                )}
+              </View>
+            </TouchableOpacity>
+          ))}
         </View>
         <View style={styles.cardContainer}>
-          <View style={styles.cardTitleContainer}>
+          <View
+            style={[
+              styles.cardTitleContainer,
+              { borderBottomColor: 'rgb(233, 233, 233)', borderBottomWidth: 1 },
+            ]}
+          >
             <View style={{ flexDirection: 'row' }}>
               <Image style={styles.cardIcon} source={require('../images/More/settings-grey.png')} />
               <Text style={styles.cardTitle}>App Settings</Text>
@@ -151,8 +162,6 @@ const styles = {
     justifyContent: 'space-between',
     paddingHorizontal: 8,
     paddingVertical: 6,
-    borderBottomColor: 'rgb(233, 233, 233)',
-    borderBottomWidth: 1,
   },
   cardBodyContainer: {
     paddingHorizontal: 23,
@@ -177,6 +186,16 @@ const styles = {
     justifyContent: 'space-between',
     alignItems: 'center',
     marginLeft: 14,
+  },
+  listItem: {
+    paddingLeft: 23,
+    paddingRight: 16,
+    paddingVertical: 11,
+    borderTopColor: 'rgb(233, 233, 233)',
+    borderTopWidth: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 };
 
