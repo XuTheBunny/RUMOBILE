@@ -131,6 +131,21 @@
       "rcolor": "rgb(255, 101, 101)"
     },
     {
+      "rtag": "CR",
+      "rname": "Camden Rising",
+      "rcolor": "rgb(255, 101, 101)"
+    },
+    {
+      "rtag": "CL",
+      "rname": "Courthouse Loop",
+      "rcolor": "rgb(74, 144, 226)"
+    },
+    {
+      "rtag": "RCS",
+      "rname": "Rutgers Camden Shuttle",
+      "rcolor": "rgb(245, 166, 35)"
+    },
+    {
       "rtag": "?",
       "rname": "else",
       "rcolor": "rgb(142, 142, 147)"
@@ -171,6 +186,9 @@
     "r4012666": { "rname": "Summer 2" },
     "r4012668": { "rname": "Weekend 1" },
     "r4012670": { "rname": "Weekend 2" },
+    "r4010416": { "rname": "Camden Rising" },
+    "r4010418": { "rname": "Courthouse Loop" },
+    "r4010420": { "rname": "Rutgers Camden Shuttle" },
     "s4229492": { "sname": "College Avenue Student Center", "distance": "--" },
     "s4229496": { "sname": "Student Activities Center Northbound", "distance": "--" },
     "s4229500": { "sname": "Stadium", "distance": "--" },
@@ -249,6 +267,18 @@
     "r4012646": { "rname": "Newark Penn Station Express" },
     "r4012648": { "rname": "Newark Campus Connect Express" },
     "r4012656": { "rname": "Newark Run Run Express" },
-    "r4012658": { "rname": "Newark Run Run" }
+    "r4012658": { "rname": "Newark Run Run" },
+    "s4212776": { "sname": "Cooper Medical School of Rowan University", "distance": "--" },
+    "s4212778": { "sname": "Rutgers Technology Campus", "distance": "--" },
+    "s4212780": { "sname": "Camden County Courthouse", "distance": "--" },
+    "s4212782": { "sname": "Rutgers Parking/Lot 15", "distance": "--" },
+    "s4212784": { "sname": "Rutgers Parking/Lot 16", "distance": "--" },
+    "s4212786": { "sname": "Rutgers Business School", "distance": "--" },
+    "s4212788": { "sname": "Rutgers Law School", "distance": "--" },
+    "s4212790": { "sname": "Camden County College", "distance": "--" },
+    "s4212792": { "sname": "Rowan University", "distance": "--" },
+    "s4212794": { "sname": "Rutgers Nursing and Science Bldg.", "distance": "--" },
+    "s4212796": { "sname": "5th Street Under the Law Bridge", "distance": "--" },
+    "s4212798": { "sname": "Business and Science Building", "distance": "--" }
   }
 }
