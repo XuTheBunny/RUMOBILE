@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { SwipeRow } from 'react-native-swipe-list-view';
 import AsyncStorage from '@react-native-community/async-storage';
 import { deleteFavoriteBus, getBusStops, getPrediction } from '../actions';
+import { busInfo } from '../../bus_color.json';
 import {
   View,
   Text,
@@ -80,7 +81,7 @@ class FavBusScreen extends Component {
   }
 
   renderFavBus() {
-    info = this.props.bus_info;
+    info = Object.keys(this.props.bus_info).length > 0 ? this.props.bus_info : busInfo;
     prediction = [];
     prediction = this.props.today_prediction;
     if (this.props.bus_favorites.length > 0) {
