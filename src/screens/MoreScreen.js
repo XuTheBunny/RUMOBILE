@@ -9,40 +9,6 @@ import Header from '../Components/Header';
 import NotificationBar from '../Components/NotificationBar';
 
 class MoreScreen extends Component {
-  state = {
-    selectedIndex: 0,
-  };
-
-  componentDidMount() {
-    if (this.props.campus == 'newBrunswick') {
-      this.setState({
-        selectedIndex: 0,
-      });
-    } else {
-      this.setState({
-        selectedIndex: 1,
-      });
-    }
-    this.props.getAllClass(null, this.props.classSetting);
-  }
-
-  constructor() {
-    super();
-    this.state = {
-      selectedIndex: 0,
-    };
-  }
-
-  handleIndexChange = index => {
-    campusIndex = ['newBrunswick', 'newark'];
-    this.props.setCampus(campusIndex[index]);
-    this.props.getBusStops('clean');
-    this.props.getBusStops(campusIndex[index]);
-    this.setState({
-      selectedIndex: index,
-    });
-  };
-
   render() {
     return (
       <SafeAreaView style={styles.home}>
