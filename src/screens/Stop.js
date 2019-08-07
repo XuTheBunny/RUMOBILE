@@ -117,12 +117,22 @@ class Stop extends Component {
         {!this.props.internet && (
           <NotificationBar text="There is no Internet connection" color="rgb(237,69,69)" />
         )}
-        <ImageBackground
-          imageStyle={{ opacity: 0.7 }}
-          style={styles.stopHeaderContainer}
-          source={require('../images/Bus/BusBackground.jpeg')}
+        <View
+          style={{
+            height: 220,
+            position: 'absolute',
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: 'black',
+          }}
         >
           <SafeAreaView>
+          <Image
+            opacity={0.5}
+            style={{ resizeMode: 'cover', width: this.state.width }}
+            source={require('../images/Bus/BusBackground.jpeg')}
+          />
+        </View>
             <BackButton text={'Bus'} clear={true} />
             <Text style={styles.stopHeaderTitle}>{thisStop.sname}</Text>
             <View style={styles.stopDistanceBox}>
