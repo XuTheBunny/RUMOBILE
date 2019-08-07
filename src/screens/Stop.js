@@ -21,7 +21,7 @@ var inactive_route = [];
 var thisStop = {};
 
 class Stop extends Component {
-  state = { refreshing: false, currentCampus: '' };
+  state = { refreshing: false, currentCampus: '', width: 0 };
 
   componentDidMount() {
     cleanPrediction = {};
@@ -120,6 +120,7 @@ class Stop extends Component {
         <View
           style={{
             height: 220,
+            width: this.state.width,
             position: 'absolute',
             justifyContent: 'center',
             alignItems: 'center',
@@ -134,6 +135,10 @@ class Stop extends Component {
         </View>
         <SafeAreaView>
           <View
+            onLayout={event => {
+              const layout = event.nativeEvent.layout;
+              this.setState({ width: layout.width });
+            }}
             style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
           >
             <BackButton text={'Bus'} clear={true} />
