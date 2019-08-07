@@ -21,7 +21,7 @@ var inactive_route = [];
 var thisStop = {};
 
 class Stop extends Component {
-  state = { refreshing: false, currentCampus: '' };
+  state = { refreshing: false, currentCampus: '', width: 0 };
 
   componentDidMount() {
     cleanPrediction = {};
@@ -117,33 +117,50 @@ class Stop extends Component {
         {!this.props.internet && (
           <NotificationBar text="There is no Internet connection" color="rgb(237,69,69)" />
         )}
-        <ImageBackground
-          imageStyle={{ opacity: 0.7 }}
-          style={styles.stopHeaderContainer}
-          source={require('../images/Bus/BusBackground.jpeg')}
+        <View
+          style={{
+            height: 220,
+            width: this.state.width,
+            position: 'absolute',
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: 'black',
+          }}
         >
-          <SafeAreaView>
+          <Image
+            opacity={0.5}
+            style={{ resizeMode: 'cover', width: this.state.width }}
+            source={require('../images/Bus/BusBackground.jpeg')}
+          />
+        </View>
+        <SafeAreaView>
+          <View
+            onLayout={event => {
+              const layout = event.nativeEvent.layout;
+              this.setState({ width: layout.width });
+            }}
+            style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
+          >
             <BackButton text={'Bus'} clear={true} />
-            <Text style={styles.stopHeaderTitle}>{thisStop.sname}</Text>
-            <View style={styles.stopDistanceBox}>
-              <Text style={styles.stopDistance}>{thisStop.distance}</Text>
-              <Text style={styles.stopDistanceText}> miles away</Text>
-            </View>
-          </SafeAreaView>
-        </ImageBackground>
-        <ScrollView
-          refreshControl={
-            <RefreshControl
-              refreshing={this.state.refreshing}
-              onRefresh={this.onRefresh.bind(this)}
-            />
-          }
-        >
-          <Text style={styles.routeSectionTitle}>Active Routes</Text>
-          {this.renderActive()}
-          <Text style={styles.routeSectionTitle}>Inactive Routes</Text>
-          {this.renderInactive()}
-        </ScrollView>
+            <Text style={styles.stopDistance}>{thisStop.distance} miles</Text>
+          </View>
+          <Text style={styles.stopHeaderTitle}>{thisStop.sname}</Text>
+        </SafeAreaView>
+        <View style={styles.bodyContainer}>
+          <ScrollView
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={this.onRefresh.bind(this)}
+              />
+            }
+          >
+            <Text style={styles.routeSectionTitle}>Active Routes</Text>
+            {this.renderActive()}
+            <Text style={styles.routeSectionTitle}>Inactive Routes</Text>
+            {this.renderInactive()}
+          </ScrollView>
+        </View>
       </View>
     );
   }
@@ -154,36 +171,33 @@ const styles = {
     flex: 1,
     backgroundColor: 'rgb(255, 255, 255)',
   },
-  stopHeaderContainer: {
-    flexDirection: 'column',
-    backgroundColor: 'black',
-    paddingTop: 15,
+  stopHeaderImage: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    left: 0,
+    bottom: 600,
   },
   stopHeaderTitle: {
     color: 'white',
     fontWeight: 'bold',
-    fontSize: 27,
+    fontSize: 22,
     marginHorizontal: 20,
     marginTop: 12,
-  },
-  stopDistanceBox: {
-    padding: 14,
-    backgroundColor: 'rgba(0, 0, 0, 0.46)',
-    marginTop: 10,
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    alignSelf: 'flex-end',
+    marginBottom: 25,
   },
   stopDistance: {
     color: 'white',
-    fontSize: 22,
+    fontSize: 15,
     fontWeight: '500',
-    display: 'flex',
+    paddingRight: 25,
   },
-  stopDistanceText: {
-    color: 'white',
-    fontSize: 16,
-    display: 'flex',
+  bodyContainer: {
+    paddingTop: 20,
+    borderTopStartRadius: 20,
+    borderTopEndRadius: 20,
+    backgroundColor: 'white',
+    flex: 1,
   },
   routeSectionTitle: {
     fontWeight: 'bold',
