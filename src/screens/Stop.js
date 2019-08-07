@@ -166,15 +166,17 @@ const styles = {
     flex: 1,
     backgroundColor: 'rgb(255, 255, 255)',
   },
-  stopHeaderContainer: {
-    flexDirection: 'column',
-    backgroundColor: 'black',
-    paddingTop: 15,
+  stopHeaderImage: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    left: 0,
+    bottom: 600,
   },
   stopHeaderTitle: {
     color: 'white',
     fontWeight: 'bold',
-    fontSize: 27,
+    fontSize: 22,
     marginHorizontal: 20,
     marginTop: 12,
     marginBottom: 25,
