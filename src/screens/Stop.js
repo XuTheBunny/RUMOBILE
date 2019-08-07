@@ -126,34 +126,36 @@ class Stop extends Component {
             backgroundColor: 'black',
           }}
         >
-          <SafeAreaView>
           <Image
             opacity={0.5}
             style={{ resizeMode: 'cover', width: this.state.width }}
             source={require('../images/Bus/BusBackground.jpeg')}
           />
         </View>
+        <SafeAreaView>
+          <View
+            style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
+          >
             <BackButton text={'Bus'} clear={true} />
-            <Text style={styles.stopHeaderTitle}>{thisStop.sname}</Text>
-            <View style={styles.stopDistanceBox}>
-              <Text style={styles.stopDistance}>{thisStop.distance}</Text>
-              <Text style={styles.stopDistanceText}> miles away</Text>
-            </View>
-          </SafeAreaView>
-        </ImageBackground>
-        <ScrollView
-          refreshControl={
-            <RefreshControl
-              refreshing={this.state.refreshing}
-              onRefresh={this.onRefresh.bind(this)}
-            />
-          }
-        >
-          <Text style={styles.routeSectionTitle}>Active Routes</Text>
-          {this.renderActive()}
-          <Text style={styles.routeSectionTitle}>Inactive Routes</Text>
-          {this.renderInactive()}
-        </ScrollView>
+            <Text style={styles.stopDistance}>{thisStop.distance} miles</Text>
+          </View>
+          <Text style={styles.stopHeaderTitle}>{thisStop.sname}</Text>
+        </SafeAreaView>
+        <View style={styles.bodyContainer}>
+          <ScrollView
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={this.onRefresh.bind(this)}
+              />
+            }
+          >
+            <Text style={styles.routeSectionTitle}>Active Routes</Text>
+            {this.renderActive()}
+            <Text style={styles.routeSectionTitle}>Inactive Routes</Text>
+            {this.renderInactive()}
+          </ScrollView>
+        </View>
       </View>
     );
   }
@@ -175,25 +177,20 @@ const styles = {
     fontSize: 27,
     marginHorizontal: 20,
     marginTop: 12,
-  },
-  stopDistanceBox: {
-    padding: 14,
-    backgroundColor: 'rgba(0, 0, 0, 0.46)',
-    marginTop: 10,
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    alignSelf: 'flex-end',
+    marginBottom: 25,
   },
   stopDistance: {
     color: 'white',
-    fontSize: 22,
+    fontSize: 15,
     fontWeight: '500',
-    display: 'flex',
+    paddingRight: 25,
   },
-  stopDistanceText: {
-    color: 'white',
-    fontSize: 16,
-    display: 'flex',
+  bodyContainer: {
+    paddingTop: 20,
+    borderTopStartRadius: 20,
+    borderTopEndRadius: 20,
+    backgroundColor: 'white',
+    flex: 1,
   },
   routeSectionTitle: {
     fontWeight: 'bold',
