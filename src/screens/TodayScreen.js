@@ -46,6 +46,7 @@ class TodayScreen extends Component {
     this.state = {
       busRefreshing: false,
       appState: AppState.currentState,
+      bannerMessage: '',
     };
   }
 
@@ -139,6 +140,7 @@ class TodayScreen extends Component {
       console.log('Is connected?', state.isConnected);
       this.props.hasInternet(state.isConnected);
     });
+    this.setState({ bannerMessage: this.props.dateText });
   }
 
   componentWillUnmount() {
@@ -559,7 +561,7 @@ class TodayScreen extends Component {
         )}
         <View style={{ flex: 1, backgroundColor: 'white' }}>
           <Header text={'Today'} dateText={this.props.dateText} />
-          <HomeBanner message={this.props.banner} />
+          <HomeBanner message={this.state.bannerMessage} />
           <ScrollView
             refreshControl={
               <RefreshControl
