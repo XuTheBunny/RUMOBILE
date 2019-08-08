@@ -41,10 +41,13 @@ import {
 
 var timer = 0;
 class TodayScreen extends Component {
-  state = {
-    busRefreshing: false,
-    appState: AppState.currentState,
-  };
+  constructor() {
+    super();
+    this.state = {
+      busRefreshing: false,
+      appState: AppState.currentState,
+    };
+  }
 
   storeData = async (key, value) => {
     try {
