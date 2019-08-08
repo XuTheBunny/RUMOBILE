@@ -14,8 +14,8 @@ import {
 import NotificationBar from '../Components/NotificationBar';
 import BackButton from '../Components/BackButton';
 import RouteInStop from '../Components/RouteInStop';
-import { getPrediction } from '../actions';
-var cleanPrediction = {};
+import { getPrediction, busOpenedId } from '../actions';
+
 var active_route = [];
 var inactive_route = [];
 var thisStop = {};
@@ -39,6 +39,7 @@ class Stop extends Component {
         inactive_route.push(element);
       }
     });
+    this.props.busOpenedId({ rid: rid, sid: sid });
     this.props.getPrediction(rid, sid);
     this.setState({ currentCampus: this.props.campus });
   }
@@ -237,5 +238,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getPrediction },
+  { getPrediction, busOpenedId },
 )(Stop);
