@@ -1,4 +1,4 @@
-import { TIME, COUNTS, INTERNET } from './types';
+import { TIME, COUNTS, INTERNET, BUS_SCREEN_OPENED } from './types';
 
 export const timeAction = date => {
   return {
@@ -16,5 +16,11 @@ export const setCounts = counts => {
 export const hasInternet = internet => {
   return dispatch => {
     dispatch({ type: INTERNET, payload: internet });
+  };
+};
+
+export const busOpenedId = id => {
+  return dispatch => {
+    dispatch({ type: BUS_SCREEN_OPENED, payload: id });
   };
 };

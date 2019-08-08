@@ -11,6 +11,7 @@ import {
   CAMPUS,
   BUS_INFO,
   LOCATION_SHARING,
+  BUS_SCREEN_OPENED,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -26,6 +27,10 @@ const INITIAL_STATE = {
   campus: 'newBrunswick',
   bus_info: {},
   location_sharing: false,
+  bus_id_opened: {
+    rid: [],
+    sid: [],
+  },
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -55,6 +60,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, bus_info: Object.assign(state.bus_info, action.payload) };
     case LOCATION_SHARING:
       return { ...state, location_sharing: action.payload };
+    case BUS_SCREEN_OPENED:
+      return { ...state, bus_id_opened: action.payload };
     default:
       return state;
   }
