@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import NetInfo from '@react-native-community/netinfo';
+import firebase from 'react-native-firebase';
 import { SwipeRow } from 'react-native-swipe-list-view';
 import {
   View,
@@ -41,10 +42,18 @@ import {
 
 var timer = 0;
 class TodayScreen extends Component {
-  state = {
-    busRefreshing: false,
-    appState: AppState.currentState,
-  };
+  constructor() {
+    super();
+
+    this.ref = firebase.firestore().collection('RUMobile');
+    this.unsubscribe = null;
+
+    this.state = {
+      busRefreshing: false,
+      appState: AppState.currentState,
+      bannerMessage: '',
+    };
+  }
 
   storeData = async (key, value) => {
     try {
@@ -136,11 +145,20 @@ class TodayScreen extends Component {
       console.log('Is connected?', state.isConnected);
       this.props.hasInternet(state.isConnected);
     });
+    this.setState({ bannerMessage: this.props.dateText });
+    this.unsubscribe = this.ref.onSnapshot(querySnapshot => {
+      newMessage =
+        querySnapshot && !querySnapshot.empty ? querySnapshot.docs[0].data().titleMessage : '';
+      if (newMessage && newMessage.length > 0) {
+        this.setState({ bannerMessage: newMessage });
+      }
+    });
   }
 
   componentWillUnmount() {
     AppState.removeEventListener('change', this._handleAppStateChange);
     unsubscribe();
+    this.unsubscribe();
   }
 
   _handleAppStateChange = nextAppState => {
@@ -556,7 +574,7 @@ class TodayScreen extends Component {
         )}
         <View style={{ flex: 1, backgroundColor: 'white' }}>
           <Header text={'Today'} dateText={this.props.dateText} />
-          <HomeBanner message={this.props.banner} />
+          <HomeBanner message={this.state.bannerMessage} />
           <ScrollView
             refreshControl={
               <RefreshControl
