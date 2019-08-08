@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { StatusBar } from 'react-native';
-import { setCounts, getPrediction, getOneClass } from './src/actions';
+import { setCounts, getPrediction, getOneClass, busOpenedId } from './src/actions';
 import { Scene, Router, Modal } from 'react-native-router-flux';
 import TabIcon from './src/Components/TabIcon';
 import TodayScreen from './src/screens/TodayScreen';
@@ -40,6 +40,7 @@ class RouterComponent extends Component {
             this.props.setCounts(0);
           }
           if (Actions.currentScene == 'bus_screen') {
+            this.props.busOpenedId({ rid: [], sid: [] });
             this.props.getPrediction('clean', []);
           }
           if (Actions.currentScene == 'subjects_screen') {
@@ -100,5 +101,6 @@ export default connect(
     setCounts,
     getPrediction,
     getOneClass,
+    busOpenedId,
   },
 )(RouterComponent);

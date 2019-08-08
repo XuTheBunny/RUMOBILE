@@ -14,8 +14,8 @@ import {
 import NotificationBar from '../Components/NotificationBar';
 import BackButton from '../Components/BackButton';
 import RouteInStop from '../Components/RouteInStop';
-import { getPrediction } from '../actions';
-var cleanPrediction = {};
+import { getPrediction, busOpenedId } from '../actions';
+
 var active_route = [];
 var inactive_route = [];
 var thisStop = {};
@@ -39,6 +39,7 @@ class Stop extends Component {
         inactive_route.push(element);
       }
     });
+    this.props.busOpenedId({ rid: rid, sid: sid });
     this.props.getPrediction(rid, sid);
     this.setState({ currentCampus: this.props.campus });
   }
@@ -84,9 +85,28 @@ class Stop extends Component {
     }
   }
 
+  getCleanPrediction() {
+    cleanPrediction = {};
+    active_route = [];
+    inactive_route = [];
+    if (this.props.allStops.find(obj => obj.sid == this.props.data)) {
+      newStop = this.props.allStops.find(obj => obj.sid == this.props.data);
+      newStop.routes.forEach(function(element) {
+        if (element.isActive) {
+          active_route.push(element);
+          cleanPrediction[element.rid] = [];
+        } else {
+          inactive_route.push(element);
+        }
+      });
+    }
+    return cleanPrediction;
+  }
+
   renderActive() {
     if (this.props.hasPrediction == 'here') {
-      if (this.props.prediction.length > 0) {
+      if (this.props.prediction.length > 0 && Object.keys(cleanPrediction).length > 0) {
+        cleanPrediction = this.getCleanPrediction();
         this.props.prediction[0].arrivals
           .sort((a, b) => (a.arrival_at > b.arrival_at ? 1 : b.arrival_at > a.arrival_at ? -1 : 0))
           .forEach(function(element) {
@@ -220,5 +240,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getPrediction },
+  { getPrediction, busOpenedId },
 )(Stop);

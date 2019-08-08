@@ -12,7 +12,7 @@ import {
 import NotificationBar from '../Components/NotificationBar';
 import BackButton from '../Components/BackButton';
 import StopInRoute from '../Components/StopInRoute';
-import { getPrediction } from '../actions';
+import { getPrediction, busOpenedId } from '../actions';
 import { routeColor } from '../../bus_color.json';
 var nearestId = '';
 var thisRoute = {};
@@ -28,6 +28,7 @@ class Route extends Component {
     thisRoute.stops.forEach(function(element) {
       sid.push(element.sid);
     });
+    this.props.busOpenedId({ rid: rid, sid: sid });
     this.props.getPrediction(rid, sid);
     duplicate = JSON.parse(JSON.stringify(thisRoute.stops));
     nearestId = duplicate.sort((a, b) =>
@@ -177,5 +178,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getPrediction },
+  { getPrediction, busOpenedId },
 )(Route);
