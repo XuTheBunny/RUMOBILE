@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import NetInfo from '@react-native-community/netinfo';
+import firebase from 'react-native-firebase';
 import { SwipeRow } from 'react-native-swipe-list-view';
 import {
   View,
@@ -43,6 +44,10 @@ var timer = 0;
 class TodayScreen extends Component {
   constructor() {
     super();
+
+    this.ref = firebase.firestore().collection('RUMobile');
+    this.unsubscribe = null;
+
     this.state = {
       busRefreshing: false,
       appState: AppState.currentState,
@@ -141,11 +146,14 @@ class TodayScreen extends Component {
       this.props.hasInternet(state.isConnected);
     });
     this.setState({ bannerMessage: this.props.dateText });
+    this.unsubscribe = this.ref.onSnapshot(querySnapshot => {
+    });
   }
 
   componentWillUnmount() {
     AppState.removeEventListener('change', this._handleAppStateChange);
     unsubscribe();
+    this.unsubscribe();
   }
 
   _handleAppStateChange = nextAppState => {
