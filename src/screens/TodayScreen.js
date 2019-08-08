@@ -147,6 +147,11 @@ class TodayScreen extends Component {
     });
     this.setState({ bannerMessage: this.props.dateText });
     this.unsubscribe = this.ref.onSnapshot(querySnapshot => {
+      newMessage =
+        querySnapshot && !querySnapshot.empty ? querySnapshot.docs[0].data().titleMessage : '';
+      if (newMessage && newMessage.length > 0) {
+        this.setState({ bannerMessage: newMessage });
+      }
     });
   }
 
