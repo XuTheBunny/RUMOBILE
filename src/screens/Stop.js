@@ -89,21 +89,23 @@ class Stop extends Component {
     cleanPrediction = {};
     active_route = [];
     inactive_route = [];
-    thisStop = this.props.allStops.find(obj => obj.sid == this.props.data);
-    thisStop.routes.forEach(function(element) {
-      if (element.isActive) {
-        active_route.push(element);
-        cleanPrediction[element.rid] = [];
-      } else {
-        inactive_route.push(element);
-      }
-    });
+    if (this.props.allStops.find(obj => obj.sid == this.props.data)) {
+      newStop = this.props.allStops.find(obj => obj.sid == this.props.data);
+      newStop.routes.forEach(function(element) {
+        if (element.isActive) {
+          active_route.push(element);
+          cleanPrediction[element.rid] = [];
+        } else {
+          inactive_route.push(element);
+        }
+      });
+    }
     return cleanPrediction;
   }
 
   renderActive() {
     if (this.props.hasPrediction == 'here') {
-      if (this.props.prediction.length > 0) {
+      if (this.props.prediction.length > 0 && Object.keys(cleanPrediction).length > 0) {
         cleanPrediction = this.getCleanPrediction();
         this.props.prediction[0].arrivals
           .sort((a, b) => (a.arrival_at > b.arrival_at ? 1 : b.arrival_at > a.arrival_at ? -1 : 0))
