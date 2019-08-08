@@ -150,7 +150,7 @@ class Stop extends Component {
           <Image
             opacity={0.5}
             style={{ resizeMode: 'cover', width: this.state.width }}
-            source={require('../images/Bus/BusBackground.jpeg')}
+            source={require('../images/Bus/bus_stop.jpg')}
           />
         </View>
         <SafeAreaView>
