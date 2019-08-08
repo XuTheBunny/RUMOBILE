@@ -19,7 +19,7 @@ import HomeBanner from '../Components/HomeBanner';
 import RouteInStop from '../Components/RouteInStop';
 import MeetingItem from '../Components/MeetingItem';
 import NotificationBar from '../Components/NotificationBar';
-import { routeColor, busInfo } from '../../bus_color.json';
+import { busInfo } from '../../bus_color.json';
 import { noClass } from '../../message.json';
 import Loading from '../Components/Loading';
 import {
