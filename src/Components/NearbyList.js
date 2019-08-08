@@ -8,22 +8,18 @@ import Loading from './Loading';
 class NearbyList extends Component {
   renderList() {
     if (this.props.check == 'here') {
-      return this.props.nearby.map(stop => <NearbyItem stop={stop} key={stop.sid} />);
+      if (this.props.nearby.length > 0) {
+        return this.props.nearby.map(stop => <NearbyItem stop={stop} key={stop.sid} />);
+      } else {
+        return <Text style={styles.emptyText}>Location services not enabled.</Text>;
+      }
     } else {
       return <Loading />;
     }
   }
 
   render() {
-    return (
-      <View>
-        {this.props.nearby.length > 0 ? (
-          this.renderList()
-        ) : (
-          <Text style={styles.emptyText}>Location services not enabled.</Text>
-        )}
-      </View>
-    );
+    return <View>{this.renderList()}</View>;
   }
 }
 
