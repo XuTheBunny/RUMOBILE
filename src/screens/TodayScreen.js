@@ -148,6 +148,10 @@ class TodayScreen extends Component {
       this.Time();
       this.props.getBusInfo();
       this.props.getBusStops(this.props.campus);
+      if (this.props.bus_id_opened.rid.length > 0 && this.props.bus_id_opened.sid.length > 0) {
+        this.props.getPrediction('clean', []);
+        this.props.getPrediction(this.props.bus_id_opened.rid, this.props.bus_id_opened.sid);
+      }
     }
     this.setState({ appState: nextAppState });
   };
@@ -674,6 +678,7 @@ const mapStateToProps = state => {
     bus_favorites: state.favorite.bus_favorites,
     today_prediction: state.bus.today_prediction,
     today_has_prediction: state.bus.today_has_prediction,
+    bus_id_opened: state.bus.bus_id_opened,
     bus_info: state.bus.bus_info,
   };
 };
