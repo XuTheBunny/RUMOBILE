@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/Entypo';
 import CardItem from './CardItem';
-import { getOneClass, getPrediction } from '../actions';
+import { getOneClass, getPrediction, busOpenedId } from '../actions';
 
 class BackButton extends React.Component {
   backUp() {
@@ -12,6 +12,7 @@ class BackButton extends React.Component {
       this.props.getOneClass('clean', null);
     }
     if (this.props.text == 'Bus') {
+      this.props.busOpenedId({ rid: [], sid: [] });
       this.props.getPrediction('clean', []);
     }
     Actions.pop();
@@ -49,5 +50,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getOneClass, getPrediction },
+  { getOneClass, getPrediction, busOpenedId },
 )(BackButton);
